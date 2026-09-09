@@ -1,0 +1,10 @@
+names=['manu','ravi']
+rollno=[1,2]
+marks=[56,67]
+it=zip(names,rollno,marks)
+lst=list(it)
+print(lst)
+n,r,m=zip(*lst)
+print(n)
+print(r)
+print(m)

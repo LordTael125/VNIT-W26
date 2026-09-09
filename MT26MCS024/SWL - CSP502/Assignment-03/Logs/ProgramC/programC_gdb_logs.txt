@@ -1,0 +1,25 @@
+Breakpoint 1 at 0x1141: file programC.c, line 4.
+Note: breakpoint 1 also set at pc 0x1141.
+Breakpoint 2 at 0x1141: file programC.c, line 4.
+Note: breakpoints 1 and 2 also set at pc 0x1141.
+Breakpoint 3 at 0x1141: file programC.c, line 4.
+Note: breakpoints 1, 2 and 3 also set at pc 0x1141.
+Breakpoint 4 at 0x1141: file programC.c, line 4.
+Breakpoint 5 at 0x114b: file programC.c, line 5.
+Starting program: /home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/a.out 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/libthread_db.so.1".
+
+Breakpoint 1, main () at programC.c:4
+4	  *p = 5;
+Hardware watchpoint 6: *p
+Hardware watchpoint 7: p
+Continuing.
+
+Program received signal SIGSEGV, Segmentation fault.
+0x0000555555555145 in main () at programC.c:4
+4	  *p = 5;
+Continuing.
+
+Program terminated with signal SIGSEGV, Segmentation fault.
+The program no longer exists.

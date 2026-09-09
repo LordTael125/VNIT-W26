@@ -1,0 +1,20 @@
+❯ valgrind ./a.out >> Logs/ProgramB/programB_valgrind_log.txt 
+==17721== Memcheck, a memory error detector
+==17721== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==17721== Using Valgrind-3.25.1 and LibVEX; rerun with -h for copyright info
+==17721== Command: ./a.out
+==17721== 
+==17721== 
+==17721== Process terminating with default action of signal 8 (SIGFPE): dumping core
+==17721==  Integer divide by zero at address 0x1002E799EF
+==17721==    at 0x4001153: main (programB.c:5)
+==17721== 
+==17721== HEAP SUMMARY:
+==17721==     in use at exit: 0 bytes in 0 blocks
+==17721==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==17721== 
+==17721== All heap blocks were freed -- no leaks are possible
+==17721== 
+==17721== For lists of detected and suppressed errors, rerun with: -s
+==17721== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+Floating point exception   (core dumped) valgrind ./a.out >> Logs/ProgramB/programB_valgrind_log.txt

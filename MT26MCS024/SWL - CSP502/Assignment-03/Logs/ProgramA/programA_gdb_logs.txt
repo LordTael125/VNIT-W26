@@ -1,0 +1,88 @@
+Breakpoint 1 at 0x1151: file programA.c, line 3.
+Breakpoint 2 at 0x117e: file programA.c, line 6.
+Starting program: /home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/a.out 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/libthread_db.so.1".
+
+Breakpoint 1, main () at programA.c:3
+3	int main() {
+Continuing.
+
+Breakpoint 2, main () at programA.c:6
+6	    printf("%d\n", arr[i]);
+Hardware watchpoint 3: i
+Hardware watchpoint 4: arr[i]
+Continuing.
+
+Hardware watchpoint 3: i
+
+Old value = 0
+New value = 1
+
+Hardware watchpoint 4: arr[i]
+
+Old value = 1
+New value = 2
+0x00005555555551a1 in main () at programA.c:5
+5	  for (int i = 0; i <= 3; i++)
+Continuing.
+
+Breakpoint 2, main () at programA.c:6
+6	    printf("%d\n", arr[i]);
+Continuing.
+
+Hardware watchpoint 3: i
+
+Old value = 1
+New value = 2
+
+Hardware watchpoint 4: arr[i]
+
+Old value = 2
+New value = 3
+0x00005555555551a1 in main () at programA.c:5
+5	  for (int i = 0; i <= 3; i++)
+Continuing.
+
+Breakpoint 2, main () at programA.c:6
+6	    printf("%d\n", arr[i]);
+Continuing.
+
+Hardware watchpoint 3: i
+
+Old value = 2
+New value = 3
+
+Hardware watchpoint 4: arr[i]
+
+Old value = 3
+New value = 322721024
+0x00005555555551a1 in main () at programA.c:5
+5	  for (int i = 0; i <= 3; i++)
+Continuing.
+
+Breakpoint 2, main () at programA.c:6
+6	    printf("%d\n", arr[i]);
+Continuing.
+
+Hardware watchpoint 3: i
+
+Old value = 3
+New value = 4
+
+Hardware watchpoint 4: arr[i]
+
+Old value = 322721024
+New value = -379280969
+0x00005555555551a1 in main () at programA.c:5
+5	  for (int i = 0; i <= 3; i++)
+Continuing.
+
+Watchpoint 3 deleted because the program has left the block in
+which its expression is valid.
+
+Watchpoint 4 deleted because the program has left the block in
+which its expression is valid.
+0x00007ffff7c27d0e in ?? () from /usr/lib/libc.so.6
+Continuing.
+[Inferior 1 (process 15123) exited normally]

@@ -1,0 +1,52 @@
+MT26MCS024 - Gaurav Acharya
+
+
+Task 1 – Security/Privacy Question
+
+Question: What security/privacy issues might arise if this log is publicly readable?
+
+Answer:
+If anyone can read the login log, you're basically handing out valid usernames and user schedules to potential attackers. They'd know exactly when someone is online, offline, or asleep, making it super easy to time an attack or try credential stuffing. We definitely need to lock down the file permissions (like setting it to 600) so only authorized admins can actually read it.
+
+Task 2 – Prime Checking
+
+Question: Which approach scales better and why?
+
+Answer:
+The square root method scales way better. Instead of looping through every single number up to the input limit, you just stop at its square root. When you're dealing with massive numbers, this cuts down the loop iterations drastically and saves a ton of CPU time compared to the naive brute-force method.
+
+Task 3 – Small Folder vs Large Directory Tree
+
+Question: How would the script behave differently if run on a small folder with 10 files versus a large directory tree with 10,000+ files?
+
+Answer:
+On a tiny folder with 10 files, it finishes instantly. But if you throw it at a massive directory tree with 10,000+ files, the recursive crawling takes a noticeable hit. The execution time spikes because the script literally has to visit every single file, check its extension, and keep traversing deeper into all the subdirectories.
+
+Mini-analysis – Time Complexity
+
+Question: Estimate the time complexity of your script in terms of the number of files N.
+
+Answer:
+The time complexity is basically O(N), where N is the total number of files. It scales linearly because the script has to touch each file at least once to process it. The final sorting or grouping step only deals with a handful of categories, so that's a constant time operation that doesn't really impact the overall O(N) baseline.
+
+Reflection Questions
+
+1. If ChatGPT gave you a script for Task 3, what edge cases would you still need to test?
+
+Answer:
+I'd definitely want to throw some weird edge cases at it to see if it breaks. Things like filenames with annoying spaces, files without any extensions, hidden files, or empty subdirectories. I’d also need to make sure it doesn't get stuck in a loop with symbolic links or crash completely if it hits a directory where I don't have read permissions.
+
+2. Which of your scripts would fail if run on a very large dataset? Why?
+
+Answer:
+The naive prime checker would completely choke if you fed it a giant number because it just loops way too many times. The file counting script would also struggle—if you ran it on a root filesystem with millions of files, the recursive traversal would take forever to finish.
+
+3. What assumptions did you (or ChatGPT) make that might not hold in real scenarios?
+
+Answer:
+We're assuming the user running the script actually has the right permissions to read everything, which isn't always true. We're also making a huge assumption that file extensions accurately match the file contents (like trusting a .txt is actually text), which is a pretty naive assumption on a real-world Linux system where extensions don't actually dictate file types.
+
+4. If you had to redesign one script to handle enterprise scale, what would you change?
+
+Answer:
+If the file counter had to run at an enterprise scale, brute-force scanning millions of files live is a terrible idea. I’d rewrite it to rely on a background indexing service (kind of like how the locate command works) so it just queries a database instead of crawling the disk every time. I’d also look into parallel processing to speed up the initial indexing.

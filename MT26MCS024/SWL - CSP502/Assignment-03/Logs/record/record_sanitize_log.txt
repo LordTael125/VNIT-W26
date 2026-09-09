@@ -1,0 +1,15 @@
+gcc -g -fsanitize=address programA.c
+
+
+❯ ./a.out >> Logs/record/record_sanitize_log.txt 
+Usage: ./a.out <name> <marks>
+
+=================================================================
+==19542==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 24 byte(s) in 1 object(s) allocated from:
+    #0 0x7fcb6f760181 in malloc (/usr/lib/libasan.so.8+0x160181) (BuildId: 5f5511943a2d1bbff3f628464c43ad8c6ed91d5b)
+    #1 0x564aca14731a in main /home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/record.c:20
+    #2 0x7fcb6f227d0d  (/usr/lib/libc.so.6+0x27d0d) (BuildId: 5e3b85a3eaa72d02eaae3882b22410ebda6b5555)
+
+SUMMARY: AddressSanitizer: 24 byte(s) leaked in 1 allocation(s).

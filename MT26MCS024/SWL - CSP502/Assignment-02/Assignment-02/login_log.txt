@@ -1,0 +1,17 @@
+========== Login Report: 2026-09-02 23:33:36 ==========
+User lordtael125 is logged in at 2026-09-02 23:33:36
+-------------------------------------------------
+Total unique users logged in: 1 (across 2 sessions)
+
+Unique logged-in usernames:
+lordtael125
+
+Your (lordtael125) active login sessions:
+lordtael125 tty2         2026-09-02 18:20
+lordtael125 pts/0        2026-09-02 18:20 (:0)
+
+System-wide login information:
+lordtael125 tty2         2026-09-02 18:20
+lordtael125 pts/0        2026-09-02 18:20 (:0)
+=================================================
+

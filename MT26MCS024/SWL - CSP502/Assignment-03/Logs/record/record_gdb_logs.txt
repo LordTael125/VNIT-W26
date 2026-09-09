@@ -1,0 +1,64 @@
+Breakpoint 1 at 0x122b: file record.c, line 20.
+Breakpoint 2 at 0x118c: file record.c, line 9.
+Breakpoint 3 at 0x11bf: file record.c, line 13.
+Starting program: /home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/a.out core Sandeep 86
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/libthread_db.so.1".
+
+Breakpoint 1, main (argc=4, argv=0x7fffffffdea8) at record.c:20
+20	  Student *student = malloc(sizeof(Student));
+Continuing.
+[Inferior 1 (process 21447) exited with code 01]
+Starting program: /home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/a.out Sandeep 87
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/libthread_db.so.1".
+
+Breakpoint 1, main (argc=3, argv=0x7fffffffdeb8) at record.c:20
+20	  Student *student = malloc(sizeof(Student));
+Continuing.
+
+Breakpoint 3, process_record (s=0x555555559010, name=0x7fffffffe368 "Sandeep", marks=87) at record.c:13
+13	  update_record(s, name, marks);
+Hardware watchpoint 4: name
+Hardware watchpoint 5: marks
+Continuing.
+
+Breakpoint 2, update_record (s=0x555555559010, name=0x7fffffffe368 "Sandeep", marks=87) at record.c:9
+9	  strcpy(s->name, name);
+$1 = '\000' <repeats 19 times>
+Continuing.
+
+Watchpoint 4 deleted because the program has left the block in
+which its expression is valid.
+
+Watchpoint 5 deleted because the program has left the block in
+which its expression is valid.
+main (argc=3, argv=0x7fffffffdeb8) at record.c:27
+27	  free(student);
+Continuing.
+[Inferior 1 (process 21674) exited normally]
+
+======================================================================================================================================
+
+Starting program: /home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/a.out GAGAGAGAGAGAGAGAGAGAGAGAGAGAGA 87
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib/libthread_db.so.1".
+
+Breakpoint 1, main (argc=3, argv=0x7fffffffde98) at record.c:20
+20	  Student *student = malloc(sizeof(Student));
+Continuing.
+
+Breakpoint 3, process_record (s=0x555555559010, name=0x7fffffffe351 "GAGAGAGAGAGAGAGAGAGAGAGAGAGAGA", marks=87) at record.c:13
+13	  update_record(s, name, marks);
+Continuing.
+
+Breakpoint 2, update_record (s=0x555555559010, name=0x7fffffffe351 "GAGAGAGAGAGAGAGAGAGAGAGAGAGAGA", marks=87) at record.c:9
+9	  strcpy(s->name, name);
+Continuing.
+
+Program received signal SIGABRT, Aborted.
+0x00007ffff7caeceb in pthread_kill () from /usr/lib/libc.so.6
+Continuing.
+
+Program terminated with signal SIGABRT, Aborted.
+The program no longer exists.

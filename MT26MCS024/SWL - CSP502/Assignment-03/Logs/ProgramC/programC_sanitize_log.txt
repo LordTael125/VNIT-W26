@@ -1,0 +1,20 @@
+gcc -g -fsanitize=address programC.c
+./a.out >> Logs/ProgramC/programC_sanitize_log.txt 
+
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==18202==ERROR: AddressSanitizer: SEGV on unknown address 0x7fe168b176b8 (pc 0x5584134a11cc bp 0x7fff96af9ed0 sp 0x7fff96af9ec0 T0)
+==18202==The signal is caused by a WRITE memory access.
+    #0 0x5584134a11cc in main /home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/programC.c:4
+    #1 0x7fe168c27d0d  (/usr/lib/libc.so.6+0x27d0d) (BuildId: 5e3b85a3eaa72d02eaae3882b22410ebda6b5555)
+    #2 0x7fe168c27e4a in __libc_start_main (/usr/lib/libc.so.6+0x27e4a) (BuildId: 5e3b85a3eaa72d02eaae3882b22410ebda6b5555)
+    #3 0x5584134a10b4 in _start (/home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/a.out+0x10b4) (BuildId: 1bb60379d80bf65da6fab2dd7690059367d22f42)
+
+==18202==Register values:
+rax = 0x00007fe168b176b8  rbx = 0x0000000000000000  rcx = 0x0000000000000003  rdx = 0x0000000000000000  
+rdi = 0x0000000000000001  rsi = 0x00007fff96af9f00  rbp = 0x00007fff96af9ed0  rsp = 0x00007fff96af9ec0  
+ r8 = 0x00007fe168db2800   r9 = 0x00000000000000f9  r10 = 0x0000000000000007  r11 = 0x00007fe169838a90  
+r12 = 0x0000000000000001  r13 = 0x00005584134a3da0  r14 = 0x00007fe169839000  r15 = 0x00007fff96afa008  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/programC.c:4 in main
+==18202==ABORTING

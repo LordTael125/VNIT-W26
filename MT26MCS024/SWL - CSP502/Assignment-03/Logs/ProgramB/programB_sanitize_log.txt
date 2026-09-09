@@ -1,0 +1,19 @@
+gcc -g -fsanitize=address programB.c
+./a.out >> Logs/ProgramB/programB_sanitize_log.txt 
+
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==18054==ERROR: AddressSanitizer: FPE on unknown address 0x557f448dc193 (pc 0x557f448dc193 bp 0x7fff77570110 sp 0x7fff77570100 T0)
+    #0 0x557f448dc193 in main /home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/programB.c:5
+    #1 0x7fe79a027d0d  (/usr/lib/libc.so.6+0x27d0d) (BuildId: 5e3b85a3eaa72d02eaae3882b22410ebda6b5555)
+    #2 0x7fe79a027e4a in __libc_start_main (/usr/lib/libc.so.6+0x27e4a) (BuildId: 5e3b85a3eaa72d02eaae3882b22410ebda6b5555)
+    #3 0x557f448dc0a4 in _start (/home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/a.out+0x10a4) (BuildId: 635794f21a9b3f6451b0d2639b6dfd39a5b2a64e)
+
+==18054==Register values:
+rax = 0x000000000000000a  rbx = 0x0000000000000000  rcx = 0x0000557f448deda0  rdx = 0x0000000000000000  
+rdi = 0x0000000000000001  rsi = 0x00007fff77570238  rbp = 0x00007fff77570110  rsp = 0x00007fff77570100  
+ r8 = 0x00007fe79a1b2800   r9 = 0x00000000000000f9  r10 = 0x0000000000000007  r11 = 0x00007fe79ad8fa90  
+r12 = 0x0000000000000001  r13 = 0x0000557f448deda0  r14 = 0x00007fe79ad90000  r15 = 0x00007fff77570248  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: FPE /home/lordtael125/HDD/Work_Files/codes/VNIT/MT26MCS024/SWL - CSP502/Assignment-03/programB.c:5 in main
+==18054==ABORTING
