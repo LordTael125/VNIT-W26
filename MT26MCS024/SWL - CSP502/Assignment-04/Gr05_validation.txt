@@ -1,0 +1,144 @@
+--- Validating Gr05_events_small.log ---
+Total Records: 1000
+Earliest Time: 2026-09-09 08:00:00
+Latest Time: 2026-09-09 16:22:06
+Unique Users: 92
+Unique IPs: 55
+
+Event Frequencies:
+  PROCESS_START: 179
+  PROCESS_END: 170
+  FILE_ACCESS: 169
+  LOGOUT: 164
+  LOGIN_FAILED: 161
+  LOGIN: 157
+
+Top 5 Active Users:
+  user002: 64
+  user004: 49
+  user007: 45
+  user014: 44
+  user003: 41
+
+Top 5 Hot Resources:
+  /data/report003.txt: 81
+  /data/report001.txt: 80
+  /data/report005.txt: 78
+  /data/report004.txt: 60
+  /data/report002.txt: 53
+
+Duplicates: 10 (1.00%)
+Malformed: 0 (0.00%)
+Rare user 'user100' events (expect 1): 1
+Tie check: user098 events: 10, user099 events: 10 (Are they equal? True)
+Failed login clusters for user015 at 10.10.10.10: 5
+
+
+--- Validating Gr05_events_medium.log ---
+Total Records: 10000
+Earliest Time: 2026-09-09 08:00:00
+Latest Time: 2026-09-12 11:00:22
+Unique Users: 100
+Unique IPs: 55
+
+Event Frequencies:
+  FILE_ACCESS: 1808
+  LOGIN: 1767
+  LOGIN_FAILED: 1640
+  LOGOUT: 1605
+  PROCESS_END: 1592
+  PROCESS_START: 1588
+
+Top 5 Active Users:
+  user002: 551
+  user015: 443
+  user003: 420
+  user004: 418
+  user008: 409
+
+Top 5 Hot Resources:
+  /data/report002.txt: 703
+  /data/report004.txt: 689
+  /data/report001.txt: 674
+  /data/report003.txt: 664
+  /data/report005.txt: 609
+
+Duplicates: 100 (1.00%)
+Malformed: 0 (0.00%)
+Rare user 'user100' events (expect 1): 1
+Tie check: user098 events: 100, user099 events: 102 (Are they equal? False)
+Failed login clusters for user015 at 10.10.10.10: 47
+
+
+--- Validating Gr05_events_large.log ---
+Total Records: 100000
+Earliest Time: 2026-09-09 08:00:00
+Latest Time: 2026-10-13 22:48:01
+Unique Users: 100
+Unique IPs: 55
+
+Event Frequencies:
+  LOGIN: 17857
+  FILE_ACCESS: 17566
+  LOGIN_FAILED: 16616
+  LOGOUT: 16116
+  PROCESS_END: 15926
+  PROCESS_START: 15919
+
+Top 5 Active Users:
+  user002: 5772
+  user015: 4280
+  user005: 3966
+  user003: 3942
+  user010: 3903
+
+Top 5 Hot Resources:
+  /data/report001.txt: 6813
+  /data/report004.txt: 6692
+  /data/report002.txt: 6609
+  /data/report003.txt: 6581
+  /data/report005.txt: 6553
+
+Duplicates: 1000 (1.00%)
+Malformed: 0 (0.00%)
+Rare user 'user100' events (expect 1): 1
+Tie check: user098 events: 1008, user099 events: 1007 (Are they equal? False)
+Failed login clusters for user015 at 10.10.10.10: 476
+
+
+--- Validating Gr05_events_large_variant.log ---
+Total Records: 100000
+Earliest Time: 2026-09-09 08:00:00
+Latest Time: 2026-10-13 23:42:41
+Unique Users: 100
+Unique IPs: 55
+
+Event Frequencies:
+  LOGIN: 18027
+  FILE_ACCESS: 17991
+  LOGIN_FAILED: 16285
+  PROCESS_END: 15904
+  LOGOUT: 15898
+  PROCESS_START: 15895
+
+Top 5 Active Users:
+  user002: 2932
+  user015: 1409
+  user001: 1130
+  user032: 1056
+  user061: 1041
+
+Top 5 Hot Resources:
+  /data/report002.txt: 6832
+  /data/report005.txt: 6773
+  /data/report001.txt: 6749
+  /data/report003.txt: 6710
+  /data/report004.txt: 6518
+
+Duplicates: 1000 (1.00%)
+Malformed: 0 (0.00%)
+Rare user 'user100' events (expect 1): 1
+Tie check: user098 events: 1013, user099 events: 1017 (Are they equal? False)
+Failed login clusters for user015 at 10.10.10.10: 479
+
+
