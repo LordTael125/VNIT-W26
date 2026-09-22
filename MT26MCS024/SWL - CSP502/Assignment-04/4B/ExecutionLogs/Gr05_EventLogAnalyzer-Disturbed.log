@@ -1,0 +1,105 @@
+Loading and indexing Dataset/Gr05_events_medium.log...
+Loaded 9890 valid records. (Duplicates ignored: 100, Malformed ignored: 10)
+File loaded in 46.35 ms
+
+--- 1. Top 3 Users ---
+User: user002, Events: 546
+User: user015, Events: 437
+User: user004, Events: 413
+
+--- 2. Unique Entities ---
+Unique Users: 100, Unique IPs: 55
+
+--- 5. Repeated Failed Logins (Brute Force Detection) ---
+Flagged IPs with >= 4 consecutive failures: {'10.10.199.55', '10.10.27.53', '10.10.199.112', '10.10.243.25', '10.10.10.10', '10.10.172.162', '10.10.159.17', '10.10.67.105', '10.10.109.214', '10.10.100.116', '10.10.250.190', '10.10.173.31', '10.10.23.19', '10.10.206.131', '10.10.234.133', '10.10.204.65', '10.10.165.185', '10.10.99.66', '10.10.111.81', '10.10.2.161', '10.10.5.100', '10.10.96.132', '10.10.222.176', '10.10.115.125', '10.10.14.46', '10.10.12.76', '10.10.162.104', '10.10.192.176', '10.10.85.10', '10.10.138.213', '10.10.242.30', '10.10.194.191', '10.10.143.19', '10.10.73.7', '10.10.245.198', '10.10.43.249', '10.10.50.83', '10.10.138.137', '10.10.59.234', '10.10.40.7', '10.10.241.19', '10.10.166.210', '10.10.148.211', '10.10.118.184', '10.10.211.198'}
+
+--- 6. Top 3 Accessed Files ---
+File: /data/report001.txt, Accesses: 227
+File: /data/report002.txt, Accesses: 226
+File: /data/report003.txt, Accesses: 223
+
+--- 4/7. Time Range Search Example ---
+Found 9 events between 08:30:00 and 08:35:00.
+Number of unique active users in this window: 8
+
+--- PHASE 4: Empirical Validation (Time Range Search) ---
+Approach 1 (Linear): Found 9 records in 0.2934 ms
+Approach 2 (Binary): Found 9 records in 0.0042 ms
+
+=====================================================
+PHASE 5: DELIBERATE DISTURBANCE (STREAMING TOP-5)
+=====================================================
+
+--- Starting Streaming Ingestion from Dataset/Gr05_events_medium.log ---
+
+[Stream Checkpoint: 1000 records processed]
+Current Top 5 Users:
+  1. user002 (575 events)
+  2. user015 (491 events)
+  3. user008 (455 events)
+  4. user004 (453 events)
+  5. user003 (453 events)
+
+[Stream Checkpoint: 2000 records processed]
+Current Top 5 Users:
+  1. user002 (609 events)
+  2. user015 (536 events)
+  3. user004 (503 events)
+  4. user003 (502 events)
+  5. user008 (498 events)
+
+[Stream Checkpoint: 3000 records processed]
+Current Top 5 Users:
+  1. user002 (662 events)
+  2. user015 (575 events)
+  3. user004 (552 events)
+  4. user003 (548 events)
+  5. user008 (528 events)
+
+[Stream Checkpoint: 4000 records processed]
+Current Top 5 Users:
+  1. user002 (712 events)
+  2. user015 (626 events)
+  3. user004 (595 events)
+  4. user003 (594 events)
+  5. user008 (567 events)
+
+[Stream Checkpoint: 5000 records processed]
+Current Top 5 Users:
+  1. user002 (740 events)
+  2. user015 (684 events)
+  3. user004 (639 events)
+  4. user003 (637 events)
+  5. user008 (612 events)
+
+[Stream Checkpoint: 6000 records processed]
+Current Top 5 Users:
+  1. user002 (782 events)
+  2. user015 (726 events)
+  3. user004 (683 events)
+  4. user003 (677 events)
+  5. user008 (660 events)
+
+[Stream Checkpoint: 7000 records processed]
+Current Top 5 Users:
+  1. user002 (809 events)
+  2. user015 (767 events)
+  3. user004 (723 events)
+  4. user003 (721 events)
+  5. user008 (696 events)
+
+[Stream Checkpoint: 8000 records processed]
+Current Top 5 Users:
+  1. user002 (848 events)
+  2. user015 (817 events)
+  3. user004 (775 events)
+  4. user003 (762 events)
+  5. user008 (743 events)
+
+[Stream Checkpoint: 9000 records processed]
+Current Top 5 Users:
+  1. user002 (880 events)
+  2. user015 (859 events)
+  3. user003 (809 events)
+  4. user004 (804 events)
+  5. user008 (797 events)

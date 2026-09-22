@@ -1,0 +1,98 @@
+# -------------------------------------------------- small log --------------------------------------------------#
+
+❯ python3 Gr05_EventLogAnalyzer-Alternative_ph3.py Dataset/Gr05_events_small.log >> ExecutionLogs/Gr05_EventLogAnalyzer_Alternative_ph3.log 
+
+Loading and indexing Dataset/Gr05_events_small.log...
+Loaded 989 valid records. (Duplicates ignored: 10, Malformed ignored: 1)
+File loaded in 9.85 ms
+
+--- 1. Top 3 Users ---
+User: user002, Events: 64
+User: user004, Events: 49
+User: user007, Events: 45
+
+--- 2. Unique Entities ---
+Unique Users: 92, Unique IPs: 55
+
+--- 5. Repeated Failed Logins (Brute Force Detection) ---
+Flagged IPs with >= 4 consecutive failures: {'10.10.246.196', '10.10.159.227', '10.10.10.10', '10.10.163.214', '10.10.12.170', '10.10.97.21', '10.10.208.223', '10.10.59.198', '10.10.7.190', '10.10.250.237', '10.10.179.109', '10.10.21.219'}
+
+--- 6. Top 3 Accessed Files ---
+File: /data/report001.txt, Accesses: 33
+File: /data/report003.txt, Accesses: 27
+File: /data/tie_file.txt, Accesses: 20
+
+--- 4/7. Time Range Search Example ---
+Found 7 events between 08:30:00 and 08:35:00.
+Number of unique active users in this window: 6
+
+--- PHASE 4: Empirical Validation (Time Range Search) ---
+Approach 1 (Linear): Found 7 records in 0.0297 ms
+Approach 2 (Binary): Found 7 records in 0.0029 ms
+
+
+
+
+#-------------------------------------------------- medium log --------------------------------------------------#
+
+❯ python3 Gr05_EventLogAnalyzer-Alternative_ph3.py Dataset/Gr05_events_medium.log >> ExecutionLogs/Gr05_EventLogAnalyzer_Alternative_ph3.log 
+
+Loading and indexing Dataset/Gr05_events_medium.log...
+Loaded 9890 valid records. (Duplicates ignored: 100, Malformed ignored: 10)
+File loaded in 63.43 ms
+
+--- 1. Top 3 Users ---
+User: user002, Events: 546
+User: user015, Events: 437
+User: user004, Events: 413
+
+--- 2. Unique Entities ---
+Unique Users: 100, Unique IPs: 55
+
+--- 5. Repeated Failed Logins (Brute Force Detection) ---
+Flagged IPs with >= 4 consecutive failures: {'10.10.222.176', '10.10.50.83', '10.10.159.17', '10.10.148.211', '10.10.199.55', '10.10.192.176', '10.10.73.7', '10.10.14.46', '10.10.59.234', '10.10.245.198', '10.10.115.125', '10.10.5.100', '10.10.172.162', '10.10.67.105', '10.10.27.53', '10.10.96.132', '10.10.241.19', '10.10.43.249', '10.10.242.30', '10.10.250.190', '10.10.199.112', '10.10.111.81', '10.10.118.184', '10.10.194.191', '10.10.211.198', '10.10.206.131', '10.10.243.25', '10.10.143.19', '10.10.99.66', '10.10.234.133', '10.10.166.210', '10.10.85.10', '10.10.109.214', '10.10.23.19', '10.10.10.10', '10.10.12.76', '10.10.173.31', '10.10.100.116', '10.10.40.7', '10.10.204.65', '10.10.138.137', '10.10.165.185', '10.10.2.161', '10.10.162.104', '10.10.138.213'}
+
+--- 6. Top 3 Accessed Files ---
+File: /data/report001.txt, Accesses: 227
+File: /data/report002.txt, Accesses: 226
+File: /data/report003.txt, Accesses: 223
+
+--- 4/7. Time Range Search Example ---
+Found 9 events between 08:30:00 and 08:35:00.
+Number of unique active users in this window: 8
+
+--- PHASE 4: Empirical Validation (Time Range Search) ---
+Approach 1 (Linear): Found 9 records in 0.3640 ms
+Approach 2 (Binary): Found 9 records in 0.0050 ms
+
+
+
+#-------------------------------------------------- large log --------------------------------------------------#
+
+Loading and indexing Dataset/Gr05_events_large.log...
+Loaded 98900 valid records. (Duplicates ignored: 1000, Malformed ignored: 100)
+File loaded in 513.49 ms
+
+--- 1. Top 3 Users ---
+User: user002, Events: 5735
+User: user015, Events: 4238
+User: user005, Events: 3927
+
+--- 2. Unique Entities ---
+Unique Users: 100, Unique IPs: 55
+
+--- 5. Repeated Failed Logins (Brute Force Detection) ---
+Flagged IPs with >= 4 consecutive failures: {'10.10.144.177', '10.10.199.230', '10.10.196.207', '10.10.143.135', '10.10.73.243', '10.10.52.21', '10.10.146.29', '10.10.10.10', '10.10.10.193', '10.10.134.191', '10.10.201.44', '10.10.68.178', '10.10.111.17', '10.10.22.49', '10.10.238.241', '10.10.168.21', '10.10.116.234', '10.10.25.53', '10.10.165.135', '10.10.59.1', '10.10.103.74', '10.10.97.9', '10.10.34.73', '10.10.202.190', '10.10.118.56', '10.10.59.71', '10.10.250.105', '10.10.112.214', '10.10.176.159', '10.10.68.230', '10.10.184.48', '10.10.189.52', '10.10.18.131', '10.10.255.2', '10.10.143.208', '10.10.123.51', '10.10.2.167', '10.10.68.145', '10.10.48.186', '10.10.103.207', '10.10.126.106', '10.10.208.140', '10.10.79.87', '10.10.203.242', '10.10.50.177', '10.10.24.133', '10.10.120.53', '10.10.66.149', '10.10.39.151', '10.10.35.196', '10.10.244.172'}
+
+--- 6. Top 3 Accessed Files ---
+File: /data/report001.txt, Accesses: 2211
+File: /data/report002.txt, Accesses: 2197
+File: /data/report003.txt, Accesses: 2192
+
+--- 4/7. Time Range Search Example ---
+Found 10 events between 08:30:00 and 08:35:00.
+Number of unique active users in this window: 9
+
+--- PHASE 4: Empirical Validation (Time Range Search) ---
+Approach 1 (Linear): Found 10 records in 3.0679 ms
+Approach 2 (Binary): Found 10 records in 0.0095 ms

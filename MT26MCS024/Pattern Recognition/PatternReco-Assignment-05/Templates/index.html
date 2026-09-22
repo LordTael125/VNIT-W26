@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div id="error-popup" style="display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background-color: #ff9800; color: white; padding: 1rem 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 1000; align-items: center; justify-content: space-between; min-width: 300px;">
+    <span>Please upload a dataset first!</span>
+    <button onclick="closePopup()" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; margin-left: 1rem;">&times;</button>
+</div>
+
+<header style="position: relative;">
+    <form action="/shutdown" method="post" style="position: absolute; top: 1rem; left: 1rem;">
+        <button type="submit" class="btn" style="background-color: #f44336; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: bold;">Shut Down</button>
+    </form>
+    <h1>Dataset Analyzer</h1>
+    <p>CSV Dataset Analysis and Preprocessing</p>
+</header>
+
+<main class="container">
+    
+    <!-- Upload Section -->
+    <section class="card upload-section">
+        <h2>| Upload CSV Dataset</h2>
+        <form action="/" method="post" enctype="multipart/form-data" class="upload-form" id="upload-form">
+            <div class="file-input-wrapper">
+                <input type="file" name="file" accept=".csv" id="file-input">
+                <label for="file-input" class="file-label">Choose File</label>
+                <span id="file-chosen">No file chosen</span>
+            </div>
+            <p class="file-hint">Select a CSV file</p>
+            <button type="submit" class="btn btn-primary">Analyze Dataset</button>
+        </form>
+    </section>
+
+    {% if summary %}
+    <!-- Dataset Summary Section -->
+    <section class="card summary-section">
+        <h2>| Dataset Summary</h2>
+        <div class="summary-cards">
+            <div class="summary-box">
+                <p class="label">Rows</p>
+                <p class="value blue-text">{{ summary.rows }}</p>
+            </div>
+            <div class="summary-box">
+                <p class="label">Columns</p>
+                <p class="value blue-text">{{ summary.cols }}</p>
+            </div>
+            <div class="summary-box">
+                <p class="label">Missing Values</p>
+                <p class="value blue-text">{{ summary.missing_values }}</p>
+            </div>
+            <div class="summary-box">
+                <p class="label">Duplicate Rows</p>
+                <p class="value blue-text">{{ summary.duplicate_rows }}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dataset Information Section -->
+    <section class="card info-section">
+        <h2>| Dataset Information</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Column Name</th>
+                    <th>Data Type</th>
+                    <th>Missing Values</th>
+                    <th>Non-Null Values</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for col in summary.column_info %}
+                <tr>
+                    <td>{{ col.name }}</td>
+                    <td>{{ col.type }}</td>
+                    <td>{{ col.missing }}</td>
+                    <td>{{ col.non_null }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endif %}
+
+    {% if preprocessing %}
+    <!-- Data Pre-Processing Section -->
+    <section class="card preprocessing-section">
+        <h2>| Data Pre-Processing</h2>
+        <div class="summary-cards">
+            <div class="summary-box">
+                <p class="label">Rows Before</p>
+                <p class="value blue-text">{{ preprocessing.rows_before }}</p>
+            </div>
+            <div class="summary-box">
+                <p class="label">Duplicates Found</p>
+                <p class="value blue-text">{{ preprocessing.duplicates_found }}</p>
+            </div>
+            <div class="summary-box">
+                <p class="label">Duplicates Removed</p>
+                <p class="value blue-text">{{ preprocessing.duplicates_removed }}</p>
+            </div>
+            <div class="summary-box">
+                <p class="label">Rows After</p>
+                <p class="value blue-text">{{ preprocessing.rows_after }}</p>
+            </div>
+            <div class="summary-box">
+                <p class="label">Missing Values After</p>
+                <p class="value blue-text">{{ preprocessing.missing_values_after }}</p>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detail in preprocessing.details %}
+                <tr>
+                    <td>{{ detail.item }}</td>
+                    <td>{{ detail.value }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endif %}
+
+    {% if first_five %}
+    <!-- First Five Records Section -->
+    <section class="card first-five-section">
+        <h2>| First Five Records</h2>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        {% for col in columns %}
+                        <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in first_five %}
+                    <tr>
+                        {% for col in columns %}
+                        <td>{{ row[col] }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Feature Selection Section -->
+    <section class="card feature-selection-section">
+        <h2>| Select Independent Features</h2>
+        <p class="section-desc">Select one or more numerical features for statistical analysis.</p>
+        <form action="/" method="post">
+            <input type="hidden" name="analyze_features" value="true">
+            <div class="checkbox-group">
+                {% for col in columns %}
+                <label class="checkbox-label">
+                    <input type="checkbox" name="features" value="{{ col }}" {% if col in selected_features %}checked{% endif %}>
+                    {{ col }}
+                </label>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary">Perform Statistical Analysis</button>
+        </form>
+    </section>
+    {% endif %}
+
+    {% if stats_data %}
+    <!-- Statistical Analysis Section -->
+    <section class="card selected-features-section">
+        <h2>| Selected Independent Features</h2>
+        <div class="badges">
+            {% for feature in selected_features %}
+            <span class="badge">{{ feature }}</span>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="card stats-section">
+        <h2>| Statistical Analysis</h2>
+        <p class="section-desc">Statistical attributes are calculated only for the selected independent features.</p>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Mean</th>
+                        <th>Median</th>
+                        <th>Mode</th>
+                        <th>Variance</th>
+                        <th>Standard Deviation</th>
+                        <th>Minimum</th>
+                        <th>Maximum</th>
+                        <th>Range</th>
+                        <th>Q1</th>
+                        <th>Q3</th>
+                        <th>IQR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stat in stats_data %}
+                    <tr>
+                        <td class="row-header">{{ stat.feature }}</td>
+                        <td>{{ stat.mean }}</td>
+                        <td>{{ stat.median }}</td>
+                        <td>{{ stat.mode }}</td>
+                        <td>{{ stat.variance }}</td>
+                        <td>{{ stat.std_dev }}</td>
+                        <td>{{ stat.min }}</td>
+                        <td>{{ stat.max }}</td>
+                        <td>{{ stat.range }}</td>
+                        <td>{{ stat.q1 }}</td>
+                        <td>{{ stat.q3 }}</td>
+                        <td>{{ stat.iqr }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if graph_urls %}
+    <!-- Graphs Section -->
+    {% if graph_urls.histograms %}
+    <section class="card graphs-section">
+        <h2>| Histograms</h2>
+        <div class="graph-grid">
+            {% for hist in graph_urls.histograms %}
+            <div class="graph-card">
+                <img src="{{ url_for('static', filename=hist) }}?v={{ range(1, 1000000) | random }}" alt="Histogram">
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if graph_urls.boxplots %}
+    <section class="card graphs-section">
+        <h2>| Box Plots</h2>
+        <div class="graph-grid">
+            {% for box in graph_urls.boxplots %}
+            <div class="graph-card">
+                <img src="{{ url_for('static', filename=box) }}?v={{ range(1, 1000000) | random }}" alt="Box Plot">
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if graph_urls.correlation %}
+    <section class="card graphs-section">
+        <h2>| Correlation Matrix Heatmap</h2>
+        <p class="section-desc">The heatmap shows the correlation between the selected independent features.</p>
+        <div class="graph-card center-graph">
+            <img src="{{ url_for('static', filename=graph_urls.correlation) }}?v={{ range(1, 1000000) | random }}" alt="Correlation Matrix">
+        </div>
+    </section>
+    {% endif %}
+    {% endif %}
+
+</main>
+
+<script>
+    const fileInput = document.getElementById('file-input');
+    const fileChosen = document.getElementById('file-chosen');
+    const uploadForm = document.getElementById('upload-form');
+    const errorPopup = document.getElementById('error-popup');
+    
+    function closePopup() {
+        if(errorPopup) errorPopup.style.display = 'none';
+    }
+
+    if(fileInput) {
+        fileInput.addEventListener('change', function(){
+            if(this.files && this.files.length > 0) {
+                fileChosen.textContent = this.files[0].name;
+            } else {
+                fileChosen.textContent = 'No file chosen';
+            }
+        });
+    }
+
+    if(uploadForm) {
+        uploadForm.addEventListener('submit', function(e) {
+            // Only validate if we are submitting the file form, not the feature form
+            // Actually, this form is ONLY for file upload anyway.
+            if(!fileInput.files || fileInput.files.length === 0) {
+                e.preventDefault();
+                errorPopup.style.display = 'flex';
+                setTimeout(closePopup, 3000);
+            }
+        });
+    }
+</script>
+</body>
+</html>

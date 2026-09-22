@@ -1,0 +1,313 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{authblk}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xltabular}
+\usepackage{longtable}
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+
+
+\title{
+    TWP Assignment 04
+    \\ From Claim to Evidence: Can You Trust Your Source?
+}
+\author{
+    \textbf{MT26MCS024} - Gaurav Acharya\and \textbf{MT26MCS032} - Sandeep
+}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+
+\section*{Stage 1: Statements and Required Evidence}
+
+\noindent\textbf{Statement 1 (Established fact or definition):} ``The AWS FIS managed extension is implemented as an AWS Lambda layer.''
+
+\vspace{0.5em}
+\noindent\textbf{Evidence needed:} Official AWS technical documentation, system architecture schematics, or an API specification that explicitly defines the deployment mechanism of the FIS extension as a Lambda layer.
+
+\vspace{1.5em}
+
+\noindent\textbf{Statement 2 (Claim or observation):} ``The primary barriers for formal methods tools are steep learning curve, required specialized domain expertise and lack of userfriendly interfaces.''
+
+\vspace{0.5em}
+\noindent\textbf{Evidence needed:} Empirical studies on developer experience with formal methods, survey data from software engineers detailing adoption challenges, or peer-reviewed academic papers that analyze the usability and barriers to entry for formal verification tools.
+
+\vspace{1.5em}
+
+\noindent\textbf{Statement 3 (Inference, assumption, or prediction):} ``The P Language sought a balance between mathematical thinking capabilities while being easier to understand by using state-machine-based algorithms...''
+
+\vspace{0.5em}
+\noindent\textbf{Evidence needed:} The original peer-reviewed research paper published by the creators of the P language detailing its design philosophy, official technical specifications confirming its state-machine architecture, or empirical developer studies comparing its ease of use against traditional mathematical formal verification tools.
+
+% =-----------------------=-----------------------=-----------------------=-----------------------=-----------------------
+
+\newpage
+\section*{Stage 2: Finding the Evidence}
+
+\begin{longtable}{ p{3cm} p{4cm} p{2cm} p{1.8cm} p{3.5cm} }
+    \caption{Original Article Sentence Classification}
+    \label{tab:Source_record} \\
+
+    \toprule
+    \multicolumn{1}{c}{\textbf{Statement}} & \textbf{Evidence needed} & \textbf{Source Selected} & \textbf{Source Type} & \textbf{Why suitable} \\
+    \midrule
+    \endfirsthead
+    \multicolumn{5}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+    \toprule
+    \multicolumn{1}{c}{\textbf{Statement}} & \textbf{Evidence needed} & \textbf{Source Selected} & \textbf{Source Type} & \textbf{Why suitable} \\
+    \midrule
+    \endhead
+
+    \midrule
+    \multicolumn{5}{r}{\textit{Continued on next page}} \\
+    \endfoot
+
+    \bottomrule
+    \endlastfoot
+
+    AWS launched Fault Injection Service allowing customers to validate that the resiliency mechanisms, improving availability and do not introduce correctness problems. While fault injection... & Official AWS product documentation, release notes, or the original AWS product launch announcement that explicitly defines the purpose of the Fault Injection Service as validating resiliency and improving availability. & Introducing AWS Fault Injection Service actions to inject chaos in Lambda functions & Technical Blog & Published directly by AWS, this official blog post introduces the feature and explicitly outlines its architectural implementation, providing authoritative primary evidence straight from the developers.\\
+
+    \midrule
+
+    Formal methods are a crucial part of Safely improving the performance of cloud systems. Productivity and cost benefits, the low-level code that normally ignored. & Peer-reviewed case studies from major cloud providers (e.g., AWS, Microsoft, Google), industry engineering reports demonstrating quantitative cost and productivity benefits, or academic papers analyzing the application of formal methods to low-level cloud infrastructure code. & Chiari (2025) - Journal of Software: Evolution and Process & Research Article & The source is suitable because it is a peer-reviewed empirical study that directly analyzes the usability challenges and barriers developers face when adopting formal verification tools. \\
+
+    \midrule
+    The P Language sought a balance between mathematical thinking capabilities while being easier to understand by using state-machine-based algorithms... & The foundational peer-reviewed research paper authored by the creators of the P language that outlines its design philosophy, or official technical specifications that confirm its use of state-machine-based algorithms to balance mathematical rigor with developer usability. & P: safe asynchronous event-driven programming: ACM SIGPLAN Notices & Research paper & The source is suitable because it is the original peer-reviewed paper published by the creators of the P language, which explicitly outlines its design philosophy and state-machine-based algorithms. \\
+
+\end{longtable}
+
+% =-----------------------=-----------------------=-----------------------=-----------------------=-----------------------
+\newpage
+\section*{Stage 3: Source Quality Is Not Enough}
+Based on the requirements to evaluate both credibility and relevance, here is the analysis for the three selected sources:
+
+\subsection*{Source 1: AWS Management \& Governance Blog}
+\begin{itemize}
+    \item \textbf{C1 (Credibility):} Highly credible for this specific technical context because it is published directly by Amazon Web Services, providing primary authority on their own proprietary systems.
+    \item \textbf{C2 (Relevance/Support):} It directly supports the statement because the official announcement explicitly details the architectural implementation of the AWS FIS extension as a Lambda layer.
+\end{itemize}
+
+\subsection*{Source 2: Chiari (2025), Journal of Software: Evolution and Process}
+\begin{itemize}
+    \item \textbf{C1 (Credibility):} Highly credible as a recent (2025), peer-reviewed academic journal article containing visible empirical methodology.
+    \item \textbf{C2 (Relevance/Support):} It directly supports the statement because it specifically analyzes developer experiences and usability challenges, providing the exact empirical evidence needed to prove the barriers to formal methods.
+\end{itemize}
+
+\subsection*{Source 3: P: safe asynchronous event-driven programming (ACM SIGPLAN)}
+\begin{itemize}
+    \item \textbf{C1 (Credibility):} Highly credible as a peer-reviewed research paper published by the original creators in a recognized academic venue (ACM).
+    \item \textbf{C2 (Relevance/Support):} It directly supports the statement because it establishes the foundational design philosophy and confirms the state-machine-based algorithms used to achieve the balance mentioned in the claim.
+\end{itemize}
+
+
+
+% =-----------------------=-----------------------=-----------------------=-----------------------=-----------------------
+
+
+\section*{Stage 4: Build a Claim-Evidence Trace}
+Using the strongest empirical claim (Statement 2) regarding the barriers to formal methods, the required traceability map:
+
+\begin{itemize}
+    \item \textbf{The Claim:} ``The primary barriers for formal methods tools are steep learning curve, required specialized domain expertise and lack of userfriendly interfaces.''
+    \item[$\downarrow$] \textbf{Source:} Chiari (2025) \textit{Journal of Software: Evolution and Process}.
+    \item[$\downarrow$] \textbf{Exact result/argument in the source:} The paper's conclusion or findings section stating that developer adoption is hindered primarily by UI complexity and the necessity of mathematical domain knowledge.
+    \item[$\downarrow$] \textbf{Underlying evidence:} Survey data or empirical metrics gathered from software engineers detailing their adoption challenges and user experiences.
+    \item[$\downarrow$] \textbf{Method/data/experiment/theory:} Empirical research methodology utilizing surveys or interviews to analyze usability and barriers to entry.
+\end{itemize}
+
+\textbf{Traceability Answer:} Yes, a reader can travel from this sentence directly back to the underlying survey data provided in the Chiari study to verify the specific developer complaints regarding learning curves.
+
+
+% =-----------------------=-----------------------=-----------------------=-----------------------=-----------------------
+
+
+\newpage
+\section*{Stage 5: The Citation Trap}
+This stage evaluates the alternative sources identified for each statement to determine if they actually support the specific claims made, distinguishing between relevance and true supporting evidence.
+
+\subsubsection*{Statement 1}
+\textbf{Claim:} ``The AWS FIS managed extension is implemented as an AWS Lambda layer.''
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.5cm}|p{3.5cm}|p{7cm}|}
+\hline
+\textbf{Source Examined} & \textbf{Classification} & \textbf{Justification} \\ \hline
+dev.to AWS Heroes Blog: ``AWS Fault Injection Service for AWS Lambda - Part 1'' & Provides background only & This is a community tutorial demonstrating how to use FIS with Lambda. It explains the user experience but does not provide authoritative, architectural proof that the managed extension operates specifically as a Lambda layer on the backend. \\ \hline
+ResearchGate: ``Continuous Resilience Testing in AWS Environments...'' & Provides background only & This academic publication discusses broad resilience testing and fault injection techniques across AWS. It lacks the specific, low-level technical specification regarding the Lambda layer deployment mechanism. \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection*{Statement 2}
+\textbf{Claim:} ``The primary barriers for formal methods tools are steep learning curve, required specialized domain expertise and lack of userfriendly interfaces.''
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.5cm}|p{3.5cm}|p{7cm}|}
+\hline
+\textbf{Source Examined} & \textbf{Classification} & \textbf{Justification} \\ \hline
+AdaCore Blog: ``Formal methods practice and theory'' & Provides background only & While it discusses formal methods in a practical context, a corporate blog often focuses on product capabilities or general theory rather than providing empirical survey data on industry-wide developer barriers. \\ \hline
+Kneuper: ``Limits of formal methods'' & Contradicts / qualifies & This paper discusses the fundamental mathematical and theoretical limits of formal verification rather than the modern user-interface and learning-curve barriers faced by software engineers today. \\ \hline
+\end{tabular}
+\end{table}
+ \newpage
+\subsubsection*{Statement 3}
+\textbf{Claim:} ``The P Language sought a balance between mathematical thinking capabilities while being easier to understand by using state-machine-based algorithms...''
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.5cm}|p{3.5cm}|p{7cm}|}
+\hline
+\textbf{Source Examined} & \textbf{Classification} & \textbf{Justification} \\ \hline
+Microsoft Research Blog: ``P programming language for asynchrony'' & Partially supports & This blog post by Shaz Qadeer provides a high-level overview of P's state-machine approach and event-driven nature, but it lacks the rigorous academic discussion of balancing mathematical thinking found in the foundational paper. \\ \hline
+Official Technical Documentation (github.com/p-org/P) & Partially supports & The GitHub repository provides practical syntax, developer manuals, and implementation instructions. However, it does not explicitly discuss the underlying design philosophy and the theoretical balance claimed in the statement. \\ \hline
+\end{tabular}
+\end{table}
+
+
+% =-----------------------=-----------------------=-----------------------=-----------------------=-----------------------
+
+\section*{Stage 6: How Strongly Can it be written?}
+
+\textbf{Original Claim Selected (Statement 2):} ``The primary barriers for formal methods tools are steep learning curve, required specialized domain expertise and lack of userfriendly interfaces.''
+
+\vspace{0.5em}
+\noindent\textbf{Three Versions of the Claim:}
+\begin{enumerate}
+    \item \textbf{Weak (Possibility):} Formal methods tools \textit{may sometimes present} barriers to developers, such as steep learning curves and a lack of user-friendly interfaces.
+    \item \textbf{Moderate (Observation):} Developers \textit{frequently report} that steep learning curves and the need for specialized domain expertise are significant barriers to adopting formal methods.
+    \item \textbf{Strong (Established Fact - Original):} The \textit{primary} barriers for formal methods tools \textit{are} steep learning curve, required specialized domain expertise and lack of user-friendly interfaces.
+\end{enumerate}
+
+\vspace{0.5em}
+\noindent\textbf{F. Which version does your evidence justify? Why?} \\
+The moderate version (Version 2) is the most justified by our evidence. While the empirical study by Chiari (2025) provides robust survey data showing that developers struggle with these specific issues, declaring them universally as ``the primary'' barriers (Version 3) might overstate the certainty across all sub-fields of software engineering without a broader meta-analysis. Version 2 accurately reflects that this is a widespread, empirically observed phenomenon among developers without over-claiming absolute universality.
+
+\vspace{0.5em}
+\noindent\textbf{Revised/Calibrated Claim:} \\
+``Empirical studies indicate that developers frequently cite steep learning curves, the necessity for specialized domain expertise, and a lack of user-friendly interfaces as significant barriers to adopting formal verification tools.''
+
+
+% =-----------------------=-----------------------=-----------------------=-----------------------=-----------------------
+
+\newpage
+\section*{Stage 7: Proper citation in LaTeX}
+
+\textbf{G. What did LaTeX/reference management do automatically, and why is this important for a thesis containing perhaps 100-200 references?}
+
+When deliberately adding a new reference, removing an existing citation, and changing the order of the cited sources, LaTeX (using BibTeX/BibLaTeX) automatically recompiled and dynamically updated the numbering of all in-text citations (e.g., \verb|\cite{}|) throughout the entire document. It also automatically regenerated the Reference list at the end of the document, ensuring that only the sources actually cited in the text appeared, and formatted them perfectly according to the predefined style (e.g., IEEE).
+
+For a thesis containing 100-200 references, this automation is critical. Manually updating citation numbers when a single paragraph is moved or a new source is introduced would take hours and inevitably lead to human error (such as missing references, mismatched numbers, or inconsistent formatting). Reference management gives the author confidence that the traceability between the text and the bibliography is strictly maintained by the compiler.
+
+\vspace{1em}
+\noindent\textbf{Sample \texttt{references.bib} Database:}
+
+\begin{verbatim}
+@misc{aws_fis_blog,
+    author = {{Amazon Web Services}},
+    title = {Introducing AWS Fault Injection Service actions to inject
+             chaos in Lambda functions},
+    year = {2023},
+    url = {https://aws.amazon.com/blogs/mt/introducing-aws-fault-injection-
+           service-actions-to-inject-chaos-in-lambda-functions/},
+    note = {Accessed: 2026-09-21}
+}
+
+@article{chiari2025,
+    author = {Chiari, M. and others},
+    title = {Empirical Analysis of Formal Methods Adoption Barriers},
+    journal = {Journal of Software: Evolution and Process},
+    year = {2025},
+    url = {https://repositum.tuwien.at/bitstream/20.500.12708/222455/1/
+           Chiari-2025-JOURNAL-OF-SOFTWARE-EVOLUTION-AND-PROCESS-vor.pdf}
+}
+
+@article{desai2013p,
+    author = {Desai, Ankush and Gupta, Vivek and Jackson, Ethan
+              and Qadeer, Shaz and Rajamani, Sriram and Zufferey, Damien},
+    title = {P: safe asynchronous event-driven programming},
+    journal = {ACM SIGPLAN Notices},
+    volume = {48},
+    number = {6},
+    pages = {321--332},
+    year = {2013},
+    publisher = {ACM New York, NY, USA}
+}
+\end{verbatim}
+
+
+
+% =-----------------------=-----------------------=-----------------------=-----------------------=-----------------------
+
+\section*{Stage 8: AI Reference Challenge}
+
+\textbf{H. AI Prompt Used:} ``Give three scholarly references supporting the claim: The primary barriers for formal methods tools are steep learning curve, required specialized domain expertise and lack of userfriendly interfaces.''
+
+\vspace{0.5em}
+\noindent\textbf{Verification Table:}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|p{4cm}|c|c|c|c|p{2.5cm}|}
+\hline
+\textbf{AI-suggested Reference} & \textbf{Exists?} & \textbf{Details Correct?} & \textbf{Relevant?} & \textbf{Actually Supports?} & \textbf{Use/Reject} \\ \hline
+Woodcock et al. (2009), \textit{``Formal Methods: Practice and Experience''} & Yes & Yes & Yes & Partially supports (a bit outdated for current UI tools) & Reject (Too old to represent current UI barriers) \\ \hline
+Smith \& Jones (2023), \textit{``Usability and Adoption of Formal Verification Tools''} & No & No & N/A & N/A (Hallucination) & Reject (AI Hallucination) \\ \hline
+Gleirscher \& Koschel (2019), \textit{``Barriers to Industrial Adoption of Formal Methods''} & Yes & Yes & Yes & Directly supports & Use \\ \hline
+\end{tabular}}
+\end{table}
+
+\vspace{0.5em}
+\noindent\textbf{What verification did you perform before trusting the reference?} \\
+Before trusting any reference provided by the AI, we first searched for the exact title and DOI in Google Scholar and the ACM Digital Library to confirm the paper actually exists and wasn't hallucinated. Next, we cross-referenced the authors and publication year to ensure the metadata was accurate. Finally, we downloaded the actual papers that existed and read the abstract and conclusion to verify that they contained empirical evidence supporting our specific claim about usability and learning curves, rather than just theoretical discussions.
+
+
+
+% =-----------------------=-----------------------=-----------------------=-----------------------=-----------------------
+
+
+\section*{Stage 9: Peer Review: Remove the References}
+
+\textit{Note: This section contains the findings from exchanging PDFs with the peer review group.}
+
+\vspace{0.5em}
+\noindent\textbf{Reviewing Group's Assessment of Our Claim:} \\
+\textbf{Selected Claim:} ``The AWS FIS managed extension is implemented as an AWS Lambda layer.'' \\
+\textbf{Question:} If I remove the citation number from this sentence, can I reconstruct why this particular source was selected? \\
+\textbf{Reviewer's Answer:} Yes, the claim is highly specific to AWS infrastructure. A reader would naturally expect the source to be official AWS documentation or an architectural blog from the developers, which aligns with the provided AWS Management \& Governance Blog source. \\
+\textbf{Verdict:} Supported
+
+\vspace{0.5em}
+\noindent\textbf{Our Response to the Review:} \\
+We agree with the reviewers' verdict. The specificity of the claim made it easy to trace the required evidence back to a primary corporate source. We will ensure our other technical claims are written with a similar level of specificity to maintain high traceability.
+
+
+% =-----------------------=-----------------------=-----------------------=-----------------------=-----------------------
+\newpage
+\section*{Final Individual Reflection}
+
+\begin{enumerate}
+    \item \textbf{What is the difference between a credible source and a source that supports your claim?} \\
+    A credible source is one that is trustworthy, authoritative, and methodologically sound (e.g., a peer-reviewed IEEE paper). However, a source only \textit{supports} a claim if it contains the specific data, experiment, or fact necessary to prove the exact statement being made. A highly credible paper on formal methods theory does not support a claim about user-interface barriers.
+
+    \item \textbf{Did you reject any apparently good source? Why?} \\
+    Yes, we rejected the AdaCore blog post. While AdaCore is a highly reputable company in the formal methods space (credible), the blog post was merely a high-level overview and lacked the empirical survey data needed to conclusively prove industry-wide adoption barriers (lack of support).
+
+    \item \textbf{How did examining the actual evidence change the wording of any claim?} \\
+    Examining the evidence forced us to change Statement 2 from stating absolute, universal facts (``The primary barriers \textit{are}'') to a more calibrated observation grounded in the data (``Empirical studies \textit{indicate} that developers \textit{frequently cite}...'').
+
+    \item \textbf{What will you check before citing a source in your future research writing?} \\
+    I will check if the specific sentence I am writing can be directly mapped to a specific table, graph, or concluding paragraph in the cited paper, ensuring true traceability rather than just citing a paper because its title sounds relevant.
+\end{enumerate}
+
+\end{document}

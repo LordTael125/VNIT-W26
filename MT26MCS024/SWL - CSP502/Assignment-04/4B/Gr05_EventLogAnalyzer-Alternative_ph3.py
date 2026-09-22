@@ -148,15 +148,43 @@ class LogAnalyzer:
         return active_users
 
 
+    # ==========================================
+    # PHASE 3: ALTERNATIVE IMPLEMENTATIONS
+    # ==========================================
+
+    def time_search_approach_1_linear(self, start_dt, end_dt):
+        """Approach 1: O(N) Sequential Scan."""
+        results = []
+        for record in self.logs:
+            if start_dt <= record.timestamp <= end_dt:
+                results.append(record)
+        return results
+
+    def time_search_approach_2_binary(self, start_dt, end_dt):
+        """Approach 2: O(log N + R) Binary Search."""
+        start_idx = bisect.bisect_left(self.logs, start_dt)
+        results = []
+        for i in range(start_idx, len(self.logs)):
+            if self.logs[i].timestamp > end_dt:
+                break
+            results.append(self.logs[i])
+        return results
+
+
 # --- Execution Example ---
 if __name__ == "__main__":
-    start_time = time.perf_counter()
+    
     if len(sys.argv) < 2:
         print("Usage: python Gr05_log_analyzer.py <logfile>")
         sys.exit(1)
 
     analyzer = LogAnalyzer()
+        
+    # Time the loading phase
+    load_start = time.perf_counter()
     analyzer.load_logs(sys.argv[1])
+    load_end = time.perf_counter()
+    print(f"File loaded in {(load_end - load_start) * 1000:.2f} ms")
 
     print("\n--- 1. Top 3 Users ---")
     for u, count in analyzer.get_top_k_users(3):
@@ -182,5 +210,21 @@ if __name__ == "__main__":
     print(f"Found {len(events)} events between {start.time()} and {end.time()}.")
     print(f"Number of unique active users in this window: {len(active)}")
 
-    end_time = time.perf_counter()
-    print(f"Total execution time: {end_time - start_time:.6f} seconds")
+    print("\n--- PHASE 4: Empirical Validation (Time Range Search) ---")
+    # Define a 5-minute search window that targets the dense traffic burst
+    search_start = datetime(2026, 9, 9, 8, 30, 0)
+    search_end = datetime(2026, 9, 9, 8, 35, 0)
+
+    # Benchmark Approach 1
+    t0 = time.perf_counter()
+    res1 = analyzer.time_search_approach_1_linear(search_start, search_end)
+    t1 = time.perf_counter()
+    linear_time = (t1 - t0) * 1000
+    print(f"Approach 1 (Linear): Found {len(res1)} records in {linear_time:.4f} ms")
+
+    # Benchmark Approach 2
+    t0 = time.perf_counter()
+    res2 = analyzer.time_search_approach_2_binary(search_start, search_end)
+    t1 = time.perf_counter()
+    binary_time = (t1 - t0) * 1000
+    print(f"Approach 2 (Binary): Found {len(res2)} records in {binary_time:.4f} ms")

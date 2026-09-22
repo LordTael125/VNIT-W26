@@ -1,0 +1,270 @@
+:root {
+    --primary-color: #3f51b5;
+    --primary-dark: #303f9f;
+    --text-color: #333;
+    --bg-color: #f5f7fa;
+    --card-bg: #fff;
+    --border-color: #e0e0e0;
+    --table-header-bg: #4c6ef5;
+    --table-row-hover: #f1f3f5;
+    --box-bg: #f8f9fa;
+    --blue-text: #228be6;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+header p {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.card h2 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.section-desc {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}
+
+/* Upload Section */
+.upload-form {
+    border: 2px dashed #b0bec5;
+    border-radius: 6px;
+    padding: 2rem;
+    text-align: center;
+    background-color: #f9fbfc;
+}
+
+.file-input-wrapper {
+    margin-bottom: 1rem;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-label {
+    background-color: #e0e0e0;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-right: 1rem;
+    display: inline-block;
+}
+
+.file-label:hover {
+    background-color: #d5d5d5;
+}
+
+#file-chosen {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.file-hint {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 1.5rem;
+}
+
+.btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Summary Cards */
+.summary-cards {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.summary-box {
+    flex: 1;
+    min-width: 120px;
+    background-color: var(--box-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.summary-box .label {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 600;
+}
+
+.summary-box .value {
+    margin: 0.5rem 0 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.blue-text {
+    color: var(--blue-text);
+}
+
+/* Tables */
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+th {
+    background-color: var(--table-header-bg);
+    color: white;
+    font-weight: 600;
+}
+
+.row-header {
+    background-color: var(--table-header-bg);
+    color: white;
+    font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+tbody tr:hover {
+    background-color: var(--table-row-hover);
+}
+
+/* Checkbox Group */
+.checkbox-group {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    background-color: #f0f4ff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid #d0ebff;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.checkbox-label input {
+    margin-right: 0.5rem;
+}
+
+/* Badges */
+.badges {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background-color: var(--table-header-bg);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+}
+
+/* Graph Grid */
+.graph-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+.graph-card {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1rem;
+    background-color: #fff;
+    text-align: center;
+}
+
+.graph-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.center-graph {
+    max-width: 800px;
+    margin: 0 auto;
+}

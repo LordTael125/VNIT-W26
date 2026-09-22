@@ -148,15 +148,81 @@ class LogAnalyzer:
         return active_users
 
 
+    # ==========================================
+    # PHASE 3: ALTERNATIVE IMPLEMENTATIONS
+    # ==========================================
+
+    def time_search_approach_1_linear(self, start_dt, end_dt):
+        """Approach 1: O(N) Sequential Scan."""
+        results = []
+        for record in self.logs:
+            if start_dt <= record.timestamp <= end_dt:
+                results.append(record)
+        return results
+
+    def time_search_approach_2_binary(self, start_dt, end_dt):
+        """Approach 2: O(log N + R) Binary Search."""
+        start_idx = bisect.bisect_left(self.logs, start_dt)
+        results = []
+        for i in range(start_idx, len(self.logs)):
+            if self.logs[i].timestamp > end_dt:
+                break
+            results.append(self.logs[i])
+        return results
+
+
+
+    def stream_and_report_top_users(self, file_path, report_interval=1000, top_k=5):
+        """
+        Phase 5: Processes logs as a continuous stream and yields a Top-K report 
+        every 'report_interval' records without reprocessing the file.
+        """
+        events_processed = 0
+        
+        print(f"\n--- Starting Streaming Ingestion from {file_path} ---")
+        
+        with open(file_path, 'r') as file:
+            for line in file:
+                raw_line = line.strip()
+                if not raw_line: continue
+                
+                parts = raw_line.split(' ')
+                # Drop malformed records natively in the stream
+                if len(parts) != 6:
+                    self.malformed_count += 1
+                    continue
+                
+                user = parts[3]
+                
+                # O(1) continuous update
+                self.user_event_counts[user] += 1
+                events_processed += 1
+                
+                # Trigger the report every N records
+                if events_processed % report_interval == 0:
+                    # O(U log k) heap extraction of the current state
+                    current_top = heapq.nlargest(top_k, self.user_event_counts.items(), key=lambda x: x[1])
+                    
+                    print(f"\n[Stream Checkpoint: {events_processed} records processed]")
+                    print(f"Current Top {top_k} Users:")
+                    for rank, (u, count) in enumerate(current_top, 1):
+                        print(f"  {rank}. {u} ({count} events)")
+
+
 # --- Execution Example ---
 if __name__ == "__main__":
-    start_time = time.perf_counter()
+    
     if len(sys.argv) < 2:
         print("Usage: python Gr05_log_analyzer.py <logfile>")
         sys.exit(1)
 
     analyzer = LogAnalyzer()
+        
+    # Time the loading phase
+    load_start = time.perf_counter()
     analyzer.load_logs(sys.argv[1])
+    load_end = time.perf_counter()
+    print(f"File loaded in {(load_end - load_start) * 1000:.2f} ms")
 
     print("\n--- 1. Top 3 Users ---")
     for u, count in analyzer.get_top_k_users(3):
@@ -182,5 +248,28 @@ if __name__ == "__main__":
     print(f"Found {len(events)} events between {start.time()} and {end.time()}.")
     print(f"Number of unique active users in this window: {len(active)}")
 
-    end_time = time.perf_counter()
-    print(f"Total execution time: {end_time - start_time:.6f} seconds")
+    print("\n--- PHASE 4: Empirical Validation (Time Range Search) ---")
+    # Define a 5-minute search window that targets the dense traffic burst
+    search_start = datetime(2026, 9, 9, 8, 30, 0)
+    search_end = datetime(2026, 9, 9, 8, 35, 0)
+
+    # Benchmark Approach 1
+    t0 = time.perf_counter()
+    res1 = analyzer.time_search_approach_1_linear(search_start, search_end)
+    t1 = time.perf_counter()
+    linear_time = (t1 - t0) * 1000
+    print(f"Approach 1 (Linear): Found {len(res1)} records in {linear_time:.4f} ms")
+
+    # Benchmark Approach 2
+    t0 = time.perf_counter()
+    res2 = analyzer.time_search_approach_2_binary(search_start, search_end)
+    t1 = time.perf_counter()
+    binary_time = (t1 - t0) * 1000
+    print(f"Approach 2 (Binary): Found {len(res2)} records in {binary_time:.4f} ms")
+
+
+    print("\n=====================================================")
+    print("PHASE 5: DELIBERATE DISTURBANCE (STREAMING TOP-5)")
+    print("=====================================================")
+    # Run the streaming requirement on the provided log file
+    analyzer.stream_and_report_top_users(sys.argv[1], report_interval=1000, top_k=5)
