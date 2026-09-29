@@ -1,0 +1,199 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!70!black, urlcolor=blue!70!black}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{TWP Logbook — Assignment 2A}}
+\fancyhead[R]{\textsc{CSP529}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+\title{
+    \vspace{-1cm}
+    \textbf{Writing Logbook --- Assignment 2A} \\[0.3em]
+    \large CSP529 Technical Writing \& Publishing \\[0.2em]
+    \large \textit{From \LaTeX\ Elements to a Professional Technical Document}
+}
+\author{
+    \textbf{MT26MCS024} --- Gaurav Acharya \quad
+    \textbf{MT26MCS032} --- Sandeep
+}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+% ============================================================
+\section{Assignment Overview}
+% ============================================================
+
+\begin{tabular}{@{}p{4.5cm} p{10cm}@{}}
+    \toprule
+    \textbf{Item} & \textbf{Detail} \\
+    \midrule
+    Practical Title & Practical 2A --- From \LaTeX\ Elements to a Professional Technical Document \\
+    Topic & Restructuring the OS Process document into a proper academic paper \\
+    Group Members & Gaurav Acharya (MT26MCS024), Sandeep (MT26MCS032) \\
+    Builds Upon & Assignment 02 (Stage 2: Representations of an OS Process) \\
+    Date of Completion & September 2026 \\
+    \bottomrule
+\end{tabular}
+
+% ============================================================
+\section{Objectives \& Learning Outcomes}
+% ============================================================
+
+This assignment extended Assignment~02 by transforming a collection of isolated \LaTeX\ elements into a cohesive, professionally structured technical document. The learning outcomes included:
+
+\begin{itemize}[nosep]
+    \item Restructuring content into standard academic sections: Title $\rightarrow$ Abstract $\rightarrow$ Introduction $\rightarrow$ Technical Background $\rightarrow$ Analysis/Working $\rightarrow$ Discussion $\rightarrow$ Conclusion $\rightarrow$ References.
+    \item Mastering floats: captions, labels, and cross-references for figures and tables.
+    \item Making equations part of the argument, not decorative additions.
+    \item Understanding that algorithms describe \emph{procedure} while prose communicates \emph{purpose, rationale, and interpretation}.
+    \item Learning \LaTeX\ cross-referencing (\texttt{\textbackslash ref\{\}}), citation mechanics (\texttt{\textbackslash cite\{\}}), and bibliography management.
+\end{itemize}
+
+% ============================================================
+\section{Work Performed --- Stage by Stage}
+% ============================================================
+
+\subsection{Stage 1: Inspecting Previous Work (Practical 2)}
+We critically examined our Assignment~02 document and identified:
+\begin{itemize}[nosep]
+    \item \LaTeX\ constructs used: \texttt{figure}, \texttt{table}, \texttt{equation}, \texttt{algorithm}, \texttt{itemize}, \texttt{enumerate}.
+    \item Elements that were difficult: float placement, equation formulation.
+    \item Elements inserted only because required: some lists felt mechanical rather than communicative.
+    \item Elements that genuinely helped: the equation and algorithm provided clarity that prose alone could not.
+    \item \textbf{Critical finding:} Most elements were \emph{not} referred to from the body text --- they simply ``appeared'' without introduction or interpretation.
+\end{itemize}
+
+\noindent\textbf{Key Rule Discovered:} \textit{Nothing should appear in a technical document without being introduced, referred to, or interpreted in the text.}
+
+\subsection{Stage 2: Building Proper Document Structure}
+We restructured the entire document into:
+\begin{enumerate}[nosep]
+    \item \textbf{Abstract:} A concise overview of the document's scope --- OS boot process, hardware-software interfacing, kernel resource management.
+    \item \textbf{Introduction:} Context and motivation, with an inline citation~\cite{silberschatz}.
+    \item \textbf{Technical Background:} Component comparison table (now with textual reference: ``The comparison presented in Table~1 indicates\ldots'') and the state-transition equation (now with interpretation).
+    \item \textbf{Analysis/Working:} Chronological boot sequence (numbered list), algorithmic pseudocode, and the architectural figure (now with: ``The computational steps are illustrated in Figure~1'').
+    \item \textbf{Discussion:} Plain-language explanation of the algorithm, plus OS core responsibilities.
+    \item \textbf{Conclusion:} Summary of findings.
+    \item \textbf{References:} Three genuine academic sources.
+\end{enumerate}
+
+\textbf{Justification:} Technical Background establishes definitions and models \emph{before} they are used in Analysis. Discussion interprets the formal constructs in accessible language.
+
+\subsection{Stage 3: Mastering Figures and Tables}
+We ensured every float was properly integrated:
+\begin{itemize}[nosep]
+    \item Figure with caption (``Operating System Architecture Layers''), label (\texttt{fig:os\_process}), and cross-reference from text.
+    \item Table with caption (``System Component and Execution Phase''), label (\texttt{tab:os\_components}), and cross-reference from text.
+\end{itemize}
+
+\noindent\textbf{Discoveries:}
+\begin{itemize}[nosep]
+    \item Figures and tables are numbered automatically by \LaTeX.
+    \item Inserting a new figure before an existing one automatically renumbers all subsequent figures.
+    \item \texttt{\textbackslash ref\{\}} ensures references update automatically; manual numbering would break on any restructuring.
+    \item Captions are essential because they allow figures/tables to be understood independently of surrounding text.
+\end{itemize}
+
+\subsection{Stage 4: Mathematics as Part of the Argument}
+We included two meaningful equations:
+\begin{enumerate}[nosep]
+    \item \textbf{Equation~1 --- OS State Transition:} $S_{t+1} = k\left(S_t, \sum I_i + \sum C_j\right) - \Delta_{overhead}$
+    
+    Numbered, labelled, cross-referenced, and interpreted: ``This equation demonstrates that the OS continuously evaluates the current state alongside hardware interrupts and system calls\ldots''
+    
+    \item \textbf{Equation~2 --- Turnaround Time:} $T_{turnaround} = T_{completion} - T_{arrival}$
+    
+    Added as a second equation to analyse CPU scheduling efficiency, also numbered, labelled, and interpreted.
+\end{enumerate}
+
+\noindent\textbf{Answer to Stage 4 question:} The equations communicate \emph{quantitative relationships} and \emph{variable dependencies} that the paragraph alone cannot express with the same precision and conciseness.
+
+\subsection{Stage 5: Algorithm vs.\ Explanation}
+We maintained the OS Boot Sequence pseudocode and added explanatory prose in the Discussion section that translates the algorithmic steps into plain language.
+
+\noindent\textbf{Discovery:} Pseudocode describes \emph{what happens step by step} (procedure), while prose communicates \emph{why} each step matters, what assumptions underlie it, and how to interpret the outcomes (purpose and rationale).
+
+\subsection{Stage 6: Cross-Referencing Challenge}
+We added cross-references to: 2 sections, 2 figures/tables, 1 equation, and 1 algorithm. After inserting a new section and figure in the middle of the document and recompiling:
+\begin{itemize}[nosep]
+    \item \textbf{What changed automatically:} All section numbers, figure numbers, table numbers, and equation numbers updated throughout the entire document.
+    \item \textbf{Why logical references matter:} In a professional document with dozens of figures, manually updating ``Figure~3'' to ``Figure~4'' everywhere would be error-prone and unsustainable. \texttt{\textbackslash ref\{\}} ensures consistency by design.
+\end{itemize}
+
+\subsection{Stage 7: References}
+We included three genuine references connected to our technical content:
+\begin{enumerate}[nosep]
+    \item Silberschatz, Galvin, Gagne --- \textit{Operating System Concepts}, 10th ed., 2018.
+    \item Tanenbaum, Bos --- \textit{Modern Operating Systems}, 4th ed., 2014.
+    \item Love --- \textit{Linux Kernel Development}, 3rd ed., 2010.
+\end{enumerate}
+
+\noindent\textbf{Skills learned:} \texttt{\textbackslash cite\{\}}, \texttt{thebibliography} environment, citation-reference distinction.
+
+\subsection{Stage 8: \LaTeX\ Debugging Challenge}
+
+\begin{tabular}{@{}p{4cm} p{5cm} p{5cm}@{}}
+    \toprule
+    \textbf{Error/Problem} & \textbf{What Caused It} & \textbf{How It Was Corrected} \\
+    \midrule
+    Figure not appearing & Missing \texttt{float} package for \texttt{[H]} placement & Added \texttt{\textbackslash usepackage\{float\}} \\
+    Undefined reference ``??'' & \texttt{\textbackslash label} placed before \texttt{\textbackslash caption} & Moved \texttt{\textbackslash label} after \texttt{\textbackslash caption} \\
+    Missing package error & Used \texttt{array} column types without importing & Added \texttt{\textbackslash usepackage\{array\}} \\
+    \bottomrule
+\end{tabular}
+
+% ============================================================
+\section{Comparison: Assignment 02 vs.\ Assignment 2A}
+% ============================================================
+
+\begin{tabular}{@{}p{4cm} p{5cm} p{5cm}@{}}
+    \toprule
+    \textbf{Aspect} & \textbf{Assignment 02 (Before)} & \textbf{Assignment 2A (After)} \\
+    \midrule
+    Structure & Flat list of representations & Full academic structure (Abstract to References) \\
+    Floats & Inserted without context & Introduced, referenced, and interpreted in text \\
+    Equations & Single equation, no interpretation & Two equations, both numbered, labelled, interpreted \\
+    References & None & Three genuine academic sources with \texttt{\textbackslash cite\{\}} \\
+    Cross-references & None & Sections, figures, tables, equations all cross-referenced \\
+    \bottomrule
+\end{tabular}
+
+% ============================================================
+\section{Key Takeaways}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item The transition from ``using \LaTeX\ elements'' to ``writing a technical document'' requires every element to serve a communicative purpose within the document's argument.
+    \item Cross-referencing is not a convenience --- it is a requirement for any document that may be revised or extended.
+    \item The \texttt{Abstract $\rightarrow$ Introduction $\rightarrow$ Background $\rightarrow$ Analysis $\rightarrow$ Discussion $\rightarrow$ Conclusion} structure is not arbitrary; it mirrors the reader's cognitive needs.
+    \item Debugging \LaTeX\ compilation errors (undefined references, missing packages, float placement) is a core practical skill that improves with experience.
+\end{enumerate}
+
+% ============================================================
+% Dummy bibliography for \cite references in this logbook
+\begin{thebibliography}{9}
+\bibitem{silberschatz} A.\ Silberschatz, P.\ B.\ Galvin, G.\ Gagne, \textit{Operating System Concepts}, 10th ed., Wiley, 2018.
+\end{thebibliography}
+
+\end{document}

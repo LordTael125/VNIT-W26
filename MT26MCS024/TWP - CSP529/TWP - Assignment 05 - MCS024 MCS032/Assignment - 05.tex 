@@ -1,0 +1,251 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry} % Sets standard 1-inch margins to fix the spacing issue
+\usepackage{mathptmx} % Times New Roman equivalent
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{graphicx}
+
+% --------------------------------------------------------------------------------------------
+
+% Custom command for Topic names (Font size 14)
+\newcommand{\topicTitle}[1]{
+    \vspace{1.5em}\noindent{\fontsize{14}{16.8}\selectfont \textbf{#1}}\par\vspace{0.5em}
+}
+
+% Custom command for Questions/Labels (Bold, Font size 12)
+\newcommand{\qLabel}[1]{
+    {\fontsize{12}{14.4}\selectfont \textbf{#1}}
+}
+
+% --------------------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+    % Institute Logo (Ensure 'vnit_logo.png' is in your project directory)
+    \includegraphics[width=0.35\textwidth]{vnit-logo.jpg}\\[2.5cm]
+    
+    {\large \textbf{Group Members}}\\[0.4cm]
+    \begin{tabular}{l c l}
+        Student 1: Gaurav Acharya & --- & [MT26MCS024] \\
+        Student 2: Sandeep & --- & [MT26MCS032]
+    \end{tabular}
+    
+    \vspace{1.5cm}
+    
+    {\large \textbf{Guide Name}}\\[0.4cm]
+    Dr. A. S. Mokhade
+    
+    \vspace{1.5cm}
+    
+    {\large \textbf{Practical Title:}}\\[0.4cm]
+    CSP529: Technical Writing \& Publishing\\[0.2cm]
+    Practical 5: Reading Research for Evidence
+    
+    \vspace{1.5cm}
+    
+    {\large \textbf{Problem Statement:}}\\[0.4cm]
+   Constructing an Evidence Matrix
+    
+\end{center}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 1}\par}
+\vspace{1em}
+
+\begin{itemize}
+    
+
+    \item \qLabel{What do you understand by the focused question assigned to your group?} \\
+    The question requires us to evaluate and compare various CPU scheduling algorithms (such as First-Come-First-Served, Shortest Job First, Round Robin, or Multilevel Queue) and determine how they impact key system performance metrics. Specifically, we need to understand how these outcomes shift when the type of workload changes, such as moving from CPU-bound tasks to I/O-bound tasks, or from batch processing to interactive systems.
+
+    \item \qLabel{Are there any important terms in the question whose meaning needs to be clarified before reading the papers?} \\
+    Yes, the following terms act as our primary evaluation metrics and must be clearly defined to extract the right evidence:
+
+    \begin{itemize}
+    
+        \item \textbf{Waiting Time:} The total amount of time a process spends waiting in the ready queue.\\
+        \item \textbf{Response Time:} The time elapsed from when a request is submitted until the first response is produced (crucial for interactive systems).\\
+        \item \textbf{Throughput:} The number of processes that complete their execution per time unit.\\
+        \item \textbf{Fairness:} Ensuring no process suffers from starvation and that CPU time is distributed equitably among processes of similar priority.\\
+        \item \textbf{Workload Characteristics:} The nature of the processes being executed, such as their burst times, arrival rates, and whether they are CPU-intensive or I/O-intensive.\\
+
+    \end{itemize}
+
+\end{itemize}
+% --------------------------------------------------------------------------------------------
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 2}\par}
+\vspace{1em}
+
+{\centering\fontsize{16}{20}\selectfont\textbf{Student 1}\par}
+\vspace{1em}
+
+{\centering\fontsize{16}{20}\selectfont\textbf{Paper 1: Comparative Analysis of CPU Scheduling Algorithms for Performance Efficiency}\par}
+\vspace{1em}
+
+\begin{itemize}
+    \item \textbf{Problem:} The paper evaluates the efficiency of various CPU scheduling algorithms to determine how the choice of strategy influences system responsiveness, throughput, waiting time, and turnaround time.
+
+    \item \textbf{Method:} The author set up a uniprocessor simulation framework to calculate and compare performance metrics using Gantt charts for FCFS, SJF, SRTF, RR, Priority, HRRN, and FKS algorithms.
+    
+    \item \textbf{Data / Experimental Setting:} The experiment used a single dataset featuring five processes (P1-P5) with predetermined burst times and priorities.
+    
+    \item \textbf{Relevant Finding:} The Shortest Remaining Time First (SRTF) algorithm achieved the lowest average turnaround time (34.2 ms) and waiting time (19.2 ms), while Round Robin recorded the highest average turnaround time (51 ms) and waiting time (36 ms). 
+    
+    \item \textbf{Evidence:} The findings are supported by Table 3 (Average Turnaround Time and Average Waiting Time) and execution snapshot Gantt charts (Figures 1 and 2).
+    
+    \item \textbf{Conditions/Assumptions:} The findings hold under the strict assumptions that all jobs are ready at time zero, burst times are known in advance, processes run to completion without I/O interruptions, and context-switching time is negligible.
+    
+    \item \textbf{Limitations:} The algorithms that performed best (SRTF and FKS) rely on the unrealistic assumption of knowing exact future burst times. Additionally, the study's assumption of zero context-switching overhead ignores the primary drawback of preemptive algorithms.
+    
+    \item \textbf{Contribution to Our Question:} For our focused question, this paper tells us that preemptive algorithms like SRTF minimize waiting times for predictable workloads, though they rely on unrealistic assumptions. It also shows that while Round Robin is fair for interactive systems, it can severely degrade waiting time and throughput if the time quantum is sized incorrectly.
+
+
+\end{itemize}
+
+
+
+
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Student 2}\par}
+\vspace{1em}
+
+{\centering\fontsize{16}{20}\selectfont\textbf{Paper 2: Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and Average Turnaround Time}\par}
+\vspace{1em}
+
+
+\begin{itemize}
+    \item \textbf{Problem:} The paper analyzes the relationship between existing CPU scheduling algorithms (FCFS, SJF, RR, and Priority Based) with respect to their average waiting time and turnaround time to identify the fastest algorithm.
+
+    \item \textbf{Method:} The authors designed five mathematical cases (altering CPU burst times by adding or subtracting specific values) and calculated the Average Waiting Time (AWT) and Average Turnaround Time (ATAT) for each algorithm.
+    
+    \item \textbf{Data / Experimental Setting:} A ready queue consisting of four processes (P1, P2, P3, P4) with varying CPU burst times and priorities tested across 5 rigid mathematical cases.
+    
+    \item \textbf{Relevant Finding:} The SJF algorithm consistently produced the lowest average waiting time and turnaround time across all five test cases. Furthermore, CPU burst time was found to be directly proportional to average waiting and turnaround times.
+    
+    \item \textbf{Evidence:} The findings are supported by calculated data in Tables 8 through 11 and visualized using 3-D line graphs (Figures 1-4) for each algorithm.
+    
+    \item \textbf{Conditions/Assumptions:}  The findings strictly apply to the five formulated cases where CPU burst times scale up and down linearly (e.g., adding 1, subtracting 2).
+    
+    \item \textbf{Limitations:} The study only evaluates waiting time and turnaround time, completely ignoring other critical metrics like response time, throughput, or fairness.
+    
+    \item \textbf{Contribution to Our Question:} For our focused question, this paper tells us that SJF provides the absolute lowest waiting time regardless of how the burst times scale mathematically. However, because it ignores throughput and fairness, it cannot explain how these workloads behave in interactive, real-world environments.
+
+
+\end{itemize}
+
+
+
+
+% --------------------------------------------------------------------------------------------
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 4}\par}
+\vspace{1em}
+
+
+
+\begin{longtable}{ |p{3.5cm}|p{5.8cm}|p{5.8cm}| }
+    \caption{Original Article Sentence Classification}
+    \label{tab:classification_table} \\
+    
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Dimension}} & \textbf{Paper 1} & \textbf{Paper 2}\\
+    \hline
+    \endfirsthead 
+    \multicolumn{3}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+    \toprule
+    \multicolumn{1}{|c|}{\textbf{Dimension}} & \textbf{Paper 1} & \textbf{Paper 2}\\
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{3}{r}{\textit{Continued on next page}} \\
+    \endfoot
+
+    \hline
+    \endlastfoot
+
+    \textbf{Problem/question addressed} & Evaluated the efficiency of scheduling algorithms based on waiting time and turnaround time to understand their impact on responsiveness and throughput. & Found the relationship between existing algorithms regarding average waiting time and turnaround time, and identified the fastest algorithm \\
+    \hline
+
+    \textbf{Method/ approach} & Simulated a uni-processor framework to calculate and compare performance using Gantt charts for FCFS, SJF, SRTF, RR, Priority, HRRN, and FKS. & Designed 5 different cases by mathematically altering CPU burst times (+1, -2, etc.) and tested them on FCFS, SJF, RR, and PB. \\
+    \hline
+
+    \textbf{Data/ experimental setting} & A single dataset featuring five processes (P1-P5) with known burst times and priorities, assuming all arrive at time zero. & Four processes (P1-P4) with varying CPU burst times and priorities tested across 5 rigidly formulated cases.  \\
+    \hline
+
+    \textbf{Main finding relevant to our question} & Shortest Remaining Time First (SRTF) achieved the lowest average turnaround time (34.2) and waiting time (19.2) for the dataset.  & SJF consistently has the lowest average waiting time and turnaround time across all 5 experimental cases.  \\
+    \hline
+
+    \textbf{Evidence supporting the finding} & Table 3 comparing average turnaround and waiting times, and Gantt charts (Figures 1 and 2) visually mapping the execution & Tables 8-11 and Figures 1-4 showing 3D line graphs of Average Waiting Time (AWT) and Average Turnaround Time (ATAT) \\
+    \hline
+
+    \textbf{Conditions/ assumptions} & Assumed burst times are known in advance, zero arrival time differences, and negligible context-switching overhead.  & Evaluated four processes solely under specific mathematical modifications to their CPU burst times across 5 cases. \\
+    \hline
+
+    \textbf{Limitations relevant to our question} & SRTF's dependence on accurate future burst time estimates makes it impractical for real-world dynamic workloads.  & Did not measure response time, throughput, or fairness, focusing strictly on AWT and ATAT metrics \\
+    \hline  
+
+    \textbf{What this paper contributes toward answering our question} & Proves SRTF/SJF minimizes waiting times for batch processes, while highlighting that RR is better for interactive system fairness.  & Proves mathematically that CPU burst time is directly proportional to waiting time, and SJF minimizes this time regardless of burst variations.  \\
+    \hline
+    
+
+
+\end{longtable}
+
+
+% --------------------------------------------------------------------------------------------
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 5}\par}
+\vspace{1em}
+
+\begin{itemize}
+    \item \textbf{Which dimensions can reasonably be compared across all three (in your case, both) papers?} \\
+     We can directly compare the methodologies and the evaluation metrics. Both papers evaluate CPU scheduling algorithms—specifically FCFS, SJF, and Round Robin—by calculating the Average Waiting Time (AWT) and Average Turnaround Time (ATAT).
+
+    \item \textbf{Where do the papers appear to provide similar evidence?} \\
+    Both papers provide identical conclusions regarding the Shortest Job First (SJF) approach minimizing wait times. Paper 1 found that SRTF (the preemptive version of SJF) yielded the lowest waiting time and turnaround time for its dataset. Similarly, Paper 2 verified that SJF consistently provided the lowest average waiting time across all 5 of its distinct experimental cases.
+    
+    \item \textbf{Where do you notice an apparent difference?} \\
+    The experimental setups and methods of analysis differ significantly. Paper 1 used a single, static dataset of 5 processes to evaluate 7 different algorithms. In contrast, Paper 2 used a baseline of 4 processes but actively modified their CPU burst times mathematically (e.g., adding 1, subtracting 2) across 5 different cases to observe how the waiting time scaled.
+    
+    \item \textbf{Is there any important information needed for answering your question that one or more papers do not provide?} \\
+    Yes. Our group's focused research question explicitly asks about "response time," "throughput," and "fairness." However, both papers focused almost exclusively on waiting time and turnaround time metrics, failing to provide hard quantitative data, charts, or dedicated experiments for measuring fairness (starvation rates) or interactive response times.
+    
+\end{itemize}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Individual Reflection Questions}\par}
+\vspace{1em}
+
+{\centering\fontsize{14}{20}\selectfont\textbf{Student 1 (Sandeep MT26MCS032 - Paper 1)}\par}
+\begin{itemize}
+
+    \item \textbf{Which single piece of evidence in your paper is most useful for answering the group's focused question? Why?} \\
+     \textbf{[Exact location]} - Table 3 (Average Turnaround Time and Average Waiting Time) provides direct, quantitative evidence comparing eight different algorithms, proving that Round Robin yields the highest waiting time (36ms) compared to SRTF (19.2ms) for this specific workload.
+     
+     \item \textbf{What important aspect of the group's question could your paper not answer?} \\
+     The paper briefly notes in the text that Round Robin promotes fairness while Priority scheduling can cause starvation. However, it provides no numerical evidence or graphs to actually measure this fairness under different workloads.
+     
+     \item \textbf{What did you understand from reading the full paper that you would probably have missed by reading only its abstract or an AI-generated summary?} \\
+     The abstract simply states that the study evaluates efficiency using a simulation framework. Reading the full paper revealed massive limitations in that framework: it assumed zero context-switching time and that all processes arrive at exactly time zero, which heavily skews the real-world applicability of the results.
+\end{itemize}
+
+{\centering\fontsize{14}{20}\selectfont\textbf{2 (Gaurav Acharya MT26MCS024 - Paper 2)}\par}
+\begin{itemize}
+
+    \item \textbf{Which single piece of evidence in your paper is most useful for answering the group's focused question? Why?} \\
+     \textbf{[Exact location]} The Conclusion section and the data in Tables 8-11 synthesize the results of the five cases to prove mathematically that CPU burst time is strictly and directly proportional to both average waiting time and turnaround time.
+
+     \item \textbf{What important aspect of the group's question could your paper not answer?} \\
+     The paper did not address throughput, response time, or fairness at all. It was strictly a mathematical analysis of average waiting time and turnaround time for four specific algorithms.
+     
+     \item \textbf{What did you understand from reading the full paper that you would probably have missed by reading only its abstract or an AI-generated summary?} \\
+     The abstract states that five cases were designed to find the relationship between algorithms. By reading Section 4, it became clear that these cases were not random workloads, but highly specific mathematical modifications (such as adding 1 to the burst time, then subtracting 2) designed specifically to force linear scaling behavior.
+\end{itemize}
+\end{document}

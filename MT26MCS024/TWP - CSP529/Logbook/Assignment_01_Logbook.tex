@@ -1,0 +1,167 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!70!black, urlcolor=blue!70!black}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{TWP Logbook — Assignment 01}}
+\fancyhead[R]{\textsc{CSP529}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+\title{
+    \vspace{-1cm}
+    \textbf{Writing Logbook --- Assignment 01} \\[0.3em]
+    \large CSP529 Technical Writing \& Publishing \\[0.2em]
+    \large \textit{Can AI Write Your Technical Report?}
+}
+\author{
+    \textbf{MT26MCS024} --- Gaurav Acharya \quad
+    \textbf{MT26MCS032} --- Sandeep
+}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+% ============================================================
+\section{Assignment Overview}
+% ============================================================
+
+\begin{tabular}{@{}p{4.5cm} p{10cm}@{}}
+    \toprule
+    \textbf{Item} & \textbf{Detail} \\
+    \midrule
+    Practical Title & CSP529 Technical Writing \& Publishing: Can AI Write Your Technical Report? \\
+    Problem Statement & Develop a Drone-based Crop Disease Detection System \\
+    Group Members & Gaurav Acharya (MT26MCS024), Prasanna Thulkar (MT26MCS028), Sandeep (MT26MCS032) \\
+    Guide & Dr.\ A.\ S.\ Mokhade \\
+    Date of Completion & September 2026 \\
+    \bottomrule
+\end{tabular}
+
+% ============================================================
+\section{Objectives \& Learning Outcomes}
+% ============================================================
+
+The primary objective of this assignment was to critically evaluate whether AI tools can adequately write technical reports by comparing human-written and AI-generated problem definitions for the same engineering system. The expected learning outcomes included:
+
+\begin{itemize}[nosep]
+    \item Formulating a precise engineering problem definition with stakeholder analysis.
+    \item Generating an AI version of the same problem definition using a language model.
+    \item Systematically comparing human vs.\ AI outputs across multiple evaluation metrics.
+    \item Identifying weaknesses in AI-generated text that appear superficially convincing.
+    \item Developing critical thinking about AI limitations in technical writing.
+\end{itemize}
+
+% ============================================================
+\section{Work Performed --- Stage-by-Stage}
+% ============================================================
+
+\subsection{Stages 1 \& 2: Problem Definition --- Student Version}
+We independently formulated the problem definition for a Drone-based Crop Disease Detection (CDD) System, addressing:
+
+\begin{itemize}[nosep]
+    \item \textbf{Problem:} Traditional manual crop inspection is time-consuming, labour-intensive, and prone to missing infected patches due to limited human field-of-view.
+    \item \textbf{Root Cause:} Human physical limitations --- small observation area ($< 2\%$ ground cover per sweep) and cognitive fatigue over extended acreages.
+    \item \textbf{Stakeholders:} Local farmers, agriculture-based industries (grain processors), animal husbandry (husk/fodder suppliers).
+    \item \textbf{Assumptions:} System would be cheaper, more efficient, and achieve high-precision detection.
+    \item \textbf{Missing Information:} Environmental conditions (temperature, wind speed), power supply infrastructure, surrounding flora/fauna baseline data.
+\end{itemize}
+
+\subsection{Stage 3: AI-Generated Version}
+We prompted an AI model to produce the same problem definition. Key observations:
+\begin{itemize}[nosep]
+    \item AI used authoritative buzzwords (``autonomous,'' ``machine learning,'' ``optimize'') but provided no quantifiable metrics.
+    \item AI assumed continuous battery power, clear weather, and universal high-speed internet --- all unrealistic in rural agricultural settings.
+    \item AI's missing information focused on hardware specs (battery mAh, payload weight) but ignored environmental and human factors.
+\end{itemize}
+
+\subsection{Stage 4: Comparison Table}
+We built a structured comparison across five evaluation metrics (Problem Definition, Reason for Existence, Stakeholders, Assumptions, Missing Information), revealing that:
+\begin{itemize}[nosep]
+    \item The student version was grounded in practical agricultural realities.
+    \item The AI version was technically polished but disconnected from field constraints.
+\end{itemize}
+
+\subsection{Stage 5: Cross-Group Insights}
+After exchanging work with peer groups, we identified additional practical challenges:
+\begin{itemize}[nosep]
+    \item Legacy infrastructure integration difficulties.
+    \item Unavailable data: historical leakage records, real-time pipeline conditions.
+    \item Ethical issues: algorithmic bias, surveillance concerns, accountability for failures.
+    \item Unrealistic assumptions: perfect system accuracy, purely trend-based demand prediction.
+    \item Failure scenarios: sensor failures requiring fail-safe protocols; flood risks causing hardware damage; internet outages requiring offline fallback modes.
+\end{itemize}
+
+\subsection{Stage 6: Revised Technical Document}
+We rewrote the problem definition with engineering precision:
+\begin{itemize}[nosep]
+    \item Quantified the problem: 40 man-hours per 100-hectare inspection cycle, 7\% miss rate.
+    \item Specified concrete assumptions: capital expenditure recovery within 2 harvest cycles, spectral classification accuracy $> 92\%$.
+    \item Identified precise missing metrics: wind shear velocity thresholds, localized baseline reflectance spectra for native weed flora.
+\end{itemize}
+
+\subsection{Stage 7: AI Weakness Analysis}
+We identified three critical engineering flaws in the AI output:
+\begin{enumerate}[nosep]
+    \item \textbf{Ignored Physical Constraints:} ``Continuous battery power'' dismisses payload-weight vs.\ discharge-rate trade-offs.
+    \item \textbf{Disconnected from Field Reality:} ``Clear weather'' and ``universal internet'' ignore rural microclimates and telemetry dropouts.
+    \item \textbf{Zero Measurability:} ``Optimize farm management'' provides no metrics, parameters, or thresholds for engineering evaluation.
+\end{enumerate}
+
+% ============================================================
+\section{Individual Reflections}
+% ============================================================
+
+\subsection{Gaurav Acharya (MT26MCS024)}
+\begin{itemize}[nosep]
+    \item \textbf{AI cannot:} Conduct physical reality checks (test camera lens behaviour in morning dew), calculate real-world degradation (battery drain from wind shear), or gather human intelligence (farmer interviews about interface literacy).
+    \item \textbf{AI excels at:} Formatting raw telemetry data into tables, summarizing lengthy regulatory manuals, and correcting passive voice in hardware descriptions.
+    \item \textbf{Skill to develop:} Field-testing validation and observational rigor --- bridging theoretical AI text with physical constraints.
+\end{itemize}
+
+\subsection{Sandeep (MT26MCS032)}
+\begin{itemize}[nosep]
+    \item \textbf{AI cannot:} Evaluate economic viability for local farmers, make strategic accuracy-vs-cost trade-offs, or navigate privacy/liability concerns for aerial surveillance.
+    \item \textbf{AI excels at:} Tailoring communication for different audiences, drafting executive summaries, and brainstorming risk matrices.
+    \item \textbf{Skill to develop:} Strategic cross-functional analysis --- connecting engineering constraints with business viability and stakeholder needs.
+\end{itemize}
+
+% ============================================================
+\section{Challenges Encountered}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item \textbf{Quantifying vague problems:} Translating ``crops get diseased'' into measurable parameters (7\% miss rate, 40 man-hours) required significant domain research.
+    \item \textbf{Resisting AI polish:} The AI's grammatically perfect output was initially convincing; recognizing its superficiality required deliberate critical reading.
+    \item \textbf{Cross-group coordination:} Aligning vocabulary and evaluation criteria across different problem domains during Stage 5 was challenging.
+\end{enumerate}
+
+% ============================================================
+\section{Key Takeaways}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item AI-generated text can appear authoritative while lacking engineering substance --- ``sounds right'' $\neq$ ``is right.''
+    \item Every technical claim must be grounded in measurable, verifiable parameters.
+    \item Human domain expertise, stakeholder empathy, and physical-world awareness remain irreplaceable in technical writing.
+    \item The iterative process of writing $\rightarrow$ comparing $\rightarrow$ revising significantly strengthened the quality of our problem definition.
+\end{enumerate}
+
+\end{document}

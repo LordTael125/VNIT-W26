@@ -1,0 +1,157 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!70!black, urlcolor=blue!70!black}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{TWP Logbook — Assignment 02}}
+\fancyhead[R]{\textsc{CSP529}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+\title{
+    \vspace{-1cm}
+    \textbf{Writing Logbook --- Assignment 02} \\[0.3em]
+    \large CSP529 Technical Writing \& Publishing \\[0.2em]
+    \large \textit{Stage 2: Representations of an Operating System Process}
+}
+\author{
+    \textbf{MT26MCS024} --- Gaurav Acharya \quad
+    \textbf{MT26MCS032} --- Sandeep
+}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+% ============================================================
+\section{Assignment Overview}
+% ============================================================
+
+\begin{tabular}{@{}p{4.5cm} p{10cm}@{}}
+    \toprule
+    \textbf{Item} & \textbf{Detail} \\
+    \midrule
+    Practical Title & Stage 2: Representations of an Operating System Process \\
+    Topic & Operating System Boot Process \& Resource Management \\
+    Group Members & Gaurav Acharya (MT26MCS024), Sandeep (MT26MCS032) \\
+    Tool Used & \LaTeX\ (with \texttt{algorithm}, \texttt{amsmath}, \texttt{booktabs}, \texttt{float} packages) \\
+    Date of Completion & September 2026 \\
+    \bottomrule
+\end{tabular}
+
+% ============================================================
+\section{Objectives \& Learning Outcomes}
+% ============================================================
+
+The objective of this assignment was to represent a single technical idea --- the operating system boot process --- using multiple distinct representational formats in \LaTeX. The learning outcomes included:
+
+\begin{itemize}[nosep]
+    \item Writing a coherent paragraph description of a technical concept.
+    \item Creating a figure representation of the idea.
+    \item Constructing a structured table of system components and execution phases.
+    \item Formulating a mathematical equation to model OS state transitions.
+    \item Writing algorithmic pseudocode for the boot sequence.
+    \item Presenting the same information as bullet points and numbered lists.
+    \item Learning core \LaTeX\ constructs: \texttt{figure}, \texttt{table}, \texttt{equation}, \texttt{algorithm}, \texttt{itemize}, \texttt{enumerate}.
+\end{itemize}
+
+% ============================================================
+\section{Work Performed --- Representation by Representation}
+% ============================================================
+
+\subsection{Paragraph Representation}
+We composed a concise paragraph describing how an OS acts as the foundational software layer managing hardware/software, starting from the bootloader through kernel activation to user-application execution. This required distilling a complex multi-stage process into a single cohesive narrative.
+
+\subsection{Figure Representation}
+We created and included a diagram (\texttt{os\_process.png}) illustrating the layered architecture of an operating system. Key \LaTeX\ skills practised:
+\begin{itemize}[nosep]
+    \item \texttt{\textbackslash includegraphics} with width scaling.
+    \item \texttt{figure} environment with \texttt{[H]} placement specifier (using the \texttt{float} package).
+    \item \texttt{\textbackslash caption} and \texttt{\textbackslash label} for cross-referencing.
+\end{itemize}
+
+\subsection{Table Representation}
+We built a four-row comparison table mapping System Components (Firmware, Bootloader, Kernel, Shell) to their Primary Functions and Execution Phases. Key \LaTeX\ skills:
+\begin{itemize}[nosep]
+    \item \texttt{booktabs} package for professional horizontal rules (\texttt{\textbackslash toprule}, \texttt{\textbackslash midrule}, \texttt{\textbackslash bottomrule}).
+    \item Column width control using \texttt{p\{\}} specifiers.
+    \item \texttt{\textbackslash renewcommand\{\textbackslash arraystretch\}\{1.4\}} for row spacing.
+\end{itemize}
+
+\subsection{Equation Representation}
+We formulated a state-transition equation modelling the kernel's operation:
+\begin{equation*}
+    S_{t+1} = k \left( S_t, \sum_{i=1}^{h} I_i(t) + \sum_{j=1}^{s} C_j(t) \right) - \Delta_{overhead}
+\end{equation*}
+
+Each variable was then interpreted: $S_{t+1}$ (next system state), $k$ (kernel function), $S_t$ (current state), $\Sigma I_i$ (hardware interrupts), $\Sigma C_j$ (system calls), $\Delta_{overhead}$ (context-switching overhead). This exercise demonstrated that mathematical notation can concisely capture complex system behaviour that would require many paragraphs of prose.
+
+\subsection{Algorithm Representation}
+We wrote pseudocode for the OS Boot Sequence using the \texttt{algorithm} and \texttt{algpseudocode} packages:
+\begin{itemize}[nosep]
+    \item Conditional branching (\texttt{\textbackslash If} / \texttt{\textbackslash Else}) for POST failure handling.
+    \item Sequential steps from CPU initialization through kernel activation to GUI/CLI launch.
+    \item Line numbering via \texttt{\textbackslash begin\{algorithmic\}[1]}.
+\end{itemize}
+
+\subsection{Bullet Point \& Numbered List Representations}
+We listed the four core OS responsibilities (Process, Memory, File System, Device Management) as bullet points, and the chronological boot sequence as a numbered list. These representations demonstrated that the same technical content can serve different purposes depending on format.
+
+% ============================================================
+\section{\LaTeX\ Skills Acquired}
+% ============================================================
+
+\begin{longtable}{@{}p{5cm} p{9.5cm}@{}}
+    \toprule
+    \textbf{\LaTeX\ Construct} & \textbf{What Was Learned} \\
+    \midrule
+    \texttt{figure} environment & Image inclusion, captioning, labelling, placement control \\
+    \texttt{table} environment & Structured data presentation with professional formatting \\
+    \texttt{equation} environment & Mathematical typesetting with numbering and labelling \\
+    \texttt{algorithm} environment & Pseudocode with conditional logic and line numbering \\
+    \texttt{itemize} / \texttt{enumerate} & Unordered and ordered list formatting \\
+    \texttt{float} package & Strict placement of floats using \texttt{[H]} \\
+    \texttt{booktabs} package & Professional table rules without vertical lines \\
+    \bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Challenges Encountered}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item \textbf{Float placement:} Figures and tables initially appeared on different pages than intended. Resolved by switching from \texttt{[hbt!]} to \texttt{[H]} using the \texttt{float} package.
+    \item \textbf{Equation interpretation:} Formulating a meaningful mathematical model (not just a decorative equation) required careful thinking about what the OS actually computes at each time step.
+    \item \textbf{Algorithm formatting:} Getting proper indentation and conditional blocks in \texttt{algpseudocode} required understanding the nested \texttt{\textbackslash If} / \texttt{\textbackslash Else} / \texttt{\textbackslash EndIf} structure.
+    \item \textbf{Escaping underscores:} Special characters in algorithm text (e.g., \texttt{OS\_Boot\_Sequence}) needed \texttt{\textbackslash\_} escaping.
+\end{enumerate}
+
+% ============================================================
+\section{Key Takeaways}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item Different representational formats serve different communicative purposes: equations capture precision, algorithms describe procedure, tables organize comparisons, and prose provides context and interpretation.
+    \item \LaTeX\ float management is crucial for professional document layout --- uncontrolled floats can fragment the reading flow.
+    \item A technical document should not merely \emph{contain} multiple representations but should integrate them into a coherent argument where each element is introduced, referenced, and interpreted in the text.
+    \item The \texttt{booktabs} package produces significantly more professional tables than default \LaTeX\ table borders.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,248 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!70!black, urlcolor=blue!70!black}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{TWP Logbook — Assignment 04}}
+\fancyhead[R]{\textsc{CSP529}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+\title{
+    \vspace{-1cm}
+    \textbf{Writing Logbook --- Assignment 04} \\[0.3em]
+    \large CSP529 Technical Writing \& Publishing \\[0.2em]
+    \large \textit{From Claim to Evidence: Can You Trust Your Source?}
+}
+\author{
+    \textbf{MT26MCS024} --- Gaurav Acharya \quad
+    \textbf{MT26MCS032} --- Sandeep
+}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+% ============================================================
+\section{Assignment Overview}
+% ============================================================
+
+\begin{tabular}{@{}p{4.5cm} p{10cm}@{}}
+    \toprule
+    \textbf{Item} & \textbf{Detail} \\
+    \midrule
+    Practical Title & From Claim to Evidence: Can You Trust Your Source? \\
+    Stages Covered & 9 stages --- from statement identification through peer review \\
+    Group Members & Gaurav Acharya (MT26MCS024), Sandeep (MT26MCS032) \\
+    Sources Used & AWS Blog, Chiari (2025), Desai et al.\ (2013, ACM SIGPLAN) \\
+    Date of Completion & September 2026 \\
+    \bottomrule
+\end{tabular}
+
+% ============================================================
+\section{Objectives \& Learning Outcomes}
+% ============================================================
+
+This was the most comprehensive assignment in the TWP course, spanning nine stages from identifying claims through finding, evaluating, and tracing evidence, to peer review. The learning outcomes included:
+
+\begin{itemize}[nosep]
+    \item Distinguishing between facts, claims, and inferences that require different levels of evidence.
+    \item Finding appropriate evidence for each statement type.
+    \item Evaluating source quality on two axes: credibility (C1) and relevance/support (C2).
+    \item Building a claim-evidence trace --- mapping a claim back to its underlying data and methodology.
+    \item Identifying the ``citation trap'' --- sources that are topically relevant but do not actually support the specific claim.
+    \item Calibrating claim strength to match the available evidence.
+    \item Verifying AI-suggested references for existence and accuracy (combating hallucination).
+    \item Conducting peer review of citation-claim traceability.
+\end{itemize}
+
+% ============================================================
+\section{Work Performed --- Stage by Stage}
+% ============================================================
+
+\subsection{Stage 1: Statements and Required Evidence}
+We selected three statements from our Assignment~03 article summary, each representing a different statement type:
+
+\begin{enumerate}[nosep]
+    \item \textbf{Established Fact:} ``The AWS FIS managed extension is implemented as an AWS Lambda layer.''
+    
+    $\rightarrow$ \textit{Evidence needed:} Official AWS technical documentation or architecture schematics.
+    
+    \item \textbf{Claim:} ``The primary barriers for formal methods tools are steep learning curve, required specialized domain expertise and lack of user-friendly interfaces.''
+    
+    $\rightarrow$ \textit{Evidence needed:} Empirical studies on developer experience, survey data, or peer-reviewed usability analyses.
+    
+    \item \textbf{Inference:} ``The P Language sought a balance between mathematical thinking capabilities while being easier to understand by using state-machine-based algorithms\ldots''
+    
+    $\rightarrow$ \textit{Evidence needed:} The original foundational research paper by P's creators, or empirical developer usability studies.
+\end{enumerate}
+
+\subsection{Stage 2: Finding the Evidence}
+For each statement, we identified the strongest available source:
+
+\begin{tabular}{@{}p{3cm} p{4cm} p{3cm} p{4.5cm}@{}}
+    \toprule
+    \textbf{Statement} & \textbf{Source Selected} & \textbf{Type} & \textbf{Why Suitable} \\
+    \midrule
+    Statement 1 & AWS Management Blog & Technical Blog & Primary source from the developers \\
+    Statement 2 & Chiari (2025), \textit{J.\ Software: Evol.\ \& Process} & Research Article & Peer-reviewed empirical usability study \\
+    Statement 3 & Desai et al.\ (2013), ACM SIGPLAN & Research Paper & Original foundational paper by P creators \\
+    \bottomrule
+\end{tabular}
+
+\subsection{Stage 3: Source Quality --- Credibility \& Relevance}
+We evaluated each source on two criteria:
+
+\begin{itemize}[nosep]
+    \item \textbf{Source 1 (AWS Blog):}
+    \begin{itemize}[nosep]
+        \item C1 (Credibility): Highly credible --- published by AWS, primary authority on their own systems.
+        \item C2 (Relevance): Directly supports --- explicitly details the Lambda layer implementation.
+    \end{itemize}
+    
+    \item \textbf{Source 2 (Chiari 2025):}
+    \begin{itemize}[nosep]
+        \item C1: Highly credible --- recent (2025) peer-reviewed journal article with empirical methodology.
+        \item C2: Directly supports --- analyses developer usability challenges and adoption barriers.
+    \end{itemize}
+    
+    \item \textbf{Source 3 (Desai et al.\ 2013):}
+    \begin{itemize}[nosep]
+        \item C1: Highly credible --- peer-reviewed, published by P's original creators in ACM.
+        \item C2: Directly supports --- establishes the design philosophy and state-machine architecture.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Stage 4: Claim-Evidence Trace}
+For Statement~2 (formal methods barriers), we built a complete traceability chain:
+
+\begin{enumerate}[nosep]
+    \item \textbf{Claim:} ``The primary barriers\ldots are steep learning curve\ldots''
+    \item[$\downarrow$] \textbf{Source:} Chiari (2025).
+    \item[$\downarrow$] \textbf{Specific finding:} Developer adoption hindered by UI complexity and mathematical domain knowledge requirements.
+    \item[$\downarrow$] \textbf{Underlying evidence:} Survey data from software engineers.
+    \item[$\downarrow$] \textbf{Methodology:} Empirical research using surveys/interviews.
+\end{enumerate}
+
+\noindent\textbf{Verdict:} Yes, a reader can trace from the sentence back to the underlying survey data to verify the claim.
+
+\subsection{Stage 5: The Citation Trap}
+For each statement, we examined two alternative sources that appeared relevant but did not actually support the specific claim:
+
+\begin{longtable}{@{}p{2.5cm} p{4cm} p{3cm} p{4.5cm}@{}}
+    \toprule
+    \textbf{Stmt} & \textbf{Source Examined} & \textbf{Classification} & \textbf{Why It Fails} \\
+    \midrule
+    \endhead
+    Stmt 1 & dev.to AWS Heroes Blog & Background only & Community tutorial, no architectural proof \\
+    Stmt 1 & ResearchGate resilience paper & Background only & Broad topic, lacks specific Lambda layer detail \\
+    Stmt 2 & AdaCore Blog & Background only & Product-focused, no empirical survey data \\
+    Stmt 2 & Kneuper (1997) & Contradicts/qualifies & Discusses theoretical limits, not modern UI barriers \\
+    Stmt 3 & Microsoft Research Blog & Partially supports & High-level overview, lacks academic depth \\
+    Stmt 3 & GitHub p-org/P & Partially supports & Practical docs, no design philosophy discussion \\
+    \bottomrule
+\end{longtable}
+
+\noindent\textbf{Key Learning:} A source can be credible, topically relevant, and still not support the specific claim being made. This is the ``citation trap.''
+
+\subsection{Stage 6: Calibrating Claim Strength}
+For Statement~2, we wrote three versions with increasing strength:
+\begin{enumerate}[nosep]
+    \item \textbf{Weak (Possibility):} ``\ldots \textit{may sometimes present} barriers\ldots''
+    \item \textbf{Moderate (Observation):} ``Developers \textit{frequently report} that\ldots''
+    \item \textbf{Strong (Established Fact):} ``The \textit{primary} barriers \textit{are}\ldots''
+\end{enumerate}
+
+\noindent\textbf{Justified version:} Moderate (Version~2) --- the Chiari study provides robust survey data showing widespread developer struggles, but declaring them universally as ``the primary'' barriers overstates certainty without a broader meta-analysis.
+
+\noindent\textbf{Calibrated claim:} ``Empirical studies indicate that developers frequently cite steep learning curves, the necessity for specialized domain expertise, and a lack of user-friendly interfaces as significant barriers to adopting formal verification tools.''
+
+\subsection{Stage 7: Proper Citation in \LaTeX}
+We built a \texttt{references.bib} database with nine entries across three source categories. Key observation:
+
+\textbf{What \LaTeX\ did automatically:} When adding, removing, or reordering citations, BibTeX/BibLaTeX automatically renumbered all in-text citations and regenerated the reference list. For a thesis with 100--200 references, this automation prevents hours of manual error-prone renumbering.
+
+\subsection{Stage 8: AI Reference Challenge}
+We prompted an AI to provide three scholarly references for Statement~2 and verified each:
+
+\begin{tabular}{@{}p{4cm} c c c c p{2.5cm}@{}}
+    \toprule
+    \textbf{AI Reference} & \textbf{Exists?} & \textbf{Correct?} & \textbf{Relevant?} & \textbf{Supports?} & \textbf{Verdict} \\
+    \midrule
+    Woodcock et al.\ (2009) & Yes & Yes & Yes & Partially & Reject (outdated) \\
+    Smith \& Jones (2023) & \textbf{No} & No & N/A & N/A & \textbf{Reject (Hallucination)} \\
+    Gleirscher \& Koschel (2019) & Yes & Yes & Yes & Yes & Use \\
+    \bottomrule
+\end{tabular}
+
+\noindent\textbf{Verification process:} Searched exact titles and DOIs in Google Scholar and ACM Digital Library; cross-referenced authors and publication years; read abstracts and conclusions of existing papers to confirm actual support for our claim.
+
+\noindent\textbf{Critical finding:} 1 out of 3 AI-suggested references was a complete hallucination --- fabricated title, fabricated authors. This demonstrates why AI-generated references must \emph{never} be trusted without independent verification.
+
+\subsection{Stage 9: Peer Review}
+We exchanged PDFs with a peer group and evaluated citation traceability:
+
+\begin{itemize}[nosep]
+    \item \textbf{Claim reviewed:} ``The AWS FIS managed extension is implemented as an AWS Lambda layer.''
+    \item \textbf{Reviewer question:} If the citation number is removed, can a reader reconstruct why this source was selected?
+    \item \textbf{Reviewer verdict:} Supported --- the claim is highly specific to AWS infrastructure, naturally pointing to official AWS documentation.
+    \item \textbf{Our response:} Agreed; specificity of the claim ensures high traceability to primary corporate sources.
+\end{itemize}
+
+% ============================================================
+\section{Individual Reflections}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item \textbf{Credible vs.\ supportive:} A credible source is trustworthy and authoritative; a supportive source contains the specific data/fact needed to prove the exact statement. A highly credible paper on formal methods theory does \emph{not} support a claim about user-interface barriers.
+    
+    \item \textbf{Rejected sources:} We rejected the AdaCore blog --- credible company, but the blog lacked the empirical survey data needed to prove industry-wide adoption barriers.
+    
+    \item \textbf{Evidence changed wording:} Examining the evidence forced us to change from absolute (``The primary barriers \textit{are}'') to calibrated (``Empirical studies \textit{indicate}\ldots developers \textit{frequently cite}\ldots'').
+    
+    \item \textbf{Future citation practice:} Before citing any source, we will check if the specific sentence can be mapped to a specific table, graph, or concluding paragraph in the cited paper --- true traceability, not title-based relevance.
+\end{enumerate}
+
+% ============================================================
+\section{Challenges Encountered}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item \textbf{Finding the ``right'' source type:} Statement~1 was best supported by a corporate blog (primary source) rather than a peer-reviewed paper --- contradicting the assumption that ``peer-reviewed = always best.''
+    \item \textbf{Distinguishing ``relevant'' from ``supportive'':} The citation trap exercise was the most conceptually difficult --- many sources felt relevant but failed the support test.
+    \item \textbf{Calibrating language:} Finding the right hedging words (``indicate,'' ``frequently cite'') to match the evidence strength required multiple iterations.
+    \item \textbf{AI hallucination detection:} The fabricated Smith \& Jones reference had realistic-sounding metadata, making it initially difficult to identify as fake.
+    \item \textbf{\LaTeX\ longtable formatting:} Multi-page tables with proper headers and footers required learning the \texttt{longtable} package's \texttt{\textbackslash endfirsthead}, \texttt{\textbackslash endhead}, \texttt{\textbackslash endfoot}, \texttt{\textbackslash endlastfoot} system.
+\end{enumerate}
+
+% ============================================================
+\section{Key Takeaways}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item The chain from claim $\rightarrow$ source $\rightarrow$ finding $\rightarrow$ data $\rightarrow$ methodology must be traceable end-to-end.
+    \item Source credibility and source support are \emph{independent} dimensions --- a source can be highly credible without supporting a specific claim.
+    \item Claim strength must be calibrated to evidence strength --- overstating certainty is an integrity failure.
+    \item AI-generated references are unreliable and must be independently verified in academic databases before use.
+    \item \LaTeX\ reference management (BibTeX/BibLaTeX) automates numbering and formatting, making it indispensable for large documents.
+    \item Peer review of citation traceability reveals weaknesses that self-review misses.
+\end{enumerate}
+
+\end{document}

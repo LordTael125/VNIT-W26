@@ -1,0 +1,181 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!70!black, urlcolor=blue!70!black}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{TWP Logbook — Assignment 03}}
+\fancyhead[R]{\textsc{CSP529}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+\title{
+    \vspace{-1cm}
+    \textbf{Writing Logbook --- Assignment 03} \\[0.3em]
+    \large CSP529 Technical Writing \& Publishing \\[0.2em]
+    \large \textit{From Reading to Evidence: What Am I Really Saying?}
+}
+\author{
+    \textbf{MT26MCS024} --- Gaurav Acharya \quad
+    \textbf{MT26MCS032} --- Sandeep
+}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+% ============================================================
+\section{Assignment Overview}
+% ============================================================
+
+\begin{tabular}{@{}p{4.5cm} p{10cm}@{}}
+    \toprule
+    \textbf{Item} & \textbf{Detail} \\
+    \midrule
+    Practical Title & Practical 3 --- From Reading to Evidence: What Am I Really Saying? \\
+    Article Analysed & ``System Correctness Practices at Amazon Web Services'' \\
+    Group Members & Gaurav Acharya (MT26MCS024), Sandeep (MT26MCS032) \\
+    Deliverables & Article Summarization (400 words), Classification Table, Original Article Analysis \\
+    Date of Completion & September 2026 \\
+    \bottomrule
+\end{tabular}
+
+% ============================================================
+\section{Objectives \& Learning Outcomes}
+% ============================================================
+
+This assignment focused on analytical reading and evidence-based reasoning in technical writing. Before learning \emph{how} to cite sources, we first learned to ask: \emph{What exactly am I saying, and why should the reader believe it?} The learning outcomes included:
+
+\begin{itemize}[nosep]
+    \item Reading a professional technical article analytically rather than passively.
+    \item Identifying the principal message and supporting ideas.
+    \item Summarizing technical material accurately in one's own words (max 400 words).
+    \item Classifying every sentence by type: Fact (F), Definition (D), Claim (C), Observation (O), Inference/Interpretation (I), Assumption/Prediction (A).
+    \item Determining which statements require supporting evidence and which can stand without citation.
+    \item Comparing professional writing patterns with one's own writing.
+\end{itemize}
+
+% ============================================================
+\section{Work Performed --- Stage by Stage}
+% ============================================================
+
+\subsection{Stage 1: Read Before You Write}
+We read the complete article on System Correctness Practices at AWS without using any AI tools. During reading, we identified:
+\begin{itemize}[nosep]
+    \item \textbf{Problem/topic:} Maintaining system correctness in large-scale distributed cloud systems.
+    \item \textbf{Importance:} Bugs in cloud infrastructure can affect millions of users; formal methods can prevent catastrophic failures.
+    \item \textbf{Principal message:} AWS combines heavyweight formal methods (TLA+, P Language) with lightweight approaches (property-based testing, deterministic simulation, continuous fuzzing) to ensure system correctness.
+    \item \textbf{Evidence presented:} Migration of S3 to read-after-write consistency validated via P Language; PObserve tool for production validation; 733 FIS fault-injection experiments for Prime Day 2024.
+    \item \textbf{Conclusions:} Formal methods are crucial for cloud system safety but face adoption barriers (steep learning curve, specialized expertise, poor UI).
+    \item \textbf{Uncertainties:} Whether increased industry adoption will attract sufficient talent; metastability failure modelling remains expensive.
+\end{itemize}
+
+\subsection{Stage 2: Summarize (400 Words)}
+We produced a structured summary titled \textit{``System Correctness Practices at Amazon Web Services''} covering:
+\begin{enumerate}[nosep]
+    \item TLA+ as the historical correctness tool and P Language as a more accessible alternative.
+    \item Validation achievements: S3 migration, PObserve tool (2023).
+    \item Lightweight formal methods: property-based testing, deterministic simulation, continuous fuzzing.
+    \item AWS Fault Injection Service and metastable failure challenges.
+    \item Performance optimization via HOL Light theorem prover.
+    \item Adoption barriers and educational challenges.
+\end{enumerate}
+
+\subsection{Stage 3: Sentence Classification Table}
+We classified every sentence in our summary. Key classifications included:
+
+\begin{longtable}{@{}c p{6cm} c c p{4cm}@{}}
+    \toprule
+    \textbf{No.} & \textbf{Sentence (abbreviated)} & \textbf{Type} & \textbf{Evidence?} & \textbf{Reasoning} \\
+    \midrule
+    \endhead
+    1 & TLA+ was used historically by AWS for system correctness\ldots & F & Yes & Verifiable historical fact, but requires source \\
+    2 & P Language sought a balance between math capabilities and ease of understanding\ldots & C & Yes & ``Easier to understand'' is subjective \\
+    3 & S3 migrated to read-after-write consistency using P\ldots & C & Yes & Claim requiring proof of actual tool usage \\
+    4 & PObserve was built in 2023\ldots & F & Yes & Verifiable date/tool release \\
+    5 & Property-based testing combines\ldots & D & No & Defines terminology \\
+    6 & Deterministic simulation executes on single thread\ldots & D & No & Defines a concept \\
+    7 & Continuous fuzzing covers scalable test-input generation\ldots & D & No & Defines a concept \\
+    8 & AWS launched Fault Injection Service\ldots & F & Yes & Service launch needs verification \\
+    9 & Formal methods are a crucial part of safely improving\ldots & I & Yes & ``Crucial'' is a subjective judgment \\
+    10 & Primary barriers are steep learning curve\ldots & C & Yes & Assertion requiring empirical support \\
+    \bottomrule
+\end{longtable}
+
+\noindent\textbf{Key Insight:} Definitions (D) typically do not require citations because they establish terminology. Facts (F) and Claims (C) require evidence. Inferences (I) represent the author's conclusions and need the strongest evidentiary support.
+
+\subsection{Stage 4: The Evidence Question}
+For every sentence, we asked \textit{``How do I know this?''} and determined whether evidence was required. We discovered that:
+\begin{itemize}[nosep]
+    \item Not every sentence needs a citation, but every substantive statement must be defensible.
+    \item Definitions can stand without citation in context, but facts about specific corporate practices always need a source.
+\end{itemize}
+
+\subsection{Stage 5: Difficult Sentences}
+We identified two sentences that were most difficult to classify:
+
+\begin{enumerate}[nosep]
+    \item \textbf{``P Language sought a balance\ldots''} --- Classified as \textbf{Claim (C)} rather than Fact (F) because ``easier to understand'' is inherently subjective and requires empirical support. Could alternatively be Inference (I) since the authors are interpreting the designers' intent.
+    
+    \item \textbf{``Formal methods are a crucial part\ldots''} --- Classified as \textbf{Inference (I)} rather than Fact (F) because ``crucial'' represents a value judgment derived from the evidence rather than an independently verifiable truth.
+\end{enumerate}
+
+\subsection{Stage 6: Examining the Professional Author}
+We selected six sentences from the original article and classified them:
+
+\begin{longtable}{@{}p{5cm} c c c p{4.5cm}@{}}
+    \toprule
+    \textbf{Original Sentence} & \textbf{Type} & \textbf{Ev.\ Req?} & \textbf{Ev.\ Given?} & \textbf{Reasoning} \\
+    \midrule
+    \endhead
+    Modelling the Aurora commit protocol in P and TLA+\ldots & I & Yes & Yes & Analytical deduction from model checking \\
+    Amazon ran 733 FIS experiments for Prime Day 2024 & O & Yes & Yes & Concrete empirical metric \\
+    We anticipate increased industry adoption\ldots & A & Yes & No & Forward-looking speculation (``We anticipate'') \\
+    \bottomrule
+\end{longtable}
+
+\noindent\textbf{Key difference observed:} The professional author consistently signals the strength of each statement (``we anticipate,'' ``we were able to prove,'' ``this allowed us to identify''), whereas our summary tended to present inferences as if they were established facts.
+
+\subsection{Stage 7: Strength of a Claim}
+We analysed the strongest claim in our summary and explored how evidence quality should calibrate claim strength. This directly prepared us for the claim-evidence tracing work in Assignment~04.
+
+% ============================================================
+\section{Challenges Encountered}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item \textbf{Classification ambiguity:} Many sentences could reasonably belong to multiple categories (e.g., Fact vs.\ Claim, Claim vs.\ Inference). The exercise forced us to articulate \emph{why} one classification was more appropriate.
+    \item \textbf{Summarization discipline:} Condensing a multi-page technical article into 400 words required difficult decisions about what to omit.
+    \item \textbf{Recognizing hedging language:} We initially missed professional hedging signals (``we anticipate,'' ``may sometimes'') that indicate assumptions vs.\ facts.
+    \item \textbf{\LaTeX\ table formatting:} The classification table with wrapped text in columns required careful use of \texttt{p\{\}} column types and \texttt{longtable} for multi-page tables.
+\end{enumerate}
+
+% ============================================================
+\section{Key Takeaways}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item The question ``What kind of statement am I making?'' must come \emph{before} the question ``How do I cite this?''
+    \item Not every sentence needs a citation, but every substantive statement must be defensible.
+    \item Professional writers carefully signal statement strength through hedging language --- a skill student writers must develop.
+    \item The distinction between ``sounds like a fact'' and ``is actually a claim'' is subtle but critically important for academic integrity.
+    \item Reading analytically (looking for statement types, evidence quality, and hedging) is fundamentally different from reading passively (just absorbing information).
+\end{enumerate}
+
+\end{document}
