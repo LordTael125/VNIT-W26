@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayes Classifier Studio | Pattern Recognition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Bayes Classifier Studio</h1>
+                    <p class="subtitle">Pattern Recognition Lab - Assignment 06</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a href="{{ url_for('performance_analysis') }}" class="nav-btn benchmark-btn" title="View Required 2-Dataset Comparative Evaluation">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    Performance Analysis
+                </a>
+
+                {% if app_state.summary %}
+                <form action="{{ url_for('reset_app') }}" method="post" style="display:inline;">
+                    <button type="submit" class="nav-btn reset-btn" title="Reset dataset and clear previous data">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                        </svg>
+                        Reset Session
+                    </button>
+                </form>
+                {% endif %}
+
+                <form action="{{ url_for('shutdown') }}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to shut down the server?');">
+                    <button type="submit" class="nav-btn shutdown-btn" title="Safely shutdown Flask server">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                            <line x1="12" y1="2" x2="12" y2="12"></line>
+                        </svg>
+                        Shut Down
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Flash Notifications -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                        <div class="flash-toast flash-{{ category }}">
+                            <div class="flash-icon">
+                                {% if category == 'error' %}
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                {% elif category == 'success' %}
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                {% else %}
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                {% endif %}
+                            </div>
+                            <span class="flash-text">{{ message }}</span>
+                            <button class="flash-close" onclick="this.parentElement.remove()">&times;</button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Stepper Visualizer -->
+        <div class="workflow-stepper">
+            <div class="step-node {% if app_state.summary %}completed{% else %}active{% endif %}">
+                <div class="step-num">1</div>
+                <div class="step-title">Dataset Upload</div>
+            </div>
+            <div class="step-line {% if app_state.summary %}active{% endif %}"></div>
+            <div class="step-node {% if app_state.target_col %}completed{% elif app_state.summary %}active{% endif %}">
+                <div class="step-num">2</div>
+                <div class="step-title">Pre-Training Prep</div>
+            </div>
+            <div class="step-line {% if app_state.target_col %}active{% endif %}"></div>
+            <div class="step-node {% if app_state.eval_results %}completed{% elif app_state.target_col %}active{% endif %}">
+                <div class="step-num">3</div>
+                <div class="step-title">Model Evaluation</div>
+            </div>
+            <div class="step-line {% if app_state.eval_results %}active{% endif %}"></div>
+            <div class="step-node {% if app_state.last_prediction %}completed{% elif app_state.eval_results %}active{% endif %}">
+                <div class="step-num">4</div>
+                <div class="step-title">Prediction</div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- STEP 1: UPLOAD / LOAD CSV DATASET         -->
+        <!-- ========================================== -->
+        <section class="card upload-card" id="step-upload">
+            <div class="card-header">
+                <div class="header-badge">Step 1</div>
+                <h2>Dataset Ingestion & Validation</h2>
+            </div>
+            <p class="section-desc">Upload any classification CSV dataset or choose from standard benchmarks. Data from previous uploads is automatically flushed.</p>
+
+            <div class="upload-grid">
+                <!-- Direct File Upload -->
+                <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" class="upload-dropzone" id="file-upload-form">
+                    <div class="dropzone-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                    </div>
+                    <label for="csv-file-input" class="file-picker-label">Choose CSV File</label>
+                    <input type="file" name="file" accept=".csv" id="csv-file-input" required>
+                    <span id="chosen-file-display" class="chosen-filename">No file selected</span>
+                    <p class="file-hint">Supported tabular format: .csv (Validated for format, non-empty, and column readability)</p>
+                    <button type="submit" class="btn btn-primary btn-block">Upload & Analyze Dataset</button>
+                </form>
+
+                <!-- Quick Load Sample Datasets -->
+                <div class="quick-samples-box">
+                    <h3>Or Quick-Load Standard Datasets</h3>
+                    <p class="quick-hint">Test the Bayes Classifier immediately with verified datasets from the lab:</p>
+                    <div class="sample-chips-list">
+                        {% for s_name in sample_datasets %}
+                        <form action="{{ url_for('upload') }}" method="post" style="display:inline;">
+                            <input type="hidden" name="sample_dataset" value="{{ s_name }}">
+                            <button type="submit" class="sample-chip {% if app_state.filename == s_name %}active-chip{% endif %}">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                {{ s_name }}
+                            </button>
+                        </form>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% if app_state.summary %}
+        <!-- ========================================== -->
+        <!-- STEP 2: DATASET EXPLORATION & SUMMARY      -->
+        <!-- ========================================== -->
+        <section class="card summary-card">
+            <div class="card-header">
+                <div class="header-badge">Step 2</div>
+                <h2>Dataset Exploration & Schema</h2>
+                <span class="dataset-tag">Active: {{ app_state.summary.filename }}</span>
+            </div>
+
+            <!-- Key Metrics Summary Boxes -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <span class="stat-title">Total Records</span>
+                    <span class="stat-value">{{ app_state.summary.rows }}</span>
+                    <span class="stat-sub">Rows</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-title">Attributes</span>
+                    <span class="stat-value">{{ app_state.summary.cols }}</span>
+                    <span class="stat-sub">Columns</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-title">Missing Values</span>
+                    <span class="stat-value {% if app_state.summary.missing_values > 0 %}warning-text{% endif %}">
+                        {{ app_state.summary.missing_values }}
+                    </span>
+                    <span class="stat-sub">Cells to impute</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-title">Duplicate Rows</span>
+                    <span class="stat-value">{{ app_state.summary.duplicate_rows }}</span>
+                    <span class="stat-sub">Identified</span>
+                </div>
+            </div>
+
+            <!-- Column Metadata Schema Table -->
+            <div class="sub-section">
+                <h3>Dataset Column Details & Types</h3>
+                <div class="table-responsive">
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Column Name</th>
+                                <th>Data Type</th>
+                                <th>Non-Null Count</th>
+                                <th>Missing Values</th>
+                                <th>Unique Values</th>
+                                <th>Nature</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for col in app_state.summary.column_info %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td class="col-name"><code>{{ col.name }}</code></td>
+                                <td><span class="dtype-badge">{{ col.type }}</span></td>
+                                <td>{{ col.non_null }}</td>
+                                <td>
+                                    {% if col.missing > 0 %}
+                                        <span class="missing-badge">{{ col.missing }}</span>
+                                    {% else %}
+                                        <span class="zero-badge">0</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ col.unique }}</td>
+                                <td>
+                                    {% if col.is_numeric %}
+                                        <span class="badge-num">Numeric</span>
+                                    {% else %}
+                                        <span class="badge-cat">Categorical</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sample Records Preview -->
+            <div class="sub-section">
+                <h3>First 5 Sample Records</h3>
+                <div class="table-responsive">
+                    <table class="styled-table sample-table">
+                        <thead>
+                            <tr>
+                                {% for col in app_state.all_columns %}
+                                <th>{{ col }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in app_state.summary.sample_records %}
+                            <tr>
+                                {% for col in app_state.all_columns %}
+                                <td>{{ row[col] }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- STEP 3: PRE-TRAINING PREPARATION           -->
+        <!-- ========================================== -->
+        <section class="card prep-card" id="step-prep">
+            <div class="card-header">
+                <div class="header-badge">Target & Features</div>
+                <h2>Pre-Training Preparation</h2>
+            </div>
+            <p class="section-desc">Select the target variable (the class label to predict) and the independent feature attributes.</p>
+
+            <form action="{{ url_for('prepare') }}" method="post" id="prep-form">
+                <div class="form-group">
+                    <label for="target_col" class="form-label">
+                        <strong>Target Variable (Class Label):</strong>
+                    </label>
+                    <div class="select-wrapper">
+                        <select name="target_col" id="target_col" class="form-control select-primary" required onchange="updateFeatureCheckboxes()">
+                            <option value="" disabled {% if not app_state.target_col %}selected{% endif %}>-- Select Target Variable --</option>
+                            {% for col in app_state.all_columns %}
+                            <option value="{{ col }}" {% if app_state.target_col == col %}selected{% endif %}>
+                                {{ col }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="features-header-row">
+                        <label class="form-label"><strong>Independent Features:</strong></label>
+                        <div class="checkbox-actions">
+                            <button type="button" class="text-btn" onclick="toggleAllFeatures(true)">Select All</button>
+                            <span class="action-divider">|</span>
+                            <button type="button" class="text-btn" onclick="toggleAllFeatures(false)">Deselect All</button>
+                        </div>
+                    </div>
+                    <div class="features-grid">
+                        {% for col in app_state.all_columns %}
+                        <label class="feature-checkbox-label" id="label-feat-{{ loop.index }}">
+                            <input type="checkbox" name="features" value="{{ col }}" 
+                                class="feature-checkbox"
+                                {% if app_state.target_col %}
+                                    {% if col in app_state.feature_cols %}checked{% endif %}
+                                {% else %}
+                                    {% if not loop.last %}checked{% endif %}
+                                {% endif %}>
+                            <span class="feat-name">{{ col }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save & Prepare Dataset for Training</button>
+            </form>
+
+            {% if app_state.target_col %}
+            <!-- Pre-Training Diagnostic Dashboard -->
+            <div class="pre-training-report">
+                <h3>Pre-Training Overview</h3>
+                <div class="report-grid">
+                    <div class="report-stat-card">
+                        <span class="report-label">Selected Target</span>
+                        <span class="report-value highlight-val">{{ app_state.target_col }}</span>
+                    </div>
+                    <div class="report-stat-card">
+                        <span class="report-label">Usable Training Records</span>
+                        <span class="report-value">{{ app_state.usable_records }}</span>
+                    </div>
+                    <div class="report-stat-card">
+                        <span class="report-label">Selected Features</span>
+                        <span class="report-value">{{ app_state.feature_cols | length }}</span>
+                    </div>
+                    <div class="report-stat-card">
+                        <span class="report-label">Numeric Features</span>
+                        <span class="report-value">{{ app_state.numeric_features | length }}</span>
+                        <div class="feature-tags-preview">
+                            {% for f in app_state.numeric_features[:5] %}<span class="mini-tag tag-blue">{{ f }}</span>{% endfor %}
+                            {% if app_state.numeric_features | length > 5 %}<span class="mini-tag">+{{ app_state.numeric_features | length - 5 }} more</span>{% endif %}
+                        </div>
+                    </div>
+                    <div class="report-stat-card">
+                        <span class="report-label">Categorical Features</span>
+                        <span class="report-value">{{ app_state.categorical_features | length }}</span>
+                        <div class="feature-tags-preview">
+                            {% for f in app_state.categorical_features[:5] %}<span class="mini-tag tag-purple">{{ f }}</span>{% endfor %}
+                            {% if app_state.categorical_features | length > 5 %}<span class="mini-tag">+{{ app_state.categorical_features | length - 5 }} more</span>{% endif %}
+                            {% if not app_state.categorical_features %}<span class="text-muted">None</span>{% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Distribution Section -->
+                {% if app_state.target_distribution %}
+                <div class="target-dist-container">
+                    <h4>Target Variable Distribution</h4>
+                    <div class="dist-split-view">
+                        <div class="dist-table-col">
+                            <table class="styled-table mini-table">
+                                <thead>
+                                    <tr>
+                                        <th>Class Label</th>
+                                        <th>Sample Count</th>
+                                        <th>Proportion (%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in app_state.target_distribution %}
+                                    <tr>
+                                        <td><strong>{{ item.class }}</strong></td>
+                                        <td>{{ item.count }}</td>
+                                        <td>
+                                            <div class="progress-bar-cell">
+                                                <div class="mini-prog-fill" style="width: {{ item.percentage }}%;"></div>
+                                                <span>{{ item.percentage }}%</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {% if app_state.target_plot_url %}
+                        <div class="dist-plot-col">
+                            <div class="plot-frame">
+                                <img src="{{ url_for('static', filename=app_state.target_plot_url) }}" alt="Target Distribution Plot">
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <!-- ========================================== -->
+        <!-- STEP 4: MODEL TRAINING & EVALUATION        -->
+        <!-- ========================================== -->
+        {% if app_state.target_col %}
+        <section class="card train-card" id="step-train">
+            <div class="card-header">
+                <div class="header-badge">Step 3</div>
+                <h2>Bayes Classifier Training & Evaluation</h2>
+            </div>
+            <p class="section-desc">Train our custom <strong>PatternClassifiers</strong> model implemented from first principles without pre-defined machine learning libraries.</p>
+
+            <form action="{{ url_for('train') }}" method="post" class="training-config-form">
+                <div class="train-controls-row">
+                    <div class="form-group flex-1">
+                        <label class="form-label">Classification Algorithm:</label>
+                        <div class="custom-algo-badge-box">
+                            <span class="custom-algo-title">Custom Gaussian Naive Bayes (<code>PatternClassifiers</code>)</span>
+                            <span class="custom-algo-sub">Pure Python & NumPy implementation using class priors and Gaussian conditional probability density: <span class="math-expr"><i>P</i>(<i>x</i> | <i>&mu;</i>, <i>&sigma;</i><sup>2</sup>)</span>.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group flex-1">
+                        <label for="test_size" class="form-label">Test Split Ratio:</label>
+                        <select name="test_size" id="test_size" class="form-control select-primary">
+                            <option value="0.2" {% if app_state.test_size == 0.2 %}selected{% endif %}>80% Training / 20% Testing (Recommended)</option>
+                            <option value="0.25" {% if app_state.test_size == 0.25 %}selected{% endif %}>75% Training / 25% Testing</option>
+                            <option value="0.3" {% if app_state.test_size == 0.3 %}selected{% endif %}>70% Training / 30% Testing</option>
+                            <option value="0.15" {% if app_state.test_size == 0.15 %}selected{% endif %}>85% Training / 15% Testing</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Train Custom Classifier & Evaluate
+                </button>
+            </form>
+
+            {% if app_state.training_status %}
+            <div class="status-banner success-status">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>{{ app_state.training_status }}</span>
+            </div>
+            {% endif %}
+
+            {% if app_state.eval_results %}
+            <!-- Comprehensive Evaluation Display -->
+            <div class="eval-dashboard">
+                <h3>Evaluation Metrics on Held-Out Test Data</h3>
+
+                <div class="eval-metrics-grid">
+                    <div class="metric-card metric-acc">
+                        <span class="metric-label">Accuracy</span>
+                        <span class="metric-score">{{ app_state.eval_results.accuracy }}%</span>
+                        <div class="metric-progress">
+                            <div class="progress-fill" style="width: {{ app_state.eval_results.accuracy }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card metric-prec">
+                        <span class="metric-label">Precision (Weighted)</span>
+                        <span class="metric-score">{{ app_state.eval_results.precision }}%</span>
+                        <div class="metric-progress">
+                            <div class="progress-fill" style="width: {{ app_state.eval_results.precision }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card metric-rec">
+                        <span class="metric-label">Recall (Weighted)</span>
+                        <span class="metric-score">{{ app_state.eval_results.recall }}%</span>
+                        <div class="metric-progress">
+                            <div class="progress-fill" style="width: {{ app_state.eval_results.recall }}%;"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card metric-f1">
+                        <span class="metric-label">F1-Score (Weighted)</span>
+                        <span class="metric-score">{{ app_state.eval_results.f1_score }}%</span>
+                        <div class="metric-progress">
+                            <div class="progress-fill" style="width: {{ app_state.eval_results.f1_score }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="samples-info-strip">
+                    <div class="sample-badge">
+                        <strong>Algorithm:</strong> {{ app_state.eval_results.algorithm }}
+                    </div>
+                    <div class="sample-badge">
+                        <strong>Training Samples:</strong> {{ app_state.eval_results.train_samples }} records ({{ 100 - app_state.eval_results.test_percentage }}%)
+                    </div>
+                    <div class="sample-badge">
+                        <strong>Testing Samples:</strong> {{ app_state.eval_results.test_samples }} records ({{ app_state.eval_results.test_percentage }}%)
+                    </div>
+                    <div class="sample-badge">
+                        <strong>Total Evaluated:</strong> {{ app_state.eval_results.total_samples }} records
+                    </div>
+                </div>
+
+                <!-- Confusion Matrix Section -->
+                <div class="cm-display-section">
+                    <h4>Confusion Matrix (Actual vs. Predicted)</h4>
+                    <div class="cm-dual-view">
+                        <!-- Confusion Matrix Table -->
+                        <div class="cm-table-box">
+                            <div class="cm-axes-title">Predicted Classes &rarr;</div>
+                            <table class="cm-table">
+                                <thead>
+                                    <tr>
+                                        <th class="cm-corner">&darr; Actual</th>
+                                        {% for label in app_state.eval_results.cm_table.labels %}
+                                        <th>Pred: {{ label }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in app_state.eval_results.cm_table.matrix %}
+                                    {% set actual_idx = loop.index0 %}
+                                    <tr>
+                                        <th class="cm-row-header">Actual: {{ app_state.eval_results.cm_table.labels[actual_idx] }}</th>
+                                        {% for cell_val in row %}
+                                        {% set pred_idx = loop.index0 %}
+                                        <td class="{% if actual_idx == pred_idx %}cm-diag{% else %}cm-off{% endif %}">
+                                            {{ cell_val }}
+                                        </td>
+                                        {% endfor %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <p class="cm-legend">Diagonal entries represent correct classifications; off-diagonal cells denote misclassifications.</p>
+                        </div>
+
+                        <!-- Confusion Matrix Heatmap Image -->
+                        {% if app_state.confusion_matrix_plot_url %}
+                        <div class="cm-plot-box">
+                            <div class="plot-frame">
+                                <img src="{{ url_for('static', filename=app_state.confusion_matrix_plot_url) }}" alt="Confusion Matrix Heatmap">
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Learned Model Parameters from Custom PatternClassifiers -->
+                {% if app_state.eval_results.learned_params %}
+                <div class="params-display-section">
+                    <h4>Learned Model Parameters (<code>PatternClassifiers.displayParam()</code>)</h4>
+                    <p class="section-desc">Class priors <span class="math-expr"><i>P</i>(<i>C</i><sub><i>k</i></sub>)</span> and Gaussian parameters (Mean <i>&mu;</i>, Variance <i>&sigma;</i><sup>2</sup>) fitted from training data:</p>
+                    <div class="params-cards-grid">
+                        {% for c_info in app_state.eval_results.learned_params %}
+                        <div class="param-class-card">
+                            <div class="param-class-header">
+                                <span class="param-class-badge">Class {{ c_info.class_idx }}: <strong>{{ c_info.class_name }}</strong></span>
+                                <span class="param-prior-badge">Prior <i>P</i>(<i>C</i>) = {{ c_info.prior }}</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="styled-table mini-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Feature</th>
+                                            <th>Mean (<i>&mu;</i>)</th>
+                                            <th>Variance (<i>&sigma;</i><sup>2</sup>)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for f_stat in c_info.features %}
+                                        <tr>
+                                            <td><code>{{ f_stat.feature }}</code></td>
+                                            <td>{{ f_stat.mean }}</td>
+                                            <td>{{ f_stat.variance }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <!-- ========================================== -->
+        <!-- STEP 5: PREDICTION OF NEW INSTANCES        -->
+        <!-- ========================================== -->
+        {% if app_state.eval_results %}
+        <section class="card predict-card" id="step-predict">
+            <div class="card-header">
+                <div class="header-badge">Step 4</div>
+                <h2>Predict New Instances</h2>
+            </div>
+            <p class="section-desc">Enter feature values for a new query instance to predict its class outcome using the trained Bayes classifier.</p>
+
+            <form action="{{ url_for('predict') }}" method="post" class="prediction-form">
+                <div class="predict-inputs-grid">
+                    {% for col in app_state.feature_cols %}
+                    <div class="predict-field">
+                        <label for="feat_{{ col }}" class="field-label">
+                            {{ col }}
+                            {% if col in app_state.numeric_features %}
+                                <span class="badge-type-num">Numeric (Range: {{ app_state.feature_min_max[col].min }} &ndash; {{ app_state.feature_min_max[col].max }})</span>
+                            {% else %}
+                                <span class="badge-type-cat">Categorical</span>
+                            {% endif %}
+                        </label>
+                        {% if col in app_state.numeric_features %}
+                            <input type="number" step="any" name="feat_{{ col }}" id="feat_{{ col }}" 
+                                class="form-control input-modern" 
+                                value="{{ app_state.last_prediction.input_values[col] if app_state.last_prediction else app_state.feature_medians[col] }}"
+                                placeholder="Median: {{ app_state.feature_medians[col] }}" required>
+                        {% else %}
+                            {% set enc = app_state.feature_encoders.get(col) %}
+                            {% if enc %}
+                                <select name="feat_{{ col }}" id="feat_{{ col }}" class="form-control select-modern">
+                                    {% for opt in enc.classes_ %}
+                                    <option value="{{ opt }}" 
+                                        {% if app_state.last_prediction and app_state.last_prediction.input_values[col] == opt %}selected
+                                        {% elif opt == app_state.feature_modes[col] %}selected{% endif %}>
+                                        {{ opt }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            {% else %}
+                                <input type="text" name="feat_{{ col }}" id="feat_{{ col }}" 
+                                    class="form-control input-modern" 
+                                    value="{{ app_state.last_prediction.input_values[col] if app_state.last_prediction else app_state.feature_modes[col] }}"
+                                    placeholder="{{ app_state.feature_modes[col] }}" required>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="predict-btn-row">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                        Predict Instance Outcome
+                    </button>
+                </div>
+            </form>
+
+            {% if app_state.last_prediction %}
+            <!-- Prediction Outcome Banner -->
+            <div class="prediction-result-card">
+                <div class="pred-header">
+                    <span class="pred-tag">Prediction Result</span>
+                    <span class="pred-algo">{{ app_state.last_prediction.algorithm }}</span>
+                </div>
+
+                <div class="pred-main-row">
+                    <div class="pred-class-box">
+                        <span class="pred-eyebrow">Predicted Target Variable Class:</span>
+                        <div class="pred-highlight">
+                            <span class="class-label-big">{{ app_state.last_prediction.predicted_class_label }}</span>
+                            <span class="class-code-badge">Class Variable: {{ app_state.last_prediction.predicted_class_code }}</span>
+                        </div>
+                        <p class="pred-desc-text">
+                            The trained Bayes Classifier computed the highest posterior probability for class <strong>"{{ app_state.last_prediction.predicted_class_label }}"</strong> (Index: {{ app_state.last_prediction.predicted_class_code }}) with a confidence of <strong>{{ app_state.last_prediction.confidence }}%</strong>.
+                        </p>
+                    </div>
+
+                    <div class="pred-prob-breakdown">
+                        <h4>Class Posterior Probabilities</h4>
+                        <div class="prob-bars-list">
+                            {% for prob_item in app_state.last_prediction.probabilities %}
+                            <div class="prob-row {% if prob_item.is_winner %}prob-winner{% endif %}">
+                                <div class="prob-label">
+                                    <span class="prob-name">{{ prob_item.class_label }} (Class {{ prob_item.class_code }})</span>
+                                    <span class="prob-pct">{{ prob_item.probability }}%</span>
+                                </div>
+                                <div class="prob-track">
+                                    <div class="prob-meter" style="width: {{ prob_item.probability }}%;"></div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+    </main>
+
+    <footer class="app-footer">
+        <p>Pattern Recognition Lab - Assignment 06 | Flask Bayes Classification Web Application</p>
+    </footer>
+
+    <script>
+        // File selection label updater
+        const fileInput = document.getElementById('csv-file-input');
+        const chosenDisplay = document.getElementById('chosen-file-display');
+        if (fileInput) {
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    chosenDisplay.textContent = this.files[0].name;
+                    chosenDisplay.classList.add('active');
+                } else {
+                    chosenDisplay.textContent = 'No file selected';
+                    chosenDisplay.classList.remove('active');
+                }
+            });
+        }
+
+        // Feature checkboxes toggler
+        function toggleAllFeatures(checked) {
+            const targetSelect = document.getElementById('target_col');
+            const targetVal = targetSelect ? targetSelect.value : "";
+            const checkboxes = document.querySelectorAll('.feature-checkbox');
+            checkboxes.forEach(cb => {
+                if (cb.value !== targetVal) {
+                    cb.checked = checked;
+                }
+            });
+        }
+
+        // Automatically uncheck and disable selected target from feature list
+        function updateFeatureCheckboxes() {
+            const targetSelect = document.getElementById('target_col');
+            if (!targetSelect) return;
+            const targetVal = targetSelect.value;
+            const checkboxes = document.querySelectorAll('.feature-checkbox');
+            checkboxes.forEach(cb => {
+                const label = cb.closest('.feature-checkbox-label');
+                if (cb.value === targetVal) {
+                    cb.checked = false;
+                    cb.disabled = true;
+                    if (label) label.style.opacity = '0.4';
+                } else {
+                    cb.disabled = false;
+                    if (label) label.style.opacity = '1';
+                }
+            });
+        }
+
+        // Run on load to properly set initial disabled state
+        document.addEventListener('DOMContentLoaded', updateFeatureCheckboxes);
+    </script>
+</body>
+</html>

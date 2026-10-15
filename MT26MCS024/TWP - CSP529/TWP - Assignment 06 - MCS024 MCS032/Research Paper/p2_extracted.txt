@@ -1,0 +1,642 @@
+Chapter 11
+Print ISBN: 978-93-49970-79-3, eBook ISBN: 978-93-49970-44-1
+
+Comparative Analysis of Different CPU
+Scheduling Algorithms with Respect to Average
+Waiting Time and Average Turnaround Time
+Biswarup Samanta a++* and Arinjay Biswas b#
+DOI: https://doi.org/10.9734/bpi/mcsru/v5/4919
+Peer-Review History:
+This chapter was reviewed by following the Advanced Open Peer Review policy. This chapter was thoroughly checked to prevent
+plagiarism. As per editorial policy, a minimum of two peer-reviewers reviewed the manuscript. After review and revision of the
+manuscript, the Book Editor approved the manuscript for final publication. Peer review comments, comments of the editor(s), etc. are
+available here: https://peerreviewarchive.com/review-history/4919
+
+Abstract
+CPU scheduling is one of the fundamental concepts of an Operating System. Most CPU
+scheduling algorithms concentrate on maximising CPU utilisation and throughput and
+minimising turnaround time, waiting time, response time and number of context switches
+for a set of requests. Some of the popular CPU scheduling algorithms are First-ComeFirst-Served (FCFS), Shortest Job First (SJF), Priority Based (PB) and Round Robin
+(RR). It has been found that CPU scheduling algorithms serve as the basis of
+multiprogramming. This paper presents the relationship between existing CPU
+scheduling algorithms with respect to their average waiting time and average turnaround
+time through different cases. There are five cases where each of which has four parts, and
+each part represents different existing CPU scheduling algorithms, i.e. FCFS, SJF, RR,
+and PB. Each part assumes that there are four different processes with different or the
+same priority and arrival time depending upon the particular case, as designed in the
+Section 4 of this paper. The goal of this paper is to find out the relationship with respect
+to average waiting time and average turnaround time, when different cases are
+implemented on the existing CPU scheduling algorithms and find the fastest algorithm
+amongst the existing CPU scheduling algorithms taken in this article.
+Case Formulation1) In case 1, the CPU bursts taken are 4, 3, 5 and 2 for all the respective 4 processes.
+2) In case 2, the CPU burst taken is an addition of 1 from the CPU burst of case 1 of
+each process.
+_________________________________________________________________________________
+a
+
+Sarala Birla University, Ranchi, Jharkhand, India.
+Adobe Systems, Noida, India.
+Associate Professor;
+#
+Associate Technical Consultant;
+*Corresponding author: E-mail: biswarup.samanta@sbu.ac.in, biswarup.k@gmail.com;
+b
+
+++
+
+Mathematics and Computer Science: Research Updates Vol. 5
+Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and
+Average Turnaround Time
+
+3) In case 3, the CPU burst taken is the subtraction of 2 from the CPU burst of case 2
+of each process.
+4) In case 4, the CPU burst taken is an addition of 3 from the CPU burst of case 3 of
+each process.
+5) In case 5, the CPU burst taken is the addition of 1 from the CPU burst of case 4 of
+each process.
+Keywords: CPU scheduling; FCFS; SJF; RR; PB; throughput.
+
+1 Introduction
+The operating system (OS) is a software system that is installed in computers and other
+devices to provide a suitable environment for each user to implement their programs in an
+advanced manner. The relatively newly released advanced OS has specific CPU
+scheduling, which also requires many efficient processes to use the central processing
+unit at the same times. The scheduler is a special system software that is responsible for
+handling resource scheduling from the queue services resource (Harki et al., 2020). It is
+also used to allocate system resources to the active processes (Samanta & Kumar, 2017).
+Operating system performs a variety of tasks, in which scheduling of the CPU is one of
+the basic tasks (Patel & Patel, 2013). The mechanism for allocating and deallocating the
+CPU to a process is known as CPU scheduling (Mostafa & Amano, 2020). Each and
+every scheduling has its own properties which help to decide which scheduling algorithm
+will apply and perform best in this situation (Sharma et al., 2022). In early day’s
+operating systems, the user could execute a single process at a particular point in time
+(Samanta & Biswas, 2021). This process of executing of single process one by one was
+time-consuming, and due to this, the CPU utilisation was also not optimised. So, then the
+multiprogramming concept evolved, where the user could now run more than one
+program simultaneously, which saved CPU time and the throughput of the system was
+also increased (Samanta & Biswas, 2021). The objective of multiprogramming is to have
+some process running at all times, to maximise CPU utilisation (Silberschatz, et al.,
+2012).
+
+2 Short, Mid and Long Term Schedulers
+Multiprogramming increases CPU utilisation by running more than one process (Samanta
+& Biswas, 2021). A process is defined as the run-time instance of a program. Scheduler is
+the key module of the operating system to provides a multiprogramming environment in
+the computer system. The performance and throughput of the system can only be
+increased if the CPU is scheduled intelligently (Samanta & Biswas, 2021). CPU
+scheduling is the task of selecting a process from the ready queue and allocating the CPU
+to it (Dash, et. al., 2015).
+
+3 Review of Algorithms
+First come, first served - The most intuitive and simplest technique is to allow the first
+process submitted to run first (Goel & Garg 2012). In this algorithm processes arriving
+first are executed first (Samanta & Biswas, 2021).
+
+178
+
+Mathematics and Computer Science: Research Updates Vol. 5
+Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and
+Average Turnaround Time
+
+Shortest job first- In this algorithm, the processes are sorted in the ready queue in
+increasing order of their CPU Burst time. Processes with the least CPU Burst time are
+executed first, and so on. If two processes have the same CPU Burst Time, FCFS is used
+to break up the tie (Singh, et al., 2018).
+Round Robin – In this scheduling algorithm, the first process in the queue is executed
+first, but a time slice is introduced in this algorithm (Samanta & Biswas, 2021). The time
+slice determines the maximum amount of time a process can hold the CPU at a stretch,
+and after that the process needs to wait for its turn again, if not finished its execution. The
+round-robin (RR) scheduling is designed especially for time-sharing systems (Mittal et
+al., 2015).
+Priority-based- In this algorithm, each process present in the queue has a priority
+assigned to it. The processes are executed as per their priority (Samanta & Biswas, 2021).
+The processes having high priority are executed first. Whenever any new process arrives
+in the ready queue having high priority as compared to the current process being executed,
+then the current process is interrupted and the high priority process is executed first, and
+then again the process with the next highest priority is executed (Samanta & Biswas,
+2021). Waiting time and response time depend on the priority of the process (Rajput et.
+al., 2012).
+
+4 Design and Study of Different Cases
+We have considered the ready queue with four processes P1, P2, P3 and P4 with
+respective CPU Burst times and priority as per the cases (Samanta & Biswas, 2021).
+These four processes are scheduled using FCFS, SJF, RR and PB algorithms. The
+Average Waiting Time (AWT), Average Turnaround Time (ATAT) have been calculated
+and the results have been analysed at the end. We have taken 5 different cases and
+applied all 4 algorithms to them, for our study as follows:
+Table 1. Different Cases of CPU Scheduling
+Case
+1
+
+2
+
+3
+
+Part
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+
+Algorithm
+FCFS
+SJF
+RR
+PB
+FCFS
+SJF
+RR
+PB
+FCFS
+SJF
+RR
+PB
+
+Time Quantum
+NA
+NA
+2
+NA
+NA
+NA
+3
+NA
+NA
+NA
+2
+NA
+
+Priority Limit
+1 to 3
+1 to 3
+1 to 3
+1 to 3
+1 to 3
+1 to 3
+1 to 3
+1 to 3
+1 to 3
+1 to 3
+1 to 3
+1 to 3
+
+Priority Range
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+179
+
+Mathematics and Computer Science: Research Updates Vol. 5
+Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and
+Average Turnaround Time
+
+Case
+4
+
+5
+
+Part
+1
+2
+3
+4
+1
+2
+3
+4
+
+Algorithm
+FCFS
+SJF
+RR
+PB
+FCFS
+SJF
+RR
+PB
+
+Time Quantum
+NA
+NA
+3
+NA
+NA
+NA
+3
+NA
+
+Priority Limit
+1 to 3
+1 to 3
+1 to 3
+1 to 3
+1 to 4
+1 to 4
+1 to 4
+1 to 4
+
+Priority Range
+2
+2
+2
+2
+3
+3
+3
+3
+
+CASE 1:
+Table 2. Input for the processor for CASE 1
+
+t0
+
+Process ID
+P1
+P2
+P3
+P4
+
+CPU burst time
+4
+3
+5
+2
+
+Priority
+2
+1
+3
+1
+
+Part 1: FCFS and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 5.75 ms, Avg. Turnaround Time: 9.25 ms
+Part 2: SJF and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 4 ms, Avg. Turnaround Time: 7.5 ms
+Part 3: Time quantum 2 RR and Priority Range 2 i.e. from 1 to 3 Avg. Waiting Time: 7.25
+ms, Avg. Turnaround Time: 10.75 ms
+Part 4: PB and Priority Range 3 i.e. from 1 to 3
+Avg. Waiting Time: 4.25 ms, Avg. Turnaround Time: 7.75 ms
+CASE 2:
+Table 3. Input for the processor for CASE 2
+
+t0
+
+Process ID
+P1
+P2
+P3
+P4
+
+CPU burst time
+5
+4
+6
+3
+
+Priority
+2
+1
+2
+3
+
+Part 1: FCFS and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 7.25 ms, Avg. Turnaround Time: 11.75 ms
+
+180
+
+Mathematics and Computer Science: Research Updates Vol. 5
+Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and
+Average Turnaround Time
+
+Part 2: SJF and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 5.5 ms, Avg. Turnaround Time: 10 ms
+Part 3: Time quantum 3 ms RR and Priority Range 2 i.e. from 1 to 3 Avg. Waiting Time:
+10.25 ms, Avg. Turnaround Time: 14.75 ms
+Part 4: PB and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 7 ms, Avg. Turnaround Time: 11.5 ms
+CASE 3:
+Table 4. Input for the processor for CASE 3
+Process ID
+P1
+P2
+P3
+P4
+
+CPU burst time
+3
+2
+4
+1
+
+Priority
+1
+3
+3
+2
+
+Part 1: FCFS and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 4.25 ms, Avg. Turnaround Time: 5.5 ms
+Part 2: SJF and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 2.5 ms, Avg. Turnaround Time: 5 ms
+Part 3: Time quantum 2 ms RR and Priority Range 2 i.e. from 1 to 3 Avg. Waiting Time:
+4.75 ms, Avg. Turnaround Time: 6.25 ms
+Part 4: PB and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 3.25 ms, Avg. Turnaround Time: 5.75 ms
+CASE 4:
+Table 5. Input for the processor for CASE 4
+
+t0
+t1
+
+Process ID
+P1
+P2
+P3
+P4
+
+CPU burst time
+6
+5
+7
+4
+
+Priority
+4
+2
+3
+1
+
+Part 1: FCFS and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 8.5 ms, Avg. Turnaround Time: 14 ms
+Part 2: SJF and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 7 ms, Avg. Turnaround Time: 12.5 ms
+
+181
+
+Mathematics and Computer Science: Research Updates Vol. 5
+Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and
+Average Turnaround Time
+
+Part 3: Time quantum 3ms RR and Priority Range 3 i.e. from 1 to 3 Avg. Waiting Time:
+13 ms, Avg. Turnaround Time: 18.5 ms
+Part 4: PB and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 7.25 ms, Avg. Turnaround Time: 12.75 ms
+CASE 5:
+Table 6. Input for the processor for CASE 5
+
+t0
+t1
+t4
+
+Process ID
+P1
+
+CPU burst time
+7
+
+Priority
+2
+
+P2
+P3
+
+6
+8
+
+4
+3
+
+P4
+
+5
+
+1
+
+Part 1: FCFS and Priority Range 3 i.e. from 1 to 4
+Avg. Waiting Time: 9 ms, Avg. Turnaround Time: 15.5 ms
+Part 2: SJF and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 7.5 ms, Avg. Turnaround Time: 14 ms
+Part 3: Time quantum 3 ms RR and Priority Range 2 i.e. from 1 to 3 Avg. Waiting Time:
+16.25 ms, Avg. Turnaround Time: 21.5 ms
+Part 4: PB and Priority Range 2 i.e. from 1 to 3
+Avg. Waiting Time: 9 ms, Avg. Turnaround Time: 15.5 ms
+
+5 Analysis
+In this section, we analyse the AWT and ATAT for all the cases mentioned above.
+Table 7. Analysing all the cases with respect to the FCFS, SJF, RR and PB
+
+CASE 1: FCFS
+Table 8. The A.W.T and A.T.A.T of the FCFS scheduler
+CASE
+1
+2
+3
+4
+5
+
+A.W. T
+5.75
+7.25
+4.25
+8.5
+9
+
+A.T.A. T
+9.25
+11.75
+5.5
+14
+15.5
+
+182
+
+Mathematics and Computer Science: Research Updates Vol. 5
+Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and
+Average Turnaround Time
+
+Fig. 1. 3-D lines representing the above FCFS table
+CASE 2: SJF
+Table 9. The A.W.T and A.T.A.T of the SJF scheduler
+CASE
+1
+2
+3
+4
+5
+
+A.W. T
+4
+5.5
+2.5
+7
+7.5
+
+A.T.A. T
+7.5
+10
+5
+12.5
+14
+
+Fig. 2. 3- D lines representing the above SJF table
+CASE 3: RR
+Table 10. The A.W.T and A.T.A.T of the RR scheduler
+CASE
+1
+2
+3
+4
+5
+
+A.W. T
+7.25
+10.25
+4.75
+13
+16.25
+
+A.T.A. T
+10.75
+14.75
+6.25
+18.5
+21.5
+
+183
+
+Mathematics and Computer Science: Research Updates Vol. 5
+Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and
+Average Turnaround Time
+
+Fig. 3. 3-D lines representing the above RR table
+CASE 4: PB
+Table 11. The A.W.T and A.T.A.T of the PB scheduler
+CASE
+1
+2
+3
+4
+5
+
+A.W. T
+4.25
+7
+3.25
+7.25
+9
+
+A.T.A. T
+7.75
+11.5
+5.75
+12.75
+15.5
+
+Fig. 4. 3-D lines representing the above PB table
+
+6 Conclusion
+While going through our study in this paper, it has been observed that for all the cases
+presented here in this paper that, the average waiting time (A.W.T.) and the average
+turnaround time (A.T.A.T.) is increasing when the CPU burst time is increased and then
+
+184
+
+Mathematics and Computer Science: Research Updates Vol. 5
+Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and
+Average Turnaround Time
+
+decreasing when the CPU burst time is decreased in each case. Hence, it can be said that
+CPU burst time is directly proportional to the average waiting time and average
+turnaround time for all the given cases (Samanta & Biswas, 2021). Among the 4 given
+algorithms, it has been observed that for every case, the SJF algorithm has the lowest
+average waiting time and average turnaround time. Hence, it is the most efficient
+algorithm as per the results received (Samanta & Biswas, 2021).
+
+Disclaimer (Artificial Intelligence)
+Author(s) hereby declare that NO generative AI technologies such as Large Language
+Models (ChatGPT, COPILOT, etc) and text-to-image generators have been used during
+writing or editing of this manuscript.
+
+Competing Interests
+Authors(s) have declared that he has no known competing financial interests or nonfinancial interests or personal relationships that could have appeared to influence the
+work reported in this paper.
+
+References
+Dash, A. R., Sahu, S. K., & Samantra, S. K. (2015). An optimized round robin CPU
+scheduling algorithm with dynamic time quantum. International Journal of
+Computer Science, Engineering and Information Technology (IJCSEIT), 5(1),
+February 2015.
+Goel, N., & Garg, R. B. (2012). A comparative study of CPU scheduling algorithms.
+International Journal of Graphics & Image Processing, 2(4), November 2012.
+Harki, N., Ahmed, A., & Haji, L. (2020). CPU scheduling techniques: A review on novel
+approaches strategy and performance assessment. Journal of Applied Science and
+Technology Trends, 1(1), 48-55.
+Mittal, N., Garg, K., & America, A. (2015). A paper on modified round robin algorithm.
+International Journal of Latest Technology in Engineering, Management &
+Applied Science (IJLTEMAS), 4(11), November 2015.
+Mostafa, S. M., & Amano, H. (2020). Dynamic round robin CPU scheduling algorithm
+based on K-means clustering technique. Applied Sciences, 10(15), 5134.
+Patel, R., & Patel, M. (2013). SJRR CPU scheduling algorithm. International Journal of
+Engineering and Computer Science, 2(12), 3396-3399. ISSN: 2319-7242,
+December 2013.
+Rajput, I. S., & Gupta, D. (2012). A priority-based round robin CPU scheduling
+algorithm for real-time systems. International Journal of Innovation in
+Engineering and Technology (IJIET), 1(3), October 2012. ISSN: 2319-1058.
+185
+
+Mathematics and Computer Science: Research Updates Vol. 5
+Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and
+Average Turnaround Time
+
+Samanta, B., & Kumar, B. (2017). A comparative study on PBRR CPU scheduling
+algorithm for different time quantum and priority. International Journals of
+Advanced Research in Computer Science and Software Engineering, 7(6), June
+2017. ISSN: 2277-128X.
+Sharma, P. S., Kumar, S., Gaur, M. S., & Jain, V. (2022). A novel intelligent round robin
+CPU scheduling algorithm. International Journal of Information Technology,
+14(3), 1475-1482.
+Silberschatz, A., Galvin, P. B., & Gagne, G. (2012). Operating system concepts (8th ed.).
+Wiley India.
+Singh, N., Kaur, P., Kaur, B., & Kaur, A. (2018). A comparative analysis of various CPU
+scheduling algorithms. International Journal of Engineering Research and
+Application, 8(4, Part-III), 33-35. ISSN: 2248-9622, April 2018.
+Samanta, B., & Biswas, A. (2021). A detailed analysis on AWT and ATT for different
+CPU scheduling algorithms for different cases. International Journal of Advanced
+Science and Technology, 12(13), 6994–7000.
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual author(s) and
+contributor(s) and not of the publisher and/or the editor(s). This publisher and/or the editor(s) disclaim responsibility for any injury to people or
+property resulting from any ideas, methods, instructions or products referred to in the content.
+
+________________________________________________________________
+© Copyright (2025): Author(s). The licensee is the publisher (BP International).
+DISCLAIMER
+This chapter is an extended version of the article published by the same authors in the following journal.
+Turkish Journal of Computer and Mathematics Education, 12(13): 6994-7000, 2021.
+DOI:https://doi.org/10.17762/turcomat.v12i13.10114
+Peer-Review History:
+This chapter was reviewed by following the Advanced Open Peer Review policy. This chapter was thoroughly checked to prevent
+plagiarism. As per editorial policy, a minimum of two peer-reviewers reviewed the manuscript. After review and revision of the
+manuscript, the Book Editor approved the manuscript for final publication. Peer review comments, comments of the editor(s), etc. are
+available here: https://peerreviewarchive.com/review-history/4919
+
+186
+
+

@@ -1,0 +1,233 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry} % Sets standard 1-inch margins to fix the spacing issue
+\usepackage{mathptmx} % Times New Roman equivalent
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{graphicx}
+
+% --------------------------------------------------------------------------------------------
+
+% Custom command for Topic names (Font size 14)
+\newcommand{\topicTitle}[1]{
+    \vspace{1.5em}\noindent{\fontsize{14}{16.8}\selectfont \textbf{#1}}\par\vspace{0.5em}
+}
+
+% Custom command for Questions/Labels (Bold, Font size 12)
+\newcommand{\qLabel}[1]{
+    {\fontsize{12}{14.4}\selectfont \textbf{#1}}
+}
+
+% --------------------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[width=0.35\textwidth]{vnit-logo.jpg}\\[2.5cm]
+    
+    {\large \textbf{Group Members}}\\[0.4cm]
+    \begin{tabular}{l c l}
+        Student 1: Gaurav Acharya & --- & [MT26MCS024] \\
+        Student 2: Sandeep & --- & [MT26MCS032]
+    \end{tabular}
+    
+    \vspace{1.5cm}
+    
+    {\large \textbf{Guide Name}}\\[0.4cm]
+    Dr. A. S. Mokhade
+    
+    \vspace{1.5cm}
+    
+    {\large \textbf{Practical Title:}}\\[0.4cm]
+    CSP529: Technical Writing \& Publishing\\[0.2cm]
+    Practical 6: From Evidence to Technical Communication
+    
+    \vspace{1.5cm}
+    
+    {\large \textbf{Problem Statement:}}\\[0.4cm]
+   Can You Construct and Defend a Technical Argument?
+    
+\end{center}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 2}\par}
+\vspace{1em}
+
+
+\topicTitle{Constructing a Technical Argument}
+
+Based on the evidence from Paper~1 (Reddy) and Paper~2 (Samanta \& Biswas), we construct three statements regarding our focused question: \textit{``How do different CPU scheduling approaches affect waiting time, response time, throughput, and fairness under different workload characteristics?''}
+
+\begin{itemize}
+    \item \textbf{Statement 1: What the combined evidence reasonably establishes} \\
+    SJF (and its preemptive variant SRTF) provides the lowest average waiting time and turnaround time compared to FCFS, Round Robin, and Priority scheduling. Furthermore, both papers confirm that average waiting time increases directly with process burst times.
+    \begin{itemize}
+        \item \textbf{Paper 1 (Reddy):} Table~3 shows SRTF has the lowest average waiting time (19.2\,ms) and turnaround time (34.2\,ms), whereas Round Robin has the highest waiting time (36.0\,ms) and turnaround time (51.0\,ms).
+        \item \textbf{Paper 2 (Samanta \& Biswas):} Tables~8--11 show SJF achieves the lowest average waiting time and turnaround time across all 5 test cases, and the conclusion explicitly notes that burst time is directly proportional to waiting time.
+    \end{itemize}
+
+    \vspace{0.8em}
+    \item \textbf{Statement 2: What remains uncertain or depends on particular conditions} \\
+    Whether SJF/SRTF is actually the best choice in practice remains uncertain. It depends on two strict assumptions: knowing burst times in advance and having zero context-switch overhead. In interactive systems where jobs arrive unpredictably and fairness is required, SJF causes starvation for longer processes, while Round Robin provides fair CPU sharing despite its higher waiting time.
+    \begin{itemize}
+        \item \textbf{Paper 1 (Reddy):} Section~III notes that algorithms like SRTF require knowing future burst times, which is difficult in real operating systems. Section~V mentions that Round Robin avoids starvation and is better suited for interactive systems.
+        \item \textbf{Paper 2 (Samanta \& Biswas):} Section~4 and Section~5 evaluate only static burst variations for 4 processes with zero context switching, leaving real-world performance unmeasured.
+    \end{itemize}
+
+    \vspace{0.8em}
+    \item \textbf{Statement 3: What further evidence would be needed for a stronger conclusion} \\
+    To draw a stronger conclusion, we need experimental evidence with mixed workloads (both CPU-bound and I/O-bound jobs), non-zero process arrival times, and realistic context-switch overheads. We also need numerical data on throughput, response time, and starvation rates, which neither paper measured.
+    \begin{itemize}
+        \item \textbf{Paper 1 (Reddy):} Uses a single static dataset of 5 processes where all jobs arrive at time zero without any I/O operations.
+        \item \textbf{Paper 2 (Samanta \& Biswas):} Uses 4 synthetic processes with fixed arithmetic modifications (+1, -2 burst times) and measures only waiting and turnaround times.
+    \end{itemize}
+\end{itemize}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 3}\par}
+\vspace{1em}
+\topicTitle{Selecting the Most Effective Representation}
+
+To communicate the trade-offs between the scheduling algorithms across the two papers, we use a comparison table.
+
+\vspace{0.5em}
+\noindent\textbf{1. Comparison Table}
+
+\begin{table}[htbp]
+    \centering
+    \footnotesize
+    \caption{Comparison of Scheduling Algorithms Across Evaluated Metrics}
+    \label{tab:scheduling_comparison}
+    \vspace{0.5em}
+    \begin{tabular}{|p{1.8cm}|p{2.3cm}|p{2.2cm}|p{2.0cm}|p{2.2cm}|p{2.5cm}|}
+        \hline
+        \textbf{Algorithm} & \textbf{Average Waiting Time (AWT)} & \textbf{Turnaround Time (ATAT)} & \textbf{Response Time} & \textbf{Fairness / Starvation} & \textbf{Key Limitation} \\
+        \hline
+        \textbf{FCFS} & High (suffers from convoy effect) & High & Poor for short jobs & Fair (FIFO); no starvation & Long jobs block short jobs \\
+        \hline
+        \textbf{SJF / SRTF} & Lowest (Reddy: 19.2\,ms; Samanta: lowest in all 5 cases) & Lowest (Reddy: 34.2\,ms; Samanta: lowest in all 5 cases) & Good for short jobs only & High risk of starving long jobs & Requires burst time in advance \\
+        \hline
+        \textbf{Round Robin} & Moderate to High (Reddy: 36.0\,ms; Samanta: high across cases) & Highest (Reddy: 51.0\,ms) & Best for interactive systems & Guaranteed fairness; no starvation & High context-switch overhead if quantum is small \\
+        \hline
+        \textbf{Priority} & Depends on assigned priorities & Depends on priorities & Depends on priority level & Starvation for low-priority jobs & Needs an aging mechanism to avoid indefinite waiting \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\vspace{0.8em}
+\noindent\textbf{2. Why this representation is more effective than text}
+
+\begin{itemize}
+    \item \textbf{Side-by-side comparison:} The algorithms have contradictory trade-offs (for example, SJF minimizes waiting time but starves long jobs, while Round Robin prevents starvation but increases turnaround time). In a paragraph, reading these across four algorithms and five metrics becomes repetitive and hard to track. A table shows these trade-offs clearly at a glance.
+    \item \textbf{Shows evidence and limitations together:} The table places the experimental numbers from both papers (such as Reddy's 19.2\,ms vs. 36.0\,ms) directly alongside each algorithm's practical limitation, making it easy to see under what conditions the numbers hold.
+\end{itemize}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 4}\par}
+\vspace{1em}
+
+\topicTitle{Technical Synthesis}
+
+Evaluating the efficiency of CPU scheduling algorithms requires understanding how key performance metrics shift across different workload characteristics. Current evidence from uniprocessor models demonstrates a strong consensus regarding static, batch-oriented workloads: the Shortest Job First (SJF) algorithm and its preemptive counterpart, Shortest Remaining Time First (SRTF), consistently minimize average waiting and turnaround times compared to alternatives like Round Robin. This finding is established across distinct methodological approaches, remaining robust whether analyzing a fixed simulated dataset of processes or strictly scaling CPU burst times mathematically across discrete cases.
+
+However, it is critical to distinguish these established mathematical optimizations from practical applicability, as these conclusions hold only under highly restricted conditions. The superior performance of SJF and SRTF is strictly dependent upon idealized assumptions: exact future CPU burst times must be known in advance, context-switching overhead is considered negligible, and processes are assumed to arrive simultaneously without I/O interruptions. 
+
+Consequently, while the evidence reliably proves SJF minimizes waiting time for predictable tasks, its efficacy in dynamic, interactive environments remains uncertain. Both examined methodologies exclusively focus on waiting and turnaround times, failing to measure response time, system throughput, or starvation rates (fairness). For instance, while algorithms like Round Robin are theoretically designed to prioritize fairness in interactive systems, the absence of quantitative starvation data or measured context-switching penalties in these studies leaves a critical evidence gap. Therefore, while SJF is mathematically optimal for highly controlled, static environments, comprehensive empirical evaluation using I/O-bound processes and dynamic arrival times is required to construct a defensible argument regarding algorithmic utility in modern interactive computing systems.
+
+
+% --------------------------------------------------------------------------------------------
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 5}\par}
+\vspace{1em}
+
+\begin{longtable}{ |p{3.8cm}|p{1.2cm}|p{1.8cm}|p{3.4cm}|p{4.0cm}| }
+    \caption{Synthesis Sentence Classification (F/D/C/O/I/A)}
+    \label{tab:classification_table} \\
+    
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Sentence}} & \textbf{Class.} &  \textbf{Evidence Required?} & \textbf{Supporting Source/Location} & \multicolumn{1}{c|}{\textbf{Justification}}\\
+    \hline
+    \endfirsthead 
+    \multicolumn{5}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+    \toprule
+    \multicolumn{1}{|c|}{\textbf{Sentence}} & \textbf{Class.} &  \textbf{Evidence Required?} & \textbf{Supporting Source/Location} & \multicolumn{1}{c|}{\textbf{Justification}}\\
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{5}{r}{\textit{Continued on next page}} \\
+    \endfoot
+
+    \hline
+    \endlastfoot
+
+    Evaluating the efficiency of CPU scheduling algorithms requires understanding how key performance metrics shift across different workload characteristics. & D (Description) & No & Background domain definition (Silberschatz et al.; Reddy Section~I) & Describes the technical context and scope of scheduling evaluation without asserting an empirical finding. \\
+    \hline
+
+    Current evidence from uniprocessor models demonstrates a strong consensus regarding static, batch-oriented workloads: the Shortest Job First (SJF) algorithm and its preemptive counterpart, Shortest Remaining Time First (SRTF), consistently minimize average waiting and turnaround times compared to alternatives like Round Robin. & F (Fact) & Yes & Reddy [1]: Section~IV, Table~3; Samanta \& Biswas [2]: Tables~8--11 & Reports the direct, verifiable experimental outcome observed and documented in both cited studies. \\
+    \hline
+
+    The superior performance of SJF and SRTF is strictly dependent upon idealized assumptions: exact future CPU burst times must be known in advance, context-switching overhead is considered negligible, and processes are assumed to arrive simultaneously without I/O interruptions. & C (Condition) & Yes & Reddy [1]: Section~III \& IV; Samanta \& Biswas [2]: Section~4 & Explicitly defines the boundary conditions and experimental assumptions necessary for the observed results to hold. \\
+    \hline
+
+    Consequently, while the evidence reliably proves SJF minimizes waiting time for predictable tasks, its efficacy in dynamic, interactive environments remains uncertain. & I (Interpretation) & Yes & Reddy [1]: Section~V; Samanta \& Biswas [2]: Section~5 & Interprets the practical gap between static experimental results and unpredictable dynamic operating environments. \\
+    \hline
+
+    Both examined methodologies exclusively focus on waiting and turnaround times, failing to measure response time, system throughput, or starvation rates (fairness). & F (Fact) & Yes & Reddy [1]: Table~3; Samanta \& Biswas [2]: Section~4 \& Tables~8--11 & States an observable, factual limitation of the empirical metrics reported across both research papers. \\
+    \hline
+
+    Therefore, while SJF is mathematically optimal for highly controlled, static environments, comprehensive empirical evaluation using I/O-bound processes and dynamic arrival times is required to construct a defensible argument regarding algorithmic utility in modern interactive computing systems. & C (Conclusion) & Yes & Synthesis of Reddy [1] (Section~VI) and Samanta \& Biswas [2] (Section~6) & Integrates established evidence and identified gaps into a reasoned final judgment answering the technical question. \\
+    \hline
+
+\end{longtable}
+
+
+% --------------------------------------------------------------------------------------------
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Individual Reflection Questions}\par}
+\vspace{1em}
+
+{\centering\fontsize{14}{20}\selectfont\textbf{Gaurav Acharya (MT26MCS024)}}\par
+\vspace{1em}
+
+\begin{enumerate}
+    \item \textbf{Which learning from Practicals 1--5 was most useful in completing today's work? Why?} \\
+    Practical 5 (Constructing an Evidence Matrix) was the most useful. Breaking down Paper 2 into explicit columns for experimental settings, boundary conditions, and limitations prevented me from treating the mathematical findings as absolute truths. When writing the synthesis today, already having the exact conditions extracted made it straightforward to separate proven facts from unverified claims.
+
+    \item \textbf{Which part of constructing the technical argument was most difficult?} \\
+    Formulating Statement 2 (what remains uncertain) was the hardest part. It is tempting to make broad claims that one algorithm is ``better'' than another based on lower numbers in a table. Forcing myself to identify the exact hidden assumptions---specifically that burst times were known beforehand and context switching was treated as zero---required resisting the surface-level conclusions of the papers.
+
+    \item \textbf{Did the evidence lead you to change any initial understanding?} \\
+    Yes. Initially, I believed that SJF was universally superior because textbooks and paper abstracts highlight its minimal waiting time. However, examining the mathematical formulation in Paper 2 revealed that this superiority was demonstrated solely by modifying burst times linearly for four static processes. I realized that SJF's performance advantage completely breaks down in interactive systems where jobs cannot be predicted and fairness is mandatory.
+
+    \item \textbf{What would you improve if this document were to become part of your M.Tech dissertation?} \\
+    I would expand the evidence base beyond synthetic uniprocessor simulations to include real trace-driven benchmark workloads (such as SPEC CPU or Linux CFS benchmarks) that incorporate multi-core architectures, cache affinity, and non-zero context-switch penalties.
+\end{enumerate}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Individual Reflection Questions}\par}
+\vspace{1em}
+
+{\centering\fontsize{14}{20}\selectfont\textbf{Sandeep (MT26MCS032)}\par}
+\vspace{1em}
+
+\begin{enumerate}
+    \item \textbf{Which learning from Practicals 1--5 was most useful in completing today's work? Why?} \\
+    Practical 3 (Statement Classification: F/D/C/O/I/A) was the most valuable. It provided a clear mental framework to inspect my own sentences while drafting the synthesis. Specifically, it helped me ensure that every factual claim had direct empirical backing and that conclusions were properly hedged with their operating conditions rather than written as sweeping generalizations.
+
+    \item \textbf{Which part of constructing the technical argument was most difficult?} \\
+    Synthesizing findings across two completely different methodologies without writing two separate paper summaries. Paper 1 used simulation tables with Gantt charts, while Paper 2 used an arithmetic case study. Connecting them around the shared dimensions of the focused question (waiting time versus fairness) rather than around the authors' names required multiple revisions.
+
+    \item \textbf{Did the evidence lead you to change any initial understanding?} \\
+    Yes. I initially thought Round Robin was inefficient because Paper 1 showed it having the highest waiting time (36.0\,ms) and turnaround time (51.0\,ms). After analyzing the evidence, I realized that Round Robin's higher latency is the deliberate cost paid to prevent starvation and ensure fairness. Looking at waiting time alone ignores the core purpose of time-sharing schedulers.
+
+    \item \textbf{What would you improve if this document were to become part of your M.Tech dissertation?} \\
+    I would add quantitative metrics for starvation and fairness (such as Jain's Fairness Index) and analyze how varying the Round Robin time quantum affects CPU throughput and context-switch latency in modern virtualized container environments.
+\end{enumerate}
+
+\end{document}

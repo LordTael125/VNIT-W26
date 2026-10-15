@@ -1,0 +1,955 @@
+Comparative Analysis of CPU Scheduling Algorithms for
+Performance Efficiency
+Sagili Sreenivas Reddy, VIT University, Vellore, India
+
+Abstract—Scheduling is a key function of the
+operating system because all computer resources need to
+be allocated before they can be used. Among these
+resources, the CPU stands out as particularly crucial,
+and how it's scheduled can significantly affect the
+overall performance of the system. When multiple
+processes are ready to run at the same time, the
+operating system depends on the scheduler to figure out
+the order of execution. The method it uses to make this
+decision is known as the scheduling algorithm. There
+are many CPU scheduling algorithms out there, each
+with its own unique performance traits depending on the
+workload. This study takes a closer look at several
+popular algorithms, evaluating their efficiency based on
+important performance metrics like waiting time and
+turnaround time. We set up a simulation framework to
+calculate and compare these metrics across different
+algorithms using representative sample datasets. The
+findings reveal notable differences in how each
+algorithm behaves, showing that the choice of
+scheduling strategy can directly influence system
+responsiveness and throughput. By carefully examining
+these methods, the study sheds light on the strengths and
+weaknesses of each algorithm, helping us better
+understand how they can be applied in various
+operating system environments.
+
+I. INTRODUCTION
+A scheduler is a key component of an operating system
+(OS) that decides which job gets to enter the system next
+and which process should run. Typically, operating
+systems have three types of schedulers: the long-term
+scheduler (also known as the job scheduler), the mediumterm scheduler, and the short-term scheduler, which is
+often called the CPU scheduler or dispatcher. Each of
+these schedulers has a unique role in managing system
+load, optimizing resource use, and enhancing overall
+responsiveness, making them essential for effective
+operating system design.
+CPU scheduling is crucial in multiprogrammed
+operating systems, where the goal is to keep the CPU
+busy as much as possible. In a uniprocessor setup, only
+one process can run at a time, meaning all other processes
+have to wait in the ready queue until the CPU is free. By
+thoughtfully determining the order in which processes are
+executed, CPU scheduling not only boosts utilization but
+also impacts key performance indicators like throughput,
+turnaround time, waiting time, and response time.
+Scheduling, in a broader sense, is all about assigning
+computational tasks to the resources that are available for
+execution. These tasks can include processes, threads, or
+
+data flows, while the resources might be processors,
+network links, or I/O subsystems. The effectiveness of a
+scheduling strategy has a direct impact on system
+performance, especially in situations where the demand
+for resources outstrips what’s immediately available.
+That’s where scheduling algorithms come into play,
+helping operating systems maintain fairness, boost
+performance, and ensure that the system behaves
+predictably.
+Over the years, a variety of CPU scheduling algorithms
+have emerged, each tailored to different workload
+characteristics and performance goals. Classic algorithms
+like First-Come First-Served (FCFS), Shortest Job Next
+(SJN), Round Robin (RR), and Priority Scheduling are
+still among the most studied. Meanwhile, more advanced
+techniques aim to find a sweet spot between fairness and
+efficiency by adapting dynamically to changes in
+workload. It’s essential to evaluate these algorithms under
+various conditions to figure out how well they perform in
+real-world applications, especially as modern systems
+increasingly require both high throughput and low
+latency.
+
+II. BACKGROUND
+A. Types of Schedulers
+Schedulers are a key part of any operating system,
+playing a crucial role in deciding how jobs and processes
+get their turn with the CPU and other resources. There are
+three main types of schedulers that operating systems
+typically use: long-term, medium-term, and short-term
+schedulers. Each one has its own unique function that
+helps keep the system running smoothly and efficiently by
+handling the system performance and resource
+management [1].
+Long-term Scheduler: Often called the admission
+scheduler, the long-term scheduler is responsible for
+determining which jobs or processes get to enter the ready
+queue in the main memory. When a program is submitted
+for execution, it’s up to the long-term scheduler to either
+approve or delay its entry into the active processes. This
+decision is vital as it influences how many processes can
+run simultaneously, ensuring a good mix of input/outputheavy and CPU-heavy tasks to keep everything running at
+optimal speed[2].
+Medium-term Scheduler: The medium-term
+scheduler, sometimes referred to as the mid-term
+scheduler, has the job of temporarily removing (or
+swapping out) processes that aren’t currently active, have
+lower priority, or are using too much memory. By doing
+this, it clears up memory for other processes, boosting
+overall system efficiency. When there’s enough memory
+
+available again or when a process is ready to run, the
+swapped-out process can be brought back in (swapped in)
+[3].
+Short-term Scheduler: Known as the CPU scheduler,
+the short-term scheduler picks from the processes in
+memory that are ready to run and assigns the CPU to one
+of them. Unlike the long-term and medium-term
+schedulers, this one makes decisions much more
+frequently, often every few milliseconds. Short-term
+scheduling can be preemptive, meaning it can forcibly
+take a process off the CPU, or non-preemptive, where a
+process keeps control of the CPU until it finishes or
+voluntarily gives it up[4].
+B. CPU Scheduling Algorithms
+CPU scheduling is all about figuring out the order in
+which processes in the ready queue get their turn with the
+CPU. There are a bunch of different algorithms out there,
+each designed with specific goals in mind, like fairness,
+turnaround time, throughput, and how responsive the
+system is. Let’s take a look at some of the most important
+ones [5].
+First Come First Serve (FCFS): This is the most
+straightforward scheduling algorithm. It simply gives the
+CPU to the process that shows up first in the ready queue.
+Think of it like a First-In-First-Out (FIFO) line. It’s nonpreemptive, which means once a process gets the CPU, it
+keeps going until it finishes or needs to do some I/O.
+While it’s easy to understand, FCFS can create a “convoy
+effect,” where shorter processes end up waiting behind
+longer ones, making it less ideal for time-sharing systems
+[6].
+Shortest Job First (SJF): Also known as Shortest Job
+Next (SJN) or Shortest Process Next (SPN), this nonpreemptive algorithm picks the process that’s estimated to
+take the least time to execute. SJF is great for minimizing
+average waiting time, making it theoretically the best
+option under certain conditions. However, it has a couple
+of significant downsides: long processes can get starved if
+shorter ones keep coming in, and it requires knowing how
+long each process will take, which isn’t always realistic in
+the real world[7].
+Shortest Remaining Time First (SRTF): This is the
+preemptive version of SJF. The SRTF algorithm chooses
+the process with the least remaining burst time. If a new
+process arrives that has a shorter remaining burst time
+than the one currently running, the CPU gets switched
+over. This makes the system more responsive but can lead
+to increased overhead because of all the context switching
+[8].
+Round Robin (RR): Round Robin is a popular choice in
+time-sharing systems. Each process gets a set amount of
+time, known as a time quantum. If it doesn't finish within
+that time, it's paused and moved to the back of the line.
+The CPU then hands over control to the next process
+waiting in the queue. This method promotes fairness and
+helps prevent starvation, but its effectiveness really hinges
+on how the time quantum is chosen. A smaller quantum
+
+can lead to more context-switching overhead, while a
+larger one might make the system less responsive [9].
+Priority Scheduling: In this method, every process is
+given a priority level, and the CPU is assigned to the one
+with the highest priority. If multiple processes have the
+same priority, the scheduling follows a First-Come, FirstServed (FCFS) approach. Priority scheduling can be
+either preemptive or non-preemptive. However, a
+significant downside is that low-priority processes might
+starve, although this can be alleviated by using aging
+techniques [10].
+Future Knowledge Scheduling (FKS): This strategy
+keeps the CPU idle until a process with the shortest burst
+time arrives. Once that job comes in, it gets executed first,
+and the rest follow in a Shortest Job First order. While
+FKS does a great job of minimizing average waiting time,
+its dependence on knowing future burst times makes it
+impractical for real-world systems, limiting its use mostly
+to theoretical discussions [11].
+Highest Response Ratio Next (HRRN): HRRN is a
+non-preemptive algorithm that takes the best of Shortest
+Job First (SJF) while avoiding starvation [12]. It
+calculates the priority of each process dynamically using
+this formula:
+Response Ratio = 1 + Waiting Time/Burst Time
+Beyond the traditional methods, researchers have been
+diving into hybrid scheduling algorithms that mix the best
+features of various approaches. For instance, they might
+combine priority scheduling with Round Robin to strike a
+balance between fairness and responsiveness [13].
+Studies have also looked into how the choice of
+scheduler affects system performance metrics, revealing
+that the best algorithm really depends on the workload—
+there's no one-size-fits-all solution [14].
+Moreover, real-time operating systems frequently
+utilize specialized scheduling algorithms like Rate
+Monotonic Scheduling (RMS) and Earliest Deadline First
+(EDF) to meet strict timing requirements, highlighting
+that scheduling is often tailored to specific applications
+[15].
+Lastly, the rise of modern multiprocessor and multicore systems has added new layers of complexity to
+scheduling, necessitating load balancing and affinitybased algorithms to ensure fairness and efficiency across
+multiple CPUs [16]. All in all, CPU scheduling is a
+crucial function of operating systems, laying the
+groundwork for optimizing performance and ensuring fair
+resource allocation [17].
+2.3 Key Concepts in CPU Scheduling
+CPU Utilization: This term refers to how much time the
+CPU is actively working on executing processes. The
+main aim of CPU scheduling is to keep this percentage as
+high as possible, ensuring the CPU is busy and
+minimizing any idle time.
+
+Throughput: Throughput is all about the number of
+processes that finish execution in a given time frame. A
+higher throughput means the scheduler is doing a great
+job of balancing the load and cutting down on waiting
+times in the system.
+Burst Time: Burst time is the total CPU time a process
+needs to complete its execution. Scheduling algorithms
+often use burst time as a key factor in determining the
+order of execution, especially in methods like Shortest
+Job First and similar approaches.
+
+Evaluated each algorithm using Gantt charts to
+illustrate the scheduling order. From these charts,
+we’ll calculate the average waiting times and
+turnaround times. You can find a summary of the
+performance measures in Table II, while Table III
+lists the operational characteristics of each algorithm
+3.1 Computation of Gantt Charts, Waiting Time, and
+Turnaround Time
+3.1.1 First Come First Serve (FCFS)
+
+Completion Time: This is the point when a process has
+finished executing. It’s a crucial metric for figuring out
+turnaround time and waiting time, both of which are
+essential for assessing how effective scheduling strategies
+are.
+
+The FCFS algorithm schedules processes in the order of
+their arrival. For the given dataset, the Gantt chart is
+illustrated in Fig. 1.
+
+Turnaround Time: Turnaround time is the total time
+taken to execute a process, starting from when it arrives in
+the system to when it’s completed. It can be calculated
+using the formula:
+
+Process
+
+TAT = Completion Time - Arrival Time
+The best scheduling algorithms strive to keep the
+average turnaround time as low as possible for all
+processes.
+Waiting Time: Waiting time is how long a process sits
+in the ready queue before it gets executed. It can be
+calculated with the formula:
+
+Turnaround
+Time
+
+Waiting Time
+
+P1
+
+20
+
+0
+
+P2
+
+30
+
+20
+
+P3
+
+55
+
+30
+
+P4
+
+70
+
+55
+
+P5
+
+73
+
+70
+
+Gantt Chart:
+
+WT = Turnaround Time - Burst Time
+By reducing waiting time, we can enhance system
+responsiveness and ensure fairness overall.
+Response Time: Response time measures the gap
+between when a process is submitted and when it first
+responds. Unlike turnaround time, it doesn’t require the
+process to be completed, making it particularly important
+in interactive systems.
+
+III. COMPARISON OF SCHEDULING
+ALGORITHMS
+This section dives into a comparative analysis of
+the CPU scheduling algorithms we covered in
+Section II. We’re looking at a dataset featuring five
+processes (P1–P5), complete with their burst times
+and priorities, which you can find in Table I. Here
+are the key assumptions we’re working with for this
+analysis:
+- All jobs are ready to go at time zero, and no new
+processes show up while we’re executing.
+- We know the burst times for all processes ahead
+of time.
+- Each process runs to completion without any
+interruptions for I/O operations.
+- The system operates on a uniprocessor basis, and
+assuming that context-switching time is negligible.
+
+3.1.1 Shortest Job First (SJF):
+SJF selects the process with the minimum burst time. The
+Gantt chart for the dataset is shown in Fig. 2.
+
+Process
+
+Turnaround
+Time
+
+Waiting Time
+
+P1
+
+20
+
+0
+
+P5
+
+21
+
+16
+
+P2
+
+34
+
+24
+
+P4
+
+47
+
+32
+
+P3
+
+73
+
+48
+
+Gantt Chart:
+
+3.1.3 Shortest Remaining Time First (SRTF)
+Process
+
+Turnaround
+Time
+
+Waiting Time
+
+SRTF is the preemptive form of SJF. Processes with
+shorter remaining times preempt currently running ones.
+The Gantt chart is shown in Fig. 3.
+
+P1
+
+20
+
+0
+
+P2
+
+29
+
+19
+
+Turnaround
+Time
+
+P3
+
+53
+
+28
+
+P4
+
+56
+
+51
+
+P5
+
+72
+
+57
+
+Process
+
+Waiting Time
+
+P5
+
+5
+
+0
+
+P2
+
+15
+
+5
+
+P4
+
+28
+
+13
+
+P1
+
+50
+
+30
+
+P3
+
+73
+
+48
+
+Gantt Chart:
+
+Gantt Chart – Priority (Preemptive):
+
+3.1.6 Priority Non-Preemptive Scheduling
+In non-preemptive priority scheduling, once a
+process starts execution, it cannot be
+interrupted. The Gantt chart is shown in Fig. 6.
+
+3.1.4 Round Robin (RR) with Time Quantum = 10
+Process
+RR allocates fixed time slices in cyclic order. For a time
+quantum of 10, the Gantt chart is shown in Fig. 4.
+
+Process
+
+Turnaround
+Time
+
+Waiting Time
+
+P2
+
+19
+
+9
+
+P5
+
+41
+
+36
+
+P1
+
+55
+
+35
+
+P4
+
+67
+
+52
+
+P3
+
+73
+
+48
+
+Turnaround
+Time
+
+Waiting Time
+
+P1
+
+20
+
+0
+
+P2
+
+29
+
+19
+
+P3
+
+53
+
+28
+
+P4
+
+56
+
+51
+
+P5
+
+72
+
+57
+
+Gantt Chart – Priority (Non-Preemptive):
+
+Gantt Chart:
+
+3.1.7 Highest Response Ratio Next (HRRN)
+
+3.1.5 Priority Preemptive Scheduling
+In preemptive priority scheduling, the highestpriority process always runs. The Gantt chart is
+shown in Fig. 5.
+
+HRRN dynamically adjusts priority based on
+waiting time and burst time. The Gantt chart is
+shown in Fig. 7.
+Process
+P1
+
+Turnaround
+Time
+
+Waiting Time
+0
+
+20
+
+P5
+
+16
+
+21
+
+P2
+
+24
+
+34
+
+P4
+
+32
+
+47
+
+P3
+
+48
+
+73
+
+Gantt Chart – HRRN:
+
+C. Round Robin (RR)
+Round Robin promotes fairness by giving each
+process an equal slice of CPU time (known as
+time quanta), which helps prevent starvation. It
+works particularly well in time-sharing and
+interactive systems. That said, the algorithm's
+effectiveness really hinges on the size of the
+time quantum. If it’s too large, RR starts to act
+like FCFS; if it’s too small, you end up with too
+much context switching, which can hurt CPU
+efficiency.
+
+3.1.8 Future Knowledge Scheduling (FKS)
+FKS delays CPU usage until the shortest job
+arrives, after which jobs are executed in SJF
+order. The Gantt chart is shown in Fig. 8.
+Process
+
+Turnaround
+Time
+
+B. Shortest Job First (SJF)
+SJF boosts throughput by giving priority to
+shorter processes, which helps to lower both
+average waiting and turnaround times. This
+makes it a great fit for batch processing
+environments. However, it relies on knowing the
+burst times accurately, which isn’t always
+realistic in real-world scenarios. Plus, if shorter
+processes keep coming in, longer ones might get
+starved of CPU time, raising fairness concerns.
+
+Waiting Time
+
+P5
+
+5
+
+0
+
+P2
+
+18
+
+8
+
+P4
+
+31
+
+16
+
+P1
+
+54
+
+34
+
+P3
+
+77
+
+52
+
+Gantt Chart – FKS:
+
+Advantages and Disadvantages of Scheduling
+Algorithms:
+A. First Come First Serve (FCFS)
+The FCFS algorithm is pretty straightforward
+and easy to use since it schedules processes
+based on their arrival order. This simplicity
+means that every process eventually gets its turn
+with the CPU, so there's no risk of starvation.
+However, because it doesn’t allow for
+preemption, FCFS isn’t the best choice for
+interactive systems. If a long process takes over,
+it can create a “convoy effect,” where shorter
+processes end up waiting far too long, which can
+really hurt system responsiveness.
+
+D. Priority Scheduling
+Priority scheduling lets you assign different
+importance levels to processes based on factors
+like memory, CPU usage, or user-defined
+criteria. This is especially beneficial for highpriority tasks, such as real-time applications.
+However, lower-priority processes might end up
+starving if higher-priority jobs keep hogging the
+CPU. To address this issue, it’s often necessary
+to implement a secondary scheduling policy or
+an aging mechanism to help balance things out.
+E. Highest Response Ratio Next (HRRN)
+HRRN strikes a balance between efficiency and
+fairness by determining process priority based
+on both how long they've been waiting and their
+burst time. This approach effectively avoids
+starvation, as processes that wait longer get
+bumped up in priority. While it generally offers
+stable average performance across various
+workloads, it might not always deliver the best
+results for specific scenarios, making it a bit less
+predictable compared to deterministic
+algorithms.
+F. Future Knowledge Scheduling (FKS)
+FKS showcases theoretical efficiency by
+reducing waiting time when burst times are
+known ahead of time. It stops larger processes
+from hogging the CPU by giving priority to
+shorter jobs, regardless of when they arrive.
+However, this method isn't very practical in realworld situations since we can't accurately predict
+future burst times. Plus, the CPU might end up
+sitting idle while waiting for the shortest job to
+show up, which can lower overall system
+efficiency.
+
+IV. RESULTS AND DISCUSSION
+
+The results from each scheduling algorithm were
+derived from a dataset featuring five processes (P1–P5).
+We calculated their turnaround and waiting times through
+Gantt chart analysis. We gathered experimental results for
+various algorithms, including First Come First Serve
+(FCFS), Shortest Job First (SJF), Shortest Remaining
+Time First (SRTF), Round Robin (RR), Priority
+Scheduling (both preemptive and non-preemptive),
+Highest Response Ratio Next (HRRN), and Future
+Knowledge Scheduling (FKS). You can see representative
+outputs for each algorithm in the execution snapshots
+(refer to Figs. X–Y). Additionally, Table 3 displays the
+average turnaround and waiting times for all scheduling
+algorithms based on the assumed workload conditions.
+Table 3. Average Turnaround Time and Average Waiting
+Time
+
+Algorithm
+
+Avg.
+Turnaround
+Time
+
+Avg. Waiting
+Time
+
+FCFS
+
+50
+
+35
+
+SJF
+
+39
+
+24
+
+SRTF
+
+34.2
+
+19.2
+
+Round Robin
+
+51
+
+36
+
+Priority
+Scheduling
+(Preempt.)
+
+46
+
+31
+
+Priority
+Scheduling
+(Non-Pre.)
+
+46
+
+31
+
+HRRN
+
+39
+
+24
+
+FKS
+
+37
+
+22
+
+It's clear from the results that the Shortest Remaining
+Time First (SRTF) algorithm stands out with the lowest
+average turnaround time of 34.2 and a waiting time of
+19.2, making it the most efficient choice for this dataset.
+Future Knowledge Scheduling (FKS) also performs well,
+but it leans on some unrealistic assumptions about
+knowing burst times in advance.
+Meanwhile, Shortest Job First (SJF) and Highest
+Response Ratio Next (HRRN) show moderate
+improvements over First-Come, First-Served (FCFS),
+with HRRN tackling starvation issues by adjusting the
+response ratio dynamically. On the other hand, Round
+Robin didn't fare well, recording the highest average
+turnaround time of 51 and a waiting time of 36. This
+result underscores how crucial the selection of time
+
+quantum is for system performance, as using too small or
+too large quanta can really hurt throughput and
+responsiveness.
+Priority scheduling, whether preemptive or nonpreemptive, yielded similar average results, but
+preemptive scheduling does carry the risk of starving
+lower-priority processes if there aren't aging mechanisms
+in place. In summary, this comparative study shows that
+there's no one-size-fits-all scheduling algorithm. The best
+option really depends on the specific workload: batchprocessing systems tend to benefit from SJF or HRRN,
+interactive systems are better off with Round Robin or
+preemptive algorithms, and real-time environments need
+specialized strategies.
+The core scheduling algorithm has been tested and
+explained using C code. You can see a comparison of the
+fundamental algorithm in Figure 1 and Figure 2.
+It's clear that the turnaround time and waiting time for
+processes are at their best with the SRTF scheduling
+algorithm when compared to other fundamental
+
+algorithms, as shown in Figures 1 and 2. We can also see
+that both throughput and CPU utilization rates are
+optimized. From our analysis and discussion, it's evident
+that FCFS is straightforward and works well only in batch
+systems where waiting times tend to be longer. The SRTF
+scheduling algorithm, on the other hand, provides the
+lowest average waiting time and turnaround time for the
+dataset we've examined. However, it's important to note
+that it may not perform the best for every dataset, as its
+effectiveness can vary based on different situations. The
+priority scheduling algorithm operates on the principle
+that the highest priority job gets to run first, while lower
+priority jobs have to wait, which can lead to issues like
+starvation.
+Every scheduling algorithm shines in specific
+situations. Let’s explore a few of these scenarios:
+
+based scheduling is beneficial in mixed environments
+where critical tasks, like kernel processes, need to take
+precedence over less important ones, but it does face
+the challenge of potential starvation without aging
+mechanisms.
+
+When the incoming processes are short and don’t need
+to follow a particular order, First-Come, First-Served
+(FCFS) is the way to go. It outperforms Shortest Job First
+(SJF) and Round Robin (RR) in this case because the
+short processes mean no one has to wait too long. With
+each process being handled one after the other, every task
+gets its turn.
+In cases where you have a mix of long and short
+processes, and everything needs to be completed within a
+certain timeframe, Round Robin scheduling really shines.
+It prevents any process from being starved of resources
+and ensures that each one gets a fair share of time to
+execute.
+When dealing with a combination of user-based and
+kernel-based processes, priority-based scheduling is the
+most effective approach. Typically, kernel-based
+processes are given higher priority than user-based ones.
+For instance, the scheduler itself is a kernel-based
+process, so it needs to run first to manage the scheduling
+of other processes effectively.
+
+VI. CONCLUSION
+The comparative analysis of fundamental CPU
+scheduling algorithms shows that how well a
+scheduling method works really hinges on the specific
+workload characteristics and system needs. From the
+simulation results, it’s clear that Shortest Remaining
+Time First (SRTF) achieves the lowest average
+turnaround and waiting times, while also boosting
+throughput and CPU utilization for the dataset in
+question. However, its dependence on accurate burst
+time estimates and its varying performance across
+different workloads can limit its overall effectiveness.
+First Come First Serve (FCFS) is a straightforward and
+dependable strategy, especially in batch processing
+settings, but it can lead to longer waiting times when
+lengthy processes take over. Round Robin (RR) shines
+in situations where fairness is key, making sure that no
+process gets left behind, although its effectiveness can
+be influenced by the choice of time quantum. Priority-
+
+In the end, there’s no one-size-fits-all scheduling
+algorithm. Each one has its own strengths depending on
+the circumstances: FCFS is great for simple sequential
+tasks, RR promotes fairness in time-sharing systems,
+SJF and SRTF are best for minimizing turnaround time
+with predictable workloads, HRRN strikes a balance
+between efficiency and fairness, and priority
+scheduling works well in systems that need to handle
+processes differently. So, the choice of scheduling
+policy should really be based on the operating
+environment, the mix of processes, and the
+performance objectives.
+
+REFERENCES
+1. A. Silberschatz, P. B. Galvin, and G. Gagne, Operating
+System Concepts, 8th ed. Hoboken, NJ, USA: Wiley,
+2009. doi: 10.1002/9780470509487
+2. A. S. Tanenbaum and H. Bos, Modern Operating
+Systems, 4th ed. Upper Saddle River, NJ, USA:
+Pearson, 2014. ISBN: 978-0133591620.
+3. W. Stallings, Operating Systems: Internals and Design
+Principles, 6th ed. Upper Saddle River, NJ, USA:
+Prentice Hall, 2009. ISBN: 978-0136006329.
+4. H. C. Yu and L. M. Ni, “A survey of scheduling in
+multiprogrammed operating systems,” IEEE
+Transactions on Computers, vol. C-33, no. 12, pp.
+1222–1239, Dec. 1984. doi: 10.1109/TC.1984.1676391
+5. R. P. Goldberg, “Survey of virtual machine research,”
+IEEE Computer, vol. 7, no. 6, pp. 34–45, Jun. 1974.
+doi: 10.1109/MC.1974.6323581
+6. J. L. Peterson and A. Silberschatz, Operating System
+Concepts, Addison-Wesley, 1983. ISBN: 0201061965.
+7. D. M. Jacobson, “Analysis of Shortest Job First
+Scheduling,” Communications of the ACM, vol. 20, no.
+7, pp. 433–438, Jul. 1977. doi: 10.1145/359605.359611
+8. J. D. Ullman, “NP-complete scheduling problems,”
+Journal of Computer and System Sciences, vol. 10, no.
+3, pp. 384–393, Jun. 1975. doi: 10.1016/
+S0022-0000(75)80008-0
+9. R. Jain, The Art of Computer Systems Performance
+Analysis: Techniques for Experimental Design,
+Measurement, Simulation, and Modeling. Hoboken,
+NJ, USA: Wiley, 1991. ISBN: 978-0471503361.
+10.C. L. Liu and J. W. Layland, “Scheduling algorithms
+for multiprogramming in a hard-real-time
+environment,” Journal of the ACM, vol. 20, no. 1, pp.
+46–61, Jan. 1973. doi: 10.1145/321738.321743
+11.S. Albers, “Online algorithms: A survey,”
+Mathematical Programming, vol. 97, no. 1–2, pp. 3–
+26, 2003. doi: 10.1007/s10107-003-0449-5
+
+12.J. Torrellas, “Multiprocessor scheduling in sharedmemory systems,” IEEE Micro, vol. 15, no. 5, pp. 23–
+35, Oct. 1995. doi: 10.1109/40.464538
+13.M. Bozyiğit and O. Tayanç, “The Highest Response
+Ratio Next (HRRN) scheduling algorithm revisited,”
+Computer Standards & Interfaces, vol. 5, no. 4, pp.
+211–218, 1986. doi: 10.1016/0920-5489(86)90025-9
+14.K. Li, R. Melhem, and A. K. Mok, “Real-time, nonpreemptive scheduling for multiprocessor systems,”
+IEEE Transactions on Parallel and Distributed
+Systems, vol. 1, no. 3, pp. 327–335, Jul. 1990. doi:
+10.1109/71.80142
+15.T. Anderson, B. Bershad, E. Lazowska, and H. Levy,
+“Scheduler activations: Effective kernel support for the
+user-level management of parallelism,” ACM
+Transactions on Computer Systems, vol. 10, no. 1, pp.
+53–79, Feb. 1992. doi: 10.1145/146941.146944
+16.M. Zaharia et al., “Delay scheduling: A simple
+technique for achieving locality and fairness in cluster
+scheduling,” Proceedings of the 5th European
+Conference on Computer Systems (EuroSys), pp. 265–
+278, Apr. 2010. doi: 10.1145/1755913.1755940
+17.A. Verma, L. Pedrosa, M. Korupolu, D. Oppenheimer,
+E. Tune, and J. Wilkes, “Large-scale cluster
+management at Google with Borg,” Proceedings of the
+10th European Conference on Computer Systems
+( E u ro S y s ) , p p . 1 – 1 7 , A p r. 2 0 1 5 . d o i :
+10.1145/2741948.2741964
+
+

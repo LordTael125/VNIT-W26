@@ -1,0 +1,255 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!70!black, urlcolor=blue!70!black}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{TWP Logbook — Assignment 06}}
+\fancyhead[R]{\textsc{CSP529}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+\title{
+    \vspace{-1cm}
+    \textbf{Writing Logbook --- Assignment 06} \\[0.3em]
+    \large CSP529 Technical Writing \& Publishing \\[0.2em]
+    \large \textit{From Evidence to Technical Communication}
+}
+\author{
+    \textbf{MT26MCS024} --- Gaurav Acharya \quad
+    \textbf{MT26MCS032} --- Sandeep
+}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+% ============================================================
+\section{Assignment Overview}
+% ============================================================
+
+\begin{tabular}{@{}p{4.5cm} p{10cm}@{}}
+    \toprule
+    \textbf{Item} & \textbf{Detail} \\
+    \midrule
+    Practical Title & Practical 6 --- From Evidence to Technical Communication: Can You Construct and Defend a Technical Argument? \\
+    Group Topic & Operating System Process / Scheduling (Group 5) \\
+    Focused Question & How do different CPU scheduling approaches affect waiting time, response time, throughput, and fairness under different workload characteristics? \\
+    Research Papers & Paper~1: Reddy --- ``Comparative Analysis of CPU Scheduling Algorithms for Performance Efficiency''; Paper~2: Samanta \& Biswas --- ``Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and Average Turnaround Time'' \\
+    Group Members & Gaurav Acharya (MT26MCS024), Sandeep (MT26MCS032) \\
+    Guide & Dr.\ A.\ S.\ Mokhade \\
+    Mode & In-class evidence synthesis, argument construction, and LaTeX document preparation \\
+    Date of Completion & October 2026 \\
+    \bottomrule
+\end{tabular}
+
+% ============================================================
+\section{Objectives \& Learning Outcomes}
+% ============================================================
+
+Practical~6 was the culmination of Practicals~1--5. Its purpose was to test whether we could \emph{combine} all previously learned skills --- independent technical thinking (Practical~1), LaTeX representation (Practical~2), statement classification (Practical~3), evidence evaluation (Practical~4), and evidence matrix construction (Practical~5) --- into a single coherent technical document. The key principle was: ``A technically sound document must communicate not only what is known, but also how it is known, under what conditions it holds, and what remains uncertain.'' The learning outcomes included:
+
+\begin{itemize}[nosep]
+    \item Constructing a technical argument from research evidence (not merely summarizing papers).
+    \item Communicating the argument through appropriate representations (tables, figures, diagrams).
+    \item Distinguishing supported conclusions from uncertainties and assumptions.
+    \item Classifying one's own sentences using the F/D/C/O/I/A framework from Practical~3.
+    \item Preparing a coherent, professionally structured LaTeX document integrating all components.
+\end{itemize}
+
+% ============================================================
+\section{Work Performed --- Stage by Stage}
+% ============================================================
+
+\subsection{Stage 1: Revisiting the Evidence Matrix}
+We revisited the evidence matrix constructed in Practical~5 for our two research papers. Using it as the foundation, we examined four questions before attempting any synthesis:
+
+\begin{enumerate}[nosep]
+    \item \textbf{Relevant findings:} Both papers evaluated CPU scheduling algorithms (FCFS, SJF/SRTF, Round Robin, Priority) and measured average waiting time (AWT) and average turnaround time (ATAT). Paper~1 found SRTF achieved the lowest AWT (19.2\,ms) and ATAT (34.2\,ms). Paper~2 found SJF consistently achieved the lowest AWT and ATAT across all 5 test cases.
+
+    \item \textbf{Consistent findings:} Both papers agree that SJF-family algorithms minimize waiting and turnaround times compared to FCFS and Round Robin. This agreement held across different methodologies (simulation vs.\ mathematical case study).
+
+    \item \textbf{Differences and their causes:} The differences were methodological, not contradictory. Paper~1 used a single static dataset of 5 processes and evaluated 7~algorithms via Gantt chart simulation. Paper~2 used 4~processes with arithmetically modified burst times across 5~cases, evaluating only 4~algorithms. The different process counts, algorithm sets, and experimental designs explained the variation in specific numerical results while the directional findings remained consistent.
+
+    \item \textbf{Missing information:} Our focused question explicitly asks about response time, throughput, and fairness. Neither paper measured any of these three metrics quantitatively --- both focused exclusively on waiting time and turnaround time.
+\end{enumerate}
+
+\subsection{Stage 2: Constructing a Technical Argument}
+We wrote three evidence-backed statements:
+
+\subsubsection*{Statement 1: What the combined evidence reasonably establishes}
+SJF (and its preemptive variant SRTF) provides the lowest average waiting time and turnaround time compared to FCFS, Round Robin, and Priority scheduling. Both papers confirm that average waiting time increases directly with process burst times.
+\begin{itemize}[nosep]
+    \item \textbf{Paper~1 (Reddy):} Table~3 shows SRTF has the lowest AWT (19.2\,ms) and ATAT (34.2\,ms); Round Robin has the highest AWT (36.0\,ms) and ATAT (51.0\,ms).
+    \item \textbf{Paper~2 (Samanta \& Biswas):} Tables~8--11 show SJF achieves the lowest AWT and ATAT across all 5 test cases; the conclusion notes burst time is directly proportional to waiting time.
+\end{itemize}
+
+\subsubsection*{Statement 2: What remains uncertain or depends on particular conditions}
+Whether SJF/SRTF is actually the best choice in practice remains uncertain. It depends on knowing burst times in advance and having zero context-switch overhead. In interactive systems where fairness is required, SJF causes starvation for longer processes, while Round Robin provides fair CPU sharing despite its higher waiting time.
+\begin{itemize}[nosep]
+    \item \textbf{Paper~1 (Reddy):} Section~III notes SRTF requires knowing future burst times; Section~V mentions Round Robin avoids starvation and suits interactive systems.
+    \item \textbf{Paper~2 (Samanta \& Biswas):} Sections~4--5 evaluate only static burst variations for 4~processes with zero context switching, leaving real-world performance unmeasured.
+\end{itemize}
+
+\subsubsection*{Statement 3: What further evidence would be needed}
+To draw a stronger conclusion, experimental evidence with mixed workloads (CPU-bound and I/O-bound), non-zero arrival times, and realistic context-switch overheads is needed. Numerical data on throughput, response time, and starvation rates --- which neither paper measured --- is essential.
+\begin{itemize}[nosep]
+    \item \textbf{Paper~1 (Reddy):} Uses a single static dataset where all jobs arrive at time zero without I/O operations.
+    \item \textbf{Paper~2 (Samanta \& Biswas):} Uses 4 synthetic processes with fixed arithmetic modifications and measures only AWT and ATAT.
+\end{itemize}
+
+\subsection{Stage 3: Choosing the Most Effective Representation}
+We selected a \textbf{comparison table} (Table~1 in the assignment) as the most effective representation. The table compares FCFS, SJF/SRTF, Round Robin, and Priority across five dimensions: AWT, ATAT, response time, fairness/starvation, and key limitation.
+
+\subsubsection*{Justification}
+\begin{itemize}[nosep]
+    \item \textbf{Side-by-side comparison:} The algorithms have contradictory trade-offs (SJF minimizes waiting time but starves long jobs; Round Robin prevents starvation but increases turnaround time). A table shows these trade-offs at a glance, whereas paragraphs make cross-algorithm comparison repetitive and hard to track.
+    \item \textbf{Evidence and limitations together:} The table places experimental numbers from both papers (e.g., Reddy's 19.2\,ms vs.\ 36.0\,ms) directly alongside each algorithm's practical limitation, making it easy to see under what conditions the numbers hold.
+\end{itemize}
+
+\subsection{Stage 4: Writing the Technical Synthesis (250--300 words)}
+We wrote a synthesis organized around the \emph{focused question}, not around the individual papers. Key design decisions:
+\begin{itemize}[nosep]
+    \item Opened by framing the evaluation scope (workload characteristics and performance metrics).
+    \item Established the consensus finding (SJF/SRTF minimizes AWT and ATAT) supported by both papers.
+    \item Distinguished the mathematical optimality from practical applicability by identifying the idealized assumptions (known burst times, zero context-switching, simultaneous arrival).
+    \item Identified the critical evidence gap: neither paper measured response time, throughput, or fairness.
+    \item Concluded with what would be needed for a defensible argument about modern interactive systems.
+\end{itemize}
+The synthesis deliberately avoids summarizing Paper~1 and Paper~2 separately --- it integrates their evidence around the question's dimensions.
+
+\subsection{Stage 5: Examining Our Own Writing (F/D/C/O/I/A Classification)}
+We selected six important sentences from the synthesis and classified each:
+
+\begin{longtable}{@{}p{4.5cm} p{1.5cm} p{4cm} p{4cm}@{}}
+    \toprule
+    \textbf{Sentence (shortened)} & \textbf{Class.} & \textbf{Source/Location} & \textbf{Justification} \\
+    \midrule
+    \endhead
+    ``Evaluating the efficiency of CPU scheduling algorithms requires understanding how key performance metrics shift\ldots'' & D & Silberschatz et al.; Reddy Section~I & Describes technical context without asserting an empirical finding \\
+    \midrule
+    ``SJF and SRTF consistently minimize average waiting and turnaround times\ldots'' & F & Reddy Table~3; Samanta Tables~8--11 & Reports directly verifiable experimental outcomes from both studies \\
+    \midrule
+    ``The superior performance of SJF/SRTF is strictly dependent upon idealized assumptions\ldots'' & C & Reddy Section~III \& IV; Samanta Section~4 & Defines boundary conditions necessary for results to hold \\
+    \midrule
+    ``\ldots its efficacy in dynamic, interactive environments remains uncertain.'' & I & Reddy Section~V; Samanta Section~5 & Interprets the gap between static results and real-world applicability \\
+    \midrule
+    ``Both methodologies exclusively focus on waiting and turnaround times, failing to measure response time\ldots'' & F & Reddy Table~3; Samanta Tables~8--11 & Observable, factual limitation of the empirical metrics reported \\
+    \midrule
+    ``\ldots comprehensive empirical evaluation is required to construct a defensible argument\ldots'' & C & Synthesis of Reddy Section~VI and Samanta Section~6 & Integrates evidence and gaps into a reasoned final judgment \\
+    \bottomrule
+\end{longtable}
+
+Where a sentence could belong to multiple categories (e.g., the final sentence is both an Interpretation and a Conclusion), we chose the dominant classification and justified it. No sentence was found to be stronger than its available evidence.
+
+\subsection{Stage 6: Preparing the LaTeX Document}
+The final LaTeX document was structured as follows:
+\begin{enumerate}[nosep]
+    \item Title page with focused question and group information.
+    \item Technical argument (Stage~2: three evidence-backed statements).
+    \item Selected representation with caption and cross-reference (Stage~3: comparison table).
+    \item Technical synthesis (Stage~4: 250--300 word integrated analysis).
+    \item Statement classification and evidence table (Stage~5: F/D/C/O/I/A analysis).
+    \item Individual reflection questions (Stage~7).
+\end{enumerate}
+LaTeX features used: sections, longtable, table environment with caption/label, cross-references, itemized/enumerated lists, and font size commands for headings.
+
+% ============================================================
+\section{Individual Reflections}
+% ============================================================
+
+\subsection{Gaurav Acharya (MT26MCS024)}
+
+\begin{itemize}[nosep]
+    \item \textbf{Most useful prior learning:} Practical~5 (Constructing an Evidence Matrix) was the most useful. Having Paper~2 already broken down into explicit columns for experimental settings, boundary conditions, and limitations prevented me from treating mathematical findings as absolute truths. When writing the synthesis, having exact conditions pre-extracted made it straightforward to separate proven facts from unverified claims.
+
+    \item \textbf{Most difficult part:} Formulating Statement~2 (what remains uncertain). It is tempting to declare one algorithm ``better'' than another based on lower numbers. Forcing myself to identify the hidden assumptions --- that burst times were known beforehand and context switching was treated as zero --- required resisting the surface-level conclusions.
+
+    \item \textbf{Changed understanding:} Yes. I initially believed SJF was universally superior because textbooks highlight its minimal waiting time. Examining Paper~2's mathematical formulation revealed this superiority was demonstrated solely by modifying burst times linearly for four static processes. SJF's performance advantage breaks down in interactive systems where jobs cannot be predicted and fairness is mandatory.
+
+    \item \textbf{Improvement for M.Tech dissertation:} I would expand the evidence base beyond synthetic uniprocessor simulations to include real trace-driven benchmarks (SPEC CPU, Linux CFS benchmarks) incorporating multi-core architectures, cache affinity, and non-zero context-switch penalties.
+\end{itemize}
+
+\subsection{Sandeep (MT26MCS032)}
+
+\begin{itemize}[nosep]
+    \item \textbf{Most useful prior learning:} Practical~3 (Statement Classification: F/D/C/O/I/A) was the most valuable. It provided a clear mental framework to inspect my own sentences while drafting the synthesis, ensuring every factual claim had empirical backing and conclusions were properly hedged with their operating conditions.
+
+    \item \textbf{Most difficult part:} Synthesizing findings across two completely different methodologies without writing two separate paper summaries. Paper~1 used simulation tables with Gantt charts; Paper~2 used an arithmetic case study. Connecting them around shared dimensions (waiting time versus fairness) rather than around the authors' names required multiple revisions.
+
+    \item \textbf{Changed understanding:} Yes. I initially thought Round Robin was inefficient because Paper~1 showed it having the highest waiting time (36.0\,ms) and turnaround time (51.0\,ms). After analysis, I realized Round Robin's higher latency is the deliberate cost paid to prevent starvation and ensure fairness --- looking at waiting time alone ignores the core purpose of time-sharing schedulers.
+
+    \item \textbf{Improvement for M.Tech dissertation:} I would add quantitative metrics for starvation and fairness (Jain's Fairness Index) and analyze how varying the Round Robin time quantum affects CPU throughput and context-switch latency in modern virtualized container environments.
+\end{itemize}
+
+% ============================================================
+\section{Writing Logbook Entries}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item \textbf{Most difficult stage:} Stage~4 (writing the technical synthesis) was the hardest. Compressing the argument into 250--300 words while integrating evidence from both papers, maintaining proper classification of each statement, and avoiding separate paper summaries required multiple drafts.
+
+    \item \textbf{Most useful skill from prior practicals:} The F/D/C/O/I/A classification from Practical~3 proved essential in Stage~5. Without it, we would not have caught that our synthesis contained both factual observations and interpretive conclusions --- and would not have verified that every interpretive statement was properly hedged.
+
+    \item \textbf{Representation choice reasoning:} We chose a comparison table over a bar chart because the trade-offs are qualitative (fairness, starvation risk) as well as quantitative (AWT values). A bar chart could show the numbers but not the conditions and limitations alongside them.
+
+    \item \textbf{Where evidence from Practical~5 was reused:} The evidence matrix constructed in Practical~5 directly informed Stages~1 and~2. The matrix's ``Conditions/Assumptions'' and ``Limitations'' columns became the basis for Statement~2 (what remains uncertain) and Statement~3 (what further evidence is needed).
+
+    \item \textbf{Self-correction during Stage~5:} During the F/D/C/O/I/A review, we considered whether the sentence about SJF's efficacy in interactive environments was a Claim (C) or an Interpretation (I). We classified it as I because it derives from existing evidence (static results) applied to a new context (dynamic environments), rather than being an unsupported assertion.
+\end{enumerate}
+
+% ============================================================
+\section{Challenges Encountered}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item \textbf{Synthesis vs.\ summary:} The greatest challenge was resisting the urge to write two separate paper summaries. The assignment explicitly required organizing the synthesis around the \emph{question's dimensions}, not around the papers' names. We restructured our draft twice before achieving genuine integration.
+
+    \item \textbf{Balancing established facts and uncertainties:} Making definitive statements (``SJF minimizes waiting time'') while simultaneously acknowledging their strict conditions (``only when burst times are known'') required careful sentence construction to avoid sounding contradictory.
+
+    \item \textbf{Word limit for synthesis:} Fitting a nuanced, evidence-cited argument into 250--300 words forced us to prioritize only the most critical findings and drop several interesting but tangential observations from the papers.
+
+    \item \textbf{Classification ambiguity:} Some synthesis sentences straddled multiple F/D/C/O/I/A categories. The concluding sentence, for example, is both an Interpretation (drawing on evidence) and a Conclusion (making a judgment). We had to justify the dominant classification rather than mechanically assigning a single label.
+
+    \item \textbf{Missing metrics in source papers:} Our focused question asks about four metrics (waiting time, response time, throughput, fairness), but both papers only addressed two (waiting time and turnaround time). This meant our synthesis had to explicitly acknowledge the evidence gap rather than fabricate conclusions about unmeasured metrics.
+
+    \item \textbf{LaTeX integration:} Combining longtable (for the classification table), table environment (for the comparison table), cross-references, and consistent sectioning required careful LaTeX structuring to avoid compilation issues.
+\end{enumerate}
+
+% ============================================================
+\section{Key Takeaways}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item Technical synthesis is fundamentally different from summarization --- it requires organizing evidence around a \emph{question}, not around individual papers.
+
+    \item The three-statement structure (established, uncertain, needed) provides a disciplined framework for constructing defensible arguments that avoids both overstatement and understatement.
+
+    \item The F/D/C/O/I/A classification is not just an academic exercise --- applying it to one's own writing reveals hidden assumptions and forces appropriate hedging of claims.
+
+    \item Choosing the right representation (table vs.\ graph vs.\ text) depends on whether the comparison involves qualitative dimensions (trade-offs, conditions) in addition to quantitative data.
+
+    \item The evidence matrix from Practical~5 proved to be the single most important preparatory artifact --- without it, constructing the technical argument would have required re-reading both papers from scratch.
+
+    \item Identifying \emph{what evidence is missing} (response time, throughput, fairness data) is as important as reporting what evidence exists --- acknowledging gaps strengthens rather than weakens a technical argument.
+
+    \item The TWP practical progression is now complete: \textit{What am I saying?} (Practical~3) $\rightarrow$ \textit{Can I trust the source?} (Practical~4) $\rightarrow$ \textit{What evidence does the paper provide?} (Practical~5) $\rightarrow$ \textit{Can I construct and defend a technical argument?} (Practical~6).
+\end{enumerate}
+
+\end{document}
