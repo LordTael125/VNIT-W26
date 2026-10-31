@@ -1,0 +1,665 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry} % Sets standard 1-inch margins
+\usepackage{mathptmx} % Times New Roman equivalent
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{url}
+
+% --------------------------------------------------------------------------------------------
+
+% Custom command for Topic names (Font size 14)
+\newcommand{\topicTitle}[1]{
+    \vspace{1.2em}\noindent{\fontsize{14}{16.8}\selectfont \textbf{#1}}\par\vspace{0.5em}
+}
+
+% Custom command for Questions/Labels (Bold, Font size 12)
+\newcommand{\qLabel}[1]{
+    {\fontsize{12}{14.4}\selectfont \textbf{#1}}
+}
+
+% --------------------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[width=0.35\textwidth]{vnit-logo.jpg}\\[2.5cm]
+    
+    {\large \textbf{Group Members}}\\[0.4cm]
+    \begin{tabular}{l c l}
+        Student 1: Gaurav Acharya & --- & [MT26MCS024] \\
+        Student 2: Sandeep & --- & [MT26MCS032]
+    \end{tabular}
+    
+    \vspace{1.5cm}
+    
+    {\large \textbf{Guide Name}}\\[0.4cm]
+    Dr. A. S. Mokhade
+    
+    \vspace{1.5cm}
+    
+    {\large \textbf{Practical Title:}}\\[0.4cm]
+    CSP529: Technical Writing \& Publishing\\[0.2cm]
+    Practical 7: From Research Evidence to Research Questions
+    
+    \vspace{1.5cm}
+    
+    {\large \textbf{Problem Statement:}}\\[0.4cm]
+    Identifying Gaps, Formulating Problems, and Justifying Research
+    
+\end{center}
+
+
+
+
+% ============================================================================================
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 1 --- What Do We Actually Know?}\par}
+\vspace{1em}
+
+\topicTitle{A. Re-examine Your Technical Synthesis}
+
+In Practical~5 (Evidence Matrix) and Practical~6 (Technical Synthesis), our group evaluated the focused question: \textit{``How do different CPU scheduling approaches affect waiting time, response time, throughput, and fairness under different workload characteristics?''} 
+
+To bridge the gap between summarizing existing results and discovering questions worth investigating, Table~\ref{tab:knowledge_uncertainty} separates what the two papers actually prove from the narrow assumptions they rely on, and highlights the open uncertainties that remain.
+
+\vspace{0.5em}
+{\small
+\begin{longtable}{|>{\raggedright\arraybackslash}p{4.0cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{4.3cm}|>{\raggedright\arraybackslash}p{2.8cm}|}
+    \caption{Knowledge--Uncertainty Matrix (Decoupling Evidence from Underlying Assumptions)}
+    \label{tab:knowledge_uncertainty} \\
+    
+    \hline
+    \textbf{What the Evidence Establishes} & \textbf{Under What Conditions?} & \textbf{What Remains Uncertain?} & \textbf{Supporting Paper / Location} \\
+    \hline
+    \endfirsthead 
+    
+    \multicolumn{4}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+    \hline
+    \textbf{What the Evidence Establishes} & \textbf{Under What Conditions?} & \textbf{What Remains Uncertain?} & \textbf{Supporting Paper / Location} \\
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{4}{r}{\textit{Continued on next page}} \\
+    \endfoot
+
+    \hline
+    \endlastfoot
+
+    % Row 1
+    Shortest Job First (SJF) and its preemptive form (SRTF) achieve the lowest Average Waiting Time (AWT) and Average Turnaround Time (ATAT) compared to FCFS, Priority, and Round Robin. & 
+    Uniprocessor environment; strictly CPU-bound batch workloads; all processes arrive together at $t=0$; process burst times are known beforehand; context switching takes zero time ($t_{cs} = 0$). & 
+    Whether SJF/SRTF keeps its latency advantage in practical systems where burst times cannot be known in advance and must be estimated, and where frequent preemptions add real context-switch and cache overhead. & 
+    \textbf{Paper 1 (Reddy):} Section~IV, Table~3, Gantt charts (Figs.~1--2).\newline\newline
+    \textbf{Paper 2 (Samanta \& Biswas):} Section~4, Tables~8--11, Figs.~1--4. \\
+    \hline
+
+    % Row 2
+    Average Waiting Time (AWT) and Average Turnaround Time (ATAT) increase in direct linear proportion to CPU burst times across FCFS, SJF, RR, and Priority algorithms. & 
+    A fixed, synthetic set of four processes ($P_1$--$P_4$); burst times modified by uniform arithmetic increments (+1, -2, +3, +1\,ms); static queue with zero arrival delay. & 
+    How latency metrics and scheduling stability behave under non-linear, unpredictable workloads (such as bursty, heavy-tailed traffic typical of web servers and interactive systems). & 
+    \textbf{Paper 2 (Samanta \& Biswas):} Section~4 (Cases~1--5), Tables~8--11, Section~6 (Conclusion). \\
+    \hline
+
+    % Row 3
+    Round Robin (RR) leads to noticeably higher average waiting time and turnaround time than SJF/SRTF for the same process burst profiles. & 
+    Fixed time quantum ($q = 4$\,ms in Paper~1); identical simultaneous job arrivals ($t=0$); uniprocessor simulation ignoring preemption overheads. & 
+    Whether Round Robin's higher waiting time is an acceptable trade-off for better interactive response time and fair CPU sharing, and how tuning the time quantum affects throughput when context-switch costs are included. & 
+    \textbf{Paper 1 (Reddy):} Section~IV, Table~3 (RR AWT: 36.0\,ms vs.\ SRTF: 19.2\,ms).\newline\newline
+    \textbf{Paper 2 (Samanta \& Biswas):} Section~4, Table~10. \\
+    \hline
+
+    % Row 4
+    Static Priority and non-preemptive Shortest Job scheduling systematically favor short or high-priority jobs, leaving low-priority or long processes waiting indefinitely. & 
+    Fixed priority assignments; absence of dynamic priority aging or priority-boosting mechanisms; static batch queuing without admission control. & 
+    The quantifiable risk and severity of starvation (such as maximum waiting time or Jain's Fairness Index) when new processes arrive continuously over time. & 
+    \textbf{Paper 1 (Reddy):} Section~III.E, Section~V.\newline\newline
+    \textbf{Paper 2 (Samanta \& Biswas):} Section~3, Section~4. \\
+    \hline
+
+    % Row 5
+    Neither paper provides quantitative measurements for first-response time, overall system throughput, or fairness metrics. & 
+    Evaluation is restricted entirely to mathematical calculations and uniprocessor simulations measuring only AWT and ATAT on small synthetic job sets ($N=4$ and $N=5$). & 
+    How these algorithms trade off CPU throughput against user responsiveness when handling mixed CPU- and I/O-bound jobs with dynamic arrival times. & 
+    \textbf{Paper 1 (Reddy):} Table~3 (omits response time and throughput data).\newline\newline
+    \textbf{Paper 2 (Samanta \& Biswas):} Section~4, Tables~8--11. \\
+    \hline
+
+\end{longtable}
+}
+
+\vspace{0.8em}
+\topicTitle{Synthesis Analysis Questions}
+
+\begin{itemize}[leftmargin=1.5em]
+
+    \item \qLabel{A1. Which conclusions are supported by more than one paper?}
+    \vspace{0.4em}
+    
+    Comparing both papers directly, three key conclusions are supported by both studies:
+    \begin{enumerate}[label=(\alph*)]
+        \item \textbf{SJF/SRTF achieves the lowest waiting and turnaround times:} Both papers agree that Shortest Job First is mathematically optimal for minimizing Average Waiting Time (AWT) and Average Turnaround Time (ATAT) in batch workloads. In Paper~1 (Reddy), SRTF achieved an AWT of 19.2\,ms and ATAT of 34.2\,ms, clearly outperforming FCFS (29.6\,ms), Priority (27.6\,ms), and Round Robin (36.0\,ms). In Paper~2 (Samanta \& Biswas), SJF consistently produced the lowest AWT and ATAT across all five mathematical test cases.
+        \item \textbf{Round Robin has higher waiting times in batch settings:} Both papers show that Round Robin results in significantly higher waiting times than SJF when run on identical process sets without considering interactive response.
+        \item \textbf{Burst length directly drives queue delays:} Both studies demonstrate that process burst time is the primary factor determining waiting time and turnaround latency in a uniprocessor queue.
+    \end{enumerate}
+
+    \vspace{0.8em}
+    \item \qLabel{A2. Which conclusions depend on particular datasets, methods, assumptions, or operating conditions?}
+    \vspace{0.4em}
+    
+    The conclusions in both papers hold only because of several simplified, idealized assumptions:
+    \begin{enumerate}[label=(\alph*)]
+        \item \textbf{Knowing burst times in advance (Oracle Predictor):} SJF and SRTF rely entirely on knowing the exact execution time of every process before it runs. In a real operating system, future burst times cannot be known beforehand and must be estimated, which introduces prediction errors that degrade scheduling efficiency.
+        \item \textbf{Assuming zero context-switch overhead ($t_{cs} = 0$):} Both studies assume that process preemption, dispatcher calls, register swapping, and CPU cache/TLB invalidations take zero time. This strongly favors preemptive algorithms like SRTF and penalizes Round Robin, whose real-world performance depends heavily on the cost of context switching when the quantum is small.
+        \item \textbf{All jobs arrive at time zero ($t = 0$):} Paper~1 evaluates five processes that are all ready at $t=0$, and Paper~2 tests four static processes across fixed cases. Neither paper models dynamic arrivals (such as Poisson arrival streams) or queue build-up under varying system loads.
+        \item \textbf{Purely CPU-bound jobs with no I/O:} Every process in both studies runs continuously to completion. In reality, processes frequently yield the CPU to wait for disk access, network packets, or user input, which fundamentally changes scheduling dynamics.
+        \item \textbf{Very small synthetic datasets:} Paper~1 uses a single static dataset of 5 processes ($P_1$--$P_5$); Paper~2 uses 4 processes ($P_1$--$P_4$) tested across simple arithmetic burst adjustments (+1, -2, +3, +1\,ms). Neither dataset reflects realistic server or desktop workloads.
+    \end{enumerate}
+
+    \vspace{0.8em}
+    \item \qLabel{A3. What would be unjustified to conclude from these two papers?}
+    \vspace{0.4em}
+    
+    Based on the evidence in these two papers, it would be unjustified to conclude that:
+    \begin{enumerate}[label=(\alph*)]
+        \item \textbf{SJF or SRTF is universally the ``best'' algorithm for real systems:} We cannot make this claim because neither paper accounts for burst prediction errors, context-switching overheads, or the starvation of long processes under continuous workloads.
+        \item \textbf{Round Robin is an inefficient or inferior algorithm:} Round Robin is explicitly designed to provide fast interactive response times and fair CPU sharing in multi-user systems. Judging it solely on waiting and turnaround times in a batch setting ignores what the algorithm was built to accomplish.
+        \item \textbf{Anything about system throughput or multi-core performance:} Neither paper measured how many jobs complete per unit time under continuous load, nor did they evaluate multi-core, symmetric multiprocessing (SMP), or heterogeneous architectures.
+        \item \textbf{The results apply to interactive or mixed CPU/IO workloads:} Because neither paper modeled I/O operations or user interactivity, claiming these algorithms would exhibit the same relative performance in modern desktop, mobile, or cloud systems is completely unsupported by the evidence.
+    \end{enumerate}
+
+
+
+\end{itemize}
+
+
+
+
+% ============================================================================================
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 2 --- Is Every Limitation a Research Gap?}\par}
+\vspace{1em}
+
+
+\vspace{0.8em}
+\topicTitle{Evaluation of the Five Methodological Statements}
+
+
+% --------------------------------------------------------------------------------------------
+\qLabel{Statement 1: An algorithm was evaluated using only one dataset.}
+\vspace{0.4em}
+
+\noindent\textbf{Classification and Reasoning:}
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Classification: L (Limitation), leading to U (Unresolved Question).}
+    \item \textbf{Reasoning:} Evaluating an algorithm on a single dataset is a clear methodological \textbf{Limitation (L)} of that particular study, because its findings are only proven for that specific data distribution. This leaves open an \textbf{Unresolved Question (U)} regarding whether the algorithm performs well on other types of data. However, it is \textbf{not automatically a Research Gap (G) or Research Problem (P)}. Other researchers may have already evaluated this algorithm across many standard benchmarks. Just because one paper evaluated a single dataset does not mean the wider scientific community has left it unstudied.
+\end{itemize}
+
+\noindent\textbf{Analytical Questions:}
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textit{What can legitimately be inferred?} \\
+    We can only infer that the algorithm achieves the reported performance on that specific dataset and under those exact statistical conditions. We cannot infer how well it generalizes, how it scales, or how sensitive it is to noisy or shifting data distributions.
+    \item \textit{What additional evidence would be required before claiming a research gap?} \\
+    We would need to conduct a broader literature review to check whether other studies have already tested the algorithm on diverse benchmark datasets. To claim a genuine research gap, we would also need to show that existing benchmarks fail to capture important real-world data properties (such as heavy skew, extreme sparsity, or burstiness) that practitioners actually encounter.
+    \item \textit{Could the issue lead to an investigable research problem? Why or why not?} \\
+    Yes, but only if the inquiry focuses on \textit{why} specific data properties affect the algorithm, rather than just running code on another dataset. Simply testing dataset~B because the authors tested dataset~A is routine benchmarking. To qualify as an investigable research problem, the study must investigate how mathematically characterized data properties (such as heavy-tailed burst distributions or high dimensionality) causally impact algorithmic convergence, stability, or resource efficiency.
+\end{enumerate}
+
+\vspace{1.2em}
+
+
+\newpage
+% --------------------------------------------------------------------------------------------
+\qLabel{Statement 2: Two studies report different performance results under different experimental conditions.}
+\vspace{0.4em}
+
+\noindent\textbf{Classification and Reasoning:}
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Classification: U (Unresolved Question) and G (Potential Research Gap), motivating P (Research Problem).}
+    \item \textbf{Reasoning:} When two studies report differing outcomes under different conditions, it does not mean one is wrong; rather, the algorithm's behavior depends on the operating environment. This creates an \textbf{Unresolved Question (U)} regarding what causes the discrepancy. If the existing literature does not explain or predict how these operating conditions dictate the performance shift, there is a \textbf{Potential Research Gap (G)}. This directly motivates an investigable \textbf{Research Problem (P)} to isolate the causal factors and map the performance boundaries.
+\end{itemize}
+
+\noindent\textbf{Analytical Questions:}
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textit{What can legitimately be inferred?} \\
+    We can legitimately infer that the algorithm's performance is sensitive to operating conditions (such as hardware configuration, arrival patterns, cache architecture, or parameter tuning). Each study provides a valid data point within its own setup, but neither tells the whole story on its own.
+    \item \textit{What additional evidence would be required before claiming a research gap?} \\
+    We must verify that the difference cannot be explained by known principles (for instance, basic differences in hardware caching, compiler optimizations, or measurement definitions). A gap exists only if the causal relationship between specific experimental variables and observed performance shifts remains unmapped in published literature.
+    \item \textit{Could the issue lead to an investigable research problem? Why or why not?} \\
+    Yes. This represents an ideal foundation for an investigable research problem. A researcher can design a controlled experiment or parametric simulation framework that systematically varies key operating conditions (such as context-switch latency, arrival rates, or queue depth) while holding others constant, thereby determining the exact crossover points where one approach outperforms the other.
+\end{enumerate}
+
+\vspace{1.2em}
+
+
+
+\newpage
+% --------------------------------------------------------------------------------------------
+\qLabel{Statement 3: A model achieves high predictive accuracy, but the available studies do not adequately establish how its performance changes under distribution shift.}
+\vspace{0.4em}
+
+\noindent\textbf{Classification and Reasoning:}
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Classification: G (Potential Research Gap) and P (Research Problem), stemming from U (Unresolved Question).}
+    \item \textbf{Reasoning:} In applied machine learning, a model can easily achieve high accuracy on test data drawn from the same distribution as its training set (i.i.d.), while failing when deployed in the real world where data distributions drift. If current papers only evaluate the model on clean, in-distribution test sets, that is a shared \textbf{Limitation (L)}. The uncertainty surrounding its out-of-distribution robustness is an \textbf{Unresolved Question (U)}, and because practical systems must handle distribution shifts, this represents an important \textbf{Potential Research Gap (G)} and a well-justified \textbf{Research Problem (P)}.
+\end{itemize}
+
+\noindent\textbf{Analytical Questions:}
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textit{What can legitimately be inferred?} \\
+    We can legitimately infer that the model performs well on data matching its training distribution. However, we cannot assume it is reliable, robust, or safe when deployed in dynamic environments where input distributions drift or encounter unexpected variations.
+    \item \textit{What additional evidence would be required before claiming a research gap?} \\
+    We would need to show that: (a) distribution shifts are realistic and consequential in the model's target domain; and (b) published literature lacks standardized stress tests, perturbation benchmarks, or out-of-domain evaluations for this model class or problem space.
+    \item \textit{Could the issue lead to an investigable research problem? Why or why not?} \\
+    Yes, this is an excellent, investigable research problem. Researchers can define concrete research questions: (i) Under what magnitude of semantic or covariate perturbation does model accuracy degrade past acceptable thresholds? (ii) What inductive biases or regularization techniques enhance out-of-distribution robustness? These questions can be answered systematically through empirical stress-testing against synthetic and real-world distribution shifts.
+\end{enumerate}
+
+\vspace{1.2em}
+
+
+
+
+\newpage
+% --------------------------------------------------------------------------------------------
+\qLabel{Statement 4: A paper does not compare its proposed approach with a particular alternative algorithm.}
+\vspace{0.4em}
+
+\noindent\textbf{Classification and Reasoning:}
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Classification: L (Limitation), occasionally posing a localized U (Unresolved Question).}
+    \item \textbf{Reasoning:} Leaving out a specific baseline is primarily a local \textbf{Limitation (L)} of that individual paper. Authors often omit baselines due to manuscript length limits, differing hardware requirements, or distinct project scopes. While it leaves an \textbf{Unresolved Question (U)} about how the two compare, it is \textbf{rarely a true Research Gap (G) or Research Problem (P)} by itself. Other papers may have already compared them, or the omitted algorithm might not even be a competitive baseline in that domain.
+\end{itemize}
+
+\noindent\textbf{Analytical Questions:}
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textit{What can legitimately be inferred?} \\
+    We can only infer that the relative performance between these two specific algorithms was not evaluated in this particular study. We cannot conclude that the proposed algorithm is superior, nor that the omitted algorithm is better or worse.
+    \item \textit{What additional evidence would be required before claiming a research gap?} \\
+    We must confirm three points: (a) that no other published study has compared these two approaches; (b) that the omitted algorithm is an established state-of-the-art method designed for the same problem; and (c) that comparing them would provide meaningful theoretical or practical insight rather than just checking off an arbitrary comparison.
+    \item \textit{Could the issue lead to an investigable research problem? Why or why not?} \\
+    Only if the alternative algorithm is a recognized state-of-the-art benchmark with fundamentally different trade-offs, making a head-to-head comparison valuable for understanding system design choices. If it is just an outdated method or an irrelevant variant, comparing them is merely routine benchmarking, not a foundational research problem.
+\end{enumerate}
+
+\vspace{1.2em}
+
+
+\newpage
+% --------------------------------------------------------------------------------------------
+\qLabel{Statement 5: An approach performs well in a controlled environment, but its reliability under a specified operational constraint remains insufficiently investigated.}
+\vspace{0.4em}
+
+\noindent\textbf{Classification and Reasoning:}
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Classification: G (Potential Research Gap) and P (Research Problem), exposing an essential U (Unresolved Question).}
+    \item \textbf{Reasoning:} Controlled laboratory environments deliberately simplify reality by ignoring constraints like strict latency deadlines, memory bounds, thermal throttling, or hardware interrupts. If an approach works in a lab but no one has checked whether it survives realistic operational constraints, that constitutes a prime \textbf{Potential Research Gap (G)}. Investigating how it behaves under those constraints and developing techniques to make it reliable forms a well-justified \textbf{Research Problem (P)}.
+\end{itemize}
+
+\noindent\textbf{Analytical Questions:}
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textit{What can legitimately be inferred?} \\
+    We can legitimately infer that the approach works under idealized, unconstrained conditions. However, its stability, graceful degradation, and compliance with strict operational bounds (such as hard deadline guarantees, bounded memory footprints, or high preemption overheads) remain unverified.
+    \item \textit{What additional evidence would be required before claiming a research gap?} \\
+    We need to confirm that the specified constraint is critical in practical deployments (such as memory limits on embedded devices or latency deadlines in real-time kernels), and that published studies have not yet analyzed how the approach behaves when operating under that constraint.
+    \item \textit{Could the issue lead to an investigable research problem? Why or why not?} \\
+    Yes, this is an exemplary, high-impact research problem. Researchers can: (i) inject the operational constraint systematically into an experimental testbed; (ii) measure empirical failure modes (such as deadline misses, lock contention, or thrashing); and (iii) formulate algorithmic enhancements (such as adaptive quantum sizing, priority aging, or load shedding) to preserve reliability under constrained execution.
+\end{enumerate}
+
+
+
+
+
+
+% ============================================================================================
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 3 --- Discover Potential Gaps in Two Papers}\par}
+\vspace{1em}
+
+\topicTitle{C. Identify Candidate Research Gaps }
+
+
+
+\vspace{0.5em}
+{\small
+\begin{longtable}{|>{\raggedright\arraybackslash}p{3.8cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}p{3.0cm}|}
+    \caption{Candidate Research Gaps Identified from the Two Papers}
+    \label{tab:candidate_gaps} \\
+    
+    \hline
+    \textbf{Candidate Gap / Unresolved Question} & \textbf{Evidence Suggesting It} & \textbf{Why Existing Findings May Be Insufficient} & \textbf{What Must Be Checked Before Claiming a Gap?} \\
+    \hline
+    \endfirsthead 
+    
+    \multicolumn{4}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+    \hline
+    \textbf{Candidate Gap / Unresolved Question} & \textbf{Evidence Suggesting It} & \textbf{Why Existing Findings May Be Insufficient} & \textbf{What Must Be Checked Before Claiming a Gap?} \\
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{4}{r}{\textit{Continued on next page}} \\
+    \endfoot
+
+    \hline
+    \endlastfoot
+
+    
+    % Candidate 1
+    \textbf{Candidate 1:} Impact of burst time prediction error and context-switch latency on the performance advantage of Shortest Job First (SJF/SRTF). & 
+    Both papers demonstrate SJF/SRTF minimizes waiting time, but assume an oracle knowing exact burst times in advance and treat context switching as instantaneous ($t_{cs}=0$). Reddy (Section~III) notes runtime estimation is difficult. & 
+    In real systems, burst times must be estimated and preemptions incur register swapping and cache misses. The papers do not show at what error threshold or switching cost SJF's advantage over non-preemptive algorithms (like FCFS) collapses. & 
+    Check whether operating systems literature has already quantified the exact crossover thresholds where runtime estimation error and preemption penalties outweigh SJF's theoretical queuing advantage. \\
+    \hline
+
+    % Candidate 2
+    \textbf{Candidate 2:} Trade-off between time quantum sizing, context-switch overhead, and throughput in Round Robin schedulers under mixed workloads. & 
+    Reddy tests Round Robin with a single static quantum ($q=4$\,ms), showing high waiting times (36.0\,ms). Samanta \& Biswas test fixed cases. Neither paper measures throughput or evaluates varying quanta under non-zero switching costs. & 
+    Round Robin is designed for interactive systems where quantum size controls the balance between response latency and throughput. Treating switching overhead as zero fails to model real throughput degradation when using small quanta. & 
+    Check if existing scheduling benchmarks and dynamic quantum algorithms (e.g., adaptive quantum heuristics) have already fully resolved how quantum sizing interacts with context switching in modern multi-tier workloads. \\
+    \hline
+
+\end{longtable}
+}
+
+
+\newpage
+\vspace{0.8em}
+\topicTitle{Scrutiny of the Two Candidate Gaps}
+
+To ensure these candidates represent genuine uncertainties rather than mere omissions in our two papers, we evaluate each candidate against four critical questions:
+
+\begin{enumerate}[leftmargin=1.5em]
+
+    \item \textbf{Evaluation of Candidate 1 (Burst Prediction Errors and Context-Switch Latency in SJF/SRTF):}
+    \begin{itemize}[leftmargin=1.2em]
+        \item \textit{Is this a genuine uncertainty, or merely something the authors did not investigate?} \\
+        This is a genuine, foundational uncertainty in operating system scheduling. While textbooks prove SJF is mathematically optimal under perfect information, real schedulers must estimate burst times using historical heuristics (e.g., exponential smoothing). How sensitive this optimality is to prediction inaccuracy and hardware context switching is an unresolved practical boundary, not just a missed experiment.
+        \item \textit{Does the issue matter for understanding or improving the system, method, or application?} \\
+        Yes, significantly. If an operating system spends CPU cycles predicting burst times only to have estimation errors and preemption overheads yield worse average latency than simple FCFS, the scheduler introduces net system degradation.
+        \item \textit{Could other published work already have addressed it?} \\
+        Yes. Many classical studies have explored burst estimation techniques and context-switch costs. However, mapping the multi-variable boundary where prediction noise and switching latency jointly nullify SRTF's latency advantage over FCFS remains an active and relevant systems research area.
+        \item \textit{Is the uncertainty sufficiently specific to investigate?} \\
+        Yes. It can be directly investigated by varying two explicit independent variables (prediction error variance and context-switch duration) and measuring well-defined dependent metrics (average waiting time and turnaround time).
+    \end{itemize}
+
+    \vspace{0.6em}
+    \item \textbf{Evaluation of Candidate 2 (Time Quantum Sizing and Throughput in Round Robin):}
+    \begin{itemize}[leftmargin=1.2em]
+        \item \textit{Is this a genuine uncertainty, or merely something the authors did not investigate?} \\
+        Partially an established trade-off and partially an unmeasured condition in these papers. The theoretical relationship between quantum size, context switching, and throughput is well understood in textbook systems literature, but empirical characterization under mixed interactive/batch workloads remains an open engineering challenge.
+        \item \textit{Does the issue matter for understanding or improving the system?} \\
+        Yes, selecting an optimal quantum is vital for interactive operating systems to prevent CPU thrashing while preserving responsiveness.
+        \item \textit{Could other published work already have addressed it?} \\
+        Highly likely. Dynamic and adaptive Round Robin quantum sizing has been extensively studied in literature. Claiming this as a broad research gap without extensive benchmarking of existing adaptive schedulers would be difficult to defend.
+        \item \textit{Is the uncertainty sufficiently specific to investigate?} \\
+        Yes, quantum size versus context-switching overhead can be measured quantitatively in simulation or benchmark kernels.
+    \end{itemize}
+
+\end{enumerate}
+
+
+
+
+% ============================================================================================
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 4 --- From Candidate Gap to Research Question}\par}
+\vspace{1em}
+
+\topicTitle{D. Selection and Formulation of Research Questions}
+
+Candidate~1 directly challenges the core empirical finding of both papers: that SJF/SRTF is optimal for minimizing waiting latency. Because both papers achieved this outcome by assuming zero context-switch latency and perfect future knowledge, testing what happens when these assumptions break down addresses the most critical uncertainty in the evidence. We transform Candidate~1 into two alternative research questions:
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Research Question 1 :} \\
+    \textit{``Under what burst prediction error thresholds and context-switch latencies does Shortest Remaining Time First (SRTF) scheduling fail to outperform non-preemptive First-Come-First-Served (FCFS) in average waiting time?''}
+    
+    \vspace{0.4em}
+    \item \textbf{Research Question 2 :} \\
+    \textit{``How can a machine-learning burst prediction model improve the turnaround time and system throughput of preemptive CPU scheduling algorithms across diverse operating environments?''}
+\end{itemize}
+
+Table~\ref{tab:Research Question _evaluation} systematically evaluates both candidate questions against the required criteria.
+
+\vspace{0.5em}
+{\small
+\begin{longtable}{|>{\raggedright\arraybackslash}p{3.4cm}|>{\raggedright\arraybackslash}p{5.6cm}|>{\raggedright\arraybackslash}p{5.6cm}|}
+    \caption{Evaluation of Alternative Research Questions}
+    \label{tab:Research Question _evaluation} \\
+    
+    \hline
+    \textbf{Criterion} & \textbf{Research Question 1 } & \textbf{Research Question 2 } \\
+    \hline
+    \endfirsthead 
+    
+    \multicolumn{3}{c}{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+    \hline
+    \textbf{Criterion} & \textbf{Research Question 1 } & \textbf{Research Question 2 } \\
+    \hline
+    \endhead
+
+    \hline
+    \multicolumn{3}{r}{\textit{Continued on next page}} \\
+    \endfoot
+
+    \hline
+    \endlastfoot
+
+    % Criterion 1
+    \textbf{Is it clear and specific?} & 
+    Yes. It isolates explicit independent variables (prediction error percentage, context-switch latency) and a specific dependent metric (average waiting time) comparing two well-defined algorithms (SRTF vs.\ FCFS). & 
+    Less specific. Terms like ``machine-learning burst prediction model'' and ``diverse operating environments'' are broad and do not specify the model architecture, feature set, or target systems. \\
+    \hline
+
+    % Criterion 2
+    \textbf{Can it be investigated using identifiable methods or evidence?} & 
+    Yes. It can be investigated using a controlled, trace-driven discrete-event simulator by systematically injecting calibrated prediction noise and context-switch delays into process traces. & 
+    Yes, but methodologically convoluted. Requires designing, training, and deploying an online model, measuring inference latency, and running extensive workload traces. \\
+    \hline
+
+    % Criterion 3
+    \textbf{Does it address a meaningful uncertainty?} & 
+    Yes. It directly addresses the gap exposed in both papers: identifying the operational boundaries where idealized algorithmic superiority breaks down in practical implementations. & 
+    Addresses an active topic, but conflates scheduling performance with machine learning inference overhead, risking inconclusive results on whether gains stem from the scheduler or the model. \\
+    \hline
+
+    % Criterion 4
+    \textbf{Is its scope manageable?} & 
+    Highly manageable. The parameter space (error variance and switching latency) can be systematically explored within a focused M.Tech semester project without massive computational infrastructure. & 
+    Overly broad. Developing, validating, and benchmarking an online ML predictor across multiple environments requires substantial compute, datasets, and complex hyperparameter tuning. \\
+    \hline
+
+    % Criterion 5
+    \textbf{Can results be evaluated against explicit criteria?} & 
+    Yes. Evaluated against precise quantitative metrics: Average Waiting Time (AWT), Average Turnaround Time (ATAT), and the exact crossover curve where $AWT_{\text{SRTF}} \ge AWT_{\text{FCFS}}$. & 
+    Difficult to evaluate cleanly. Balancing model training time, prediction latency, memory footprint, and scheduling metrics across multiple environments makes clear conclusions elusive. \\
+    \hline
+
+    % Criterion 6
+    \textbf{What assumptions or resources would the investigation require?} & 
+    Requires a discrete-event scheduling simulator (e.g., in Python or C++), standard process execution traces (such as SPEC CPU or synthetic Poisson/bimodal traces), and statistical parameter sweep tools. & 
+    Requires machine learning frameworks, large historical execution traces for training, and specialized profiling tools to measure online prediction inference latency. \\
+    \hline
+
+\end{longtable}
+}
+
+\vspace{0.8em}
+\topicTitle{Justification of the Chosen Question}
+
+Research Question 1 focuses on a fundamental scientific question of cause and effect: determining the exact point at which the practical overheads of preemption and the inaccuracy of runtime estimation cancel out the mathematical advantages of Shortest Remaining Time First. In contrast, Research Question 2 is an engineering proposal that introduces too many confounding factors (such as model inference latency, training data bias, and computational overhead), making it difficult to isolate why performance improves or degrades. Research Question 1 provides a tightly controlled, investigable hypothesis with clear success criteria.
+
+\vspace{0.8em}
+\topicTitle{Detailed Formulation of the Selected Research Question}
+
+\begin{itemize}[leftmargin=1.5em]
+
+    \item \qLabel{D1. Proposed research question:} \\
+    Under what burst prediction error thresholds and context-switch latencies does Shortest Remaining Time First (SRTF) scheduling fail to outperform non-preemptive First-Come-First-Served (FCFS) in average waiting time?
+
+    \vspace{0.4em}
+    \item \qLabel{D2. Research objective:} \\
+    The investigation attempts to establish the quantitative crossover boundary where prediction inaccuracies and preemption switching overheads degrade SRTF's latency advantage, defining an empirical decision boundary for when an operating system should avoid greedy preemptive scheduling.
+
+    \vspace{0.4em}
+    \item \qLabel{D3. Possible approach:} \\
+    We will develop a discrete-event uni-processor CPU scheduling simulation framework. The simulation will execute both synthetic workloads (uniform, exponential, and bimodal burst distributions) and real-world execution traces. We will systematically vary two independent parameters:
+    \begin{enumerate}[label=(\roman*)]
+        \item Prediction error magnitude: Injecting controlled errors into process burst estimates (from 0\% to 50\% Mean Absolute Percentage Error, using both random noise and exponential smoothing models $\tau_{n+1} = \alpha t_n + (1-\alpha)\tau_n$).
+        \item Context-switch latency: Incrementing switching costs from $0\,\mu\text{s}$ to $100\,\mu\text{s}$ per preemption.
+    \end{enumerate}
+
+    \vspace{0.4em}
+    \item \qLabel{D4. Evaluation:} \\
+    The outcome will be evaluated by measuring Average Waiting Time (AWT), Average Turnaround Time (ATAT), and total preemption counts. The primary outcome metric is the \textbf{performance crossover point}: the specific combination of prediction error rate ($\epsilon$) and context-switch latency ($t_{cs}$) at which $AWT_{\text{SRTF}} \ge AWT_{\text{FCFS}}$.
+
+    \vspace{0.4em}
+    \item \qLabel{D5. Expected contribution:} \\
+    If successful, the investigation will provide operating system designers with a predictive, evidence-based model that maps when the overhead and uncertainty of estimating burst times outweigh SRTF's scheduling benefits, replacing idealized assumptions with realistic operating guidelines.
+    
+    \vspace{0.2em}
+    \noindent\textit{Note: In accordance with the Stage~4 guidelines, we do not assume that any approach will necessarily outperform existing methods; rather, the objective is to characterize the exact conditions under which each policy is preferable.}
+
+\end{itemize}
+
+
+
+
+
+
+% ============================================================================================
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 5 --- Write a Research Problem Statement}\par}
+\vspace{1em}
+
+\topicTitle{E. Research Problem Statement}
+
+
+\vspace{0.8em}
+\noindent\fbox{
+\parbox{0.96\textwidth}{
+\vspace{0.4em}
+CPU scheduling is a fundamental operating system service that governs processor utilization, multi-task responsiveness, and overall execution efficiency. Empirical studies by Reddy [1] and Samanta and Biswas [2] demonstrate that Shortest Job First (SJF) and Shortest Remaining Time First (SRTF) minimize average waiting and turnaround times compared to First-Come-First-Served and Round Robin schedulers. However, these findings depend strictly upon two idealized assumptions: that future process burst times are known completely in advance and that context-switching overhead is negligible. In practical general-purpose operating systems, exact burst times cannot be known beforehand and must be approximated through runtime heuristics, while preemptive context switches introduce measurable dispatcher latency, state saving, and cache invalidation penalties. It remains uncertain at what prediction error thresholds and context-switch costs the theoretical latency advantages of SRTF degrade or disappear entirely. This uncertainty matters because adopting preemptive shortest-job policies in environments with noisy runtime estimates may inadvertently increase scheduling overhead, cause queue instability, and degrade user responsiveness. Therefore, an empirical investigation is needed to quantify the specific prediction error rates and context-switch latencies under which SRTF ceases to outperform non-preemptive First-Come-First-Served scheduling, using trace-driven discrete-event simulations across diverse workload distributions.
+\vspace{0.4em}
+}
+}
+
+
+
+\vspace{1.0em}
+\topicTitle{Logical Progression Breakdown}
+
+
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textbf{Context (Technical problem / system being studied):} \\
+    \textit{``CPU scheduling is a fundamental operating system service that governs processor utilization, multi-task responsiveness, and overall execution efficiency.''} \\
+    Identifies uniprocessor CPU scheduling and system performance as the technical domain.
+    
+    \item \textbf{Existing Knowledge (What the two papers establish):} \\
+    \textit{``Empirical studies by Reddy [1] and Samanta and Biswas [2] demonstrate that Shortest Job First (SJF) and Shortest Remaining Time First (SRTF) minimize average waiting and turnaround times compared to First-Come-First-Served and Round Robin schedulers. However, these findings depend strictly upon two idealized assumptions: that future process burst times are known completely in advance and that context-switching overhead is negligible.''} \\
+    Summarizes the empirical consensus while explicitly linking the findings to their supporting citations and idealized boundary conditions.
+
+    \item \textbf{Uncertainty (Specific issue remaining unresolved):} \\
+    \textit{``In practical general-purpose operating systems, exact burst times cannot be known beforehand and must be approximated through runtime heuristics, while preemptive context switches introduce measurable dispatcher latency, state saving, and cache invalidation penalties. It remains uncertain at what prediction error thresholds and context-switch costs the theoretical latency advantages of SRTF degrade or disappear entirely.''} \\
+    Pinpoints the exact unresolved uncertainty: the sensitivity of SRTF's advantage to imperfect prediction and non-zero preemption latency.
+
+    \item \textbf{Significance (Why does this uncertainty matter?):} \\
+    \textit{``This uncertainty matters because adopting preemptive shortest-job policies in environments with noisy runtime estimates may inadvertently increase scheduling overhead, cause queue instability, and degrade user responsiveness.''} \\
+    Explains the engineering consequence: an improperly applied policy can cause net performance degradation and instability.
+
+    \item \textbf{Proposed Investigation (Question and evidence to answer it):} \\
+    \textit{``Therefore, an empirical investigation is needed to quantify the specific prediction error rates and context-switch latencies under which SRTF ceases to outperform non-preemptive First-Come-First-Served scheduling, using trace-driven discrete-event simulations across diverse workload distributions.''} \\
+    States the proposed question clearly, names the target comparator (FCFS), and identifies the empirical methodology (trace-driven discrete-event simulation) without making unsupported claims of universal novelty.
+\end{enumerate}
+
+
+
+
+% ============================================================================================
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 6 --- Peer Challenge: Can You Defend Your Question?}\par}
+\vspace{1em}
+
+\topicTitle{F. Peer-Review Exchange and Critical Defense}
+
+Our group exchanged our proposed research question, objective, and problem statement with Peer \textbf{MT26MCS005 - Vikas Chaurasiya} \& \textbf{MT26MCS035 - Prodip Biswa} for critical evaluation. The reviewing group evaluated our proposal against the four diagnostic questions:
+
+\begin{enumerate}[leftmargin=1.5em, itemsep=0.2em]
+    \item \textbf{What evidence supports the claimed uncertainty?} \\
+    \textit{Reviewer Assessment:} Reddy~[1] notes that runtime estimation is difficult, yet both papers evaluate algorithms solely under zero context switching ($t_{cs}=0$) and perfect burst knowledge. The robustness of SRTF's latency advantage under estimation noise and preemption delays remains unverified in the evidence.
+
+    \item \textbf{Could this be a limitation of the selected two papers rather than a gap in existing research?} \\
+    \textit{Reviewer Assessment:} While preemption overhead is acknowledged in textbook theory, mapping the quantitative crossover boundary where estimation noise and switching latency jointly nullify SRTF's advantage over FCFS remains an active empirical systems question, especially under modern burst distributions.
+
+    \item \textbf{Is the question sufficiently specific and investigable?} \\
+    \textit{Reviewer Assessment:} The question is well-scoped: it specifies clear independent variables (burst prediction error percentage and context-switch latency in microseconds), an explicit baseline (FCFS), and a well-defined metric (average waiting time).
+
+    \item \textbf{What would count as an answer to this question?} \\
+    \textit{Reviewer Assessment:} An answer would be an empirical crossover contour showing the critical prediction error ($\epsilon_{\text{crit}}$) and switching latency ($t_{cs}$) at which $AWT_{\text{SRTF}} \ge AWT_{\text{FCFS}}$ across different workload distributions.
+\end{enumerate}
+
+\vspace{0.4em}
+\topicTitle{Significant Objection Received and Group Response}
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Significant Objection Received from Peer Reviewers:} \\
+    \textit{``Comparing SRTF against basic FCFS under prediction error sets a very low baseline. In practical operating systems, developers deploy adaptive schedulers like MLFQ or CFS rather than raw FCFS. Demonstrating that SRTF degrades below FCFS shows a weakness of SRTF, but does not provide actionable guidance on what scheduler an operating system should deploy when burst prediction is noisy.''}
+
+    \vspace{0.3em}
+    \item \textbf{How Our Group Addressed the Objection:} \\
+    We acknowledged that production operating systems typically use MLFQ or CFS rather than pure FCFS. However, we defended our comparison with FCFS on methodological grounds: FCFS represents the absolute theoretical baseline of scheduling complexity---incurring zero prediction cost, zero preemption overhead, and $O(1)$ dispatching overhead. Determining where SRTF degrades below FCFS establishes the point of negative return: the threshold where attempting runtime prediction yields worse results than doing no prediction at all. To incorporate the reviewers' constructive feedback, we agreed to include MLFQ as a secondary reference benchmark in our simulation suite, demonstrating where an adaptive priority queue bridges the gap between noisy SRTF and passive FCFS.
+\end{itemize}
+
+
+% ============================================================================================
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 7 --- Individual Reflection}\par}
+\vspace{1em}
+
+{\centering\fontsize{14}{16.8}\selectfont \textbf{Student 1: Gaurav Acharya (MT26MCS024)}\par}
+\vspace{1em}
+
+\begin{enumerate}[leftmargin=1.5em, itemsep=1.0em]
+    \item \textbf{What is the most important difference between identifying a limitation and establishing a research gap?} \\
+    The most important difference is the boundary of the claim. A limitation belongs to a single study: it describes a specific design choice, a small sample size ($N=4$ in Paper~2), or a simplified assumption ($t_{cs}=0$) that restricts where those specific numbers apply. In contrast, a research gap belongs to the wider scientific community: it represents a persistent unknown or unanswered question across the broader literature. Confusing a single paper's limitation with a research gap leads to trivial projects that simply re-run someone else's experiment with another dataset. Establishing a true gap requires proving that existing literature as a whole lacks the theory or data to explain the phenomenon.
+
+    \item \textbf{Did your group initially mistake any absence of information for a research gap?} \\
+    Yes. When analyzing Paper~2 (Samanta \& Biswas), I initially thought that the complete absence of throughput and response time data was a major research gap. However, during our group discussion, we realized that the authors omitted these metrics simply because their paper was narrowly focused on proving an arithmetic relationship between burst times and waiting time. The wider operating systems literature already contains extensive benchmarks on Round Robin and FCFS throughput. The absence of data in our two papers was merely a local limitation of those articles, not a gap in computer science knowledge.
+
+    \item \textbf{What further reading or evidence would be necessary before defending your proposed research question as a dissertation topic?} \\
+    Before defending this as an M.Tech dissertation topic, I would need to:
+    \begin{itemize}[leftmargin=1.2em, itemsep=0.3em]
+        \item Conduct a systematic review of recent systems literature (e.g., USENIX OSDI, EuroSys, and ACM SOSP) on modern runtime estimation methods, such as online exponential smoothing, Kalman filters, and lightweight machine learning predictors;
+        \item Measure empirical context-switch and cache-invalidation latencies on real hardware (x86-64 and ARM multi-core platforms) using profiling tools like Linux \texttt{perf} and kernel tracepoints, ensuring our simulation parameters reflect true hardware realities;
+        \item Test real-world, production workload traces (such as Alibaba or Google cloud traces) rather than relying exclusively on synthetic mathematical distributions.
+    \end{itemize}
+\end{enumerate}
+
+\newpage
+{\centering\fontsize{16}{20}\selectfont\textbf{Stage 7 --- Individual Reflection}\par}
+\vspace{1em}
+
+{\centering\fontsize{14}{16.8}\selectfont \textbf{Student 2: Sandeep (MT26MCS032)}\par}
+\vspace{1em}
+
+\begin{enumerate}[leftmargin=1.5em, itemsep=1.0em]
+    \item \textbf{What is the most important difference between identifying a limitation and establishing a research gap?} \\
+    The most important difference lies in relevance and causality. A limitation is descriptive: it points out what an author chose not to do (for example, Paper~1 did not test interactive I/O tasks). A research gap is explanatory and consequential: it identifies an inadequacy in existing knowledge that genuinely matters for system performance or theory. An unanswered question is not worth investigating unless resolving it changes how we design systems or clears up a conflicting theoretical model. Good research begins by demonstrating why the missing knowledge is critical.
+
+    \item \textbf{Did your group initially mistake any absence of information for a research gap?} \\
+    Yes. Early on, I thought that the lack of process starvation measurements in Priority and SJF scheduling represented an immediate research gap. However, when evaluating it against the four scrutiny questions in Stage~3, we recognized that starvation in static priority queues has been mathematically understood and modeled since the 1960s using classical $M/G/1$ queuing theory, and engineering solutions like dynamic priority aging are already standard in operating systems. The omission in our two papers was just an artifact of running small static batches, not an open scientific problem. Recognizing this distinction helped us discard a weak idea in favor of Candidate~1.
+
+    \item \textbf{What further reading or evidence would be necessary before defending your proposed research question as a dissertation topic?} \\
+    To defend this question as an M.Tech dissertation, I would need to:
+    \begin{itemize}[leftmargin=1.2em, itemsep=0.3em]
+        \item Study modern production kernel schedulers, specifically the Linux Completely Fair Scheduler (CFS) and the emerging BPF extensible scheduler framework (\texttt{sched\_ext}), to understand how modern kernels trade off preemption granularity against CPU cache affinity;
+        \item Read empirical studies on cloud microservices and serverless architectures, where request burst times exhibit heavy-tailed distributions and preemption latency directly impacts 99th-percentile tail latency;
+        \item Develop formal mathematical bounds (such as competitive analysis or queuing delay bounds) to complement our discrete-event simulation experiments.
+    \end{itemize}
+\end{enumerate}
+
+
+\end{document}

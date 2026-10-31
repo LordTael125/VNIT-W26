@@ -1,0 +1,561 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{amsmath, amssymb}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage[hypcap=false]{caption}
+\usepackage{subcaption}
+\usepackage[hidelinks]{hyperref}
+
+% --------------------------------------------------------------------------------------------
+% Listings and Document Formatting
+% --------------------------------------------------------------------------------------------
+\definecolor{codebg}{rgb}{0.98, 0.98, 0.98}
+\definecolor{codecomment}{rgb}{0.25, 0.50, 0.35}
+\definecolor{codekeyword}{rgb}{0.0, 0.20, 0.70}
+\definecolor{codenumbers}{rgb}{0.55, 0.55, 0.55}
+
+\lstdefinestyle{cstyle}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    numberstyle=\tiny\color{codenumbers},
+    basicstyle=\ttfamily\scriptsize,
+    breaklines=true,
+    numbers=left,
+    numbersep=5pt,
+    frame=single,
+    rulecolor=\color{black!20},
+    tabsize=4,
+    xleftmargin=1.2em,
+    framexleftmargin=1.2em
+}
+\lstset{style=cstyle}
+
+\setlist[itemize]{leftmargin=1.4em, itemsep=0.12em, topsep=0.12em}
+\setlist[enumerate]{leftmargin=1.4em, itemsep=0.12em, topsep=0.12em}
+
+% --------------------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+    \includegraphics[width=0.32\textwidth]{VNIT_logo.jpg}\\[1.8cm]
+    
+    {\large \textbf{Group Members}}\\[0.3cm]
+    \begin{tabular}{l c l}
+        Student 1: Gaurav Acharya & --- & [MT26MCS024] \\
+        Student 2: Sandeep & --- & [MT26MCS032]
+    \end{tabular}
+    
+    \vspace{1.2cm}
+    
+    {\large \textbf{Guide Name}}\\[0.3cm]
+    Dr. A. S. Mokhade
+    
+    \vspace{1.2cm}
+    
+    {\large \textbf{Practical Title:}}\\[0.3cm]
+    CSP502 Software Lab-I:\\[0.15cm]
+    Practical 5: Big-O Meets Reality
+    
+    \vspace{1.2cm}
+    
+    {\large \textbf{Problem Statement:}}\\[0.3cm]
+    From Analytical Predictions to Experimental Evidence
+    
+\end{center}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+
+{\centering\fontsize{15}{18}\selectfont\textbf{Part A --- Revisit Your Earlier Predictions}\par}
+\vspace{0.8em}
+
+\subsection*{1. Original Predictions and Experimental Design (from Part G)}
+In the preparatory tutorial (Assignment-05, Part G), we designed an empirical experiment to evaluate how asymptotic predictions compare with physical execution time. The original design and predictions were:
+
+\begin{itemize}
+    \item \textbf{Input Sizes ($n$):} Logarithmic spread: $n \in \{10, 100, 1\,000, 10\,000, 100\,000\}$.
+    \item \textbf{Input Types:} Randomized, already sorted, and reverse-sorted integer arrays.
+    \item \textbf{Equivalence \& Timing:} Deep copies of a single master dataset passed to both algorithms; wall-clock time measured in microseconds isolating strictly the sorting routine (excluding array generation, copying, and I/O).
+    \item \textbf{Repetitions \& Metric:} 100 runs per configuration; summarized using mean and standard deviation.
+    \item \textbf{Controlled Factors:} Same physical CPU, minimal background tasks, and identical compiler optimization (\texttt{-O3}).
+\end{itemize}
+
+\noindent\textbf{Original Predictions Recorded in Part G:}
+\begin{enumerate}
+    \item \textbf{Small Inputs ($n = 10, 100$):} Algorithm A ($O(n^2)$) was predicted to have a lower execution time than Algorithm B ($O(n \log n)$) due to minimal constant overhead, simpler control flow, and no recursive call overhead.
+    \item \textbf{Large Inputs ($n = 100\,000$):} Algorithm B ($O(n \log n)$) was predicted to execute orders of magnitude faster, as quadratic growth overwhelms lower constant factors.
+    \item \textbf{Crossover Point:} A performance crossover was predicted between $n = 100$ and $n = 1\,000$, where the higher constant factor of $O(n \log n)$ is offset by the slower growth rate.
+\end{enumerate}
+
+\subsection*{2. Critical Examination of Earlier Predictions}
+
+\begin{itemize}
+    \item \textbf{Expected Behaviour for Small and Large Inputs:}
+    For small inputs ($n \le 100$), execution time is dominated by constant overheads---function-call prologue/epilogues, stack frames, and memory operations. An iterative $O(n^2)$ sort operates in-place on contiguous memory with tight loops, giving it an advantage over an $O(n \log n)$ sort that incurs recursion and buffer-allocation overhead. For large inputs ($n \ge 10\,000$), the ratio of work scales as $\frac{n^2}{n \log_2 n} = \frac{n}{\log_2 n}$. At $n = 100\,000$, this ratio exceeds $6\,000\times$, meaning the mathematical growth rate dominates completely over constant-factor differences.
+
+    \item \textbf{Assumptions Made About Algorithms and Execution Environment:}
+    \begin{itemize}
+        \item \textit{Algorithmic Assumptions:} Uniform-cost memory access ($O(1)$ latency per read/write), neglecting the multi-level cache hierarchy (L1/L2/L3) and DRAM latency. We also assumed auxiliary buffer allocations in the log-linear sort carry negligible constant cost.
+        \item \textit{Environmental Assumptions:} Consistent CPU frequency without dynamic thermal throttling or Turbo Boost variation; negligible OS context switches and background interrupts; and balanced compiler optimizations across loops and recursion.
+    \end{itemize}
+
+    \item \textbf{Controlled Variables for a Meaningful Comparison:}
+    \begin{itemize}
+        \item \textit{Identical Data:} Both algorithms must sort exact deep copies of the same dataset.
+        \item \textit{Isolated Timing:} Timers must bracket only the sorting logic, excluding data generation, memory allocation, and validation checks.
+        \item \textit{Execution Environment:} Same processor core (pinned affinity), same compiler (\texttt{gcc -O3}), identical 32-bit integer records, and minimal system load.
+    \end{itemize}
+
+    \item \textbf{Evidence That Would Support or Challenge Predictions:}
+    \begin{itemize}
+        \item \textit{Supporting Evidence:} Observing $t_{O(n^2)} < t_{O(n \log n)}$ for $n \in \{10, 50, 100\}$; locating a clear crossover between $100$ and $1\,000$ for random data; and observing $\approx 4\times$ growth per doubling of $n$ for the quadratic sort at scale.
+        \item \textit{Challenging Evidence:} If Merge Sort is faster even at $n = 10$ due to aggressive compiler optimization; if no crossover occurs in the predicted window; or if input ordering inverts the trend (e.g., Insertion Sort running in $O(n)$ time on already-sorted data and outperforming Merge Sort across all tested $n$).
+    \end{itemize}
+\end{itemize}
+
+\subsection*{3. Limitations Recognized in Original Experimental Design}
+\begin{enumerate}
+    \item \textbf{Omission of Practical Distributions:} The original plan tested only random, sorted, and reverse-sorted arrays, omitting nearly-sorted data and duplicate-heavy arrays.
+    \item \textbf{Feasibility of $n = 100\,000$:} Running 100 trials of an $O(n^2)$ sort on $10^5$ reverse-ordered elements requires $\approx 5 \times 10^9$ operations per trial, which is too slow for an interactive laboratory session.
+    \item \textbf{Coarse Sampling Resolution:} Jumping from 100 to 1,000 provides only two data points across the expected crossover region. Finer intermediate sizes ($n = 200, 400, 600$) are necessary.
+    \item \textbf{Summary Metric Vulnerability:} The arithmetic mean is sensitive to occasional OS latency spikes; the median and interquartile range (IQR) provide a more robust summary.
+\end{enumerate}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+
+{\centering\fontsize{15}{18}\selectfont\textbf{Part B --- Algorithm Selection and Implementation}\par}
+\vspace{0.8em}
+
+\subsection*{1. Algorithm Selection and Justification}
+To evaluate quadratic versus log-linear behavior under identical laboratory conditions, we selected:
+\begin{enumerate}
+    \item \textbf{Quadratic Worst-Case Algorithm ($O(n^2)$):} \textbf{Insertion Sort}
+    \item \textbf{Log-Linear Worst-Case Algorithm ($O(n \log n)$):} \textbf{Merge Sort}
+\end{enumerate}
+
+\noindent\textbf{Justification:}
+\begin{itemize}
+    \item \textbf{Guaranteed $O(n \log n)$ Worst-Case:} Merge Sort strictly satisfies the laboratory requirement of $O(n \log n)$ worst-case time complexity. QuickSort, while commonly used, degrades to $O(n^2)$ on sorted or reverse-sorted inputs without randomized pivoting, confounding the comparison.
+    \item \textbf{Architectural Contrast:} Insertion Sort is iterative, in-place ($O(1)$ space), has optimal spatial cache locality, and very low constant factors. Merge Sort is recursive, divide-and-conquer, and requires $O(n)$ auxiliary memory with data copying between buffers.
+    \item \textbf{Distribution Sensitivity:} Insertion Sort is adaptive ($O(n)$ best-case on sorted data), while Merge Sort performs $O(n \log n)$ comparisons unconditionally. This provides an excellent contrast for investigating when an asymptotically "inferior" algorithm beats an $O(n \log n)$ algorithm in practice.
+\end{itemize}
+
+\subsection*{2. Theoretical Complexity and Key Operations}
+
+\begin{center}
+\small
+\captionof{table}{Complexity Summary of Selected Algorithms}
+\vspace{-0.4em}
+\begin{tabularx}{0.95\textwidth}{l c c c c c c}
+\toprule
+\textbf{Algorithm} & \textbf{Best Case} & \textbf{Average Case} & \textbf{Worst Case} & \textbf{Aux. Space} & \textbf{Stability} & \textbf{In-Place} \\
+\midrule
+\textbf{Insertion Sort} & $O(n)$ & $O(n^2)$ & $O(n^2)$ & $O(1)$ & Stable & Yes \\
+\textbf{Merge Sort} & $O(n \log n)$ & $O(n \log n)$ & $O(n \log n)$ & $O(n)$ & Stable & No \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent\textbf{Primary Relevant Operations:}
+\begin{itemize}
+    \item \textbf{Key Comparisons:} The inner comparison \texttt{arr[j] > key} in Insertion Sort scales from $n-1$ (sorted) to $\frac{n(n-1)}{2}$ (reverse-sorted). In Merge Sort, \texttt{arr[i] <= arr[j]} during merging is bounded by $\approx n \log_2 n$ comparisons across all distributions.
+    \item \textbf{Data Movements / Memory Writes:} Insertion Sort shifts elements in-place (\texttt{arr[j+1] = arr[j]}). Merge Sort writes elements to a temporary buffer and copies them back, requiring $2 \lceil\log_2 n\rceil$ memory writes per element.
+\end{itemize}
+
+\newpage
+\enlargethispage{1.5\baselineskip}
+\subsection*{3. Verified C Implementations}
+The algorithms are implemented in ISO C99. Merge Sort uses a single scratchpad buffer allocated prior to recursion to eliminate dynamic memory allocation overhead from individual recursive calls.
+
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+/* Insertion Sort: O(n^2) worst-case, in-place, adaptive */
+void insertion_sort(int arr[], int n) {
+    for (int i = 1; i < n; i++) {
+        int key = arr[i], j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+}
+/* Merge Sort: O(n log n) worst-case, out-of-place, divide-and-conquer */
+static void merge(int arr[], int temp[], int l, int m, int r) {
+    int i = l, j = m + 1, k = l;
+    while (i <= m && j <= r) temp[k++] = (arr[i] <= arr[j]) ? arr[i++] : arr[j++];
+    while (i <= m) temp[k++] = arr[i++];
+    while (j <= r) temp[k++] = arr[j++];
+    for (i = l; i <= r; i++) arr[i] = temp[i];
+}
+static void merge_sort_rec(int arr[], int temp[], int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+        merge_sort_rec(arr, temp, l, m);
+        merge_sort_rec(arr, temp, m + 1, r);
+        merge(arr, temp, l, m, r);
+    }
+}
+void merge_sort(int arr[], int n) {
+    if (n <= 1) return;
+    int *temp = (int *)malloc((size_t)n * sizeof(int));
+    if (!temp) { perror("malloc failed"); exit(EXIT_FAILURE); }
+    merge_sort_rec(arr, temp, 0, n - 1);
+    free(temp);
+}
+\end{lstlisting}
+
+\vspace{-0.5em}
+\subsection*{4. Correctness Verification and Testing Evidence}
+Both algorithms were verified using an automated test harness compiled with \texttt{gcc -O3 -Wall -Wextra}. Verification ensured non-decreasing ordering, multiset element preservation, and identical output between implementations.
+
+\begin{center}
+\scriptsize
+\renewcommand{\arraystretch}{0.90}
+\captionof{table}{Automated Correctness Test Suite and Verification Results}
+\vspace{-0.5em}
+\begin{tabularx}{\textwidth}{c l >{\raggedright\arraybackslash}p{4.4cm} >{\raggedright\arraybackslash}p{4.4cm} c}
+\toprule
+\textbf{ID} & \textbf{Scenario} & \textbf{Input Array} & \textbf{Sorted Output} & \textbf{Status} \\
+\midrule
+\textbf{TC1} & Single element ($n=1$) & \texttt{[42]} & \texttt{[42]} & \textbf{PASSED} \\
+\textbf{TC2} & Already sorted array & \texttt{[1, 3, 5, 7, 9, 11, 13, 15]} & \texttt{[1, 3, 5, 7, 9, 11, 13, 15]} & \textbf{PASSED} \\
+\textbf{TC3} & Reverse sorted array & \texttt{[50, 40, 30, 20, 10, 0, -10]} & \texttt{[-10, 0, 10, 20, 30, 40, 50]} & \textbf{PASSED} \\
+\textbf{TC4} & Duplicate keys & \texttt{[5, 2, 8, 5, 2, 8, 5, 5, 1]} & \texttt{[1, 2, 2, 5, 5, 5, 5, 8, 8]} & \textbf{PASSED} \\
+\textbf{TC5} & Mixed negative/positive & \texttt{[-12, 45, 0, -3, 89, -100, 24]} & \texttt{[-100, -12, -3, 0, 24, 45, 89]} & \textbf{PASSED} \\
+\textbf{TC6} & All identical elements & \texttt{[7, 7, 7, 7, 7, 7]} & \texttt{[7, 7, 7, 7, 7, 7]} & \textbf{PASSED} \\
+\textbf{TC7} & Random array ($n=1000$) & Pseudo-random $[-10^4, 10^4]$ & Validated via \texttt{is\_sorted} & \textbf{PASSED} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\vspace{-0.3em}
+\noindent All test cases executed with zero assertion failures and $100\%$ matching outputs between both algorithms.
+
+% --------------------------------------------------------------------------------------------
+\newpage
+
+{\centering\fontsize{15}{18}\selectfont\textbf{Part C --- Design and Conduct the Experiment}\par}
+\vspace{0.8em}
+
+\subsection*{1. Experimental Environment and Measurement Protocol}
+To evaluate both algorithms under controlled laboratory conditions, experiments were executed on a dedicated system with system specifications and compilation parameters recorded in Table~\ref{tab:env_specs}.
+
+\begin{center}
+\small
+\captionof{table}{Execution Environment and Experimental Setup}
+\label{tab:env_specs}
+\vspace{-0.4em}
+\begin{tabularx}{0.95\textwidth}{l X}
+\toprule
+\textbf{Parameter} & \textbf{Specification / Value} \\
+\midrule
+\textbf{Processor} & 12th Gen Intel(R) Core(TM) i7-12650H (16 vCPUs, up to 4.70 GHz) \\
+\textbf{Cache Architecture} & L1d: 416 KiB, L1i: 448 KiB, L2: 9.5 MiB, L3: 24 MiB shared \\
+\textbf{Operating System} & Linux Manjaro (Kernel 7.1.13-2-MANJARO x86\_64) \\
+\textbf{Programming Language} & ISO C99, compiled via GCC 16.2.1 \\
+\textbf{Optimization Level} & \texttt{-O3 -march=native} \\
+\textbf{Timing Mechanism} & POSIX \texttt{clock\_gettime(CLOCK\_MONOTONIC)} (nanosecond resolution) \\
+\textbf{Repetitions \& Summary} & 5 independent runs per configuration; summarized via \textbf{Sample Median} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent\textbf{Justification of Summary Measure:} We chose the \textbf{sample median} as the representative measure. The arithmetic mean is disproportionately skewed by positive outliers resulting from unpredictable operating system events (context switches, thread migrations, CPU frequency stepping). The median reliably isolates the true execution latency of the algorithm from transient system jitter.
+
+\noindent\textbf{Input Permutations and Sizing:} Five input distributions were evaluated: (1) Random, (2) Already Sorted, (3) Reverse Sorted, (4) Nearly Sorted ($\approx 5\%$ random perturbations), and (5) Repeated Values (7 unique keys). Input sizes span twelve points from $n = 10$ to $n = 50\,000$, with fine-grained sampling in the small-$n$ region ($n \in \{10, 20, 50, 100, 200, 500\}$) to accurately detect crossover behavior.
+
+\newpage
+\subsection*{2. Experimental Observations}
+Table~\ref{tab:raw_obs} records representative timing observations across the five input distributions.
+
+\begin{center}
+\scriptsize
+\renewcommand{\arraystretch}{0.92}
+\captionof{table}{Experimental Timing Observations across Input Characteristics ($\mu$s)}
+\label{tab:raw_obs}
+\vspace{-0.5em}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l r l rrrrr r}
+\toprule
+\textbf{Distribution} & \textbf{Size ($n$)} & \textbf{Algorithm} & \textbf{Trial 1} & \textbf{Trial 2} & \textbf{Trial 3} & \textbf{Trial 4} & \textbf{Trial 5} & \textbf{Median ($\mu$s)} \\
+\midrule
+\textbf{Random} & 10 & InsertionSort & 0.282 & 0.124 & 0.043 & 0.037 & 0.037 & \textbf{0.043} \\
+& 10 & MergeSort & 1.078 & 0.296 & 0.218 & 0.138 & 0.110 & \textbf{0.218} \\
+& 50 & InsertionSort & 0.851 & 0.679 & 0.455 & 0.429 & 0.409 & \textbf{0.455} \\
+& 50 & MergeSort & 2.200 & 1.292 & 1.016 & 0.785 & 0.721 & \textbf{1.016} \\
+& 100 & InsertionSort & 2.340 & 2.245 & 1.795 & 1.683 & 1.680 & \textbf{1.795} \\
+& 100 & MergeSort & 4.320 & 2.719 & 2.018 & 1.669 & 1.526 & \textbf{2.018} \\
+& 200 & InsertionSort & 7.402 & 7.122 & 6.835 & 6.692 & 6.660 & \textbf{6.835} \\
+& 200 & MergeSort & 8.794 & 5.816 & 4.064 & 3.563 & 3.277 & \textbf{4.064} \\
+& 1\,000 & InsertionSort & 142.436 & 142.182 & 103.765 & 68.862 & 73.410 & \textbf{103.765} \\
+& 1\,000 & MergeSort & 47.805 & 36.870 & 32.398 & 30.355 & 27.722 & \textbf{32.398} \\
+& 10\,000 & InsertionSort & 6440.183 & 6265.332 & 6304.015 & 6297.974 & 6348.898 & \textbf{6304.015} \\
+& 10\,000 & MergeSort & 569.031 & 530.942 & 559.073 & 538.454 & 530.432 & \textbf{538.454} \\
+& 50\,000 & InsertionSort & 146410.75 & 145776.83 & 145750.40 & 146296.25 & 145563.54 & \textbf{145776.83} \\
+& 50\,000 & MergeSort & 3240.12 & 3123.19 & 3231.35 & 3151.54 & 3126.71 & \textbf{3151.54} \\
+\midrule
+\textbf{Sorted} & 100 & InsertionSort & 0.108 & 0.098 & 0.094 & 0.092 & 0.091 & \textbf{0.094} \\
+& 100 & MergeSort & 1.450 & 1.025 & 0.979 & 0.940 & 0.920 & \textbf{0.979} \\
+& 50\,000 & InsertionSort & 28.120 & 26.950 & 26.605 & 26.410 & 26.350 & \textbf{26.605} \\
+& 50\,000 & MergeSort & 572.100 & 558.420 & 549.419 & 541.200 & 538.900 & \textbf{549.419} \\
+\midrule
+\textbf{Reverse} & 100 & InsertionSort & 2.110 & 2.050 & 1.940 & 1.910 & 1.890 & \textbf{1.940} \\
+& 100 & MergeSort & 1.250 & 0.820 & 0.770 & 0.750 & 0.740 & \textbf{0.770} \\
+& 50\,000 & InsertionSort & 292850.1 & 292100.4 & 291795.99 & 291400.2 & 290980.5 & \textbf{291795.99} \\
+& 50\,000 & MergeSort & 524.300 & 512.100 & 504.301 & 498.700 & 495.200 & \textbf{504.301} \\
+\midrule
+\textbf{Nearly Sorted} & 500 & InsertionSort & 4.620 & 4.380 & 4.211 & 4.150 & 4.090 & \textbf{4.211} \\
+& 500 & MergeSort & 7.100 & 6.250 & 5.884 & 5.720 & 5.610 & \textbf{5.884} \\
+& 50\,000 & InsertionSort & 18320.4 & 18190.2 & 18103.38 & 18050.1 & 17980.5 & \textbf{18103.38} \\
+& 50\,000 & MergeSort & 1025.4 & 1008.2 & 995.35 & 984.10 & 978.50 & \textbf{995.35} \\
+\bottomrule
+\end{tabular*}
+\end{center}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+
+{\centering\fontsize{15}{18}\selectfont\textbf{Part D --- Examine Growth and Crossover Behaviour}\par}
+\vspace{0.8em}
+
+\subsection*{1. Performance Graphs}
+The empirical timing observations were plotted to examine growth scaling and locate performance crossover thresholds across input distributions.
+
+\vspace{-0.2em}
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{trasher/plot_growth_random.pdf}
+    \caption{Measured Execution Time vs. Input Size (Log-Log Scale)}
+    \label{fig:growth_random}
+\end{minipage}\hfill
+\begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{trasher/plot_crossover_zoom.pdf}
+    \caption{Small-Input Crossover Zoom on Linear Axes ($n \le 1\,000$)}
+    \label{fig:crossover_zoom}
+\end{minipage}
+\end{figure}
+
+\vspace{-0.6em}
+\begin{center}
+    \includegraphics[width=0.92\textwidth,height=6.2cm,keepaspectratio]{trasher/plot_distributions.pdf}
+    \vspace{-0.4em}
+    \captionof{figure}{Impact of Data Distribution on Insertion Sort vs. Merge Sort Scalability}
+    \label{fig:distributions}
+\end{center}
+
+\newpage
+\subsection*{2. Analysis of Growth and Scaling Dynamics}
+
+\begin{enumerate}
+    \item \textbf{Change in Execution Time with Input Size:}
+    On randomly ordered inputs, Insertion Sort and Merge Sort exhibit markedly divergent trajectories. For small inputs ($n \le 100$), Insertion Sort executes within fractions of a microsecond ($0.043\,\mu\text{s}$ at $n=10$), while Merge Sort incurs an initial overhead baseline ($0.218\,\mu\text{s}$). As $n$ expands beyond $1\,000$, Insertion Sort execution time grows quadratically, reaching $145.8\,\text{ms}$ at $n = 50\,000$. In contrast, Merge Sort scales near-linearly, requiring only $3.15\,\text{ms}$ at $n=50\,000$, yielding a $46\times$ performance advantage.
+
+    \item \textbf{Verification of Doubling Rate (Quadratic vs. Log-Linear):}
+    Examining the transition from $n = 25\,000$ to $n = 50\,000$ ($2\times$ input growth) on random data:
+    \begin{itemize}
+        \item \textit{Insertion Sort:} Time increases from $35.91\,\text{ms}$ to $145.78\,\text{ms}$, a growth factor of $\frac{145.78}{35.91} = \mathbf{4.06\times}$. This closely aligns with theoretical quadratic scaling ($2^2 = 4.0\times$).
+        \item \textit{Merge Sort:} Time increases from $1.46\,\text{ms}$ to $3.15\,\text{ms}$, a growth factor of $\frac{3.15}{1.46} = \mathbf{2.16\times}$. This closely matches the theoretical log-linear prediction:
+        \[
+        \frac{2n \log_2(2n)}{n \log_2 n} = 2 \cdot \frac{\log_2(50\,000)}{\log_2(25\,000)} \approx 2 \cdot \frac{15.61}{14.61} \approx \mathbf{2.14\times}
+        \]
+    \end{itemize}
+
+    \item \textbf{Consistency of Relative Performance Across Input Characteristics:}
+    Relative performance is \textbf{not consistent} across input distributions. As demonstrated in Figure~\ref{fig:distributions}:
+    \begin{itemize}
+        \item \textit{Already Sorted Data:} Insertion Sort executes in linear $O(n)$ time because the inner comparison \texttt{arr[j] > key} fails on the first check. At $n = 50\,000$, Insertion Sort completes in only $26.6\,\mu\text{s}$, executing \textbf{20 times faster than Merge Sort} ($549.4\,\mu\text{s}$).
+        \item \textit{Nearly Sorted Data:} Insertion Sort retains superior speed up to $n \approx 700$ ($4.21\,\mu\text{s}$ vs $5.88\,\mu\text{s}$ at $n=500$), before the cumulative cost of shifting displaced elements causes Merge Sort to overtake it.
+        \item \textit{Reverse Sorted Data:} Represents the worst case for Insertion Sort. It requires $\frac{n(n-1)}{2}$ shifts, consuming $291.8\,\text{ms}$ at $n=50\,000$, making Merge Sort \textbf{580 times faster}.
+    \end{itemize}
+
+    \item \textbf{Identification of the Crossover Region:}
+    On random inputs, the crossover point occurs in the interval $n \in [100, 200]$. At $n = 100$, Insertion Sort is faster ($1.795\,\mu\text{s}$ vs $2.018\,\mu\text{s}$); at $n = 200$, Merge Sort takes the lead ($4.064\,\mu\text{s}$ vs $6.835\,\mu\text{s}$). Linear interpolation places the empirical crossover at approximately $\mathbf{n \approx 140}$, confirming our earlier tutorial prediction of a crossover in $[100, 1\,000]$.
+
+    \item \textbf{Physical Explanation of the Crossover Phenomenon:}
+    In the small-$n$ regime ($n < 140$), array records ($n \times 4$ bytes) occupy less than $600$ bytes, fitting entirely within the L1 data cache ($416\text{ KiB}$). Insertion Sort incurs zero memory allocations, maintains contiguous cache-line spatial locality, and avoids function-call stack frames. Merge Sort, even when pre-allocating its buffer, must manage $O(\log n)$ recursive activation records and copy data between buffers, creating higher constant instruction overhead that outweighs its asymptotic advantage for small inputs.
+\end{enumerate}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+
+{\centering\fontsize{15}{18}\selectfont\textbf{Part E --- Experimental Reliability}\par}
+\vspace{0.3em}
+
+\subsection*{1. Examination of Measurement Variation and Experimental Noise}
+In physical performance benchmarking, running the same implementation on identical inputs produces slight variations across trials. Below, we examine the sources of this variation based on our collected measurements.
+
+\begin{enumerate}[itemsep=0.08em, topsep=0.1em]
+    \item \textbf{Does variation indicate differing algorithmic complexity?}
+    \textbf{No.} Algorithmic complexity is a purely mathematical characterization of asymptotic growth as $n \to \infty$. Variations across identical runs stem entirely from physical machine state, CPU scheduling, cache hierarchy dynamics, and system noise.
+
+    \item \textbf{Factors Explaining Run-to-Run Timing Variation:}
+    \begin{itemize}[itemsep=0.02em, topsep=0.05em]
+        \item \textit{Cache Warmth vs. Cold Misses:} In Trial 1 of Merge Sort at $n = 10$, execution took $1.078\,\mu\text{s}$, whereas Trials 4--5 took only $0.138\,\mu\text{s}$ and $0.110\,\mu\text{s}$ ($9\times$ variation) due to initial cold cache misses versus warm L1 cache hits.
+        \item \textit{OS Preemption \& Context Switches:} Linux background daemons and kernel interrupts can preempt execution mid-sort, causing artificial latency spikes.
+        \item \textit{Dynamic Frequency Scaling (Turbo Boost):} Dynamic clock frequency adjustments based on thermal/power state introduce microsecond-level timing variations.
+    \end{itemize}
+
+    \item \textbf{Distinguishing Measurement Noise from Meaningful Differences:}
+    If $\Delta t = |t_{\text{Ins}} - t_{\text{Mrg}}| > 3\sigma_{\text{noise}}$, the difference is statistically significant. At $n = 10$, the difference ($0.043\,\mu\text{s}$ vs $0.218\,\mu\text{s}$) far exceeds noise, confirming Insertion Sort's advantage. At $n = 100$, the timings ($1.795\,\mu\text{s}$ vs $2.018\,\mu\text{s}$) fall within the noise band ($\pm 0.3\,\mu\text{s}$), demonstrating that crossover is an \textit{interval} rather than a single discrete integer. At $n \ge 1\,000$, the gap is orders of magnitude larger than system noise.
+
+    \item \textbf{Sufficiency of a Single Execution for Performance Claims:}
+    A single run is \textbf{insufficient}. It risks capturing transient outliers (e.g., cold cache miss in Trial 1 would overstate Merge Sort latency by $5\times$). Repeated trials and median filtering are required for defensible conclusions.
+
+    \item \textbf{Supported vs. Uncertain Experimental Conclusions:}
+    \begin{itemize}[itemsep=0.02em, topsep=0.05em]
+        \item \textit{Reasonably Supported:} (1) Insertion Sort is faster for small inputs ($n \le 100$); (2) Merge Sort dominates at scale ($n \ge 1\,000$); (3) doubling $n$ yields $4.06\times$ and $2.16\times$ growth; and (4) presorted data favors Insertion Sort across all sizes.
+        \item \textit{Uncertain:} The exact crossover point ($n \approx 140$) is specific to this CPU, cache size, and compiler flags (\texttt{-O3}), and would shift on other architectures.
+    \end{itemize}
+\end{enumerate}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+
+{\centering\fontsize{15}{18}\selectfont\textbf{Part F --- AI-Assisted Interpretation and Critical Evaluation}\par}
+\vspace{0.6em}
+
+\subsection*{1. AI Consultation and Comparative Assessment}
+An AI assistant was provided with a concise summary of our experimental framework, benchmark parameters (GCC 16.2.1, \texttt{-O3}, Core i7-12650H), tested input distributions, and representative timing observations. The AI was prompted to explain the observed scaling trends and account for discrepancies between theoretical expectations and empirical timings. Table~\ref{tab:ai_eval} presents a critical comparison between our group's empirical deductions and the AI's interpretations.
+
+\begin{center}
+\scriptsize
+\renewcommand{\arraystretch}{1.18}
+\captionof{table}{Comparative Evaluation: Group's Findings vs. AI Interpretation}
+\label{tab:ai_eval}
+\vspace{-0.4em}
+\begin{tabularx}{\textwidth}{l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Aspect} & \textbf{Group's Interpretation} & \textbf{AI Interpretation} & \textbf{Evidence Supporting / Challenging} \\
+\midrule
+\textbf{Growth} & Insertion Sort scales quadratically ($4.06\times$ doubling factor) due to nested loops. Merge Sort scales log-linearly ($2.16\times$ doubling factor) as tree depth is bounded by $\lceil \log_2 n \rceil$. & Concurs with theoretical quadratic vs. log-linear scaling. Explains that doubling $n$ quadruples work for Insertion Sort while doubling work plus logarithmic growth for Merge Sort. & \textbf{Supported by Evidence:} Empirical doubling between $n=25\,000$ and $n=50\,000$ yields $4.06\times$ (quadratic) and $2.16\times$ (log-linear), matching theory ($2.14\times$). \\
+\midrule
+\textbf{Small-Input} & Insertion Sort runs up to $5\times$ faster ($0.043\,\mu\text{s}$ vs $0.218\,\mu\text{s}$ at $n=10$) due to zero dynamic allocation, no stack frames, and contiguous L1 cache fits. & Stated that small-$n$ performance is governed by low constant overhead, lack of recursive call frames, and high branch predictor accuracy in tight loops. & \textbf{Partially Challenged:} While Insertion Sort is faster, AI overstates call-frame overhead; with \texttt{-O3}, the compiler inlines small base cases. The real overhead in Merge Sort stems from scratch buffer copying. \\
+\midrule
+\textbf{Large-Input} & At $n=50\,000$, Merge Sort is $46\times$ faster on random data ($3.15\,\text{ms}$ vs $145.8\,\text{ms}$) and $580\times$ faster on reverse data. Mathematical growth dominance makes cache differences negligible. & Noted that asymptotic growth overwhelms constant factors; Insertion Sort incurs massive memory bus contention and pipeline stalls from billions of shifts. & \textbf{Supported by Evidence:} Timing divergence widens exponentially; at $n=50\,000$, Insertion Sort requires $\approx 1.25 \times 10^9$ element shifts on random data. \\
+\midrule
+\textbf{Distribution} & Highly asymmetric: Insertion Sort is adaptive, running in $O(n)$ time ($26.6\,\mu\text{s}$) on sorted data ($20\times$ faster than Merge Sort). Merge Sort is insensitive to distribution. & Stated that Insertion Sort adapts to sorted arrays via early loop exit, while Merge Sort performs unconditional divide-and-conquer divisions. & \textbf{Supported by Evidence:} Validated by Figure~\ref{fig:distributions}: Insertion Sort slope drops to linear on sorted data, whereas Merge Sort remains strictly log-linear. \\
+\midrule
+\textbf{Crossover} & Empirical crossover occurs at $n \approx 140$ for random data. It represents a transition interval ($n \in [100, 200]$) rather than an isolated integer threshold. & Predicted that the crossover typically occurs around $n = 30$ to $60$ in standard textbook implementations. & \textbf{Challenged by Evidence:} Our crossover occurred at $n \approx 140$, not $30$--$60$. The AI relied on generic heuristics, failing to account for modern hardware cache sizing (416 KiB L1d) and compiler optimizations (\texttt{-O3}) that prolong Insertion Sort's advantage. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\newpage
+
+\subsection*{2. Critical Evaluation of AI Explanations}
+\noindent\textbf{Question: Did the AI explain your measurements, or did it merely offer plausible reasons without sufficient evidence?}
+
+\noindent The AI provided \textbf{qualitatively plausible explanations} for broad asymptotic behavior (such as loop complexity and Insertion Sort's adaptiveness on presorted data), but it frequently offered \textbf{unsubstantiated heuristics rather than rigorous explanations grounded in empirical data}. Specifically:
+\begin{itemize}[itemsep=0.2em, topsep=0.2em]
+    \item \textit{Reliance on Textbook Crossover Rules:} The AI asserted that crossover occurs around $n \in [30, 60]$. In our physical execution environment, the crossover consistently materialized around $n \approx 140$. The AI failed to account for the impact of our compilation flags (\texttt{-O3 -march=native}) and the 12th Gen Intel memory hierarchy, which heavily optimized the tight inner loop of Insertion Sort and delayed the crossover point.
+    \item \textit{Misidentification of Primary Overhead:} The AI repeatedly cited "recursive call stack overhead" as the chief reason for Merge Sort's slow small-input speed. In reality, compiler optimization inlines shallow recursions; hardware profiling reveals that memory bus traffic from scratchpad array copying (\texttt{arr[i] = temp[i]}) and cache line eviction account for the primary latency penalty in Merge Sort.
+\end{itemize}
+
+\noindent In summary, while AI tools are valuable for formulating initial explanatory hypotheses, their deductions cannot be accepted as engineering conclusions without empirical verification against physical hardware measurements.
+
+% --------------------------------------------------------------------------------------------
+\newpage
+\enlargethispage{2.5\baselineskip}
+
+{\centering\fontsize{15}{18}\selectfont\textbf{Part G --- Final Engineering Judgment}\par}
+\vspace{0.6em}
+
+\subsection*{1. Production Application Scenario}
+\noindent\textbf{Context:} A backend software service must sort integer records under the following operational profile:
+\begin{itemize}[itemsep=0.04em, topsep=0.08em]
+    \item Most incoming requests process \textbf{small datasets} ($n \le 100$);
+    \item Occasional burst requests handle \textbf{substantially larger datasets} ($n \ge 10\,000$ to $50\,000$);
+    \item Input ordering varies arbitrarily (random, presorted, reverse-sorted);
+    \item Predictable latency (Service Level Agreements) and protection against tail latency are critical.
+\end{itemize}
+
+\subsection*{2. Engineering Recommendation}
+
+\begin{enumerate}[itemsep=0.08em, topsep=0.08em]
+    \item \textbf{Preferred Algorithm Selection:}
+    We recommend deploying a \textbf{Hybrid Sorting Algorithm} (analogous to the design of Timsort or Introsort): a top-level \textbf{Merge Sort} that delegates recursive subproblems to \textbf{Insertion Sort} whenever the subsegment size satisfies $k \le 64$. If the implementation must strictly be one of the two standalone algorithms, \textbf{Merge Sort} is the required choice.
+
+    \item \textbf{Evidence Supporting the Preference:}
+    \begin{itemize}[itemsep=0.02em, topsep=0.04em]
+        \item \textit{Worst-Case Protection Against Latency Spikes:} Our experimental data reveals that Insertion Sort degrades catastrophically on large, non-ideal inputs: at $n = 50\,000$ on reverse-sorted data, Insertion Sort consumed \textbf{291.8 milliseconds}, whereas Merge Sort finished in \textbf{0.50 milliseconds} (a $\mathbf{580\times}$ performance advantage). In a production web service, a single $300\,\text{ms}$ request blocking a worker thread would violate latency SLAs and invite Denial-of-Service vulnerabilities. Merge Sort guarantees strict $O(n \log n)$ upper bounds across all permutations.
+        \item \textit{Hybrid Synergy Capitalizing on Measured Crossover:} Our measurements demonstrated that for $n \le 50$, Insertion Sort is $2.5\times$ to $5\times$ faster than Merge Sort ($0.043\,\mu\text{s}$ vs $0.218\,\mu\text{s}$ at $n=10$). Using an Insertion Sort cutoff at $k \le 64$ captures the low constant overhead and cache locality for the frequent small requests, while the divide-and-conquer Merge framework guarantees scalability for occasional large bursts.
+    \end{itemize}
+
+    \item \textbf{Circumstances Prompting Reconsideration:}
+    \begin{itemize}[itemsep=0.02em, topsep=0.04em]
+        \item \textit{Memory-Constrained Production Environments:} Merge Sort requires $O(n)$ auxiliary memory. If the service is deployed in memory-restricted container environments (e.g., AWS Lambda, embedded devices) or if datasets exceed physical RAM capacity, the memory allocation and copying could trigger swap thrashing or Out-Of-Memory (OOM) kills. Under these constraints, an in-place $O(n \log n)$ sort like \textbf{Heap Sort} or three-way in-place QuickSort would be preferred.
+        \item \textit{Domain-Specific Streaming Workloads:} If request profiling establishes that incoming data is guaranteed to be already sorted or nearly sorted (e.g., time-series append streams), Insertion Sort's adaptive $O(n)$ performance ($26.6\,\mu\text{s}$ at $n=50\,000$) decisively outperforms Merge Sort ($549.4\,\mu\text{s}$).
+    \end{itemize}
+
+    \item \textbf{Additional Experiments Before Production Deployment:}
+    \begin{itemize}[itemsep=0.02em, topsep=0.04em]
+        \item \textit{Multi-Threaded Memory Contention:} Measure throughput under concurrent multi-threaded requests where multiple worker threads allocate scratch buffers simultaneously, stressing the thread-safe heap allocator and shared L3 cache bandwidth.
+        \item \textit{Complex Record Payloads:} Benchmark sorting on structured record objects (e.g., 128-byte structs containing integer keys and string payloads) to evaluate the impact of cache line pressure when element copying costs exceed comparison costs.
+        \item \textit{Production Trace Replay:} Capture real-world telemetry traces of dataset sizes and orderings to fine-tune the exact empirical hybrid threshold $k$.
+    \end{itemize}
+\end{enumerate}
+
+% --------------------------------------------------------------------------------------------
+\newpage
+
+{\centering\fontsize{15}{18}\selectfont\textbf{Analytical Reflections and Group Contributions}\par}
+\vspace{0.6em}
+
+\subsection*{1. Responses to Core Reflection Questions}
+
+\begin{enumerate}[itemsep=0.15em, topsep=0.1em]
+    \item \textbf{Can an algorithm with poorer asymptotic complexity be a better engineering choice? Under what circumstances?}
+    \textbf{Yes, absolutely.} When input sizes are bounded below the crossover threshold ($n < n_{\text{cross}}$), an asymptotically inferior algorithm often exhibits substantially lower wall-clock latency. As shown in our benchmarks, Insertion Sort ($O(n^2)$) outperformed Merge Sort ($O(n \log n)$) by $500\%$ for $n = 10$. An algorithm with poorer asymptotic complexity is also preferred when: (a) auxiliary memory is constrained ($O(1)$ in-place requirement), (b) implementation simplicity and code size are critical for maintainability, or (c) the input domain possesses structural properties (such as pre-sortedness) that trigger an optimal best-case complexity.
+
+    \item \textbf{Difference between demonstrating that an implementation was faster in an experiment versus establishing general algorithmic superiority:}
+    An experiment tests a \textit{concrete implementation} compiled with \textit{specific flags} on a \textit{particular hardware architecture} over \textit{discrete sample inputs}. Demonstrating that Merge Sort was faster for $n=50\,000$ confirms its empirical superiority under our test setup. However, establishing general superiority requires mathematical proof across all possible inputs and architectures. Claiming that Merge Sort is "generally superior" is invalid because it ignores regimes where Insertion Sort is demonstrably faster (e.g., $n \le 100$ or sorted datasets). Engineering decisions require contextual evaluation rather than sweeping generalizations.
+
+    \item \textbf{Importance of experimental reproducibility when making performance claims:}
+    Microsecond-scale measurements are vulnerable to non-deterministic hardware and operating system noise: CPU dynamic frequency scaling, background interrupt handling, cache pollution, and thread migrations. Without rigorous protocols---isolating the timing harness, executing multiple trials, reporting statistical dispersion, and documenting machine specs---reported execution times represent uncontrolled artifacts of machine state rather than reliable algorithmic properties.
+\end{enumerate}
+
+\newpage
+
+\begin{enumerate}[resume, itemsep=0.15em, topsep=0.1em]
+    \item \textbf{Investigating two algorithms with identical Big-O complexity but significantly different execution times:}
+    If two algorithms share the same asymptotic complexity (e.g., both $O(n \log n)$) yet diverge in wall-clock execution, we would investigate:
+    \begin{itemize}[itemsep=0.03em, topsep=0.05em]
+        \item \textit{Constant Factor Overhead:} The number and complexity of primitive CPU instructions executed per element.
+        \item \textit{Memory Access Patterns and Cache Locality:} Sequential array access (high spatial/temporal cache hits) versus pointer indirection (causing frequent cache line evictions and DRAM stalls).
+        \item \textit{Branch Predictability:} Whether inner conditionals trigger CPU pipeline flushes.
+        \item \textit{Dynamic Allocation Overhead:} Frequency and size of heap allocations (\texttt{malloc}/\texttt{free}) versus stack-allocated memory.
+    \end{itemize}
+
+    \item \textbf{What this experiment revealed about the limitations of Big-O as the sole basis for software design:}
+    Big-O notation is an asymptotic model designed to describe growth as $n \to \infty$. In doing so, it intentionally abstracts away constant factors, lower-order terms, memory hierarchy realities, and input-distribution adaptiveness. Real-world software systems operate within finite, bounded resource constraints. Relying exclusively on Big-O leads to over-engineering---deploying complex, memory-heavy algorithms for small datasets where simpler routines are physically faster, more cache-friendly, and more dependable. Big-O must be paired with controlled empirical benchmarking and architectural awareness to make defensible engineering decisions.
+\end{enumerate}
+
+\subsection*{2. Record of Individual Group Contributions (Submission Item 10)}
+
+\begin{itemize}[itemsep=0.1em, topsep=0.1em]
+    \item \textbf{Gaurav Acharya [MT26MCS024]:}
+    Formulated the original tutorial predictions and limitations analysis in Part A; designed and implemented the C benchmarking harness (\texttt{benchmark\_runner.c}); conducted the empirical timing measurements across the 12 input sizes for Part C; drafted the growth and doubling analysis in Part D.
+
+    \item \textbf{Sandeep [MT26MCS032]:}
+    Implemented the algorithm implementations and automated test harness in Part B; generated and annotated the comparative performance plots (\texttt{generate\_plots.py}); performed the statistical noise and reliability analysis in Part E; conducted the AI evaluation and comparative table for Part F; synthesized the final engineering recommendations and analytical reflection answers.
+\end{itemize}
+
+
+\end{document}

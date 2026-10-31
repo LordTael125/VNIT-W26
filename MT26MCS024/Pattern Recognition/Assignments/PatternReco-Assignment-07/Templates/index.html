@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classifiers Studio | KNN & Bayes Classification</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- KaTeX Math Formula Rendering (Local Assets) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/katex/katex.min.css') }}">
+    <script defer src="{{ url_for('static', filename='vendor/katex/katex.min.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='vendor/katex/auto-render.min.js') }}"></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="6" cy="6" r="3"></circle>
+                        <circle cx="6" cy="18" r="3"></circle>
+                        <circle cx="18" cy="12" r="3"></circle>
+                        <line x1="8.59" y1="7.41" x2="15.42" y2="10.59"></line>
+                        <line x1="8.59" y1="16.59" x2="15.42" y2="13.41"></line>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Classifiers</h1>
+                    <p class="subtitle">Pattern Recognition Lab - Assignment 07: KNN & Bayes Classifier Studio</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a href="{{ url_for('performance_analysis') }}" class="nav-btn benchmark-btn" title="View KNN vs Bayes Comprehensive Benchmark Matrix">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    Comparative Analysis
+                </a>
+
+                {% if app_state.summary %}
+                <form action="{{ url_for('reset_app') }}" method="post" style="display:inline;">
+                    <button type="submit" class="nav-btn reset-btn" title="Reset dataset and clear previous data">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                        </svg>
+                        Reset Session
+                    </button>
+                </form>
+                {% endif %}
+
+                <form action="{{ url_for('shutdown') }}" method="post" style="display:inline;" onsubmit="return confirm('Shut down Classifiers Studio?');">
+                    <button type="submit" class="nav-btn shutdown-btn" title="Safely shutdown server">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                            <line x1="12" y1="2" x2="12" y2="12"></line>
+                        </svg>
+                        Shut Down
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                        <div class="flash-toast flash-{{ category }}">
+                            <div class="flash-icon">
+                                {% if category == 'error' %}
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                {% elif category == 'success' %}
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                {% else %}
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                {% endif %}
+                            </div>
+                            <span class="flash-text">{{ message }}</span>
+                            <button class="flash-close" onclick="this.parentElement.remove()">&times;</button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Stepper Visualizer -->
+        <div class="workflow-stepper">
+            <div class="step-node {% if app_state.summary %}completed{% else %}active{% endif %}">
+                <div class="step-num">1</div>
+                <div class="step-title">Dataset Ingestion</div>
+            </div>
+            <div class="step-line {% if app_state.summary %}active{% endif %}"></div>
+            <div class="step-node {% if app_state.preprocessing_completed %}completed{% elif app_state.summary %}active{% endif %}">
+                <div class="step-num">2</div>
+                <div class="step-title">Pre-Training Prep</div>
+            </div>
+            <div class="step-line {% if app_state.preprocessing_completed %}active{% endif %}"></div>
+            <div class="step-node {% if app_state.k1_results or app_state.bayes_results %}completed{% elif app_state.preprocessing_completed %}active{% endif %}">
+                <div class="step-num">3</div>
+                <div class="step-title">Classifier Training</div>
+            </div>
+            <div class="step-line {% if app_state.k1_results or app_state.bayes_results %}active{% endif %}"></div>
+            <div class="step-node {% if app_state.last_prediction %}completed{% elif app_state.k1_results or app_state.bayes_results %}active{% endif %}">
+                <div class="step-num">4</div>
+                <div class="step-title">Prediction</div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- STEP 1: UPLOAD & DATASET INSPECTION        -->
+        <!-- ========================================== -->
+        <section class="card" id="step-upload">
+            <div class="card-header">
+                <div class="header-badge">Step 1</div>
+                <h2>Dataset Ingestion & Inspection</h2>
+            </div>
+            <p class="section-desc">Upload any standard tabular classification CSV dataset or choose from preloaded benchmarks. Previous session data is cleanly flushed on upload.</p>
+
+            <div class="upload-grid">
+                <!-- File Upload Dropzone -->
+                <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" class="upload-dropzone">
+                    <div class="dropzone-icon">
+                        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                    </div>
+                    <label for="csv-file-input" class="file-picker-label">Choose CSV File</label>
+                    <input type="file" name="file" accept=".csv" id="csv-file-input" required>
+                    <span id="chosen-file-display" class="chosen-filename">No file selected</span>
+                    <p class="file-hint">Supported tabular format: .csv (Validated for empty files, format, rows, and readable columns)</p>
+                    <button type="submit" class="btn btn-primary btn-block">Upload & Inspect Dataset</button>
+                </form>
+
+                <!-- Sample Datasets -->
+                <div class="quick-samples-box">
+                    <h3>Or Quick-Load Benchmark Datasets</h3>
+                    <p class="quick-hint">Instantly test the KNN & Bayes Classifiers with curated datasets:</p>
+                    <div class="sample-chips-list">
+                        {% for s_name in sample_datasets %}
+                        <form action="{{ url_for('upload') }}" method="post" style="display:inline;">
+                            <input type="hidden" name="sample_dataset" value="{{ s_name }}">
+                            <button type="submit" class="sample-chip {% if app_state.filename == s_name %}active-chip{% endif %}">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                <span>{{ s_name }}</span>
+                            </button>
+                        </form>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dataset Summary Metrics -->
+            {% if app_state.summary %}
+            <div style="margin-top: 2rem;">
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="metric-icon" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+                        </div>
+                        <div class="metric-info">
+                            <div class="metric-label">Dimensions</div>
+                            <div class="metric-value">{{ app_state.summary.rows }} × {{ app_state.summary.cols }}</div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        </div>
+                        <div class="metric-info">
+                            <div class="metric-label">Missing Values</div>
+                            <div class="metric-value">{{ app_state.summary.missing_values }}</div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </div>
+                        <div class="metric-info">
+                            <div class="metric-label">Duplicate Rows</div>
+                            <div class="metric-value">{{ app_state.summary.duplicate_rows }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column Metadata Table -->
+                <h4 style="font-size: 1rem; margin-bottom: 0.75rem; color: #ffffff;">Column Metadata & Attributes</h4>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Column Name</th>
+                                <th>Data Type</th>
+                                <th>Non-Null Count</th>
+                                <th>Missing Values</th>
+                                <th>Unique Values</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for col in app_state.summary.column_info %}
+                            <tr>
+                                <td style="font-weight: 700; color: #ffffff; font-family: 'JetBrains Mono', monospace;">{{ col.name }}</td>
+                                <td>{{ col.type }}</td>
+                                <td>{{ col.non_null }}</td>
+                                <td>
+                                    {% if col.missing > 0 %}
+                                        <span class="badge badge-alert">{{ col.missing }} missing</span>
+                                    {% else %}
+                                        <span style="color: #34d399;">0</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ col.unique }}</td>
+                                <td>
+                                    {% if col.is_numeric %}
+                                        <span class="badge badge-numeric">Numeric</span>
+                                    {% else %}
+                                        <span class="badge badge-categorical">Categorical</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Sample Records Preview -->
+                <h4 style="font-size: 1rem; margin-bottom: 0.75rem; color: #ffffff;">Sample Records Preview (First 5 Rows)</h4>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                {% for col in app_state.all_columns %}
+                                <th>{{ col }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in app_state.summary.sample_records %}
+                            <tr>
+                                {% for col in app_state.all_columns %}
+                                <td>{{ row[col] }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- STEP 2: PRE-TRAINING PREPARATION           -->
+        <!-- ========================================== -->
+        {% if app_state.summary %}
+        <section class="card" id="step-preparation">
+            <div class="card-header">
+                <div class="header-badge">Step 2</div>
+                <h2>Pre-Training Preparation & Standardization</h2>
+            </div>
+            <p class="section-desc">Select target variable, feature subset, handle missing values via Scikit-Learn SimpleImputer, and optionally apply feature standardization with Scikit-Learn StandardScaler.</p>
+
+            <!-- Pre-processing Requirement Condition -->
+            {% if app_state.preprocessing_required and not app_state.preprocessing_completed %}
+                <div class="status-callout callout-warning">
+                    <div class="callout-icon">⚠️</div>
+                    <div class="callout-body">
+                        <h4>Pre-Processing & Standardization Required</h4>
+                        <p>The uploaded dataset requires cleaning before training classification models:</p>
+                        <ul>
+                            {% for reason in app_state.preprocessing_reasons %}
+                            <li>{{ reason }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% elif app_state.preprocessing_completed %}
+                <div class="status-callout callout-clean">
+                    <div class="callout-icon">✓</div>
+                    <div class="callout-body">
+                        <h4>Pre-Processing Completed & Dataset Ready</h4>
+                        <p>Dataset has been prepared: Missing values imputed, duplicates resolved, and features encoded. 
+                        <strong>Feature Standardization:</strong> {{ 'StandardScaler Applied (zero mean, unit variance)' if app_state.use_standardization else 'Disabled (Raw Features)' }}.</p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="status-callout callout-clean">
+                    <div class="callout-icon">✓</div>
+                    <div class="callout-body">
+                        <h4>Dataset Clean & Ready</h4>
+                        <p>Zero missing values and zero duplicate rows detected in this dataset. Ready to configure target and model features.</p>
+                    </div>
+                </div>
+            {% endif %}
+
+            <form action="{{ url_for('prepare') }}" method="post">
+                <div class="form-group">
+                    <label class="form-label" for="target_col_select">1. Select Target Variable (Class Label):</label>
+                    <select name="target_col" id="target_col_select" class="form-select" required>
+                        <option value="" disabled {% if not app_state.target_col %}selected{% endif %}>-- Choose Target Column --</option>
+                        {% for col in app_state.all_columns %}
+                        <option value="{{ col }}" {% if app_state.target_col == col %}selected{% endif %}>
+                            {{ col }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Option to Rename Numeric Target Classes (Visible when target is numeric) -->
+                <div id="rename-classes-container" class="rename-classes-box" style="{% if not app_state.target_is_numeric %}display: none;{% endif %}">
+                    <div class="rename-classes-header">
+                        <div class="rename-icon">🏷️</div>
+                        <div>
+                            <h4>Rename Numeric Target Classes (Optional)</h4>
+                            <p>The target variable contains numeric class codes. Provide human-readable labels below (e.g. <code>0</code> &rarr; <em>"No Disease"</em>, <code>1</code> &rarr; <em>"Heart Disease"</em>). These names will appear across confusion matrices, plots, and prediction output.</p>
+                        </div>
+                    </div>
+                    <div id="rename-inputs-grid" class="rename-inputs-grid">
+                        {% if app_state.target_is_numeric and app_state.raw_target_classes %}
+                            {% for c in app_state.raw_target_classes %}
+                            <div class="rename-input-item">
+                                <span class="rename-code-badge">Class {{ c }}</span>
+                                <span class="rename-arrow">&rarr;</span>
+                                <input type="text" name="rename_class_{{ c }}" class="form-input rename-field"
+                                       placeholder="Enter name for Class {{ c }}"
+                                       value="{{ app_state.class_display_names.get(c, '') }}">
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <label class="form-label" style="margin-bottom: 0;">2. Select Feature Columns:</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button type="button" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;" id="btn-select-all-features">Select All</button>
+                            <button type="button" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.75rem;" id="btn-deselect-all-features">Deselect All</button>
+                        </div>
+                    </div>
+                    <div class="checkbox-group">
+                        {% for col in app_state.all_columns %}
+                        <label class="checkbox-chip">
+                            <input type="checkbox" name="features" value="{{ col }}" class="feature-checkbox"
+                                {% if app_state.feature_cols and col in app_state.feature_cols %}checked
+                                {% elif not app_state.feature_cols and col != app_state.target_col %}checked{% endif %}>
+                            <span>{{ col }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Pre-Processing & Standardization Options -->
+                <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
+                    <h4 style="font-size: 0.95rem; font-weight: 700; color: #ffffff; margin-bottom: 1rem;">Pre-Processing & Standardization Settings (Scikit-Learn)</h4>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <label class="form-label" style="font-size: 0.8rem;">Numeric Imputation Strategy:</label>
+                            <select name="imputation_strategy" class="form-select" style="padding: 0.55rem 0.75rem; font-size: 0.85rem;">
+                                <option value="median" selected>SimpleImputer (Strategy = Median - Robust to outliers)</option>
+                                <option value="mean">SimpleImputer (Strategy = Mean)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label" style="font-size: 0.8rem;">Duplicate Row Handling:</label>
+                            <label style="display: flex; align-items: center; gap: 0.6rem; color: #f8fafc; font-size: 0.875rem; margin-top: 0.4rem; cursor: pointer;">
+                                <input type="checkbox" name="remove_duplicates" value="yes" checked style="accent-color: var(--primary);">
+                                <span>Automatically remove duplicate rows (Recommended)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- User Choice for Standardization -->
+                    <label class="switch-card">
+                        <div class="switch-content">
+                            <h4>Feature Standardization (Scikit-Learn StandardScaler)</h4>
+                            <p>Standardizes features to zero mean and unit variance: \( z = \frac{x - \mu}{\sigma} \). Highly recommended for KNN to avoid distance dominance by large-scale features.</p>
+                        </div>
+                        <input type="checkbox" name="use_standardization" value="yes" checked style="width: 22px; height: 22px; accent-color: #10b981; cursor: pointer;">
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Apply Pre-Processing & Prepare Features</button>
+            </form>
+
+            {% if app_state.target_distribution %}
+            <div style="margin-top: 2rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; align-items: start;">
+                <div>
+                    <h4 style="font-size: 1rem; color: #ffffff; margin-bottom: 0.75rem;">Target Class Breakdown</h4>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Class Code</th>
+                                    <th>Display Name</th>
+                                    <th>Sample Count</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for d in app_state.target_distribution %}
+                                <tr>
+                                    <td style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #a5b4fc;">{{ d.class }}</td>
+                                    <td style="font-weight: 700; color: #ffffff;">{{ d.display_name }}</td>
+                                    <td>{{ d.count }}</td>
+                                    <td>{{ d.percentage }}%</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Quick Inline Rename Form for Numeric Targets -->
+                    {% if app_state.target_is_numeric and app_state.raw_target_classes %}
+                    <form action="{{ url_for('rename_classes') }}" method="post" class="quick-rename-form">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.5rem;">
+                            <span style="font-size: 0.875rem; font-weight: 700; color: #ffffff;">Update Class Display Names:</span>
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">Updates all plots & confusion matrices instantly</span>
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: center;">
+                            {% for c in app_state.raw_target_classes %}
+                            <div class="rename-input-item" style="flex: 1; min-width: 170px;">
+                                <span class="rename-code-badge">Class {{ c }}</span>
+                                <span class="rename-arrow">&rarr;</span>
+                                <input type="text" name="rename_class_{{ c }}" class="form-input rename-field"
+                                       placeholder="Label for Class {{ c }}"
+                                       value="{{ app_state.class_display_names.get(c, '') }}">
+                            </div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-secondary" style="padding: 0.55rem 1.1rem; font-size: 0.85rem; white-space: nowrap;">
+                                Update Labels
+                            </button>
+                        </div>
+                    </form>
+                    {% endif %}
+                </div>
+                {% if app_state.target_plot_url %}
+                <div class="plot-box">
+                    <img src="{{ url_for('static', filename=app_state.target_plot_url) }}" alt="Target Distribution">
+                    <div class="plot-caption">Target Variable Distribution Chart</div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+
+        <!-- ========================================== -->
+        <!-- STEP 3: CLASSIFIER SELECTION & TRAINING    -->
+        <!-- ========================================== -->
+        {% if app_state.preprocessing_completed %}
+        <section class="card" id="step-training">
+            <div class="card-header">
+                <div class="header-badge">Step 3</div>
+                <h2>Classifier Training, Evaluation & Optimal K Analysis</h2>
+            </div>
+            <p class="section-desc">Select classifier algorithm from the dropdown. For KNN, initial evaluation at K=1 is recorded, followed by elbow method error analysis across K=1 to 40, and side-by-side performance comparison.</p>
+
+            <form action="{{ url_for('train') }}" method="post" style="margin-bottom: 2rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.25rem;">
+                    <!-- Classifier Dropdown (Assignment Requirement) -->
+                    <div class="form-group">
+                        <label class="form-label" for="classifier_choice_select">Select Classifier to Apply:</label>
+                        <select name="classifier_choice" id="classifier_choice_select" class="form-select">
+                            <option value="knn" {% if app_state.selected_classifier == 'knn' %}selected{% endif %}>
+                                K-Nearest Neighbors (KNN) - Assignment 07
+                            </option>
+                            <option value="bayes" {% if app_state.selected_classifier == 'bayes' %}selected{% endif %}>
+                                Bayes Classifier (Gaussian Naive Bayes) - Integrated
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Standardization Choice for Classification Task -->
+                    <div class="form-group">
+                        <label class="form-label">Classification Feature Scaling:</label>
+                        <label class="switch-card" style="padding: 0.75rem 1rem; margin-bottom: 0;">
+                            <div class="switch-content">
+                                <h4 style="font-size: 0.85rem;">Use Standardized Features</h4>
+                                <p style="font-size: 0.75rem;">StandardScaler vs Raw Unscaled</p>
+                            </div>
+                            <input type="checkbox" name="use_standardization" value="yes" {% if app_state.use_standardization %}checked{% endif %} style="width: 20px; height: 20px; accent-color: #10b981;">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- KNN Specific Controls -->
+                <div id="knn-specific-controls" style="background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <label class="form-label" for="max_k_slider" style="margin-bottom: 0;">Select Maximum K for Optimal Search (Elbow Method):</label>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-weight: 800; color: #a5b4fc; font-size: 1.1rem;" id="max_k_display">{{ app_state.max_k }}</span>
+                    </div>
+                    <input type="range" name="max_k" id="max_k_slider" min="5" max="40" value="{{ app_state.max_k }}" style="width: 100%; accent-color: #6366f1; cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+                        <span>K = 5</span>
+                        <span>K = 20</span>
+                        <span>K = 40 (Default)</span>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;">KNN will be evaluated with K=1 first, and then iteratively across K=1 to K_max to generate the K vs Error Rate elbow curve.</p>
+                </div>
+
+                <div id="bayes-specific-notice" style="display: none; background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem;">
+                    <p style="font-size: 0.85rem; color: #d8b4fe;">Applying custom PatternClassifiers (Gaussian Naive Bayes) from first principles. Prior probabilities and conditional Gaussian mean/variance parameters will be learned.</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Train Classifier & Run Evaluation</button>
+            </form>
+
+            <!-- ========================================== -->
+            <!-- KNN RESULTS & ELBOW METHOD ANALYSIS        -->
+            <!-- ========================================== -->
+            {% if app_state.selected_classifier == 'knn' and app_state.k1_results %}
+            <div style="margin-top: 2rem;">
+                <h3 style="font-size: 1.25rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">
+                    KNN Hyperparameter Analysis: 'K' vs. Error Rate Curve
+                </h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                    Error rates for \(K = 1\) to \({{ app_state.max_k }}\) are plotted below. Examine the curve to identify the sharp bend (elbow point) where increasing \(K\) yields diminishing returns.
+                </p>
+
+                <!-- Elbow Curve Plot -->
+                {% if app_state.elbow_plot_url %}
+                <div class="plot-box" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <img src="{{ url_for('static', filename=app_state.elbow_plot_url) }}" alt="Elbow Method Curve: K vs Error Rate">
+                    <div class="plot-caption" style="margin-top: 0.75rem; font-size: 0.9rem;">
+                        <strong>Elbow Curve Analysis:</strong> Inspect the graph to identify the sharp bend that looks like an elbow. Select that value of \(K\) below to evaluate performance and compare against \(K=1\).
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- User Elbow Selection Form (User Chooses K) -->
+                <div style="background: var(--bg-elevated); border: 2px solid {% if app_state.selected_elbow_k %}#10b981{% else %}var(--primary){% endif %}; border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 2rem;">
+                    <form action="{{ url_for('select_elbow_k') }}" method="post" style="display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 280px;">
+                            <h4 style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin-bottom: 0.35rem;">
+                                {% if app_state.selected_elbow_k %}
+                                    ✓ Currently Selected Elbow Point: K = {{ app_state.selected_elbow_k }} (Error: {{ app_state.optimal_k_results.error_rate }}%)
+                                {% else %}
+                                    Choose Value of K Located at the Elbow Bend:
+                                {% endif %}
+                            </h4>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                                Select your chosen value of K from the dropdown below to apply and compare performance against baseline K = 1:
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 0.75rem; align-items: center;">
+                            <select name="chosen_k" class="form-select" style="min-width: 240px; padding: 0.7rem 1rem; font-weight: 600;" required>
+                                <option value="" disabled {% if not app_state.selected_elbow_k %}selected{% endif %}>-- Select Elbow K --</option>
+                                {% for k_val in app_state.elbow_results.k_values %}
+                                <option value="{{ k_val }}" {% if k_val == app_state.selected_elbow_k %}selected{% endif %}>
+                                    K = {{ k_val }} (Error: {{ app_state.elbow_results.error_rates[loop.index0] }}%)
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="btn btn-success" style="padding: 0.7rem 1.4rem; white-space: nowrap;">
+                                {% if app_state.selected_elbow_k %}Update Selected K{% else %}Apply Selected Elbow K{% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Side-by-side Scorecards (Shown when user has selected an elbow K) -->
+                {% if app_state.optimal_k_results %}
+                <h4 style="font-size: 1.15rem; font-weight: 800; color: #ffffff; margin-bottom: 1rem;">
+                    Performance Comparison: K = 1 vs. Selected Elbow Point (K = {{ app_state.optimal_k_results.k }})
+                </h4>
+
+                <div class="comparison-grid">
+                    <!-- Baseline K = 1 -->
+                    <div class="model-card baseline">
+                        <h3>
+                            <span>Baseline Model (K = 1)</span>
+                            <span class="header-badge warning-badge">K = 1</span>
+                        </h3>
+                        <div class="stat-pills">
+                            <div class="stat-pill">
+                                <div class="pill-label">Accuracy</div>
+                                <div class="pill-val">{{ app_state.k1_results.accuracy }}%</div>
+                            </div>
+                            <div class="stat-pill">
+                                <div class="pill-label">Error Rate</div>
+                                <div class="pill-val" style="color: #f87171;">{{ app_state.k1_results.error_rate }}%</div>
+                            </div>
+                            <div class="stat-pill">
+                                <div class="pill-label">Precision</div>
+                                <div class="pill-val">{{ app_state.k1_results.precision }}%</div>
+                            </div>
+                            <div class="stat-pill">
+                                <div class="pill-label">F1-Score</div>
+                                <div class="pill-val">{{ app_state.k1_results.f1_score }}%</div>
+                            </div>
+                        </div>
+
+                        {% if app_state.k1_cm_plot_url %}
+                        <div class="plot-box" style="margin-bottom: 0;">
+                            <img src="{{ url_for('static', filename=app_state.k1_cm_plot_url) }}" alt="Confusion Matrix K=1">
+                            <div class="plot-caption">Confusion Matrix Heatmap (K = 1)</div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- User Selected Elbow Point K -->
+                    <div class="model-card optimal">
+                        <h3>
+                            <span>Selected Elbow Model</span>
+                            <span class="header-badge success-badge">K = {{ app_state.optimal_k_results.k }}</span>
+                        </h3>
+                        <div class="stat-pills">
+                            <div class="stat-pill">
+                                <div class="pill-label">Accuracy</div>
+                                <div class="pill-val" style="color: #34d399;">{{ app_state.optimal_k_results.accuracy }}%</div>
+                            </div>
+                            <div class="stat-pill">
+                                <div class="pill-label">Error Rate</div>
+                                <div class="pill-val" style="color: #34d399;">{{ app_state.optimal_k_results.error_rate }}%</div>
+                            </div>
+                            <div class="stat-pill">
+                                <div class="pill-label">Precision</div>
+                                <div class="pill-val">{{ app_state.optimal_k_results.precision }}%</div>
+                            </div>
+                            <div class="stat-pill">
+                                <div class="pill-label">F1-Score</div>
+                                <div class="pill-val">{{ app_state.optimal_k_results.f1_score }}%</div>
+                            </div>
+                        </div>
+
+                        {% if app_state.optimal_cm_plot_url %}
+                        <div class="plot-box" style="margin-bottom: 0;">
+                            <img src="{{ url_for('static', filename=app_state.optimal_cm_plot_url) }}" alt="Confusion Matrix Optimal K">
+                            <div class="plot-caption">Confusion Matrix Heatmap (Selected Elbow K = {{ app_state.optimal_k_results.k }})</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Delta Improvement Banner -->
+                {% if app_state.comparison_k1_vs_optimal %}
+                <div class="delta-banner">
+                    <div class="delta-stat">
+                        <div class="delta-num">
+                            {% if app_state.comparison_k1_vs_optimal.delta_accuracy >= 0 %}+{% endif %}{{ app_state.comparison_k1_vs_optimal.delta_accuracy }}%
+                        </div>
+                        <div class="delta-desc">Accuracy Gain</div>
+                    </div>
+                    <div class="delta-stat">
+                        <div class="delta-num" style="color: #60a5fa;">
+                            -{{ app_state.comparison_k1_vs_optimal.delta_error_rate }}%
+                        </div>
+                        <div class="delta-desc">Error Rate Reduction</div>
+                    </div>
+                    <div class="delta-stat">
+                        <div class="delta-num">
+                            {% if app_state.comparison_k1_vs_optimal.delta_f1 >= 0 %}+{% endif %}{{ app_state.comparison_k1_vs_optimal.delta_f1 }}%
+                        </div>
+                        <div class="delta-desc">F1-Score Gain</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% else %}
+                <!-- Prompt when K=1 is trained but user hasn't selected an elbow K yet -->
+                <div class="model-card baseline" style="margin-bottom: 1.5rem;">
+                    <h3>
+                        <span>Baseline Model (K = 1 Baseline)</span>
+                        <span class="header-badge warning-badge">K = 1</span>
+                    </h3>
+                    <div class="stat-pills">
+                        <div class="stat-pill">
+                            <div class="pill-label">Accuracy</div>
+                            <div class="pill-val">{{ app_state.k1_results.accuracy }}%</div>
+                        </div>
+                        <div class="stat-pill">
+                            <div class="pill-label">Error Rate</div>
+                            <div class="pill-val" style="color: #f87171;">{{ app_state.k1_results.error_rate }}%</div>
+                        </div>
+                        <div class="stat-pill">
+                            <div class="pill-label">Precision</div>
+                            <div class="pill-val">{{ app_state.k1_results.precision }}%</div>
+                        </div>
+                        <div class="stat-pill">
+                            <div class="pill-label">F1-Score</div>
+                            <div class="pill-val">{{ app_state.k1_results.f1_score }}%</div>
+                        </div>
+                    </div>
+                    {% if app_state.k1_cm_plot_url %}
+                    <div class="plot-box" style="margin-bottom: 0;">
+                        <img src="{{ url_for('static', filename=app_state.k1_cm_plot_url) }}" alt="Confusion Matrix K=1">
+                        <div class="plot-caption">Confusion Matrix Heatmap (K = 1)</div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="status-callout callout-info">
+                    <div class="callout-icon">ℹ️</div>
+                    <div class="callout-body">
+                        <h4>Awaiting Elbow Point Selection</h4>
+                        <p>Look at the 'K' vs. Error Rate plot above. Select the value of K corresponding to the elbow bend from the dropdown and click <strong>'Apply Selected Elbow K'</strong> to view the comparison scorecard and enable prediction.</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- ========================================== -->
+            <!-- BAYES CLASSIFIER RESULTS                   -->
+            <!-- ========================================== -->
+            {% if app_state.selected_classifier == 'bayes' and app_state.bayes_results %}
+            <div style="margin-top: 2rem;">
+                <h3 style="font-size: 1.25rem; font-weight: 800; color: #ffffff; margin-bottom: 1.25rem;">Bayes Classifier Performance & Parameters</h3>
+
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <div class="metric-label">Accuracy</div>
+                            <div class="metric-value" style="color: #34d399;">{{ app_state.bayes_results.accuracy }}%</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <div class="metric-label">Error Rate</div>
+                            <div class="metric-value" style="color: #f87171;">{{ app_state.bayes_results.error_rate }}%</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <div class="metric-label">Precision</div>
+                            <div class="metric-value">{{ app_state.bayes_results.precision }}%</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <div class="metric-label">F1-Score</div>
+                            <div class="metric-value">{{ app_state.bayes_results.f1_score }}%</div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if app_state.bayes_cm_plot_url %}
+                <div class="plot-box">
+                    <img src="{{ url_for('static', filename=app_state.bayes_cm_plot_url) }}" alt="Confusion Matrix Bayes">
+                    <div class="plot-caption">Confusion Matrix Heatmap (Gaussian Naive Bayes)</div>
+                </div>
+                {% endif %}
+
+                <!-- Learned Parameters (priors, means, variances) -->
+                {% if app_state.bayes_results.learned_params %}
+                <h4 style="font-size: 1rem; color: #ffffff; margin-top: 1.5rem; margin-bottom: 0.75rem;">Learned Model Parameters: Class Priors & Feature Conditional Densities</h4>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Class</th>
+                                <th>Prior P(C_k)</th>
+                                <th>Feature Means & Variances (μ, σ²)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in app_state.bayes_results.learned_params %}
+                            <tr>
+                                <td style="font-weight: 700; color: #ffffff;">{{ p.class_name }} (Class {{ p.class_idx }})</td>
+                                <td style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #a5b4fc;">{{ p.prior }}</td>
+                                <td>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                                        {% for f in p.features %}
+                                        <span style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;">
+                                            <strong>{{ f.feature }}:</strong> μ={{ f.mean }}, σ²={{ f.variance }}
+                                        </span>
+                                        {% endfor %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+
+        <!-- ========================================== -->
+        <!-- STEP 4: PREDICTION OF NEW INSTANCES        -->
+        <!-- ========================================== -->
+        {% if app_state.active_model %}
+        <section class="card" id="step-prediction">
+            <div class="card-header">
+                <div class="header-badge">Step 4</div>
+                <h2>Prediction of New Instances</h2>
+            </div>
+            <p class="section-desc">Classify a new user-provided input using the active trained model (<strong>{{ app_state.active_model_name }}</strong>). Enter feature values below:</p>
+
+            <form action="{{ url_for('predict') }}" method="post">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                    {% for col in app_state.feature_cols %}
+                    <div>
+                        <label class="form-label" style="font-size: 0.8rem;" for="input_{{ col }}">
+                            {{ col }}
+                            {% if col in app_state.numeric_features %}
+                                <span style="color: var(--text-muted); font-size: 0.7rem; font-weight: normal;">(Numeric)</span>
+                            {% else %}
+                                <span style="color: #d8b4fe; font-size: 0.7rem; font-weight: normal;">(Categorical)</span>
+                            {% endif %}
+                        </label>
+                        <input type="text" name="feat_{{ col }}" id="input_{{ col }}" class="form-input"
+                            placeholder="{% if col in app_state.feature_min_max %}Median: {{ app_state.feature_medians[col] }} [{{ app_state.feature_min_max[col].min }} to {{ app_state.feature_min_max[col].max }}]{% else %}Mode: {{ app_state.feature_modes[col] }}{% endif %}"
+                            value="{% if app_state.last_prediction and col in app_state.last_prediction.input_values %}{{ app_state.last_prediction.input_values[col] }}{% endif %}">
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-success btn-block">Classify New Query Instance</button>
+            </form>
+
+            <!-- Prediction Result Display -->
+            {% if app_state.last_prediction %}
+            <div class="prediction-result-box">
+                <div class="prediction-badge">{{ app_state.last_prediction.algorithm }}</div>
+                <div class="prediction-headline">
+                    Predicted Class: {{ app_state.last_prediction.predicted_class_code }} 
+                    <span style="color: #34d399;">({{ app_state.last_prediction.predicted_class_label }})</span>
+                </div>
+                <p class="prediction-sub">{{ app_state.last_prediction.descriptive_text }}</p>
+
+                <!-- Probability / Vote Bars -->
+                <h4 style="font-size: 0.95rem; color: #ffffff; margin-bottom: 0.75rem;">Class Probability / Vote Distribution:</h4>
+                <div class="prob-bars">
+                    {% for prob in app_state.last_prediction.probabilities %}
+                    <div class="prob-row">
+                        <div class="prob-name">{{ prob.class_label }} (Class {{ prob.class_code }})</div>
+                        <div class="prob-bar-track">
+                            <div class="prob-bar-fill" style="width: {{ prob.probability }}%;"></div>
+                        </div>
+                        <div class="prob-pct">{{ prob.probability }}%</div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- KNN Nearest Neighbors Explainability Breakdown -->
+                {% if app_state.last_prediction.neighbors %}
+                <h4 style="font-size: 0.95rem; color: #ffffff; margin-top: 1.5rem; margin-bottom: 0.75rem;">Nearest Neighbors in Training Set:</h4>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Neighbor Rank</th>
+                                <th>Training Row Index</th>
+                                <th>Euclidean Distance</th>
+                                <th>Target Class Code</th>
+                                <th>Target Class Label</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for nb in app_state.last_prediction.neighbors %}
+                            <tr>
+                                <td style="font-weight: 700; color: #a5b4fc;">#{{ loop.index }}</td>
+                                <td>Row {{ nb.train_index }}</td>
+                                <td style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #34d399;">{{ nb.distance }}</td>
+                                <td style="font-weight: 700;">Class {{ nb.class_code }}</td>
+                                <td>{{ nb.class_label }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+    </main>
+
+    <script>
+        window.COLUMN_INFO = {{ column_unique_map_json | safe }};
+    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

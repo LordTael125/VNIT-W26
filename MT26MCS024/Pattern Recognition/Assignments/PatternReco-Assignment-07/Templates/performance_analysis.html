@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparative Analysis | Classifiers Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- KaTeX Math Formula Rendering (Local Assets) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/katex/katex.min.css') }}">
+    <script defer src="{{ url_for('static', filename='vendor/katex/katex.min.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='vendor/katex/auto-render.min.js') }}"></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Comparative Analysis Matrix</h1>
+                    <p class="subtitle">KNN (K=1 vs Optimal Elbow K) & Bayes Classifier Multi-Dataset Benchmark</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a href="{{ url_for('index') }}" class="nav-btn benchmark-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Back to Studio
+                </a>
+
+                <form action="{{ url_for('shutdown') }}" method="post" style="display:inline;" onsubmit="return confirm('Shut down Classifiers Studio?');">
+                    <button type="submit" class="nav-btn shutdown-btn" title="Safely shutdown server">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                            <line x1="12" y1="2" x2="12" y2="12"></line>
+                        </svg>
+                        Shut Down
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Executive Summary Banner -->
+        <div class="delta-banner" style="margin-bottom: 2.5rem; justify-content: space-between; text-align: left;">
+            <div>
+                <h3 style="font-size: 1.25rem; font-weight: 800; color: #ffffff; margin-bottom: 0.35rem;">
+                    Empirical Evaluation Summary: Standardization & The Elbow Method
+                </h3>
+                <p style="font-size: 0.9rem; color: #c7d2fe; max-width: 900px;">
+                    This analysis rigorously evaluates the 4 core configurations: <strong>KNN (K=1 Raw)</strong>, <strong>KNN (K=1 Scaled)</strong>, <strong>KNN (Optimal Elbow K Scaled)</strong>, and <strong>Bayes Classifier</strong> across 4 standard machine learning benchmark datasets.
+                </p>
+            </div>
+        </div>
+
+        <!-- Benchmark Results Table -->
+        <section class="card">
+            <div class="card-header">
+                <div class="header-badge success-badge">Benchmark Table</div>
+                <h2>Multi-Dataset Performance Scorecard</h2>
+            </div>
+            <p class="section-desc">Cross-validated evaluation comparing Accuracy (Acc), Error Rate (Err), and F1-Score (F1) across algorithms.</p>
+
+            <div class="table-responsive">
+                <table class="benchmark-table">
+                    <thead>
+                        <tr>
+                            <th>Dataset</th>
+                            <th>Samples & Dim</th>
+                            <th>KNN K=1 (Raw)</th>
+                            <th>KNN K=1 (Scaled)</th>
+                            <th>KNN Optimal K (Elbow)</th>
+                            <th>Bayes Classifier</th>
+                            <th>Optimal Gain (vs K=1 Raw)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in analysis_results %}
+                        <tr>
+                            <td>
+                                <strong style="color: #ffffff; font-size: 0.95rem;">{{ item.title }}</strong><br>
+                                <span style="font-size: 0.75rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">{{ item.filename }}</span>
+                            </td>
+                            <td>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">{{ item.samples }} rows × {{ item.features }} feats</span><br>
+                                <span style="font-size: 0.75rem; color: #a5b4fc;">{{ item.classes }} classes</span>
+                            </td>
+                            <td>
+                                <div><strong>Acc:</strong> {{ item.k1_raw.accuracy }}%</div>
+                                <div style="color: #f87171; font-size: 0.8rem;">Err: {{ item.k1_raw.error_rate }}%</div>
+                                <div style="color: var(--text-muted); font-size: 0.8rem;">F1: {{ item.k1_raw.f1_score }}%</div>
+                            </td>
+                            <td>
+                                <div><strong>Acc:</strong> {{ item.k1_scaled.accuracy }}%</div>
+                                <div style="color: #f87171; font-size: 0.8rem;">Err: {{ item.k1_scaled.error_rate }}%</div>
+                                <div style="color: var(--text-muted); font-size: 0.8rem;">F1: {{ item.k1_scaled.f1_score }}%</div>
+                                {% if item.scaling_gain > 0 %}
+                                    <span class="badge badge-numeric" style="font-size: 0.7rem; margin-top: 0.25rem;">+{{ item.scaling_gain }}% scaling</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="highlight-best"><strong>Acc:</strong> {{ item.knn_optimal.accuracy }}%</div>
+                                <div style="color: #34d399; font-size: 0.8rem;">Err: {{ item.knn_optimal.error_rate }}%</div>
+                                <div style="color: #ffffff; font-size: 0.8rem;">F1: {{ item.knn_optimal.f1_score }}%</div>
+                                <span class="badge badge-numeric" style="background: rgba(16, 185, 129, 0.3); font-size: 0.7rem; margin-top: 0.25rem;">
+                                    Elbow K = {{ item.elbow_k }}
+                                </span>
+                            </td>
+                            <td>
+                                <div><strong>Acc:</strong> {{ item.bayes.accuracy }}%</div>
+                                <div style="color: #f87171; font-size: 0.8rem;">Err: {{ item.bayes.error_rate }}%</div>
+                                <div style="color: var(--text-muted); font-size: 0.8rem;">F1: {{ item.bayes.f1_score }}%</div>
+                            </td>
+                            <td>
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 800; color: #34d399;">
+                                    {% if item.accuracy_gain >= 0 %}+{% endif %}{{ item.accuracy_gain }}%
+                                </div>
+                                <div style="font-size: 0.75rem; color: #60a5fa;">
+                                    -{{ item.error_reduction }}% Error
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Scientific Insights & Theoretical Foundations -->
+        <section class="card">
+            <div class="card-header">
+                <div class="header-badge">Core Theory</div>
+                <h2>Mathematical & Algorithmic Analysis (Pattern Recognition Lab)</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; margin-top: 1rem;">
+                <div style="background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem;">
+                    <h3 style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">1. Role of Feature Standardization</h3>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                        The K-Nearest Neighbors classifier relies on Euclidean distance in D-dimensional feature space:
+                    </p>
+                    <div style="background: rgba(0, 0, 0, 0.35); padding: 0.85rem; border-radius: var(--radius-sm); font-size: 1.05rem; color: #c7d2fe; text-align: center; margin-bottom: 0.75rem; border: 1px solid var(--border-subtle);">
+                        \[ d(\mathbf{x}, \mathbf{x}_i) = \sqrt{\sum_{j=1}^D (x_j - x_{i,j})^2} \]
+                    </div>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary);">
+                        If one feature has a variance of \(10^5\) (e.g. Income) and another has a variance of \(10^0\) (e.g. Age), the unscaled distance is almost entirely dominated by the large-magnitude feature. Applying <strong>Scikit-Learn StandardScaler</strong> normalizes each feature to \(\mu = 0\) and \(\sigma = 1\), giving every feature an equitable contribution to proximity calculations.
+                    </p>
+                </div>
+
+                <div style="background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem;">
+                    <h3 style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">2. The Elbow Method & Bias-Variance Tradeoff</h3>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                        The choice of hyperparameter \(K\) governs the model's complexity:
+                    </p>
+                    <ul style="font-size: 0.85rem; color: var(--text-secondary); margin-left: 1.25rem; margin-bottom: 0.75rem; line-height: 1.6;">
+                        <li><strong>Small K (e.g., K = 1):</strong> High variance, zero training bias. Sensitive to outliers and noise in individual samples.</li>
+                        <li><strong>Large K:</strong> High bias, low variance. Over-smoothes the decision boundary, blurring class boundaries.</li>
+                    </ul>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary);">
+                        The <strong>Elbow Method</strong> identifies the sharp bend in the <em>'K' vs Error Rate</em> curve where the rate of error reduction decelerates, capturing maximum predictive capacity with minimal model complexity.
+                    </p>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; margin-top: 1.5rem;">
+                <h3 style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">3. KNN vs. Bayes Classifier (Non-Parametric vs. Generative Parametric)</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div>
+                        <h4 style="font-size: 0.9rem; color: #a5b4fc; margin-bottom: 0.35rem;">K-Nearest Neighbors (KNN)</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                            <strong>Non-parametric & Instance-based:</strong> Makes no assumptions about underlying probability distributions. Approximates posterior probabilities purely from the local neighborhood vote density. Highly flexible with non-linear decision boundaries, but computation scales with training dataset size.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 0.9rem; color: #d8b4fe; margin-bottom: 0.35rem;">Bayes Classifier (Gaussian Naive Bayes)</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                            <strong>Parametric & Generative:</strong> Models class-conditional densities \(P(x \mid C_k)\) using normal distributions with mean \(\mu\) and variance \(\sigma^2\). Inference is instantaneous: \(\mathcal{O}(D)\) time per query instance. Highly robust with independent features, but subject to bias if feature normality or independence is violated.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

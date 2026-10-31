@@ -1,0 +1,248 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!70!black, urlcolor=blue!70!black}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textsc{TWP Logbook — Assignment 07}}
+\fancyhead[R]{\textsc{CSP529}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+\title{
+    \vspace{-1cm}
+    \textbf{Writing Logbook --- Assignment 07} \\[0.3em]
+    \large CSP529 Technical Writing \& Publishing \\[0.2em]
+    \large \textit{From Research Evidence to Research Questions}
+}
+\author{
+    \textbf{MT26MCS024} --- Gaurav Acharya \quad
+    \textbf{MT26MCS032} --- Sandeep
+}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+% ============================================================
+\section{Assignment Overview}
+% ============================================================
+
+\begin{tabular}{@{}p{4.5cm} p{10cm}@{}}
+    \toprule
+    \textbf{Item} & \textbf{Detail} \\
+    \midrule
+    Practical Title & Practical 7 --- From Research Evidence to Research Questions: Identifying Gaps, Formulating Problems, and Justifying Research \\
+    Group Topic & Operating System Process / Scheduling (Group 5) \\
+    Focused Question & How do different CPU scheduling approaches affect waiting time, response time, throughput, and fairness under different workload characteristics? \\
+    Research Papers & Paper~1: Reddy --- ``Comparative Analysis of CPU Scheduling Algorithms for Performance Efficiency''; Paper~2: Samanta \& Biswas --- ``Comparative Analysis of Different CPU Scheduling Algorithms with Respect to Average Waiting Time and Average Turnaround Time'' \\
+    Peer Reviewers & MT26MCS005 --- Vikas Chaurasiya; MT26MCS035 --- Prodip Biswa \\
+    Group Members & Gaurav Acharya (MT26MCS024), Sandeep (MT26MCS032) \\
+    Guide & Dr.\ A.\ S.\ Mokhade \\
+    Mode & In-class gap identification, research question formulation, peer review, and LaTeX document preparation \\
+    Date of Completion & October 2026 \\
+    \bottomrule
+\end{tabular}
+
+% ============================================================
+\section{Objectives \& Learning Outcomes}
+% ============================================================
+
+Practical~7 moved from \emph{constructing a technical argument from evidence} (Practical~6) to \emph{identifying research questions from evidence}. The key principle was: ``A missing answer is not necessarily a research gap. A research gap is not necessarily an important problem. And an important problem is not necessarily an investigable research question.'' The learning outcomes included:
+
+\begin{itemize}[nosep]
+    \item Re-examining the technical synthesis from Practical~6 to separate what the evidence establishes from what remains uncertain.
+    \item Distinguishing between a study's local limitation (L), an unresolved question (U), a potential research gap (G), and an investigable research problem (P).
+    \item Identifying candidate research gaps from the evidence matrix and subjecting each to rigorous scrutiny.
+    \item Transforming a candidate gap into alternative research questions and evaluating them against explicit criteria (clarity, investigability, scope, significance, evaluability).
+    \item Writing a 180--220-word research problem statement following a structured logical progression (context, existing knowledge, uncertainty, significance, proposed investigation).
+    \item Defending the proposed question through peer challenge and incorporating critical feedback.
+\end{itemize}
+
+% ============================================================
+\section{Work Performed --- Stage by Stage}
+% ============================================================
+
+\subsection{Stage 1: What Do We Actually Know?}
+We re-examined the technical synthesis from Practical~6 without introducing new sources. We constructed a Knowledge--Uncertainty Table (Table~1 in the assignment) with four columns: \emph{What the evidence establishes}, \emph{Under what conditions?}, \emph{What remains uncertain?}, and \emph{Supporting paper/location}. Five rows captured the core findings:
+
+\begin{enumerate}[nosep]
+    \item SJF/SRTF achieves the lowest AWT and ATAT --- but only under known burst times, zero context switching, and simultaneous arrival ($t=0$).
+    \item AWT and ATAT increase linearly with burst time --- but only for fixed synthetic processes with uniform arithmetic increments.
+    \item Round Robin shows higher waiting times than SJF/SRTF --- but only with a fixed quantum ($q=4$\,ms) and zero preemption overhead.
+    \item Static Priority/SJF systematically favors short or high-priority jobs --- but without dynamic priority aging or admission control.
+    \item Neither paper measures first-response time, throughput, or fairness --- evaluation is restricted entirely to AWT and ATAT on small synthetic job sets ($N=4$ and $N=5$).
+\end{enumerate}
+
+We then answered three synthesis analysis questions:
+\begin{itemize}[nosep]
+    \item \textbf{A1 (Multi-paper consensus):} Three conclusions are supported by both papers --- SJF/SRTF minimizes AWT/ATAT, Round Robin has higher waiting times in batch settings, and burst length directly drives queue delays.
+    \item \textbf{A2 (Condition-dependent conclusions):} All conclusions depend on idealized assumptions: oracle burst knowledge, zero context-switch overhead ($t_{cs}=0$), simultaneous arrival at $t=0$, purely CPU-bound jobs without I/O, and very small synthetic datasets.
+    \item \textbf{A3 (Unjustified conclusions):} It would be unjustified to claim SJF is universally the ``best'' algorithm, that Round Robin is inferior, anything about throughput or multi-core performance, or that results apply to interactive or mixed workloads.
+\end{itemize}
+
+\subsection{Stage 2: Is Every Limitation a Research Gap?}
+We evaluated five illustrative statements using the L/U/G/P classification framework. For each statement, we answered three analytical questions: what can be legitimately inferred, what additional evidence is required before claiming a gap, and whether it could lead to an investigable research problem.
+
+Key classifications and reasoning:
+\begin{itemize}[nosep]
+    \item \textbf{Statement 1} (evaluated on only one dataset): L, leading to U. Not automatically a gap --- other researchers may have already evaluated across standard benchmarks.
+    \item \textbf{Statement 2} (differing results under different conditions): U and G, motivating P. The discrepancy suggests environment sensitivity, which is directly investigable through controlled parametric experiments.
+    \item \textbf{Statement 3} (high accuracy but no distribution shift testing): G and P, stemming from U. Practical systems must handle distribution shifts, making out-of-distribution robustness a well-justified research problem.
+    \item \textbf{Statement 4} (missing comparison with an alternative): L, occasionally U. Omitting a specific baseline is a local limitation; it becomes a gap only if the alternative is state-of-the-art and no other study has compared them.
+    \item \textbf{Statement 5} (performs well in lab but untested under operational constraints): G and P. If the constraint is critical in practice and no published study has analyzed it, this is a prime research gap.
+\end{itemize}
+
+The critical insight was that \emph{not every limitation is a gap, and not every gap is a problem}. Each escalation (L$\to$U$\to$G$\to$P) requires additional justification.
+
+\subsection{Stage 3: Discovering Candidate Gaps in Our Papers}
+We identified two candidate research gaps from our evidence matrix and subjected each to four scrutiny questions (genuine uncertainty vs.\ mere omission, practical importance, prior literature, and specificity).
+
+\begin{itemize}[nosep]
+    \item \textbf{Candidate 1:} Impact of burst time prediction error and context-switch latency on SJF/SRTF's performance advantage. Both papers assume an oracle knowing exact burst times and treat context switching as instantaneous. Scrutiny confirmed this is a genuine foundational uncertainty with clear investigable variables.
+    \item \textbf{Candidate 2:} Trade-off between time quantum sizing, context-switch overhead, and throughput in Round Robin under mixed workloads. Scrutiny revealed this is partially an established trade-off (textbook-level) and partially an unmeasured condition. Existing adaptive quantum literature likely addresses much of this, making it harder to defend as a novel gap.
+\end{itemize}
+
+\subsection{Stage 4: From Candidate Gap to Research Question}
+We selected Candidate~1 and formulated two alternative research questions:
+
+\begin{itemize}[nosep]
+    \item \textbf{RQ1:} ``Under what burst prediction error thresholds and context-switch latencies does SRTF fail to outperform FCFS in average waiting time?''
+    \item \textbf{RQ2:} ``How can a machine-learning burst prediction model improve the turnaround time and throughput of preemptive scheduling across diverse environments?''
+\end{itemize}
+
+We evaluated both against six criteria (clarity, investigability, meaningful uncertainty, manageable scope, explicit evaluation criteria, required assumptions/resources) in a comparison table. RQ1 was chosen because:
+\begin{itemize}[nosep]
+    \item It isolates explicit independent variables (prediction error \%, context-switch latency) with a well-defined crossover metric ($AWT_{\text{SRTF}} \ge AWT_{\text{FCFS}}$).
+    \item Its scope is manageable within an M.Tech semester project using a discrete-event simulator.
+    \item RQ2 is overly broad, conflates scheduling with ML inference overhead, and risks inconclusive results.
+\end{itemize}
+
+The detailed formulation included:
+\begin{itemize}[nosep]
+    \item \textbf{D1 (Research question):} Under what burst prediction error thresholds and context-switch latencies does SRTF fail to outperform FCFS in AWT?
+    \item \textbf{D2 (Objective):} Establish the quantitative crossover boundary defining when preemptive scheduling produces net degradation.
+    \item \textbf{D3 (Approach):} Discrete-event uniprocessor simulation with synthetic (uniform, exponential, bimodal) and real-world traces, varying prediction error (0--50\% MAPE) and context-switch latency ($0$--$100\,\mu$s).
+    \item \textbf{D4 (Evaluation):} AWT, ATAT, preemption counts; primary metric is the crossover point where $AWT_{\text{SRTF}} \ge AWT_{\text{FCFS}}$.
+    \item \textbf{D5 (Expected contribution):} An evidence-based decision model for OS designers mapping when burst estimation overhead outweighs SRTF's scheduling benefit.
+\end{itemize}
+
+\subsection{Stage 5: Writing the Research Problem Statement}
+We wrote a 180--220-word problem statement following a five-part logical progression:
+\begin{enumerate}[nosep]
+    \item \textbf{Context:} CPU scheduling as a fundamental OS service.
+    \item \textbf{Existing knowledge:} Reddy~[1] and Samanta \& Biswas~[2] demonstrate SJF/SRTF minimizes AWT and ATAT under idealized assumptions.
+    \item \textbf{Uncertainty:} At what prediction error thresholds and context-switch costs does SRTF's advantage degrade or disappear?
+    \item \textbf{Significance:} Adopting preemptive policies with noisy estimates may inadvertently increase overhead and degrade responsiveness.
+    \item \textbf{Proposed investigation:} Empirical quantification via trace-driven discrete-event simulation across diverse workload distributions.
+\end{enumerate}
+The statement avoided unsupported expressions like ``No research has been conducted\ldots'' or ``Our method will solve\ldots''
+
+\subsection{Stage 6: Peer Challenge}
+We exchanged our proposal with MT26MCS005 (Vikas Chaurasiya) and MT26MCS035 (Prodip Biswa). They evaluated it against four diagnostic questions and confirmed:
+\begin{itemize}[nosep]
+    \item The claimed uncertainty is supported by the evidence (both papers assume $t_{cs}=0$ and perfect burst knowledge).
+    \item The question is well-scoped with clear variables and metrics.
+    \item An answer would be an empirical crossover contour showing critical $\epsilon_{\text{crit}}$ and $t_{cs}$.
+\end{itemize}
+
+\textbf{Significant objection received:} ``Comparing SRTF against basic FCFS sets a very low baseline. Real systems use MLFQ or CFS, not raw FCFS.''
+
+\textbf{Our response:} We defended FCFS as the theoretical baseline of zero prediction cost and zero preemption overhead. Determining where SRTF degrades below FCFS establishes the ``point of negative return.'' We agreed to include MLFQ as a secondary reference benchmark.
+
+\subsection{Stage 7: Individual Reflections}
+Both students answered the three reflection questions independently (detailed in Section~4).
+
+% ============================================================
+\section{Individual Reflections}
+% ============================================================
+
+\subsection{Gaurav Acharya (MT26MCS024)}
+
+\begin{itemize}[nosep]
+    \item \textbf{Limitation vs.\ research gap:} A limitation belongs to a single study (e.g., small sample size $N=4$, or assuming $t_{cs}=0$). A research gap belongs to the wider scientific community --- it represents a persistent unknown across the broader literature. Confusing a single paper's limitation with a gap leads to trivial projects that simply re-run someone else's experiment with another dataset.
+
+    \item \textbf{Mistaking absence for a gap:} Yes. I initially thought the absence of throughput and response time data in Paper~2 was a major research gap. During group discussion, we realized the authors omitted these metrics because their paper was narrowly focused on proving an arithmetic relationship. The wider OS literature already contains extensive throughput benchmarks --- the absence was a local limitation, not a gap in CS knowledge.
+
+    \item \textbf{Further reading needed:} A systematic review of recent systems literature (USENIX OSDI, EuroSys, ACM SOSP) on modern runtime estimation methods; empirical context-switch and cache-invalidation measurements on real hardware (x86-64, ARM) using Linux \texttt{perf} and kernel tracepoints; testing production workload traces (Alibaba, Google cloud traces) rather than relying on synthetic distributions.
+\end{itemize}
+
+\subsection{Sandeep (MT26MCS032)}
+
+\begin{itemize}[nosep]
+    \item \textbf{Limitation vs.\ research gap:} A limitation is descriptive (what an author chose not to do). A research gap is explanatory and consequential --- it identifies an inadequacy in knowledge that genuinely matters for system performance or theory. An unanswered question is not worth investigating unless resolving it changes how we design systems or clears up a conflicting theoretical model.
+
+    \item \textbf{Mistaking absence for a gap:} Yes. I initially thought the lack of starvation measurements in Priority and SJF scheduling was an immediate research gap. Evaluating it against the Stage~3 scrutiny questions revealed that starvation in static priority queues has been mathematically understood since the 1960s using $M/G/1$ queuing theory, and dynamic priority aging is already standard. The omission was an artifact of running small static batches, not an open problem.
+
+    \item \textbf{Further reading needed:} Modern production kernel schedulers (Linux CFS, BPF extensible scheduler framework \texttt{sched\_ext}); empirical studies on cloud microservices and serverless architectures with heavy-tailed burst distributions; formal mathematical bounds (competitive analysis, queuing delay bounds) to complement discrete-event simulation.
+\end{itemize}
+
+% ============================================================
+\section{Writing Logbook Entries}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item \textbf{Most difficult stage:} Stage~3 (identifying genuine candidate gaps) was the hardest. The natural instinct is to treat every missing metric or untested condition as a research gap. Subjecting each candidate to the four scrutiny questions (genuine uncertainty? practical importance? prior literature? sufficient specificity?) forced us to discard weak ideas and defend only those that survive critical examination.
+
+    \item \textbf{Most important conceptual shift:} Understanding the L$\to$U$\to$G$\to$P escalation hierarchy. A limitation (L) of a single paper is not automatically an unresolved question (U). An unresolved question is not automatically a gap (G) in the wider literature. And a gap is not automatically an investigable research problem (P). Each escalation requires additional evidence and reasoning.
+
+    \item \textbf{Value of the peer challenge:} The peer objection about FCFS being a ``low baseline'' was the single most productive moment of the practical. It forced us to articulate \emph{why} we chose FCFS (theoretical zero-cost baseline for establishing the ``point of negative return'') and simultaneously strengthened our proposal by adding MLFQ as a secondary benchmark.
+
+    \item \textbf{Research Question evaluation table:} Comparing RQ1 and RQ2 side-by-side against six explicit criteria made the decision transparent and defensible. RQ2's breadth (``machine-learning model'' + ``diverse environments'') and confounding factors became immediately obvious when forced into the table format.
+
+    \item \textbf{Problem statement discipline:} The five-part logical progression (context $\to$ existing knowledge $\to$ uncertainty $\to$ significance $\to$ proposed investigation) prevented both overstatement (``no research has been conducted'') and understatement (failing to explain why the uncertainty matters). This structure is directly applicable to writing the Introduction section of an M.Tech dissertation.
+\end{enumerate}
+
+% ============================================================
+\section{Challenges Encountered}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item \textbf{Separating limitation from gap:} The most persistent challenge was resisting the urge to declare every missing piece of data in our two papers as a ``research gap.'' Both papers lacked throughput, response time, and fairness measurements, but \emph{other published work may already address these}. We had to accept that ``not measured in our papers'' does not equal ``unknown to science.''
+
+    \item \textbf{Discarding Candidate~2:} Candidate~2 (Round Robin quantum sizing) initially felt like a strong gap because our papers only tested a single fixed quantum. However, the scrutiny questions revealed that adaptive quantum algorithms have been extensively studied in existing literature, making it difficult to defend as a novel gap. Letting go of a candidate we had already invested time in was intellectually uncomfortable but necessary.
+
+    \item \textbf{Formulating a specific research question:} The initial instinct was to write broad questions like ``How do scheduling algorithms perform in real systems?'' Narrowing this to a specific, testable question with explicit independent variables (prediction error \%, context-switch latency $\mu$s), a clear comparator (FCFS), and a defined success metric (AWT crossover point) required multiple iterations.
+
+    \item \textbf{Writing the problem statement within 180--220 words:} Compressing context, existing knowledge, uncertainty, significance, and proposed investigation into $\sim$200 words forced extreme precision. Every sentence had to serve a structural purpose, and we could not afford redundancy or vague hedging.
+
+    \item \textbf{Defending against peer critique:} The objection about FCFS being a low baseline initially felt like a rejection of our entire proposal. Reframing it as constructive feedback (and incorporating MLFQ as a secondary benchmark) required stepping back from emotional investment in the question.
+
+    \item \textbf{Avoiding unsupported novelty claims:} The assignment explicitly prohibited expressions like ``No research has been conducted\ldots'' or ``This is the first study\ldots'' Writing a compelling problem statement without claiming originality required focusing on \emph{why the uncertainty matters} rather than \emph{how novel we are}.
+\end{enumerate}
+
+% ============================================================
+\section{Key Takeaways}
+% ============================================================
+
+\begin{enumerate}[nosep]
+    \item The hierarchy L $\to$ U $\to$ G $\to$ P is the most important conceptual framework in this practical. Each level requires additional evidence: a limitation is local to one study, an unresolved question needs cross-literature confirmation, a gap requires demonstrating that existing knowledge is genuinely insufficient, and a problem must be both important \emph{and} investigable.
+
+    \item ``No one has studied this'' is almost never true. Before claiming a research gap, one must verify whether the wider literature (beyond three assigned papers) has already addressed the issue. The absence of evidence in our papers is not evidence of absence in the field.
+
+    \item A good research question is tightly scoped with explicit independent variables, a clear comparator, and well-defined success criteria. Broad questions like ``How do algorithms perform in real systems?'' are not investigable --- they must be narrowed to specific parameters and metrics.
+
+    \item The five-part problem statement structure (context, existing knowledge, uncertainty, significance, proposed investigation) is a transferable writing template for thesis introductions, grant proposals, and conference submissions.
+
+    \item Peer challenge is not adversarial --- it strengthens proposals. The FCFS baseline objection directly improved our methodology by adding MLFQ as a secondary benchmark, making the final proposal more defensible.
+
+    \item The TWP practical progression is now complete through research formulation: \textit{What am I saying?} (Practical~3) $\rightarrow$ \textit{Can I trust the source?} (Practical~4) $\rightarrow$ \textit{What evidence exists?} (Practical~5) $\rightarrow$ \textit{Can I construct an argument?} (Practical~6) $\rightarrow$ \textit{Can I identify a research question?} (Practical~7).
+\end{enumerate}
+
+\end{document}
