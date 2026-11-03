@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classifiers Studio | Ho-Kashyap Linear Classification</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- KaTeX Math Formula Rendering (Local Assets) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/katex/katex.min.css') }}">
+    <script defer src="{{ url_for('static', filename='vendor/katex/katex.min.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='vendor/katex/auto-render.min.js') }}"></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" y1="20" x2="20" y2="4"></line>
+                        <circle cx="7" cy="7" r="3"></circle>
+                        <circle cx="17" cy="17" r="3"></circle>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Classifiers</h1>
+                    <p class="subtitle">Pattern Recognition Lab - Assignment 08: Ho-Kashyap Procedure & Integrated Studio</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a href="{{ url_for('performance_analysis') }}" class="nav-btn benchmark-btn" title="View Ho-Kashyap, KNN & Bayes Comprehensive Benchmark Matrix">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    Comparative Analysis
+                </a>
+
+                {% if app_state.summary %}
+                <form action="{{ url_for('reset_app') }}" method="post" style="display:inline;">
+                    <button type="submit" class="nav-btn reset-btn" title="Reset dataset and clear previous data">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                        </svg>
+                        Reset Session
+                    </button>
+                </form>
+                {% endif %}
+
+                <form action="{{ url_for('shutdown') }}" method="post" style="display:inline;" onsubmit="return confirm('Shut down Classifiers Studio?');">
+                    <button type="submit" class="nav-btn shutdown-btn" title="Safely shutdown server">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                            <line x1="12" y1="2" x2="12" y2="12"></line>
+                        </svg>
+                        Shut Down
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                        <div class="flash-toast flash-{{ category }}">
+                            <div class="flash-icon">
+                                {% if category == 'error' %}
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                {% elif category == 'success' %}
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                {% else %}
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                {% endif %}
+                            </div>
+                            <span class="flash-text">{{ message }}</span>
+                            <button class="flash-close" onclick="this.parentElement.remove()">&times;</button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Stepper Visualizer -->
+        <div class="workflow-stepper">
+            <div class="step-node {% if app_state.summary %}completed{% else %}active{% endif %}">
+                <div class="step-num">1</div>
+                <div class="step-title">Dataset Ingestion</div>
+            </div>
+            <div class="step-line {% if app_state.summary %}active{% endif %}"></div>
+
+            <div class="step-node {% if app_state.preprocessing_done %}completed{% elif app_state.summary %}active{% endif %}">
+                <div class="step-num">2</div>
+                <div class="step-title">Pre-Processing & Prep</div>
+            </div>
+            <div class="step-line {% if app_state.preprocessing_done %}active{% endif %}"></div>
+
+            <div class="step-node {% if app_state.hk_default_results or app_state.knn_k1_results or app_state.bayes_results %}completed{% elif app_state.preprocessing_done %}active{% endif %}">
+                <div class="step-num">3</div>
+                <div class="step-title">Model Training & Convergence</div>
+            </div>
+            <div class="step-line {% if app_state.hk_default_results or app_state.knn_k1_results or app_state.bayes_results %}active{% endif %}"></div>
+
+            <div class="step-node {% if app_state.last_prediction %}completed{% elif app_state.hk_default_results or app_state.knn_k1_results or app_state.bayes_results %}active{% endif %}">
+                <div class="step-num">4</div>
+                <div class="step-title">Instance Prediction</div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- STEP 1: DATASET INGESTION & INSPECTION                    -->
+        <!-- ========================================================= -->
+        <section class="card" id="step-upload">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="badge badge-primary">Step 1</span>
+                    Dataset Ingestion & Inspection
+                </div>
+                <span class="badge badge-secondary">CSV Ingestion</span>
+            </div>
+
+            <div class="grid grid-2" style="margin-bottom: 1.5rem;">
+                <!-- Upload Box -->
+                <div class="upload-zone">
+                    <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+                        <div class="file-drop-area">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <p style="font-weight: 600; margin-top: 0.5rem;">Upload CSV Classification Dataset</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Tabular classification dataset (.csv)</p>
+                            <input type="file" name="file" id="csv-file-input" accept=".csv" class="file-input-hidden" required>
+                            <label for="csv-file-input" class="btn btn-secondary" style="margin-top: 0.75rem; display: inline-block;">Browse File</label>
+                            <div id="chosen-file-display" style="margin-top: 0.5rem; font-size: 0.85rem; color: #a5b4fc;">No file selected</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+                            Load & Ingest Uploaded CSV
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Benchmark Datasets -->
+                <div class="benchmark-picker-box">
+                    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem;">Or Select a Benchmark Dataset</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                        Choose pre-loaded classification benchmarks (including guaranteed linearly separable and non-separable real-world datasets):
+                    </p>
+                    <form action="{{ url_for('upload') }}" method="post">
+                        <select name="sample_dataset" class="form-input" style="margin-bottom: 1rem;">
+                            {% for ds in sample_datasets %}
+                                <option value="{{ ds }}" {% if app_state.filename == ds %}selected{% endif %}>
+                                    {{ ds }} {% if 'separable' in ds %}(Guaranteed Linearly Separable){% elif 'heart' in ds %}(Heart Disease / Non-Separable){% endif %}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-secondary btn-block">
+                            Load Selected Benchmark
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Ingestion Summary if loaded -->
+            {% if app_state.summary %}
+                <div class="data-summary-box">
+                    <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #f8fafc;">
+                        Dataset Overview: <span style="color: #818cf8;">{{ app_state.summary.filename }}</span>
+                    </h3>
+
+                    <div class="metrics-grid" style="margin-bottom: 1.5rem;">
+                        <div class="metric-card">
+                            <span class="metric-label">Total Rows</span>
+                            <span class="metric-value">{{ app_state.summary.rows }}</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Features / Columns</span>
+                            <span class="metric-value">{{ app_state.summary.cols }}</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Missing Values</span>
+                            <span class="metric-value" style="color: {% if app_state.summary.missing_cells > 0 %}#f87171{% else %}#34d399{% endif %};">
+                                {{ app_state.summary.missing_cells }}
+                            </span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Duplicate Rows</span>
+                            <span class="metric-value" style="color: {% if app_state.summary.duplicate_rows > 0 %}#fbbf24{% else %}#34d399{% endif %};">
+                                {{ app_state.summary.duplicate_rows }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Column Metadata Table -->
+                    <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; color: #cbd5e1;">Column Inspection Metadata</h4>
+                    <div class="table-container" style="max-height: 240px; overflow-y: auto; margin-bottom: 1.5rem;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Column Name</th>
+                                    <th>Data Type</th>
+                                    <th>Non-Null Count</th>
+                                    <th>Null Count</th>
+                                    <th>Unique Values</th>
+                                    <th>Classification Role</th>
+                                    <th>Type Category</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for col in app_state.column_metadata %}
+                                <tr>
+                                    <td style="font-weight: 700; color: #f8fafc;">{{ col.name }}</td>
+                                    <td><code>{{ col.dtype }}</code></td>
+                                    <td>{{ col.non_null }}</td>
+                                    <td style="color: {% if col.null_count > 0 %}#f87171{% else %}#94a3b8{% endif %};">{{ col.null_count }}</td>
+                                    <td>{{ col.unique }}</td>
+                                    <td>
+                                        <span class="badge {% if col.is_numeric %}badge-success{% else %}badge-warning{% endif %}">
+                                            {% if col.is_numeric %}Numeric Feature{% else %}Categorical{% endif %}
+                                        </span>
+                                    </td>
+                                    <td>{{ col.category }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Preview Rows -->
+                    <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; color: #cbd5e1;">Sample Preview (First 5 Rows)</h4>
+                    <div class="table-container" style="max-height: 220px; overflow-x: auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    {% for col in app_state.summary.columns %}
+                                        <th>{{ col }}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in app_state.summary.preview_rows %}
+                                <tr>
+                                    {% for col in app_state.summary.columns %}
+                                        <td>{{ row[col] }}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- STEP 2: PRE-TRAINING PREPARATION & STANDARDIZATION        -->
+        <!-- ========================================================= -->
+        {% if app_state.summary %}
+        <section class="card" id="step-preparation">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="badge badge-primary">Step 2</span>
+                    Pre-Training Preparation & Standardization
+                </div>
+                <span class="badge {% if app_state.preprocessing_done %}badge-success{% else %}badge-warning{% endif %}">
+                    {% if app_state.preprocessing_done %}Prepared & Stratified{% else %}Pending Configuration{% endif %}
+                </span>
+            </div>
+
+            <!-- Pre-Training Preparation Requirement Banner -->
+            {% if app_state.summary.requires_preprocessing %}
+                <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem; color: #fde68a;">
+                    <strong style="color: #fbbf24;">Pre-Processing Required:</strong>
+                    Dataset contains
+                    {% if app_state.summary.has_missing %}{{ app_state.summary.missing_cells }} missing values, {% endif %}
+                    {% if app_state.summary.has_duplicates %}{{ app_state.summary.duplicate_rows }} duplicate rows, {% endif %}
+                    {% if app_state.summary.has_categorical %}categorical feature columns.{% endif %}
+                    Configure the imputation, duplicate removal, and categorical encoding options below before training.
+                </div>
+            {% else %}
+                <div class="clean-status-banner">
+                    <div class="clean-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <div>
+                        <strong style="font-size: 0.95rem; color: #34d399;">Pre-Processing Not Required:</strong>
+                        <p style="font-size: 0.85rem; color: #a7f3d0; margin-top: 0.2rem;">
+                            Dataset is clean and ready: 0 missing values, 0 duplicate rows, and all feature vectors are strictly numeric.
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+
+            <form action="{{ url_for('prepare') }}" method="post">
+                <div class="grid grid-2" style="margin-bottom: 1.5rem;">
+                    <!-- Target Selection -->
+                    <div>
+                        <label class="form-label" for="target_col_select">Target Classification Variable</label>
+                        <select name="target_col" id="target_col_select" class="form-input" required>
+                            {% for col in app_state.summary.columns %}
+                                <option value="{{ col }}" {% if app_state.target_col == col %}selected{% endif %}>
+                                    {{ col }} ({{ app_state.column_unique_map[col].unique_count }} unique classes)
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <p style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.35rem;">
+                            The Ho-Kashyap procedure is a binary linear discriminant and requires a 2-class target.
+                        </p>
+                    </div>
+
+                    <!-- Preprocessing Controls (shown if required) -->
+                    {% if app_state.summary.requires_preprocessing %}
+                    <div>
+                        <label class="form-label">Data Cleaning & Imputation Strategy</label>
+                        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; cursor: pointer;">
+                                <input type="checkbox" name="remove_duplicates" value="true" {% if app_state.summary.has_duplicates %}checked{% endif %}>
+                                Remove Duplicate Rows
+                            </label>
+                        </div>
+                        <div style="display: flex; gap: 0.75rem; align-items: center;">
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Missing Values:</span>
+                            <select name="imputation_strategy" class="form-input" style="flex: 1; padding: 0.4rem 0.6rem;">
+                                <option value="median" selected>SimpleImputer (Median)</option>
+                                <option value="mean">SimpleImputer (Mean)</option>
+                                <option value="most_frequent">SimpleImputer (Most Frequent / Mode)</option>
+                            </select>
+                        </div>
+
+                        {% if app_state.summary.has_categorical %}
+                        <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 0.65rem;">
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Categorical Features:</span>
+                            <select name="categorical_strategy" class="form-input" style="flex: 1; padding: 0.4rem 0.6rem;">
+                                <option value="encode" selected>Encode to Numeric (One-Hot / Label)</option>
+                                <option value="exclude">Exclude Non-Numeric Features</option>
+                            </select>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Feature Standardization Choice -->
+                <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem 1.35rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <strong style="font-size: 0.95rem; color: #f8fafc;">Feature Standardization (Scikit-Learn StandardScaler)</strong>
+                            <p style="font-size: 0.825rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                                Centers features to zero mean and unit variance: \( z = \frac{x - \mu}{\sigma} \). Essential for preventing high-magnitude features from dominating linear weights.
+                            </p>
+                        </div>
+                        <label style="display: flex; align-items: center; gap: 0.65rem; font-weight: 700; cursor: pointer;">
+                            <input type="checkbox" name="use_standardization" value="true" {% if app_state.use_standardization or not app_state.preprocessing_done %}checked{% endif %} style="transform: scale(1.2); accent-color: var(--primary);">
+                            Apply StandardScaler
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Feature Selection List -->
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                        <label class="form-label" style="margin-bottom: 0;">Select Predictive Features</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button type="button" id="btn-select-all-features" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">Select All</button>
+                            <button type="button" id="btn-deselect-all-features" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">Deselect All</button>
+                        </div>
+                    </div>
+
+                    <div class="features-selection-grid">
+                        {% for col in app_state.summary.columns %}
+                            <label class="feature-checkbox-label">
+                                <input type="checkbox" name="features" value="{{ col }}" class="feature-checkbox"
+                                       {% if col in app_state.feature_cols or (not app_state.preprocessing_done and col != app_state.target_col) %}checked{% endif %}>
+                                <span>{{ col }}</span>
+                                <span class="badge {% if app_state.column_unique_map[col].is_numeric %}badge-success{% else %}badge-warning{% endif %}" style="font-size: 0.7rem; padding: 0.15rem 0.4rem;">
+                                    {% if app_state.column_unique_map[col].is_numeric %}Numeric{% else %}Categorical{% endif %}
+                                </span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Target Class Renaming Section -->
+                <div id="rename-classes-container" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem; display: none;">
+                    <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; color: #cbd5e1;">Target Class Display Names (Human-Readable Aliases)</h4>
+                    <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 1rem;">
+                        Assign custom display names (e.g. <code>0</code> &rarr; <em>Healthy</em>, <code>1</code> &rarr; <em>Heart Disease</em>). Displayed across plots and prediction cards.
+                    </p>
+                    <div id="rename-inputs-grid" class="rename-grid"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    Execute Preparation & Partition (80/20 Stratified Train/Test)
+                </button>
+            </form>
+
+            <!-- Quick Rename if already preprocessed -->
+            {% if app_state.preprocessing_done and app_state.encoder.classes_|length >= 2 %}
+            <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle);">
+                <form action="{{ url_for('rename_classes') }}" method="post" style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                    <span style="font-size: 0.85rem; font-weight: 600; color: #a5b4fc;">Active Class Labels:</span>
+                    {% for c in app_state.encoder.classes_ %}
+                        <div style="display: flex; align-items: center; gap: 0.35rem;">
+                            <span class="rename-code-badge">Class {{ c }}</span>
+                            <input type="text" name="rename_class_{{ c }}" value="{{ app_state.encoder.get_display_name(c) }}" class="form-input" style="padding: 0.35rem 0.65rem; width: 140px; font-size: 0.85rem;">
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-secondary" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;">Update Labels</button>
+                </form>
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <!-- ========================================================= -->
+        <!-- STEP 3: CLASSIFIER TRAINING & CONVERGENCE ANALYSIS       -->
+        <!-- ========================================================= -->
+        {% if app_state.preprocessing_done %}
+        <section class="card" id="step-training">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="badge badge-primary">Step 3</span>
+                    Classifier Training & Convergence Studio
+                </div>
+                <span class="badge badge-primary">Integrated Studio</span>
+            </div>
+
+            <!-- Classifier Selection Form -->
+            <form action="{{ url_for('train') }}" method="post" style="margin-bottom: 2rem;">
+                <div class="grid grid-2" style="margin-bottom: 1.5rem;">
+                    <div>
+                        <label class="form-label" for="classifier_choice_select">Select Classifier Architecture</label>
+                        <select name="classifier_choice" id="classifier_choice_select" class="form-input">
+                            <option value="hokashyap" {% if app_state.active_classifier == 'hokashyap' %}selected{% endif %}>
+                                Ho-Kashyap Procedure (Linear Classifier from scratch)
+                            </option>
+                            <option value="knn" {% if app_state.active_classifier == 'knn' %}selected{% endif %}>
+                                K-Nearest Neighbors (KNN with Elbow Method)
+                            </option>
+                            <option value="bayes" {% if app_state.active_classifier == 'bayes' %}selected{% endif %}>
+                                Bayes Classifier (Gaussian Naive Bayes)
+                            </option>
+                        </select>
+                        <p style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.35rem;">
+                            Integrated studio allows switching between Ho-Kashyap, KNN, and Bayes.
+                        </p>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: flex-end;">
+                        <label style="display: flex; align-items: center; gap: 0.65rem; font-weight: 700; cursor: pointer;">
+                            <input type="checkbox" name="use_standardization" value="true" {% if app_state.use_standardization %}checked{% endif %} style="transform: scale(1.2); accent-color: var(--primary);">
+                            Standardized Features Active
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 1. Ho-Kashyap Specific Controls -->
+                <div id="hokashyap-specific-controls" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
+                    <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: #818cf8;">Ho-Kashyap Hyperparameters & Multi-Rate Analysis</h4>
+                    
+                    <div class="grid grid-3" style="gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <label class="form-label">Default Learning Rate (\(\eta\))</label>
+                            <input type="number" name="default_eta" value="0.1" step="0.05" min="0.01" max="1.5" class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Max Iterations (\(k_{\max}\))</label>
+                            <input type="number" name="max_iter" value="500" step="50" min="50" max="2000" class="form-input">
+                        </div>
+                        <div>
+                            <label class="form-label">Tolerance (\(\epsilon\))</label>
+                            <input type="text" name="tol" value="1e-5" class="form-input">
+                        </div>
+                    </div>
+
+                    <!-- Multi-Eta Selection Checkboxes -->
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <label class="form-label" style="margin-bottom: 0;">Multi-Learning Rate Exploration (\(\eta \in [0.1, 0.9]\))</label>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button type="button" id="btn-select-all-etas" class="btn btn-secondary" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;">All (0.1-0.9)</button>
+                                <button type="button" id="btn-select-odd-etas" class="btn btn-secondary" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;">Odd Steps</button>
+                            </div>
+                        </div>
+                        <div class="eta-selection-grid">
+                            {% for eta in ['0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9'] %}
+                                <label class="eta-checkbox-label">
+                                    <input type="checkbox" name="selected_etas" value="{{ eta }}" class="eta-checkbox" checked>
+                                    <span>&eta;={{ eta }}</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. KNN Specific Controls -->
+                <div id="knn-specific-controls" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem; display: none;">
+                    <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: #38bdf8;">K-Nearest Neighbors Elbow Controls</h4>
+                    <div style="display: flex; align-items: center; gap: 1.5rem;">
+                        <span style="font-size: 0.875rem; color: var(--text-secondary);">Max K Range:</span>
+                        <input type="range" name="max_k" id="max_k_slider" min="5" max="40" value="40" class="range-slider" style="flex: 1;">
+                        <span id="max_k_display" style="font-weight: 800; font-family: 'JetBrains Mono', monospace; color: #38bdf8; min-width: 32px;">40</span>
+                    </div>
+                </div>
+
+                <!-- 3. Bayes Specific Notice -->
+                <div id="bayes-specific-notice" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem; display: none;">
+                    <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; color: #a855f7;">Gaussian Naive Bayes Model</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                        Computes class prior probabilities \( P(C_k) \) and feature-wise Gaussian class-conditional density parameters (\( \mu_{k,j}, \sigma_{k,j}^2 \)).
+                    </p>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" style="font-size: 1rem; padding: 0.9rem;">
+                    Execute Classifier Training & Evaluation
+                </button>
+            </form>
+
+            <!-- ========================================================= -->
+            <!-- HO-KASHYAP RESULTS DISPLAY                                -->
+            <!-- ========================================================= -->
+            {% if app_state.active_classifier == 'hokashyap' and app_state.hk_default_results %}
+                <div class="results-container" style="border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+                    
+                    <!-- Linear Separability Diagnosis Badge -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <span class="separability-badge {% if 'Separable' in app_state.hk_default_results.separability and 'Non' not in app_state.hk_default_results.separability %}separable{% else %}non-separable{% endif %}">
+                                {% if 'Separable' in app_state.hk_default_results.separability and 'Non' not in app_state.hk_default_results.separability %}
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    Verdict: Linearly Separable Dataset
+                                {% else %}
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                    Verdict: Linearly Non-Separable Dataset
+                                {% endif %}
+                            </span>
+                            <p style="font-size: 0.825rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                                {{ app_state.hk_default_results.stop_reason }}
+                            </p>
+                        </div>
+                        <span class="badge badge-secondary" style="font-family: 'JetBrains Mono', monospace;">
+                            Ran {{ app_state.hk_default_results.iterations_run }} Iterations (\(\eta\)={{ app_state.hk_default_results.default_eta }})
+                        </span>
+                    </div>
+
+                    <!-- Margin Vector b Summary -->
+                    <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: #cbd5e1;">Final Margin Vector \( \mathbf{b} \) Summary</h4>
+                    <div class="margin-summary-grid">
+                        <div class="margin-card">
+                            <span class="margin-title">Minimum Margin (\(\min \mathbf{b}\))</span>
+                            <span class="margin-value">{{ app_state.hk_default_results.margin_summary.min_b }}</span>
+                        </div>
+                        <div class="margin-card">
+                            <span class="margin-title">Maximum Margin (\(\max \mathbf{b}\))</span>
+                            <span class="margin-value">{{ app_state.hk_default_results.margin_summary.max_b }}</span>
+                        </div>
+                        <div class="margin-card">
+                            <span class="margin-title">Mean Margin (\(\bar{\mathbf{b}}\))</span>
+                            <span class="margin-value">{{ app_state.hk_default_results.margin_summary.mean_b }}</span>
+                        </div>
+                        <div class="margin-card">
+                            <span class="margin-title">Margin Vector Positivity</span>
+                            <span class="margin-value" style="color: #34d399; font-size: 1.1rem; display: flex; align-items: center; gap: 0.4rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                Verified (\(\mathbf{b} > \mathbf{0}\))
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Final Weight Vector a Table -->
+                    <div class="weight-vector-container">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <h4 style="font-size: 0.95rem; font-weight: 700; color: #f8fafc;">
+                                Final Discriminant Weight Vector \( \mathbf{a} = [a_0, a_1, \dots, a_d]^T \)
+                            </h4>
+                            <span style="font-size: 0.8rem; color: #a5b4fc; font-family: 'JetBrains Mono', monospace;">
+                                \( g(\mathbf{x}) = a_0 + \sum_{j=1}^d a_j x_j \)
+                            </span>
+                        </div>
+
+                        <div class="table-container" style="max-height: 220px; overflow-y: auto;">
+                            <table class="weight-vector-table">
+                                <thead>
+                                    <tr>
+                                        <th>Component</th>
+                                        <th>Feature Name</th>
+                                        <th>Learned Weight Value</th>
+                                        <th>Sign / Direction</th>
+                                        <th>Relative Influence</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>a_0</code></td>
+                                        <td><strong>Bias / Decision Threshold</strong></td>
+                                        <td><span class="weight-badge bias">{{ app_state.hk_default_results.weight_summary.bias_a0 }}</span></td>
+                                        <td>{{ '+' if app_state.hk_default_results.weight_summary.bias_a0 >= 0 else '-' }}</td>
+                                        <td>Offset Hyperplane</td>
+                                    </tr>
+                                    {% for fw in app_state.hk_default_results.weight_summary.feature_weights %}
+                                    <tr>
+                                        <td><code>a_{{ loop.index }}</code></td>
+                                        <td><strong>{{ fw.feature }}</strong></td>
+                                        <td>
+                                            <span class="weight-badge {% if fw.weight >= 0 %}positive{% else %}negative{% endif %}">
+                                                {{ fw.weight }}
+                                            </span>
+                                        </td>
+                                        <td>{{ fw.sign }}</td>
+                                        <td>{{ fw.abs_weight }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Test Set Evaluation Metrics Grid -->
+                    <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: #cbd5e1;">Test Set Performance Metrics</h4>
+                    <div class="metrics-grid" style="margin-bottom: 2rem;">
+                        <div class="metric-card">
+                            <span class="metric-label">Test Accuracy</span>
+                            <span class="metric-value" style="color: #34d399;">{{ app_state.hk_default_results.metrics.accuracy }}%</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Classification Error Rate</span>
+                            <span class="metric-value" style="color: #f87171;">{{ app_state.hk_default_results.metrics.error_rate }}%</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Precision</span>
+                            <span class="metric-value">{{ app_state.hk_default_results.metrics.precision }}%</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Recall</span>
+                            <span class="metric-value">{{ app_state.hk_default_results.metrics.recall }}%</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">F1-Score</span>
+                            <span class="metric-value" style="color: #818cf8;">{{ app_state.hk_default_results.metrics.f1_score }}%</span>
+                        </div>
+                    </div>
+
+                    <!-- Plots Grid: Convergence & Confusion Matrix -->
+                    <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: #cbd5e1;">Convergence Plots & Confusion Matrix</h4>
+                    <div class="grid grid-2" style="margin-bottom: 2rem; gap: 1.5rem;">
+                        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; text-align: center;">
+                            <img src="{{ url_for('static', filename=app_state.hk_convergence_plot) }}" alt="Ho-Kashyap Convergence Curves" style="width: 100%; border-radius: var(--radius-sm);">
+                        </div>
+                        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; text-align: center;">
+                            <img src="{{ url_for('static', filename=app_state.hk_cm_plot) }}" alt="Ho-Kashyap Confusion Matrix" style="width: 100%; border-radius: var(--radius-sm);">
+                        </div>
+                    </div>
+
+                    <!-- Multi-Learning Rate Convergence Analysis -->
+                    {% if app_state.hk_eta_results %}
+                    <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #f8fafc;">
+                            Convergence Analysis Across Learning Rates (\(\eta \in [0.1, 0.9]\))
+                        </h4>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                            Evaluating error rate \( \text{Error Rate} = \frac{\text{Incorrect}}{\text{Total}} \) and iteration count across learning rates to select optimal \(\eta^*\).
+                        </p>
+
+                        <div class="grid grid-2" style="gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <!-- Table of Eta Runs -->
+                            <div class="table-container" style="max-height: 280px; overflow-y: auto;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>\(\eta\) Value</th>
+                                            <th>Iterations</th>
+                                            <th>Final \(\|e\|^2\)</th>
+                                            <th>Misclass (Train)</th>
+                                            <th>Error Rate (%)</th>
+                                            <th>Accuracy (%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for er in app_state.hk_eta_results %}
+                                        <tr {% if er.eta == app_state.hk_optimal_eta %}style="background: rgba(245, 158, 11, 0.15); font-weight: 700;"{% endif %}>
+                                            <td>
+                                                <code style="color: {% if er.eta == app_state.hk_optimal_eta %}#fbbf24{% else %}#818cf8{% endif %};">
+                                                    {{ "%.2f"|format(er.eta) }}
+                                                </code>
+                                                {% if er.eta == app_state.hk_optimal_eta %}
+                                                    <span style="color: #fbbf24; margin-left: 0.25rem;">★</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ er.iterations }}</td>
+                                            <td>{{ "%.4f"|format(er.squared_error) }}</td>
+                                            <td>{{ er.training_misclassified }}</td>
+                                            <td style="color: #f87171;">{{ er.error_rate }}%</td>
+                                            <td style="color: #34d399;">{{ er.accuracy }}%</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Eta vs Iterations Plot -->
+                            <div style="text-align: center;">
+                                <img src="{{ url_for('static', filename=app_state.hk_eta_plot) }}" alt="Eta vs Iterations" style="width: 100%; border-radius: var(--radius-sm);">
+                            </div>
+                        </div>
+
+                        <!-- Optimal Eta Highlight Card -->
+                        <div class="optimal-eta-card">
+                            <div>
+                                <span class="optimal-eta-badge">Optimal Learning Rate Selected</span>
+                                <h3 style="font-size: 1.25rem; font-weight: 800; color: #f8fafc; margin-top: 0.4rem;">
+                                    \(\eta^* = {{ "%.2f"|format(app_state.hk_optimal_eta) }}\)
+                                </h3>
+                                <p style="font-size: 0.85rem; color: #cbd5e1; margin-top: 0.2rem;">
+                                    Converged in fewest iterations with the lowest error rate.
+                                </p>
+                            </div>
+                            <form action="{{ url_for('adopt_optimal_eta') }}" method="post">
+                                <button type="submit" class="adopt-eta-btn">
+                                    Adopt \(\eta^* = {{ "%.2f"|format(app_state.hk_optimal_eta) }}\) Model for Inference
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            <!-- ========================================================= -->
+            <!-- KNN RESULTS DISPLAY (INTEGRATED)                          -->
+            <!-- ========================================================= -->
+            {% if app_state.active_classifier == 'knn' and app_state.knn_k1_results %}
+                <div class="results-container" style="border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+                    <h3 style="font-size: 1.15rem; font-weight: 800; color: #38bdf8; margin-bottom: 1rem;">
+                        K-Nearest Neighbors Elbow Analysis
+                    </h3>
+
+                    <div class="grid grid-2" style="gap: 1.5rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <img src="{{ url_for('static', filename=app_state.knn_elbow_plot) }}" alt="KNN Elbow Curve" style="width: 100%; border-radius: var(--radius-sm);">
+                        </div>
+                        <div>
+                            <form action="{{ url_for('select_elbow_k') }}" method="post" style="margin-bottom: 1rem;">
+                                <label class="form-label">Select Chosen Elbow Point K</label>
+                                <div style="display: flex; gap: 0.75rem;">
+                                    <select name="chosen_k" class="form-input">
+                                        {% for item in app_state.knn_elbow_curve %}
+                                            <option value="{{ item.k }}" {% if item.k == app_state.knn_selected_elbow_k %}selected{% endif %}>
+                                                K = {{ item.k }} (Error: {{ item.error_rate }}%, Accuracy: {{ item.accuracy }}%)
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">Evaluate K</button>
+                                </div>
+                            </form>
+
+                            {% if app_state.knn_optimal_results %}
+                            <div class="scorecard-comparison" style="margin-top: 1rem;">
+                                <div class="metric-card">
+                                    <span class="metric-label">K=1 Baseline Error</span>
+                                    <span class="metric-value" style="color: #f87171;">{{ app_state.knn_k1_results.error_rate }}%</span>
+                                </div>
+                                <div class="metric-card">
+                                    <span class="metric-label">Optimal K={{ app_state.knn_selected_elbow_k }} Error</span>
+                                    <span class="metric-value" style="color: #34d399;">{{ app_state.knn_optimal_results.error_rate }}%</span>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- ========================================================= -->
+            <!-- BAYES RESULTS DISPLAY (INTEGRATED)                        -->
+            <!-- ========================================================= -->
+            {% if app_state.active_classifier == 'bayes' and app_state.bayes_results %}
+                <div class="results-container" style="border-top: 1px solid var(--border-subtle); padding-top: 2rem;">
+                    <h3 style="font-size: 1.15rem; font-weight: 800; color: #a855f7; margin-bottom: 1rem;">
+                        Gaussian Naive Bayes Performance
+                    </h3>
+                    <div class="metrics-grid" style="margin-bottom: 1.5rem;">
+                        <div class="metric-card">
+                            <span class="metric-label">Test Accuracy</span>
+                            <span class="metric-value" style="color: #34d399;">{{ app_state.bayes_results.accuracy }}%</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Error Rate</span>
+                            <span class="metric-value" style="color: #f87171;">{{ app_state.bayes_results.error_rate }}%</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Precision</span>
+                            <span class="metric-value">{{ app_state.bayes_results.precision }}%</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Recall</span>
+                            <span class="metric-value">{{ app_state.bayes_results.recall }}%</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">F1-Score</span>
+                            <span class="metric-value" style="color: #a855f7;">{{ app_state.bayes_results.f1_score }}%</span>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <!-- ========================================================= -->
+        <!-- STEP 4: PREDICTION OF NEW INSTANCES                       -->
+        <!-- ========================================================= -->
+        {% if app_state.hk_default_results or app_state.knn_k1_results or app_state.bayes_results %}
+        <section class="card" id="step-prediction">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="badge badge-primary">Step 4</span>
+                    Predict Class of New User Instances
+                </div>
+                <span class="badge badge-secondary">Inference Interface</span>
+            </div>
+
+            <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                Enter feature values into the dynamically generated form below. Inputs are validated for non-empty status, numeric parsing, and typical training domain bounds.
+            </p>
+
+            <form action="{{ url_for('predict') }}" method="post" style="margin-bottom: 1.5rem;">
+                <div class="prediction-inputs-grid">
+                    {% for feat in app_state.feature_cols %}
+                        {% set stats = app_state.feature_stats.get(feat, {}) %}
+                        <div class="prediction-field-item">
+                            <label class="form-label" style="display: flex; justify-content: space-between;">
+                                <span>{{ feat }}</span>
+                                {% if stats %}
+                                    <span style="font-size: 0.725rem; color: var(--text-muted); font-weight: normal;">
+                                        [{{ "%.1f"|format(stats.min) }} to {{ "%.1f"|format(stats.max) }}]
+                                    </span>
+                                {% endif %}
+                            </label>
+                            <input type="text" name="feat_{{ feat }}" class="form-input" required
+                                   placeholder="e.g. {{ '%.2f'|format(stats.mean) if stats else '0.0' }}"
+                                   value="{{ app_state.last_prediction.raw_inputs.get(feat, '') if app_state.last_prediction else '' }}">
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1.5rem; font-size: 1rem; padding: 0.85rem;">
+                    Predict Instance Class Using Trained Model
+                </button>
+            </form>
+
+            <!-- Prediction Result Card -->
+            {% if app_state.last_prediction %}
+                <div class="prediction-result-box" style="margin-top: 1.5rem;">
+                    <!-- Out of Range Warnings -->
+                    {% if app_state.last_prediction.warnings %}
+                        {% for w in app_state.last_prediction.warnings %}
+                            <div class="out-of-range-warning">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                <span>{{ w }}</span>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <span class="badge badge-primary">{{ app_state.last_prediction.classifier }}</span>
+                            <h3 style="font-size: 1.35rem; font-weight: 800; color: #f8fafc; margin-top: 0.4rem;">
+                                Predicted Class: <span style="color: #38bdf8;">{{ app_state.last_prediction.predicted_class_code }}</span> 
+                                (<span style="color: #34d399;">{{ app_state.last_prediction.predicted_class_label }}</span>)
+                            </h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="metric-label">Estimated Confidence</span>
+                            <div style="font-size: 1.5rem; font-weight: 800; color: #34d399; font-family: 'JetBrains Mono', monospace;">
+                                {{ app_state.last_prediction.confidence }}%
+                            </div>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 1.25rem;">
+                        {{ app_state.last_prediction.description }}
+                    </p>
+
+                    <!-- Feature Breakdown if Ho-Kashyap -->
+                    {% if app_state.last_prediction.explanation and app_state.last_prediction.explanation.feature_contributions %}
+                    <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+                        <h4 style="font-size: 0.9rem; font-weight: 700; color: #f8fafc; margin-bottom: 0.75rem;">
+                            Linear Discriminant Decomposition: \( g(\mathbf{x}) = a_0 + \sum a_j x_j \)
+                        </h4>
+                        
+                        <div style="margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #a5b4fc;">
+                            Bias Term (\(a_0\)): <strong>{{ app_state.last_prediction.explanation.bias }}</strong>
+                        </div>
+
+                        {% for fc in app_state.last_prediction.explanation.feature_contributions %}
+                        <div class="feature-contrib-row">
+                            <span class="feature-contrib-name" title="{{ fc.feature }}">{{ fc.feature }}</span>
+                            <div class="feature-contrib-bar-wrap">
+                                <div class="feature-contrib-bar-fill {% if fc.contribution >= 0 %}pos{% else %}neg{% endif %}"
+                                     style="width: {{ [((fc.contribution|abs) / (app_state.last_prediction.explanation.discriminant_score|abs + 1.0) * 100), 100]|min }}%;">
+                                </div>
+                            </div>
+                            <span class="feature-contrib-val" style="color: {% if fc.contribution >= 0 %}#34d399{% else %}#f87171{% endif %};">
+                                {{ fc.contribution }}
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+    </main>
+
+    <footer class="app-footer">
+        <div class="container" style="margin: 0 auto; padding: 1.5rem 0; text-align: center; border-top: 1px solid var(--border-subtle); color: var(--text-muted); font-size: 0.85rem;">
+            Pattern Recognition Laboratory &bull; VNIT-W26 &bull; Roll No: MT26MCS024 &bull; Ho-Kashyap Linear Classification Studio
+        </div>
+    </footer>
+
+    <script>
+        window.COLUMN_INFO = {{ column_unique_map_json|safe }};
+    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
+

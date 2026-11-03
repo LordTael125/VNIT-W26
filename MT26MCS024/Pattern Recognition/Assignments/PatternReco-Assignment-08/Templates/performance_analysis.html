@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparative Benchmark Matrix | Ho-Kashyap, KNN & Bayes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- KaTeX Math Formula Rendering (Local Assets) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/katex/katex.min.css') }}">
+    <script defer src="{{ url_for('static', filename='vendor/katex/katex.min.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='vendor/katex/auto-render.min.js') }}"></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Comparative Analysis Studio</h1>
+                    <p class="subtitle">Ho-Kashyap Linear Discriminant vs. KNN & Gaussian Naive Bayes Benchmark Matrix</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a href="{{ url_for('index') }}" class="nav-btn benchmark-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Back to Main Studio
+                </a>
+
+                <form action="{{ url_for('shutdown') }}" method="post" style="display:inline;" onsubmit="return confirm('Shut down Classifiers Studio?');">
+                    <button type="submit" class="nav-btn shutdown-btn" title="Safely shutdown server">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                            <line x1="12" y1="2" x2="12" y2="12"></line>
+                        </svg>
+                        Shut Down
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Executive Summary Banner -->
+        <div class="delta-banner" style="margin-bottom: 2.5rem; justify-content: space-between; text-align: left; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);">
+            <div>
+                <h3 style="font-size: 1.25rem; font-weight: 800; color: #ffffff; margin-bottom: 0.35rem;">
+                    Empirical Analysis: Ho-Kashyap Linear Procedure, KNN & Bayes Classifier
+                </h3>
+                <p style="font-size: 0.9rem; color: #c7d2fe; max-width: 950px;">
+                    Benchmarking 5 model configurations: <strong>Ho-Kashyap (Raw Unscaled)</strong>, <strong>Ho-Kashyap (Standardized)</strong>, <strong>KNN (K=1 Baseline)</strong>, <strong>KNN (Optimal Elbow K)</strong>, and <strong>Gaussian Naive Bayes</strong> across standard datasets.
+                </p>
+            </div>
+        </div>
+
+        <!-- Benchmark Matrix Table -->
+        <section class="card" style="margin-bottom: 2rem;">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="badge badge-primary">Benchmark Matrix</span>
+                    Multi-Dataset Algorithm Performance Scorecard
+                </div>
+                <span class="badge badge-secondary">Stratified 80/20 Test Evaluation</span>
+            </div>
+
+            <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                Comparing Accuracy (Acc), Error Rate (Err), F1-Score (F1), and convergence iterations across benchmark datasets.
+            </p>
+
+            <div class="table-container" style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Dataset</th>
+                            <th>Dimension</th>
+                            <th>Ho-Kashyap Separability</th>
+                            <th>Ho-Kashyap (Raw)</th>
+                            <th>Ho-Kashyap (Scaled)</th>
+                            <th>KNN (K=1 Scaled)</th>
+                            <th>KNN (Optimal K)</th>
+                            <th>Bayes Classifier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in benchmark_results %}
+                        <tr>
+                            <td>
+                                <strong style="color: #f8fafc; font-size: 0.95rem;">{{ item.dataset_name }}</strong>
+                            </td>
+                            <td>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #cbd5e1;">
+                                    {{ item.samples }} rows &times; {{ item.features }} feats
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge {% if 'Separable' in item.hk_separability and 'Non' not in item.hk_separability %}badge-success{% else %}badge-warning{% endif %}" style="font-size: 0.75rem;">
+                                    {{ item.hk_separability }}
+                                </span>
+                            </td>
+                            <td>
+                                <div><strong>Acc:</strong> {{ item.hk_raw.acc }}%</div>
+                                <div style="color: #f87171; font-size: 0.8rem;">Err: {{ item.hk_raw.err }}%</div>
+                                <div style="color: var(--text-muted); font-size: 0.75rem;">{{ item.hk_raw.iters }} iters</div>
+                            </td>
+                            <td style="background: rgba(99, 102, 241, 0.08);">
+                                <div><strong style="color: #34d399;">Acc: {{ item.hk_scl.acc }}%</strong></div>
+                                <div style="color: #f87171; font-size: 0.8rem;">Err: {{ item.hk_scl.err }}%</div>
+                                <div style="color: #a5b4fc; font-size: 0.75rem;">{{ item.hk_scl.iters }} iters</div>
+                            </td>
+                            <td>
+                                <div><strong>Acc:</strong> {{ item.knn_k1.acc }}%</div>
+                                <div style="color: #f87171; font-size: 0.8rem;">Err: {{ item.knn_k1.err }}%</div>
+                            </td>
+                            <td>
+                                <div><strong style="color: #38bdf8;">Acc: {{ item.knn_opt.acc }}%</strong></div>
+                                <div style="color: #34d399; font-size: 0.8rem;">Err: {{ item.knn_opt.err }}%</div>
+                                <span class="badge badge-numeric" style="font-size: 0.7rem; padding: 0.1rem 0.35rem; margin-top: 0.2rem;">
+                                    Elbow K={{ item.knn_opt.k }}
+                                </span>
+                            </td>
+                            <td>
+                                <div><strong>Acc:</strong> {{ item.bayes.acc }}%</div>
+                                <div style="color: #f87171; font-size: 0.8rem;">Err: {{ item.bayes.err }}%</div>
+                                <div style="color: var(--text-muted); font-size: 0.75rem;">F1: {{ item.bayes.f1 }}%</div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Scientific Insights & Theoretical Foundations -->
+        <section class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="badge badge-primary">Theoretical Foundations</span>
+                    Mathematical Principles: Ho-Kashyap Procedure vs. KNN & Bayes
+                </div>
+            </div>
+
+            <div class="grid grid-2" style="gap: 1.5rem; margin-top: 1rem;">
+                <!-- Card 1: Ho-Kashyap Algorithm & Theorem -->
+                <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem;">
+                    <h3 style="font-size: 1.05rem; font-weight: 800; color: #818cf8; margin-bottom: 0.75rem;">
+                        1. The Ho-Kashyap Procedure & Separability Guarantee
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                        Unlike standard Perceptron or Fixed-Margin relaxation algorithms that may loop indefinitely on non-separable data, Ho-Kashyap simultaneously optimizes both the weight vector \(\mathbf{a}\) and positive margin vector \(\mathbf{b}\):
+                    </p>
+                    <div style="background: rgba(0, 0, 0, 0.4); padding: 0.85rem; border-radius: var(--radius-sm); font-size: 1rem; color: #a5b4fc; text-align: center; margin-bottom: 0.75rem; border: 1px solid var(--border-subtle);">
+                        \[ J_H(\mathbf{a}, \mathbf{b}) = \frac{1}{2} \|Y\mathbf{a} - \mathbf{b}\|^2 \quad \text{subject to } \mathbf{b} > \mathbf{0} \]
+                    </div>
+                    <ul style="font-size: 0.85rem; color: var(--text-secondary); margin-left: 1.25rem; line-height: 1.6;">
+                        <li><strong>Weight update:</strong> \(\mathbf{a}(k) = Y^\dagger \mathbf{b}(k)\) where \(Y^\dagger = (Y^T Y)^{-1}Y^T\) is the Moore-Penrose pseudo-inverse.</li>
+                        <li><strong>Margin update:</strong> \(\mathbf{b}(k+1) = \mathbf{b}(k) + 2\eta \mathbf{e}^+(k)\) where \(\mathbf{e}^+(k) = \max(\mathbf{0}, Y\mathbf{a}(k) - \mathbf{b}(k))\).</li>
+                        <li><strong>Convergence Proof:</strong> If classes are linearly separable, the squared error \(\|\mathbf{e}(k)\|^2 \to 0\) in finite iterations. If linearly non-separable, \(\mathbf{e}(k) \le \mathbf{0}\) with \(\mathbf{e}(k) \ne \mathbf{0}\) occurs, providing a mathematical proof of non-separability.</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Learning Rate & Standardization -->
+                <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem;">
+                    <h3 style="font-size: 1.05rem; font-weight: 800; color: #38bdf8; margin-bottom: 0.75rem;">
+                        2. Impact of Learning Rate \(\eta\) & Standardization
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                        The learning rate \(\eta \in [0.1, 0.9]\) governs the step size for adjusting the margin vector \(\mathbf{b}\):
+                    </p>
+                    <div style="background: rgba(0, 0, 0, 0.4); padding: 0.85rem; border-radius: var(--radius-sm); font-size: 1rem; color: #7dd3fc; text-align: center; margin-bottom: 0.75rem; border: 1px solid var(--border-subtle);">
+                        \[ \Delta \mathbf{b}(k) = 2\eta \mathbf{e}^+(k) \]
+                    </div>
+                    <ul style="font-size: 0.85rem; color: var(--text-secondary); margin-left: 1.25rem; line-height: 1.6;">
+                        <li><strong>Small \(\eta\) (\(0.1 - 0.2\)):</strong> Smooth, conservative margin adjustments; requires more iterations to reach convergence.</li>
+                        <li><strong>Larger \(\eta\) (\(0.6 - 0.9\)):</strong> Faster convergence in fewer iterations; optimal when the error rate remains stable.</li>
+                        <li><strong>Role of StandardScaler:</strong> Feature standardization prevents large-scale continuous features from dominating the pseudo-inverse \(Y^\dagger\), balancing feature contributions and improving linear generalization.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 3: Tripartite Comparison -->
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; margin-top: 1.5rem;">
+                <h3 style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">
+                    3. Comparative Paradigms: Linear Discriminant vs. Instance-Based vs. Generative
+                </h3>
+                <div class="grid grid-3" style="gap: 1.25rem;">
+                    <div style="background: var(--bg-elevated); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                        <h4 style="font-size: 0.9rem; color: #818cf8; margin-bottom: 0.4rem;">Ho-Kashyap Linear Classifier</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+                            <strong>Linear Discriminant:</strong> Directly optimizes a hyperparameter-free hyperplane \(g(\mathbf{x}) = \mathbf{a}^T \mathbf{x}_{\text{aug}}\). Extremely fast inference (\(\mathcal{O}(d)\)). Tests linear separability rigorously, but constrained to planar decision boundaries.
+                        </p>
+                    </div>
+                    <div style="background: var(--bg-elevated); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                        <h4 style="font-size: 0.9rem; color: #38bdf8; margin-bottom: 0.4rem;">K-Nearest Neighbors (KNN)</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+                            <strong>Non-Parametric:</strong> Makes zero distributional assumptions. Capable of learning arbitrary non-linear boundaries. Hyperparameter \(K\) tuned via Elbow Method, but test-time evaluation requires pairwise distance computations against all training instances (\(\mathcal{O}(Nd)\)).
+                        </p>
+                    </div>
+                    <div style="background: var(--bg-elevated); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                        <h4 style="font-size: 0.9rem; color: #a855f7; margin-bottom: 0.4rem;">Gaussian Naive Bayes</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+                            <strong>Parametric Generative:</strong> Models \(P(\mathbf{x}|C_k)\) and priors \(P(C_k)\). Highly resilient to small sample sizes and scales efficiently (\(\mathcal{O}(d)\)), but assumes conditional feature independence given the class.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="app-footer">
+        <div class="container" style="margin: 0 auto; padding: 1.5rem 0; text-align: center; border-top: 1px solid var(--border-subtle); color: var(--text-muted); font-size: 0.85rem;">
+            Pattern Recognition Laboratory &bull; VNIT-W26 &bull; Roll No: MT26MCS024 &bull; Ho-Kashyap Benchmark Studio
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
+
