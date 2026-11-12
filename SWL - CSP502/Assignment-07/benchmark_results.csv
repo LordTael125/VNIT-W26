@@ -1,0 +1,12 @@
+Scenario,Architecture,TotalGenerated,Accepted,Rejected,Successful,Failed,TimedOut,MaxQueueDepth,Throughput_req_s,Goodput_req_s,MeanResponseTime_ms,MedianResponseTime_ms,P90ResponseTime_ms,P99ResponseTime_ms,MaxResponseTime_ms,MeanQueueWaitTime_ms,MeanServiceTime_ms,Duration_s,AccountingValid
+Baseline_Normal,Baseline,1000,1000,0,1000,0,0,1,289.11,289.11,4.56,4.58,5.69,5.94,6.11,0.00,4.56,3.46,true
+Baseline_C1_Surge,Baseline,1200,1200,0,1200,0,0,5,880.40,880.40,5.72,5.63,7.57,8.91,10.12,1.23,4.49,1.36,true
+Baseline_C2_SlowTasks,Baseline,1000,1000,0,1000,0,0,11,286.37,286.37,12.38,4.92,38.77,69.57,79.93,2.53,9.85,3.49,true
+Baseline_C3_Failures,Baseline,1000,1000,0,831,169,0,1,289.19,240.32,4.55,4.57,5.61,5.92,6.06,0.00,4.55,3.46,true
+Improved_Normal,Improved,1000,1000,0,1000,0,0,1,291.36,291.36,4.55,4.57,5.66,5.95,6.02,0.00,4.55,3.43,true
+Improved_C1_Surge,Improved,1200,1200,0,1200,0,0,9,866.39,866.39,6.94,6.54,11.07,13.86,14.88,2.42,4.52,1.39,true
+Improved_C2_SlowTasks,Improved,1000,1000,0,905,0,95,1,289.87,262.34,6.56,4.60,6.28,26.03,26.23,0.01,6.55,3.45,true
+Baseline_CombinedStress,Baseline,1200,1200,0,1086,114,0,629,397.30,359.55,761.13,755.93,1432.29,1611.35,1698.41,751.15,9.98,3.02,true
+Improved_CombinedStress,Improved,1200,912,288,748,84,80,50,625.61,513.11,58.37,74.51,95.79,112.91,134.87,70.48,6.32,1.46,true
+Baseline_RecoveryDynamics,Baseline,1200,1200,0,1200,0,0,196,376.24,376.24,116.75,4.93,366.36,444.13,493.10,110.68,6.06,3.19,true
+Improved_RecoveryDynamics,Improved,1200,1112,88,1080,0,32,40,345.11,335.17,18.92,4.69,70.93,91.03,99.18,15.24,5.18,3.22,true
