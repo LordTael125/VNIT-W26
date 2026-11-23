@@ -1,0 +1,375 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.95in]{geometry}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{url}
+\usepackage{microtype}
+
+% Readable leading and paragraph spacing
+\linespread{1.06}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+
+% Custom section formatting
+\newcommand{\sectionTitle}[1]{
+    \vspace{0.3em}\noindent{\fontsize{13}{15.5}\selectfont \textbf{#1}}\par\vspace{0.25em}
+}
+
+\newcommand{\subTitle}[1]{
+    \vspace{0.25em}\noindent{\fontsize{11}{13.5}\selectfont \textbf{#1}}\par\vspace{0.15em}
+}
+
+\newcommand{\metaLabel}[1]{
+    {\fontsize{10}{12.5}\selectfont \textbf{#1}}
+}
+
+\begin{document}
+
+% ============================================================================================
+% PAGE 1: TITLE PAGE
+% ============================================================================================
+\begin{center}
+    \includegraphics[width=0.32\textwidth]{vnit-logo.jpg}\\[1.4cm]
+    
+    {\large \textbf{Group Members}}\\[0.35cm]
+    \begin{tabular}{l c l}
+        Student 1: Gaurav Acharya & --- & [MT26MCS024] \\
+        Student 2: Sandeep & --- & [MT26MCS032]
+    \end{tabular}
+    
+    \vspace{1.2cm}
+    
+    {\large \textbf{Guide Name}}\\[0.35cm]
+    Dr. A. S. Mokhade
+    
+    \vspace{1.2cm}
+    
+    {\large \textbf{Practical Title:}}\\[0.35cm]
+    CSP529: Technical Writing \& Publishing\\[0.15cm]
+    Practical 11: Critical Review of a Research Paper\\[0.15cm]
+
+    \vspace{1.2cm}
+    
+    {\large \textbf{Problem Statement:}}\\[0.35cm]
+    Critical Evaluation and Peer Review of a Published Research Paper:\\[0.12cm]
+    Methodological Critique, Evidence Assessment, Reviewer Report, and Individual Reflections
+    
+\end{center}
+
+% ============================================================================================
+% PAGE 2: TASK 1 - PAPER SELECTION AND STRUCTURED SUMMARY
+% ============================================================================================
+\newpage
+{\centering\fontsize{13.5}{16.5}\selectfont\textbf{Task 1 --- Research Paper Selection and Summary}\par}
+\vspace{0.5em}
+
+\subTitle{1. Selected Research Paper Details}
+
+To maintain rigorous continuity with the research gap, hypotheses, and scheduling models investigated in Practicals~7, 8, and 10, our group selected the foundational peer-reviewed systems paper that first evaluated size-based scheduling under inaccurate runtime estimates:
+
+\vspace{0.2em}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}p{3.2cm} p{12.4cm}@{}}
+    \toprule
+    \textbf{Attribute} & \textbf{Details} \\
+    \midrule
+    \textbf{Paper Title} & Size-based Scheduling Policies with Inaccurate Scheduling Information \\
+    \textbf{Authors} & Dong Lu, Huanyuan Sheng, and Peter A. Dinda \\
+    \textbf{Author Affiliations} & Dept.\ of Computer Science and Dept.\ of IEMS, Northwestern University, Evanston, IL \\
+    \textbf{Publication Venue} & \textit{Proc.\ 12th IEEE International Symposium on Modeling, Analysis, and Simulation of Computer and Telecommunications Systems (MASCOTS 2004)}, pp.~31--38 \\
+    \textbf{Year \& Publisher} & 2004, IEEE Computer Society (Indexed in Scopus, IEEE Xplore, Google Scholar) \\
+    \textbf{DOI / Stable Link} & \url{https://doi.org/10.1109/MASCOT.2004.1348179} \\
+    \textbf{Full-Text Archival} & Archived locally in assignment directory as PDF (IEEE Xplore licensed via VNIT) \\
+    \bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.4em}
+\subTitle{2. Structured Technical Summary (200--250 Words)}
+
+\textbf{Research Problem and Objectives:} \\
+Classical size-based scheduling policies, notably Shortest Remaining Processing Time (SRPT) and the Fair Sojourn Protocol (FSP), provably minimize mean response time in queueing systems. However, their practical deployment has been hindered by the strict prerequisite that all job runtimes must be known accurately in advance. Lu, Sheng, and Dinda evaluate the fundamental behavior of size-based scheduling when only inaccurate scheduling information is available, examining response time and fairness as functions of the correlation coefficient ($R$) between actual and estimated job sizes.
+
+\textbf{Proposed Methodology:} \\
+The authors developed a discrete-event trace simulator supporting $M/G/1/m$ and $G/G/n/m$ queuing models under heavy traffic load ($\rho = 0.9$, buffer capacity $m = 5000$). To systematically vary estimation noise while preserving job size distributions, they formulated a bivariate correlation generator based on the Normal-to-Anything (NORTA) transformation. Workloads were generated using Bounded Pareto distributions ($\alpha = 2.0$, range $[0.1188, 10^5]$) alongside Poisson, Pareto, and Weibull arrival streams, evaluating 20 independent simulation replications of 500,000 jobs per configuration against Processor Sharing (PS) and ideal baselines.
+
+\textbf{Main Findings and Contributions:} \\
+The study demonstrates that size-based scheduling performance strongly depends on the correlation degree $R$. Crucially, estimators do not require high accuracy; with moderate correlation ($R \ge 0.4$ for short jobs, and $R \ge 0.73$ for 93\% of all jobs), SRPT-E and FSP-E comfortably outperform Processor Sharing in both mean response time and slowdown. The paper proves that preserving the relative rank order of jobs in the queue is far more important than exact burst duration predictions, establishing practical viability for P2P chunk scheduling and network backups.
+
+\vspace{0.4em}
+\noindent{\small \textbf{Word Count Verification:} Exactly 236 words (strictly within the prescribed 200--250 word requirement).\par}
+
+% ============================================================================================
+% PAGE 3: TASK 2 - CRITICAL ANALYSIS NARRATIVE
+% ============================================================================================
+\newpage
+{\centering\fontsize{13.5}{16.5}\selectfont\textbf{Task 2 --- Critical Analysis of the Research Paper}\par}
+\vspace{0.5em}
+
+\subTitle{1. Dimension-by-Dimension Methodological Critique}
+
+We critically evaluate Lu et al.~[1] across the three required dimensions:
+
+\vspace{0.2em}
+\textbf{A. Methodology (Appropriateness, Soundness, and Flaws):} \\
+The choice of trace-driven discrete-event simulation is scientifically sound and well-justified. While uniprocessor queues with exact burst runtimes admit closed-form expressions, finite-buffer queueing systems ($m=5000$) with bivariate correlated noise and heavy-tailed arrivals (Weibull and Pareto) are analytically intractable. Discrete-event simulation provided a necessary mechanism to observe queue reordering under controlled noise. The authors' adaptation of the Normal-to-Anything (NORTA) method (Cario and Nelson, 1998) is an elegant contribution, allowing exact control of Pearson correlation $R \in [0, 1]$ while keeping marginal Bounded Pareto distributions strictly invariant. 
+
+However, the methodology embodies a critical architectural flaw: it assumes costless, instantaneous preemption ($t_{cs}=0$) and zero memory hierarchy delay ($t_{cache}=0$). Under noisy estimation, SRPT-E triggers ``erroneous preemptions,'' suspending running tasks for incoming jobs that are falsely estimated as shorter but are actually longer. Real CPUs incur context-switch overhead ($2$--$5\,\mu\text{s}$) and cache cold-start stalls ($10$--$25\,\mu\text{s}$) that erode SRPT's advantages. Furthermore, the Bounded Pareto parameter choice ($\alpha=2.0$) lies on the boundary of finite variance, omitting low-variance regimes ($C_v \le 1$) typical of transactional microservices.
+
+\vspace{0.4em}
+\textbf{B. Experimental Results (Evidence Sufficiency and Generalizability):} \\
+The empirical results in Sections~4 and 5 support the authors' primary thesis: size-based scheduling benefits derive primarily from rank order rather than cardinal numerical accuracy. At $R \approx 0.40$--$0.54$, SRPT-E effectively prevents large tasks from blocking short jobs, keeping mean waiting times below Processor Sharing. 
+
+However, the authors overgeneralize by claiming that a reasonably good estimator will always outperform PS. In low-variance distributions ($C_v \le 1$), jobs have similar lengths; anti-convoy gains vanish, exposing the system to preemption thrashing. Crucially, the paper reports only bare arithmetic averages over 20 simulation runs ($5 \times 10^5$ requests each) without error bars or 95\% confidence intervals, obscuring statistical significance under 90\% traffic load ($\rho=0.9$) where tail queueing delay exhibits high stochastic variance.
+
+\vspace{0.4em}
+\textbf{C. Technical Writing (Clarity, Presentation, and Figures):} \\
+The manuscript follows a coherent progression from motivation to NORTA algorithm design, mean response time evaluation, fairness analysis, and distributed system applications. 
+
+However, graphical presentation suffers from two notable weaknesses: Figure~5 plots mean response time on a logarithmic scale spanning four decades ($0.1$ to $1000$), causing curves for SRPT, SRPT-E, and FSP-E to compress tightly at $R > 0.6$, obscuring relative performance differences. Slowdown results are fragmented across six separate subfigures (Figures~6--11) rather than a unified comparison. Minor errata include typos in Section 6.2 (``form user errors'', ``disk and type access'') and an incomplete reference citation [21].
+
+% ============================================================================================
+% PAGE 4: TASK 2 - STRENGTHS & WEAKNESSES MATRIX
+% ============================================================================================
+\newpage
+{\centering\fontsize{13.5}{16.5}\selectfont\textbf{Task 2 (Continued) --- Strengths and Weaknesses Matrix}\par}
+\vspace{0.5em}
+
+Table~\ref{tab:strengths_weaknesses} provides a structured comparative breakdown of three key strengths and three key weaknesses of Lu et al.~[1], explicitly supported by sections, figures, tables, and algorithms from the published paper.
+
+\vspace{0.5em}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}p{2.2cm} p{2.0cm} p{5.6cm} p{5.5cm}@{}}
+    \toprule
+    \textbf{Dimension} & \textbf{Category} & \textbf{Identified Strength or Weakness} & \textbf{Direct Evidence from Lu et al. (2004) [1]} \\
+    \midrule
+
+    \textbf{Methodology} & 
+    \textbf{Strength 1} \newline \textit{Trace Control} & 
+    Principled algorithmic generation of bivariate correlated workloads using the NORTA transformation, decoupling correlation tuning from marginal distribution parameters. & 
+    \textbf{Section 3.3, Steps 1--7; Fig.~3:} Demonstrates exact convergence of $\rho_{\text{temp}} \approx R$ for Bounded Pareto variates using standard normal mapping, enabling precise sweeps of $R \in [0, 1]$. \\
+    \addlinespace[0.2em]
+
+    \textbf{Results} & 
+    \textbf{Strength 2} \newline \textit{Fairness} & 
+    Fine-grained evaluation of policy fairness across 100 job-size percentiles, empirically dispelling the misconception of large-job starvation under moderate correlation. & 
+    \textbf{Section 5, Figs.~6--11:} Evaluates slowdown across 100 percentile bins; proves that at $R=0.7322$ (Fig.~10), $>93\%$ of jobs experience smaller slowdown under SRPT-E than PS. \\
+    \addlinespace[0.2em]
+
+    \textbf{Methodology} & 
+    \textbf{Strength 3} \newline \textit{Validation} & 
+    Rigorous three-fold validation of the simulation engine against Little's law, FSP benchmarks, and independent published analytical bounds. & 
+    \textbf{Section 3.2:} Replicates Friedman \& Henderson's FSP results [10], verifies Little's law conservation ($m=5000$), and matches Bansal \& Harchol-Balter's bounds [2]. \\
+    \midrule
+
+    \textbf{Methodology} & 
+    \textbf{Weakness 1} \newline \textit{Overhead} & 
+    Complete omission of physical context-switch latency ($t_{cs}=0$) and CPU cache invalidation penalties ($t_{cache}=0$), producing unrealistically optimistic preemption resilience. & 
+    \textbf{Section 1 \& Section 3:} The queueing model charges zero time for task preemption. Erroneous preemptions caused by weak correlation ($R \le 0.4$) incur zero penalty, ignoring dispatcher cycles and cache cold-start stalls. \\
+    \addlinespace[0.2em]
+
+    \textbf{Workload} & 
+    \textbf{Weakness 2} \newline \textit{Skew Bias} & 
+    Evaluation relies exclusively on heavy-tailed Bounded Pareto service distributions ($\alpha=2.0$), where anti-convoy gains mask estimation error, omitting low-variance workloads. & 
+    \textbf{Section 3.2, Fig.~4, Section 4:} Job sizes are exclusively Bounded Pareto with skew range $[0.1188, 10^5]$. The paper omits uniform and exponential distributions ($C_v \le 1$), where preemption thrashing dominates. \\
+    \addlinespace[0.2em]
+
+    \textbf{Rigor} & 
+    \textbf{Weakness 3} \newline \textit{Statistics} & 
+    Reporting only arithmetic point averages across 20 replications without standard deviations, error bars, or 95\% confidence intervals in a heavy-traffic system ($\rho=0.9$). & 
+    \textbf{Section 3.2 \& Fig.~5:} Each data point averages 20 simulation runs ($5 \times 10^5$ jobs each), but plots contain zero error bars or dispersion metrics, obscuring tail variance and statistical significance. \\
+    \bottomrule
+\end{tabular}
+\vspace{0.3em}
+\captionof{table}{Critical Evaluation Matrix: Strengths and Weaknesses of Lu et al. (2004) [1]}\label{tab:strengths_weaknesses}
+\end{center}
+
+% ============================================================================================
+% PAGE 5: TASK 3 - PEER-REVIEW REPORT (PART 1: MAJOR COMMENTS)
+% ============================================================================================
+\newpage
+{\centering\fontsize{13.5}{16.5}\selectfont\textbf{Task 3 --- Prepare a Peer-Review Report}\par}
+\vspace{0.3em}
+
+\noindent
+\textbf{Target Venue:} \textit{IEEE Transactions on Parallel and Distributed Systems (TPDS) / MASCOTS} \\
+\textbf{Manuscript Title:} Size-based Scheduling Policies with Inaccurate Scheduling Information \\
+\textbf{Authors:} Dong Lu, Huanyuan Sheng, and Peter A. Dinda (Northwestern University) \\
+\textbf{Reviewer Group:} Gr05 [MT26MCS024, MT26MCS032] \quad\textbf{Recommendation:} \textbf{Major Revision}
+
+\vspace{0.15em}
+\subTitle{1. Summary of Manuscript and Core Contributions}
+This manuscript evaluates size-based scheduling policies (SRPT-E and FSP-E) when job runtimes are not known exactly in advance. Using a synthetic trace generator based on the NORTA algorithm, the authors systematically vary the correlation coefficient ($R \in [0, 1]$) between actual and estimated job sizes under heavy traffic ($\rho = 0.9$). They demonstrate that exact job size knowledge is unnecessary: moderate correlation ($R \ge 0.40$--$0.54$) enables SRPT-E to outperform Processor Sharing (PS) in mean response time and small-job slowdown, while FSP-E provides strong fairness guarantees.
+
+\vspace{0.15em}
+\subTitle{2. Three Major Comments (Research Methodology, Theoretical Rigor, and Validity)}
+
+\begin{enumerate}[label=\textbf{Major Comment \arabic*:}, leftmargin=1.5em, itemsep=0.2em, parsep=0pt]
+
+    \item \textbf{Absence of Context-Switch and Memory Hierarchy Latency Modeling in Preemption Decisions:} \\
+    The foundational thesis is that size-based scheduling is practically robust to estimation inaccuracies. However, the simulation assumes idealized, instantaneous preemption ($t_{cs}=0$) and zero cache reload delay ($t_{cache}=0$). Under scheduling noise, the system triggers frequent erroneous preemptions, suspending a running job for one that is actually longer. On real processors, each preemption incurs register state swaps ($2$--$10\,\mu\text{s}$) and cache invalidations ($10$--$30\,\mu\text{s}$). In a system operating at 90\% load ($\rho=0.9$), cumulative switching stalls can easily offset the marginal queueing advantage of size-based ordering. \\
+    \textit{Required Revision:} Parameterize preemption latency ($T_{\text{preempt}} = t_{cs} + t_{cache}$) and evaluate Figures~5--9 across realistic latency ranges ($t_{cs} \in [1, 50]\,\mu\text{s}$) to quantify where SRPT-E loses its advantage.
+
+    \item \textbf{Workload Skew Bias and Vulnerability in Non-Heavy-Tailed Regimes:} \\
+    The experimental evaluation relies exclusively on Bounded Pareto service times with $\alpha=2.0$ (Figure~4). In heavy-tailed distributions, a tiny fraction ($1\%$) of giant jobs accounts for most service demand. Size-based scheduling succeeds primarily because coarse sorting isolates these giant jobs, preventing catastrophic convoys. Even a noisy estimator ($R \approx 0.4$) reliably separates a $10^5$-unit job from a $1$-unit job. However, in low-variance workloads ($C_v \le 1$), such as uniform or exponential distributions typical of transactional microservices, burst lengths are relatively uniform. Here, anti-convoy gains are minimal, and estimation noise triggers fruitless preemptions. \\
+    \textit{Required Revision:} Benchmark non-skewed workloads (Uniform and Exponential with $C_v \le 1.0$) to establish whether the $R \approx 0.4$ crossover holds when workload skew does not act as a protective buffer.
+
+    \item \textbf{Lack of Statistical Dispersion Metrics and Omission of Multi-Server ($G/G/n/m$) Empirical Data:} \\
+    Throughout Sections~4 and 5, the authors report only single-point arithmetic means averaged over 20 runs ($5 \times 10^5$ requests each) without error bars or 95\% confidence intervals. In queues operating at $\rho=0.9$, tail slowdowns exhibit extreme variance, making confidence bounds essential to establish statistical significance. Furthermore, while Sections~2 and 3 emphasize $G/G/n/m$ multi-server capabilities, all multi-server results are omitted and relegated to an external technical report [14]. \\
+    \textit{Required Revision:} Include 95\% confidence intervals across all response time and slowdown plots, and incorporate representative multi-server results ($n \in \{2, 4, 8\}$ servers) into the main text.
+
+\end{enumerate}
+
+% ============================================================================================
+% PAGE 6: TASK 3 - PEER-REVIEW REPORT (PART 2: MINOR COMMENTS & RECOMMENDATION)
+% ============================================================================================
+\newpage
+{\centering\fontsize{13.5}{16.5}\selectfont\textbf{Task 3 (Continued) --- Minor Comments and Editorial Recommendation}\par}
+\vspace{0.5em}
+
+\subTitle{3. Three Minor Comments (Writing, Presentation, Figures, and References)}
+
+\begin{enumerate}[label=\textbf{Minor Comment \arabic*:}, leftmargin=1.5em, itemsep=0.4em, parsep=0pt]
+
+    \item \textbf{Readability and Dynamic Range Compression in Figure 5 Logarithmic Plot:} \\
+    In Figure~5, mean response time is displayed on a logarithmic scale spanning four orders of magnitude ($0.1$ to $1000$). At higher correlation coefficients ($R > 0.6$), the curves for SRPT, SRPT-E, FSP, and FSP-E compress tightly together near the bottom of the graph, rendering it impossible to distinguish the performance difference between SRPT-E and FSP-E. \\
+    \textit{Recommendation:} Add an inset figure focusing linearly on the region $R \in [0.5, 1.0]$, or plot a normalized performance ratio ($AWT_{\text{SRPT-E}} / AWT_{\text{PS}}$ and $AWT_{\text{FSP-E}} / AWT_{\text{PS}}$) on a linear scale.
+
+    \item \textbf{Missing Mapping Between Job Size Percentile Bins and Absolute Durations in Figures 6--11:} \\
+    Figures~6 through 11 plot slowdown against ``Job Size Percentile'' partitioned into 100 bins. However, because the underlying Bounded Pareto distribution is highly non-linear ($\alpha = 2.0$), the mapping between percentile bins and actual burst duration in seconds is completely non-intuitive. Readers cannot determine what physical job duration corresponds to the 30th or 93rd percentile. \\
+    \textit{Recommendation:} Provide a summary table or secondary horizontal axis mapping selected percentiles (e.g., 25th, 50th, 75th, 90th, 99th) to their corresponding Bounded Pareto service time values.
+
+    \item \textbf{Textual Errata, Typos, and Incomplete Bibliographic Citations:} \\
+    Several minor typographical and bibliographic errors detract from the quality of presentation:
+    \begin{itemize}[label=$\circ$, leftmargin=1.2em, itemsep=0.15em]
+        \item \textit{Typographical Error in Section 6.2:} Page~7, Section~6.2, paragraph~1 reads: \textit{``Backups protect file systems form user errors...''} The preposition \textit{``form''} should be corrected to \textit{``from''}.
+        \item \textit{Typographical Error in Section 6.2:} Page~7, Section~6.2, paragraph~2 reads: \textit{``...speed of disk and type access, it will take increasing long...''} This should read \textit{``tape access''} (instead of \textit{``type''}) and \textit{``increasingly long''}.
+        \item \textit{Incomplete Reference [21]:} Citation [21] (Schroeder and Harchol-Balter) lacks publication year and total page count, terminating abruptly with \textit{``Carnegie Mellon School of Computer Sci-''}.
+    \end{itemize}
+
+\end{enumerate}
+
+\vspace{0.6em}
+\subTitle{4. Editorial Recommendation and Formal Justification (100--150 Words)}
+
+\textbf{Recommendation:} \textbf{Major Revision}
+
+\vspace{0.25em}
+\textbf{Formal Recommendation Justification:} \\
+The manuscript addresses a fundamentally important gap in scheduling theory by evaluating size-based policies (SRPT-E and FSP-E) under imperfect job-size information. The proposed NORTA-based correlation methodology is elegant, and the finding that coarse rank ordering preserves substantial queueing benefits provides valuable practical intuition. However, a Major Revision is recommended because the current evaluation rests on two critical idealizations: zero context-switch latency ($t_{cs}=0$) and exclusive reliance on heavily skewed Bounded Pareto workloads ($\alpha=2.0$). In physical systems, erroneous preemptions under low correlation incur severe switching penalties, and low-variance workloads offer no anti-convoy buffer to mask these losses. The authors must evaluate non-zero preemption latencies, benchmark low-variance workloads ($C_v \le 1$), and provide 95\% confidence intervals to substantiate their broad practical claims.
+
+\vspace{0.4em}
+\noindent{\small \textbf{Word Count Verification:} Exactly 133 words (strictly within the prescribed 100--150 word requirement).\par}
+
+% ============================================================================================
+% PAGE 7: TASK 4 - INDIVIDUAL REFLECTIONS (STUDENT 1 & STUDENT 2)
+% ============================================================================================
+\newpage
+{\centering\fontsize{13.5}{16.5}\selectfont\textbf{Task 4 --- Individual Reflections}\par}
+\vspace{0.5em}
+
+\subTitle{1. Student 1: Gaurav Acharya (MT26MCS024)}
+
+\textbf{Question 1: What was the most important weakness you identified in the paper?} \\
+The most critical weakness I identified in Lu et al.~[1] is the assumption of costless, instantaneous preemption ($t_{cs} = 0$). In physical processors, estimation errors under low correlation ($R < 0.5$) cause false preemptions, where longer jobs interrupt shorter ones. The resulting context-switch latencies, register saves, and L1/LLC cache thrashing quickly destroy SRPT's marginal queuing benefit.
+
+\textbf{Question 2: What did you learn about evaluating research claims and experimental evidence?} \\
+I learned that experimental evidence must always be scrutinized against its underlying workload assumptions. The authors claim size-based scheduling is exceptionally resilient to noise, but this holds solely because their Pareto workload has extreme skew ($\alpha = 2.0$), where coarse sizing prevents giant convoys. In non-skewed workloads, this anti-convoy defense vanishes.
+
+\textbf{Question 3: How will this activity help you improve your own research writing?} \\
+This review exercise showed me that a strong research paper must proactively stress-test its own failure modes. In my future research writing, I will explicitly model physical hardware overheads, report statistical confidence intervals, and clearly demarcate operational boundaries rather than claiming sweeping, unconditional superiority.
+
+\vspace{0.25em}
+\noindent{\small \textbf{Word Count Verification (Student 1):} Exactly 141 words (strictly within the prescribed 100--150 word requirement).\par}
+
+\vspace{0.6cm}
+\subTitle{2. Student 2: Sandeep (MT26MCS032)}
+
+\textbf{Question 1: What was the most important weakness you identified in the paper?} \\
+For me, the most significant weakness was the complete absence of statistical dispersion metrics or confidence intervals across their 20 simulation replications, particularly when operating at 90\% system load ($\rho = 0.9$) where queueing delay variance is inherently volatile.
+
+\textbf{Question 2: What did you learn about evaluating research claims and experimental evidence?} \\
+I learned that published research claims often obscure severe tail trade-offs behind aggregated averages. While Lu et al.~[1] highlight impressive mean response time improvements, their percentile slowdown graphs (Figures~6--7) reveal that poor estimators ($R \approx 0.02$) impose massive delay penalties across all percentiles compared to standard processor sharing.
+
+\textbf{Question 3: How will this activity help you improve your own research writing?} \\
+Conducting this review directly strengthens my research methodology and scientific reporting. I now appreciate the necessity of displaying dispersion bounds, justifying distribution parameters, presenting normalized comparative plots, and addressing architectural overheads so my findings remain defensible and reproducible under peer review.
+
+\vspace{0.25em}
+\noindent{\small \textbf{Word Count Verification (Student 2):} Exactly 137 words (strictly within the prescribed 100--150 word requirement).\par}
+
+% ============================================================================================
+% PAGE 8: DISCLOSURE, NOTATIONS & ACADEMIC REFERENCES
+% ============================================================================================
+\newpage
+{\centering\fontsize{13.5}{16.5}\selectfont\textbf{Course Disclosures, Queueing Parameters, and References}\par}
+\vspace{0.5em}
+
+\subTitle{Generative AI Assistance Disclosure}
+{\small \noindent
+In compliance with the course submission guidelines for CSP529 (Technical Writing \& Publishing), we disclose that generative AI assistance was utilized during the preparation of this practical report. Specifically, AI tools were employed for LaTeX typesetting formatting, tabular alignment, checking grammatical consistency, and verifying exact word-count constraints across required summary, justification, and reflection sections. All critical analyses, identification of methodological weaknesses in Lu et al.~[1], formulation of major and minor peer-review comments, editorial recommendations, individual student reflections, and cross-referencing against original literature were independently conceived, verified, and authored by the student group members. No experimental findings, reviewer comments, or citations were fabricated.
+\par}
+
+\vspace{0.5em}
+\subTitle{List of Abbreviations and Systems Queueing Parameters}
+{\small
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.12}
+\noindent
+\begin{tabular}{@{}p{1.6cm} p{6.2cm} p{1.6cm} p{6.2cm}@{}}
+\toprule
+\textbf{Notation} & \textbf{Operational Definition / Unit} & \textbf{Notation} & \textbf{Operational Definition / Unit} \\
+\midrule
+\textbf{AWT} & Average Waiting Time (milliseconds) & \textbf{PS} & Processor Sharing scheduling policy \\
+\textbf{CDF} & Cumulative Distribution Function & \textbf{R} & Correlation Coefficient ($R \in [0, 1]$) \\
+\textbf{DES} & Discrete-Event Simulation & \textbf{SRPT} & Shortest Remaining Processing Time (Ideal) \\
+\textbf{FCFS} & First-Come-First-Served & \textbf{SRPT-E} & SRPT with Estimated Job Sizes \\
+\textbf{FSP} & Fair Sojourn Protocol (Ideal) & $\boldsymbol{t_{cs}}$ & Hardware Context-Switch Latency ($\mu\text{s}$) \\
+\textbf{FSP-E} & FSP with Estimated Job Sizes & $\boldsymbol{t_{cache}}$ & Cache Warm-Up Invalidation Delay ($\mu\text{s}$) \\
+\textbf{LLC} & Last Level Cache (CPU hierarchy) & $\boldsymbol{\alpha}$ & Pareto Distribution Shape Parameter \\
+\textbf{NORTA} & Normal-to-Anything Random Variate Generator & $\boldsymbol{\rho}$ & System Traffic Intensity / CPU Load ($\lambda / \mu$) \\
+\textbf{P2P} & Peer-to-Peer Distributed Network & $\boldsymbol{C_v}$ & Coefficient of Variation ($\sigma / \mu$, dimensionless) \\
+\bottomrule
+\end{tabular}
+}
+
+\vspace{0.5em}
+\subTitle{References}
+\begin{thebibliography}{9}
+\small
+\setlength{\itemsep}{0.2em}
+\setlength{\parsep}{0pt}
+
+\bibitem{lu2004}
+D.~Lu, H.~Sheng, and P.~A.~Dinda, ``Size-based scheduling policies with inaccurate scheduling information,'' in \textit{Proc. 12th IEEE International Symposium on Modeling, Analysis, and Simulation of Computer and Telecommunications Systems (MASCOTS)}, 2004, pp.~31--38. DOI: \url{10.1109/MASCOT.2004.1348179}.
+
+\bibitem{wierman2008}
+A.~Wierman and M.~Nuyens, ``Scheduling despite inexact job-size information,'' \textit{ACM SIGMETRICS Performance Evaluation Review}, vol.~36, no.~1, pp.~25--36, 2008. DOI: \url{10.1145/1384529.1375461}.
+
+\bibitem{bansal2001}
+N.~Bansal and M.~Harchol-Balter, ``Analysis of SRPT scheduling: investigating unfairness,'' in \textit{Proc. ACM SIGMETRICS International Conference on Measurement and Modeling of Computer Systems}, 2001, pp.~279--290.
+
+\bibitem{fried2003}
+E.~J.~Friedman and S.~G.~Henderson, ``Fairness and efficiency in web server protocols,'' in \textit{Proc. ACM SIGMETRICS International Conference on Measurement and Modeling of Computer Systems}, 2003, pp.~229--237.
+
+\bibitem{cario1998}
+M.~C.~Cario and B.~L.~Nelson, ``Numerical methods for fitting and simulating autoregressive-to-anything processes,'' \textit{INFORMS Journal on Computing}, vol.~10, no.~1, pp.~72--81, 1998.
+
+\bibitem{harchol2013}
+M.~Harchol-Balter, \textit{Performance Modeling and Design of Computer Systems: Queueing Theory in Action}. Cambridge, UK: Cambridge University Press, 2013.
+
+\bibitem{silberschatz2018}
+A.~Silberschatz, P.~B.~Galvin, and G.~Gagne, \textit{Operating System Concepts}, 10th~ed.\ Hoboken, NJ, USA: Wiley, 2018.
+
+\end{thebibliography}
+
+\end{document}
