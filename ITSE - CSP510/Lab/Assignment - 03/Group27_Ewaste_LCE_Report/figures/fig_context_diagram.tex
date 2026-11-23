@@ -1,0 +1,85 @@
+% ============================================================================
+% Figure 1: System-of-Interest Context Diagram (Deliverable A)
+% Styled in edit.pdf's classic dashed-boundary, periwinkle/rose/orange format
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=1.0cm]
+
+% --- Central Dashed System Boundary (exact edit.pdf aesthetic) ---
+\node[rectangle, rounded corners=2pt, draw=black!80, dashed, line width=1.0pt, fill=white,
+      minimum width=8.6cm, minimum height=4.4cm] (soi) at (0,0) {};
+
+% Internal sub-blocks inside SoI (soft periwinkle-blue rounded boxes)
+\node[sebox, text width=3.55cm, minimum height=0.95cm] (s1) at (-2.05, 0.95)
+    {\textbf{1. Collection \& Intake}\\Smart kiosks, vans, QR/RFID};
+\node[sebox, text width=3.55cm, minimum height=0.95cm] (s2) at (2.05, 0.95)
+    {\textbf{2. Triage \& De-pollution}\\Reuse screen, battery/Hg removal};
+\node[sebox, text width=3.55cm, minimum height=0.95cm] (s3) at (-2.05, -0.75)
+    {\textbf{3. Mechanical Recovery}\\Shred, eddy/mag/optical sort};
+\node[sebox, text width=3.55cm, minimum height=0.95cm] (s4) at (2.05, -0.75)
+    {\textbf{4. Containment \& EHS}\\HEPA/ZLD, haz-pack, EPR log};
+
+\draw[searrow] (s1.east) -- (s2.west);
+\draw[searrow] (s2.south) -- ++(0,-0.28) -| (s3.north);
+\draw[searrow] (s3.east) -- (s4.west);
+
+\node[font=\rmfamily\tiny\itshape\color{black!70}, anchor=south] at ($(soi.south)+(0,0.12)$)
+    {Enclosed 4,500 m$^2$ MIHAN/Butibori Facility + 12 Urban Drop-off Kiosks + 4 Reverse-Logistics Vans};
+
+% Bold Boundary Caption underneath (matching edit.pdf, centered cleanly between bottom arrows)
+\node[font=\rmfamily\scriptsize\bfseries\color{black}, anchor=north] at ($(soi.south)+(0,-0.10)$)
+    {UA-EWRRF System Boundary};
+
+% --- External Systems: Soft Rose Ellipses (matching edit.pdf Pages 5 & 12) ---
+\node[seboxExt, text width=2.75cm] (ext_gen) at (-8.3, 1.75)
+    {\textbf{Urban Generators}\\Households, IT Parks,\\Hospitals, Inst.};
+
+\node[seboxExt, text width=2.75cm] (ext_inf) at (-8.3, 0.0)
+    {\textbf{Informal Sector}\\Kabadiwalas \& Scrap\\Aggregators};
+
+\node[seboxExt, text width=2.75cm] (ext_util) at (-8.3, -1.75)
+    {\textbf{Municipal Utilities}\\MSEDCL Power Grid,\\MIDC Water/Telecom};
+
+\node[seboxExt, text width=3.05cm] (ext_reg) at (-2.5, 3.85)
+    {\textbf{Regulatory Ecosystem}\\CPCB EPR Portal,\\MPCB, NMC, DISH};
+
+\node[seboxExt, text width=3.05cm] (ext_oem) at (2.5, 3.85)
+    {\textbf{Electronics OEMs/PROs}\\Producers Buying\\EPR Credits};
+
+\node[seboxExt, text width=2.85cm] (ext_mkt) at (8.3, 1.75)
+    {\textbf{Commodity Market}\\Ferrous, Cu, Al,\\Recycled Polymers};
+
+\node[seboxExt, text width=2.85cm] (ext_smelt) at (8.3, 0.0)
+    {\textbf{Authorized Smelters}\\High-Grade PCB Lots\\(Au, Ag, Pd, Cu)};
+
+\node[seboxExt, text width=2.85cm] (ext_tsdf) at (8.3, -1.75)
+    {\textbf{Common Haz.\ TSDF}\\Butibori Incineration\\\& Secured Landfill};
+
+\node[seboxExt, text width=3.15cm] (ext_sup) at (-3.35, -4.05)
+    {\textbf{Equip.\ OEMs \& Spares}\\Machinery Vendors \&\\Maint.\ Contractors};
+
+\node[seboxExt, text width=3.15cm] (ext_com) at (3.35, -4.05)
+    {\textbf{Community \& Env.}\\Ambient Air/Soil/Water\\\& Local Workforce};
+
+% --- Warm Orange Boundary-Crossing Arrows (matching edit.pdf) ---
+\draw[seextarrow] (ext_gen.east) -- node[selabel, above, yshift=1pt] {Discarded WEEE} node[selabel, below, yshift=-1pt] {Receipts / Incentives} ($(soi.west)+(0,1.75)$);
+\draw[seextarrow, <->] (ext_inf.east) -- node[selabel, above, yshift=1pt] {Bulk Buy-back} node[selabel, below, yshift=-1pt] {Formalized Inflow} (soi.west);
+\draw[seextarrow] (ext_util.east) -- node[selabel, above, yshift=1pt] {3-Phase Power / Water} node[selabel, below, yshift=-1pt] {Data Connectivity} ($(soi.west)+(0,-1.75)$);
+
+\draw[seextarrow, <->] (ext_reg.south) -- node[selabel, left, xshift=-2pt] {CTO / Audits} node[selabel, right, xshift=2pt] {EPR \& Manifests} ($(soi.north)+(-2.5,0)$);
+\draw[seextarrow, <->] (ext_oem.south) -- node[selabel, left, xshift=-2pt] {EPR Credits} node[selabel, right, xshift=2pt] {Fees / Spec Data} ($(soi.north)+(2.5,0)$);
+
+\draw[seextarrow] ($(soi.east)+(0,1.75)$) -- node[selabel, above, yshift=1pt] {Sorted Metals/Plastics} node[selabel, below, yshift=-1pt] {Commodity Revenue} (ext_mkt.west);
+\draw[seextarrow] (soi.east) -- node[selabel, above, yshift=1pt] {Depopulated PCB Batch} node[selabel, below, yshift=-1pt] {Assay Settlement} (ext_smelt.west);
+\draw[seextarrow] ($(soi.east)+(0,-1.75)$) -- node[selabel, above, yshift=1pt] {Stabilized Haz-Residues} node[selabel, below, yshift=-1pt] {Form-10 \& Gate Fees} (ext_tsdf.west);
+
+\draw[seextarrow, <->] (ext_sup.north) -- node[selabel, left, xshift=-2pt] {Spares / Blades} node[selabel, right, xshift=2pt] {Failure Logs} ($(soi.south)+(-3.35,0)$);
+\draw[seextarrow, <->] (ext_com.north) -- node[selabel, left, xshift=-2pt] {Filtered Air/Jobs} node[selabel, right, xshift=2pt] {Safety Feedback} ($(soi.south)+(3.35,0)$);
+
+\end{tikzpicture}%
+}
+\caption{Context and System Boundary Diagram for the Urban Automated E-Waste Collection, Dismantling, and Resource Recovery Facility (UA-EWRRF).}
+\label{fig:context}
+\end{figure}

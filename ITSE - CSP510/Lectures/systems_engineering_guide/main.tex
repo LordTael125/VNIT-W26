@@ -1,0 +1,43 @@
+\documentclass[11pt,a4paper,openany]{book}
+
+% Input shared preamble (packages, macros, styling, tcolorboxes)
+\input{preamble}
+
+\begin{document}
+
+% Frontmatter: Cover Page, Preface, 6-Day Study Roadmap
+\frontmatter
+\input{frontmatter}
+
+% Table of Contents
+\clearpage
+\tableofcontents
+\clearpage
+
+% Main Matter: The 6 Days of Systems Engineering Mastery
+\mainmatter
+
+% Day 1: Foundations of Systems & Systems Engineering (Lectures 1 & 2)
+\input{day1_foundations}
+
+% Day 2: The Core Systems Ontology & Taxonomies (Lectures 3 to 10)
+\input{day2_ontology}
+
+% Day 3: Relationships, Interactions, Interfaces & Emergence (Lectures 11 to 13)
+\input{day3_relationships_emergence}
+
+% Day 4: Systems Thinking, Dynamic Feedback & System Archetypes (Lectures 14 to 17)
+\input{day4_systems_thinking}
+
+% Day 5: Systems Realization, Life-Cycle Engineering & The Vee Model (Lectures 18 to 24 Part 1)
+\input{day5_lifecycle_engineering}
+
+% Day 6: System Metrics, Synthesis Morphology, Dynamics & Industrial Cases (Lectures 18 to 24 Part 2)
+\input{day6_synthesis_metrics_cases}
+
+% Appendix: Past Year Exam Paper Decoder & Complete Model Solutions (W23 Mid/End, W24 Mid)
+\appendix
+\input{pyq_solutions}
+
+\end{document}
+

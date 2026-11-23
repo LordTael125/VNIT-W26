@@ -1,0 +1,335 @@
+Practical 1
+Discovering Systems Around Us
+This is a group project. Please form a group of 5 students each.
+Objective
+Q4. If one component is improved
+To develop the ability to recognize, de ne,
+signi cantly, will the entire system
+decompose, and analyze any real-world entity
+necessarily improve? Why?
+as a system.
+Before you begin, discuss within your group
+Part C
+whether the following are systems or not,
+Please classify into:
+and justify your answer:
+Physical,Digital, Human, Social, Cyber•
+A chair
+Physical, System-of-Systems, Adaptive
+•
+A classroom
+Learning
+•
+A bicycle
+•
+A smartphone
+Part D
+•
+A university
+Boundary Identi cation for all the chosen
+•
+A family
+systems
+•
+Any AI tool
+Please diagrammatically present the systems.
+•
+The Indian Railway
+•
+A village
+Environment
+•
+A tree
+-----------------------------Please record the discussions and submit.
+SYSTEM
+-----------------------------Part A
+Environment
+Find Five Systems
+Student group to walk around the department/
+Where does the system begin?
+campus or in the city/villages and photograph
+Where does it end?
+ve systems.
+Part E
+Not objects. Systems.
+Which property of this system cannot be
+List the Stakeholders of each system
+explained by studying any single component
+individually?
+Part B1
+For each selected system, answer only six
+Part F
+questions.
+Concept Strategy Operation analysis of these
+Q1. What is the purpose of this system?
+ve systems:
+Q2. Who are the stakeholders?
+Concept:
+Q3. What are the major components?
+•
+Why does this system exist?
+Q4. What interactions exist?
+•
+What human or societal problem does it
+Q5. What information ows?
+solve?
+Q6. What would happen if one component
+Strategy:
+disappeared? (Please write for at least 3
+• Why is it organized this way?
+such components)
+• What alternative designs could have been
+used?
+Part B2 Component (part) Analysis
+Operations:
+Q1. Do the parts affect each other?
+•
+How does the system function?
+Q2. Do the parts together produce an effect
+•
+How does it adapt?
+that is different from the effect of each part
+•
+What failures may occur?
+on its own?
+Q3. Does the effect, the behavior over time,
+persist in a variety of circumstances?
+
+fi
+
+fl
+
+fi
+
+Page 1 of 2
+
+fi
+
+fi
+
+fi
+
+CSL510 Introduction to Systems Engineering W26
+
+Classi cation
+of Systems
+
+Correct classi cation
+(physical, digital,
+social, cyber-physical,
+5
+system-of-systems,
+adaptive, etc.) with
+justi cation
+
+Boundary
+Diagrams
+
+Appropriate de nition
+of system boundary,
+10 identi cation of
+environment, clarity of
+representation
+
+E
+
+Emergence
+Analysis
+
+Ability to identify
+emergent properties
+10 rather than merely
+listing component
+functions
+
+F
+
+Concept–
+Strategy–
+Operation
+(CSO)
+Analysis
+
+Logical understanding
+of Concept, Strategy,
+15 and Operation with
+clear linkage to the
+chosen systems
+
+AI
+Augmentation
+
+Creativity, feasibility,
+relevance of AI/GenAI
+integration, and
+10
+understanding of its
+role in improving
+system functionality
+
+Re ection
+
+Depth of learning,
+evidence of change in
+10 thinking, originality,
+and critical selfanalysis
+
+Participation
+in Initial
+Discussion
+
+Active participation,
+quality of questions,
+contribution to group
+5
+discussion, and
+originality of
+viewpoints
+
+C
+
+Part G
+What AI can be part of these systems to
+augment their functionality?
+Part H
+Re ection on how your de nition and
+understanding of a system changed?
+Deliverables
+Each student submits
+•
+A - Five photographs, Five stakeholder
+lists
+•
+B1- Five system analyses
+•
+B2 - Component Analysis
+•
+C - Classi cation
+•
+D - Five boundary diagrams
+•
+E
+•
+F - CSO analysis
+•
+G - AI augmentation
+•
+H - Re ection
+•
+Submission of Discussion at the
+beginning
+Evaluation
+following evaluation matrix. It emphasizes
+observation, analysis, abstraction, and
+communication, rather than simply
+correctness.
+Sr.
+No.
+
+A
+
+B1
+
+B2
+
+Deliverable
+
+Marks
+
+D
+
+G
+
+H
+
+Evaluation Criteria
+
+Five
+Photographs
+&
+Stakeholder
+Lists
+
+Selection of
+appropriate systems
+(5), completeness and
+10
+correctness of
+stakeholder
+identi cation (5)
+
+Five System
+Analyses
+
+Clarity of system
+purpose, components,
+interactions,
+15
+information ow, and
+impact of component
+removal
+
+Component
+Analysis
+
+Understanding of
+interdependence,
+10 emergence, persistence
+of behaviour, and
+quality of reasoning
+
+I
+
+Total
+
+100
+
+Please note:
+1. Repeating systems amongst the groups will be
+checked for originality in answers.
+2. Photographs should have a timestamp. (You
+can download the app for this)
+3. Please write the group members’ names and
+enrollment numbers on the rst page.
+4. Any one member should submit the
+deliverables.
+5. Only the ‘Re ection’ part in the report will be
+submitted with the individual member’s name
+and enrollment number at the start of each
+re ection.
+
+fi
+
+fi
+
+fi
+
+fl
+
+fi
+
+fl
+
+fi
+
+fl
+
+fi
+
+fi
+
+fi
+
+fi
+
+fl
+
+fl
+
+fl
+
+*****
+
+Page 2 of 2
+
+

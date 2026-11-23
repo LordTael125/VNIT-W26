@@ -1,0 +1,177 @@
+% ============================================================================
+% Preamble: Classic Academic Times-Serif Style (aligned with edit.pdf)
+% ============================================================================
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext, newtxmath}
+\usepackage{microtype}
+\usepackage{graphicx}
+
+% Page Geometry — Open, comfortable A4 academic margins (matching edit.pdf)
+\usepackage[a4paper, top=0.82in, bottom=0.82in, left=0.82in, right=0.82in]{geometry}
+
+% Math & Units
+\usepackage{amsmath}
+\usepackage{siunitx}
+
+% Subtle Academic Color Palette (matching edit.pdf's soft lavender/rose/orange diagrams)
+\usepackage[table, dvipsnames]{xcolor}
+\definecolor{NavyPrimary}{HTML}{2B3A67}   % Muted slate-blue for internal diagram borders
+\definecolor{TealAccent}{HTML}{1F6F54}    % Subtle academic green for pass indicators
+\definecolor{SlateDark}{HTML}{1E293B}     % Near-black ink
+\definecolor{SlateMuted}{HTML}{555555}    % Subtle gray for notes/continued lines
+\definecolor{LightTint}{HTML}{F2F4F8}     % Soft neutral table header tint
+\definecolor{DiagBlueFill}{HTML}{EDF0FA}  % Soft periwinkle fill (edit.pdf style)
+\definecolor{DiagBlueDraw}{HTML}{4A5899}  % Periwinkle border
+\definecolor{DiagRedFill}{HTML}{FBECEC}   % Soft rose fill for external systems (edit.pdf style)
+\definecolor{DiagRedDraw}{HTML}{B84A4A}   % Soft crimson border
+\definecolor{DiagOrgDraw}{HTML}{D97706}   % Warm orange boundary-crossing arrows (edit.pdf style)
+\definecolor{DiagTealFill}{HTML}{ECF6F2}  % Soft sage fill
+\definecolor{DiagTealDraw}{HTML}{2E7D64}  % Soft sage border
+\definecolor{AmberWarn}{HTML}{9A5B13}     % Muted amber
+\definecolor{AmberTint}{HTML}{FDF8EE}     % Soft ivory tint
+\definecolor{CrimsonRisk}{HTML}{991B1B}   % Dark crimson for Fail/risk labels
+\definecolor{CrimsonTint}{HTML}{FDF2F2}   % Pale rose tint
+\definecolor{RuleGray}{HTML}{BFBFBF}      % Clean thin academic rule
+
+% Tables
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{xltabular}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{caption}
+\usepackage{placeins}
+
+\captionsetup{
+    font={small},
+    labelfont={bf},
+    skip=5pt,
+    justification=centering,
+    singlelinecheck=true
+}
+
+% Custom column types for clean ragged-right wrapped text in tables
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+% Lists & Spacing — Airy, readable academic spacing
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=3pt, parsep=0pt, topsep=4pt, partopsep=0pt, leftmargin=1.6em}
+\setlist[enumerate]{itemsep=3.5pt, parsep=0pt, topsep=4pt, partopsep=0pt, leftmargin=1.8em}
+
+\setlength{\parskip}{5.5pt}
+\setlength{\parindent}{0pt}
+\renewcommand{\baselinestretch}{1.12}
+
+% Section Heading Styling — Centered bold academic "Part X" style (matching edit.pdf)
+\usepackage{titlesec}
+\titleformat{\section}[block]
+  {\centering\large\bfseries\color{black}}
+  {Part \thesection:}{0.45em}{}
+\titlespacing*{\section}{0pt}{14pt}{7pt}
+
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{black}}
+  {\thesubsection.}{0.45em}{}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+
+\titleformat{\subsubsection}
+  {\small\bfseries\color{black}}
+  {\thesubsubsection}{0.4em}{}
+\titlespacing*{\subsubsection}{0pt}{7pt}{3pt}
+
+% Minimalist Page Style (clean centered page number, matching edit.pdf's uncluttered feel)
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Clean Academic Callout Boxes (subtle thin border & left bar, classic serif)
+\usepackage[most]{tcolorbox}
+\newtcolorbox{keybox}[2][black]{
+    colback=LightTint!55,
+    colframe=black!45,
+    borderline west={2.2pt}{0pt}{DiagBlueDraw},
+    coltitle=black,
+    colbacktitle=LightTint,
+    fonttitle=\small\bfseries,
+    title=#2,
+    boxrule=0.45pt,
+    arc=1.5pt,
+    left=8pt, right=8pt, top=5pt, bottom=5pt,
+    before skip=6pt, after skip=6pt
+}
+
+\newtcolorbox{warnbox}[1]{
+    colback=AmberTint!70,
+    colframe=DiagRedDraw!65,
+    borderline west={2.2pt}{0pt}{DiagRedDraw},
+    coltitle=black,
+    colbacktitle=DiagRedFill,
+    fonttitle=\small\bfseries,
+    title=#1,
+    boxrule=0.45pt,
+    arc=1.5pt,
+    left=8pt, right=8pt, top=5pt, bottom=5pt,
+    before skip=6pt, after skip=6pt
+}
+
+% TikZ Styles — Soft Pastel Academic Diagram Palette (directly inspired by edit.pdf)
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, shapes.multipart, fit, backgrounds, calc, decorations.pathreplacing}
+
+\tikzset{
+    sebox/.style={
+        rectangle, rounded corners=3pt, draw=DiagBlueDraw, fill=DiagBlueFill,
+        line width=0.7pt, text=black, font=\rmfamily\scriptsize, align=center,
+        inner sep=4pt, minimum height=18pt
+    },
+    seboxTeal/.style={
+        rectangle, rounded corners=3pt, draw=DiagTealDraw, fill=DiagTealFill,
+        line width=0.7pt, text=black, font=\rmfamily\scriptsize, align=center,
+        inner sep=4pt, minimum height=18pt
+    },
+    seboxAmber/.style={
+        rectangle, rounded corners=3pt, draw=DiagOrgDraw, fill=AmberTint,
+        line width=0.7pt, text=black, font=\rmfamily\scriptsize, align=center,
+        inner sep=4pt, minimum height=18pt
+    },
+    seboxExt/.style={
+        ellipse, draw=DiagRedDraw, fill=DiagRedFill,
+        line width=0.7pt, text=black, font=\rmfamily\scriptsize, align=center,
+        inner sep=2.5pt, minimum height=18pt
+    },
+    seboxRisk/.style={
+        rectangle, rounded corners=3pt, draw=DiagRedDraw, fill=DiagRedFill,
+        line width=0.7pt, text=black, font=\rmfamily\scriptsize, align=center,
+        inner sep=4pt, minimum height=18pt
+    },
+    sebanner/.style={
+        rectangle, rounded corners=2pt, draw=black!50, fill=LightTint,
+        line width=0.6pt, text=black, font=\rmfamily\scriptsize\bfseries, align=center,
+        inner sep=3.5pt
+    },
+    searrow/.style={-{Stealth[length=4.5pt, width=3.5pt]}, line width=0.65pt, draw=black!60},
+    seextarrow/.style={-{Stealth[length=4.5pt, width=3.5pt]}, line width=0.75pt, draw=DiagOrgDraw},
+    sefeedback/.style={-{Stealth[length=4.5pt, width=3.5pt]}, line width=0.65pt, dashed, draw=DiagBlueDraw},
+    seriskarrow/.style={-{Stealth[length=4.5pt, width=3.5pt]}, line width=0.65pt, dashed, draw=DiagRedDraw},
+    selabel/.style={font=\rmfamily\tiny, fill=white, inner sep=1.2pt, text=black!85}
+}
+
+% Hyperlinks (subtle dark academic links)
+\usepackage[hidelinks, colorlinks=true, linkcolor=black, urlcolor=DiagBlueDraw, citecolor=black]{hyperref}
+
+% Helper macros for classic academic light-gray table header rows
+\newcommand{\tblhead}[1]{\textbf{\footnotesize\color{black}#1}}
+\newcommand{\hdrrow}{\rowcolor{LightTint}}
+\newcommand{\subhdrrow}{\rowcolor{DiagBlueFill}}
+
+% Prevent widows/orphans
+\widowpenalty=10000
+\clubpenalty=10000

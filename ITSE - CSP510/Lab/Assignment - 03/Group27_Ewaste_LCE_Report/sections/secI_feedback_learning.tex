@@ -1,0 +1,39 @@
+% ============================================================================
+% Section I: Analyze Feedback and System Learning (Deliverable I)
+% ============================================================================
+\section{Feedback Loops and System Learning}
+\label{sec:I}
+
+Because e-waste composition, blade wear, and safety hazards evolve across 15 years, UA-EWRRF relies on \textbf{four structured feedback paths} connecting later operational, maintenance, and retirement phases back to design and procedures (Table~\ref{tab:annexM}).
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.20}
+\begin{xltabular}{\textwidth}{L{2.35cm} L{1.45cm} L{1.85cm} L{2.0cm} L{2.25cm} Y}
+\caption{Feedback paths and system-learning mechanisms across UA-EWRRF (Annexure M format).}
+\label{tab:annexM}\\
+\toprule
+\hdrrow \tblhead{Information generated} & \tblhead{Source phase} & \tblhead{Recipient} & \tblhead{TPM / criterion affected} & \tblhead{Decision reconsidered} & \tblhead{Possible improvement} \\
+\midrule
+\endfirsthead
+\multicolumn{6}{l}{\footnotesize\color{SlateMuted}\textit{Table~\ref{tab:annexM} continued from previous page.}}\\
+\toprule
+\hdrrow \tblhead{Information generated} & \tblhead{Source phase} & \tblhead{Recipient} & \tblhead{TPM / criterion affected} & \tblhead{Decision reconsidered} & \tblhead{Possible improvement} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{FB-1. Battery near-misses \& purity rejects} & Ph.\ 6 (Ops) & EHS, Plant Eng., OEM & TPM-1 (MRR), TPM-4 ($E_{\text{PM}}$) & Triage SOPs; optical/XRT thresholds (DDP-2). & Add IR cameras on intake belts \& sand Li-ion bins. \\
+\midrule
+\textbf{FB-2. Blade wear, vibration \& MTTR logs} & Ph.\ 7 (Maint.) & Maint.\ Mgr, OEM & TPM-2 ($A_o$), TPM-6 ($\text{LCC}_t$) & Blade alloy (DDP-3); local spares stocking. & Adopt carbide quick-swap cassettes \& local CNC re-grind. \\
+\midrule
+\textbf{FB-3. QR intake mix shift \& EHS audits} & Ph.\ 6--7 (Ops/EHS) & Promoter Eng., MPCB & TPM-3 ($Q_p$), TPM-4 ($E_{\text{PM}}$) & Bay roadmap (DDP-1); hood airflow (DDP-4). & Trigger Year-6 adhesive-release + NIR BFR bay retrofit. \\
+\midrule
+\textbf{FB-4. TSDF rejects \& pilot closure trials} & Ph.\ 8 (Retire) & Next-Gen EPC, CPCB/OEMs & TPM-6 ($\text{LCC}_t$), DC-8 & Slab spec (DDP-7); national EPR rules. & Standardize bolted skids \& eco-modulated OEM EPR fees. \\
+
+\end{xltabular}
+\endgroup
+
+\subsection{Assessment of Organizational Learning Capability}
+Within UA-EWRRF, \textbf{internal operational learning (FB-1 to FB-3) is strong} when CMMS logs, QR intake analytics, and SCADA air monitors are reviewed quarterly. However, \textbf{cross-organizational learning (FB-4) is structurally weak and prone to knowledge loss}: EPC contractors exit after commissioning without seeing field MTTR failures, upstream electronics OEMs remain insulated from the dismantling cost of glued batteries, and informal aggregators keep no safety records. Bridging these gaps requires multi-year OEM availability warranties and CPCB eco-modulated EPR fees.

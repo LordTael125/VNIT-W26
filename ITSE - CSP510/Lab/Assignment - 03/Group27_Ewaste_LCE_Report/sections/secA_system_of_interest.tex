@@ -1,0 +1,26 @@
+% ============================================================================
+% Section A: Define the System-of-Interest (Deliverable A)
+% ============================================================================
+\section{Definition of the System-of-Interest}
+\label{sec:A}
+
+\subsection{System Identification and Characterization}
+
+\begin{enumerate}
+    \item \textbf{Assigned Real-Life System (Annexure A, Group 27):} Electronic-waste-management system (collection, classification, recovery, recycling, hazardous handling, and disposal).
+    \item \textbf{Selected System-of-Interest (SoI):} \textbf{\systemOfInterest} --- a formal regional processing plant in MIHAN/Butibori MIDC, Nagpur, rated at \textbf{10 metric tonnes/day (3,000 t/year across 300 days)}.
+    \item \textbf{Need or Deficiency:} Over 75\% of urban e-waste leaks into informal scrap channels involving open-air PCB acid leaching and wire burning, causing toxic lead/mercury release, lost strategic metals (Cu, Au, Pd, Al), and producer non-compliance under India's \textit{E-Waste (Management) Rules, 2022}.
+    \item \textbf{Principal Purpose:} To safely collect, digitally trace, de-pollute, dismantle, and mechanically recover high-purity secondary raw materials while manifesting hazardous residues to authorized disposal, delivering verifiable Extended Producer Responsibility (EPR) compliance.
+    \item \textbf{System Boundary:} Spans from \textit{authorized intake} (12 smart kiosks, 4 GPS vans, weighbridge) through \textit{sorting, manual de-pollution, modular mechanical separation, HEPA/ZLD containment, and EPR logging} up to \textit{verified outbound dispatch} of recovered metals/plastics, PCB lots, and Form-10 hazardous packages.
+    \item \textbf{Important External Systems:} Urban generators (households, IT parks, VNIT, hospitals); informal aggregators (\textit{kabadiwalas}); regulators (CPCB EPR Portal, MPCB, NMC, DISH); electronics OEMs/PROs; MSEDCL grid \& MIDC utilities; commodity markets; authorized precious-metal smelters; Butibori Common TSDF; and machinery OEMs.
+    \item \textbf{Principal Stakeholders:} Promoter/acquirer SPV, EPC contractor \& equipment OEMs, plant operators, maintenance \& EHS staff, urban generators, electronics OEMs/PROs, regulators (CPCB, MPCB, NMC, DISH), smelters, buyers, TSDF, and local community.
+    \item \textbf{Expected Operational Life:} \textbf{15 years} for civil infrastructure, with \textbf{5--7 year refresh cycles} for sorting sensors, EPR software, and high-wear shredder assemblies.
+\end{enumerate}
+
+\input{figures/fig_context_diagram}
+
+\subsection{Justification of System Boundary}
+\begin{itemize}
+    \item \textbf{Included inside the boundary:} Kiosks, collection vans, QR/RFID intake, reuse triage, manual hazardous de-pollution (batteries, mercury lamps, capacitors), modular mechanical recovery, HEPA/carbon filtration, zero-liquid-discharge (ZLD) treatment, and temporary hazardous containment. These are directly engineered by the facility designer and govern purity, safety, and EPR compliance.
+    \item \textbf{Kept outside the boundary:} Upstream OEM product design, high-temperature pyrometallurgical smelting (viable only at $>30{,}000$ t/yr), final hazardous incineration/landfilling (mandated to authorized Common TSDFs such as Butibori), municipal landfills, and informal street scrap markets. Keeping these external keeps the SoI tractable while defining strict handover interfaces.
+\end{itemize}

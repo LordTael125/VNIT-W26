@@ -1,0 +1,422 @@
+CSL510ISE W22026
+
+Practical 2: Understanding a System in Motion
+State, Situation, Events, Behaviour, Process, and Function
+•
+in which decisions or interventions are
+1. Why this Practical?
+In Practical 1, you learned to recognize a
+system and identify its purpose, stakeholders,
+components, interactions, boundary,
+environment, and emergent behaviour.
+However, a system cannot be understood only
+from its components or from a single
+observation. Its condition changes with time,
+events, operating context, stakeholder actions,
+and environmental in uences. The same
+apparent system state may also have different
+operational signi cance in different situations.
+In this practical, you will examine one system
+dynamically—how it changes, behaves,
+performs its functions, and responds to events.
+
+2. Learning Objectives
+After completing this practical, you should be
+able to:
+•
+distinguish among the state, situation,
+behaviour, process, and function of a
+system;
+•
+identify variables that describe the state
+of a system;
+•
+recognize how context and
+relationships transform a state into a
+situation;
+•
+trace changes in the system following
+signi cant events;
+•
+distinguish what a system does from
+how it does it;
+•
+identify intended, unintended, and
+emergent behaviour; and
+•
+analyze how a change in one part of a
+system affects its overall functioning.
+
+3. Group and System Selection
+
+fi
+
+fl
+
+fi
+
+fi
+
+fl
+
+fi
+
+fi
+
+fi
+
+Continue with the same group of ve students
+formed for Practical 1.
+Select one suf ciently complex system from
+the ve systems studied in Practical 1. Prefer a
+system:
+•
+involving people, technology, rules, and
+an operating environment;
+•
+whose condition changes with time;
+
+made; and
+•
+for which the group can observe or
+reasonably reconstruct a sequence of
+events.
+Do not select a simple object whose behaviour
+can be described entirely through its physical
+components.
+
+4. Practical Tasks
+A. Re-establish the System
+Brie y present:
+1. system name and purpose;
+2. principal stakeholders;
+3. system boundary;
+4. important environmental elements; and
+5. the reason for selecting this system.
+This section should be based on Practical 1 but
+re ned wherever necessary. Do not reproduce
+the earlier analysis in full.
+
+B. Identify the State of the System
+Identify six to eight variables that collectively
+describe the condition of the system at a
+particular instant.
+Prepare the following table:
+How it can
+Possible
+State
+be
+Why it
+values or
+variable
+observed or matters
+conditions
+estimated
+Include different types of variables, wherever
+applicable:
+•
+physical or technical;
+•
+human;
+•
+informational;
+•
+organizational; and
+•
+environmental.
+Then describe three distinct states of the
+system:
+1. normal operating state;
+2. stressed or degraded state; and
+3. failed, recovering, or unusually
+successful state.
+
+C. Construct Situations from States
+A state describes the condition of the system at
+an instant. A situation includes that state
+together with the relevant context,
+relationships, history, stakeholder concerns,
+and likely consequences.
+Construct two situations having substantially
+the same observable state but different
+operational signi cance.
+For each situation, identify:
+•
+the common observable state;
+•
+the surrounding context;
+•
+relevant stakeholder relationships;
+•
+preceding events or history;
+•
+stakeholder concerns;
+•
+possible consequences; and
+•
+why the required response may be
+different.
+The differences must arise from context or
+relationships—not merely by changing the
+values of the state variables.
+
+D. Trace Events and State Changes
+Identify a meaningful operating episode
+involving at least ve events. The events may
+be routine, disruptive, corrective, or externally
+initiated.
+Represent the episode using a state-transition
+diagram or an annotated timeline.
+For every transition, state:
+Immedi
+Trigge Result StakePrevious
+ate
+ring
+ing
+holder
+state
+conseq
+event state affected
+uence
+Also identify:
+•
+one event that the system can
+anticipate;
+•
+one event that is dif cult to anticipate;
+and
+•
+one event that appears minor but can
+produce a signi cant system-level
+effect.
+
+E. Analyze System Behaviour
+
+fi
+
+fi
+
+fi
+
+fi
+
+fi
+
+fi
+
+Using the episode studied in Part D, analyze
+how the system behaves over time.
+Identify:
+1. one intended behaviour;
+2. one unintended behaviour;
+3. one adaptive or corrective behaviour;
+
+4.
+5.
+
+one emergent behaviour, if present; and
+one behaviour that may be interpreted
+differently by different stakeholders.
+Support every identi ed behaviour with
+observations or evidence from the chosen
+episode. Do not merely list desirable or
+undesirable characteristics.
+
+F. Distinguish Function from Process
+Identify three important functions performed
+by the system.
+For each function, state:
+•
+what outcome the function is intended
+to produce;
+•
+which stakeholder requires it; and
+•
+how its successful performance can be
+recognized.
+Select one function and construct its
+corresponding process diagram showing:
+•
+initiating condition;
+•
+activities;
+•
+participating components or
+stakeholders;
+•
+information or material exchanged;
+•
+decision points;
+•
+expected output; and
+•
+possible points of disruption.
+Then answer:
+1. Can the same function be achieved
+through a different process? Illustrate
+with one alternative.
+2. Can the process be completed while the
+intended function remains unful lled?
+Construct one plausible example.
+
+G. Introduce a Change in the System
+Propose one realistic change in a component,
+rule, resource, stakeholder action, technology,
+or environmental condition.
+Trace its effects on:
+•
+system state;
+•
+stakeholder relationships;
+•
+process execution;
+•
+system behaviour;
+•
+intended function; and
+•
+possible unintended consequences.
+Conclude whether the change improves the
+system as a whole or only one part of it.
+
+H. Group Synthesis
+Prepare a one-page synthesis addressing:
+•
+What could be understood only after
+observing the system over time?
+•
+Which distinction—state and situation,
+behaviour and process, or process and
+function—was most dif cult to apply?
+•
+What important aspect would have
+remained unnoticed if the system had
+been examined only through its
+components?
+
+6. Submission Guidance
+•
+•
+•
+•
+•
+
+I. Individual Re ection
+Each student should independently answer, in
+not more than 250 words:
+How has studying the system in motion
+changed my understanding of what it means to
+analyze a system?
+The re ection must include one speci c insight
+obtained from the group’s system analysis.
+
+•
+•
+
+7. Suggested Reading
+
+5. Deliverables
+
+1.
+
+Each group shall submit:
+Code
+
+Deliverable
+Re ned system description, purpose,
+boundary, and selection rationale
+State-variable table and three system
+states
+Two contextually different situations
+having substantially the same
+observable state
+Event-based state-transition diagram
+or annotated timeline
+Analysis of intended, unintended,
+adaptive, and emergent behaviour
+Function analysis and detailed
+process diagram
+System-wide analysis of one
+proposed change
+
+A
+B
+C
+D
+E
+F
+G
+
+fl
+
+fl
+
+fi
+
+fl
+
+fi
+
+J
+
+fi
+
+I
+
+fi
+
+One-page group synthesis
+Individual re ection from every
+group member
+Contribution statement indicating the
+work undertaken by each member
+
+fl
+
+H
+
+Use diagrams and tables wherever they
+improve clarity.
+Base the analysis on observation,
+credible information, or a carefully
+constructed realistic episode.
+Clearly distinguish observed
+information from assumptions.
+Avoid treating the system as merely a
+collection of components.
+Do not use the terms state, situation,
+behaviour, process, and function
+interchangeably.
+The submission should demonstrate the
+group’s reasoning, not merely
+reproduce de nitions.
+A suggested length is 8–10 pages,
+excluding individual re ections and
+references.
+
+2.
+3.
+4.
+5.
+6.
+
+Ackoff, R. L. (1971). “Towards a
+System of Systems Concepts.”
+Management Science, 17(11), 661–671.
+Ackoff, R. L., and Emery, F. E. (1972).
+On Purposeful Systems. AldineAtherton.
+Checkland, P. (1999). Systems
+Thinking, Systems Practice. Wiley.
+Meadows, D. H. (2008). Thinking in
+Systems: A Primer. Chelsea Green
+Publishing.
+INCOSE. Systems Engineering
+Handbook: A Guide for System Life
+Cycle Processes and Activities.
+Crawley, E., Cameron, B., and Selva,
+D. (2016). System Architecture:
+Strategy and Product Development for
+Complex Systems. Pearson.
+*****
+
+

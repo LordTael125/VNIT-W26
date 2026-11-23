@@ -1,0 +1,1543 @@
+--- PAGE 1 ---
+Anil Mokhade 12-29 Oct  2026
+Systems Realization & Life 
+Cycle Engineering
+- From Concept to Reality
+1
+Recap: From  Last 10 lectures on Introduction to Systems Engineering
+Explored the fundamental language of Systems Engineering:
+•State → condition of a system at a given time.
+•Situation → state in context (environment, constraints).
+•Behavior → system’s dynamic responses to triggers.
+•Process → organized sequence and timing of behaviors.
+•Function → ultimate purpose of the system, distinct from software functional requirements.
+Illustrated concepts with Smart Irrigation and Hospital IT examples.
+Connected to natural evolution → functions precede structures.
+2
+Story: We Bought a Shuttle—Did We Create a Transport System?
+Imagine that VNIT decides to introduce an electric 
+shuttle service on campus.
+We begin with systems thinking. We examine 
+students, drivers, vehicles, roads, charging stations, 
+timetables and pedestrians. We explore their 
+interactions: a delayed shuttle creates a longer queue; 
+a longer queue increases boarding time; longer 
+boarding time causes further delay. We also ask 
+where to draw the boundary—should our analysis 
+include electricity supply, rainy weather and 
+examination schedules?
+Having understood these relationships, we purchase a 
+shuttle. On its ﬁrst day, the service works well.
+Six months later, its range has reduced. Charging 
+overlaps with peak travel hours. A software update 
+changes the estimated arrival times. The trained 
+driver leaves, and a replacement needs instruction. 
+Students now attend classes in a new building, 
+beyond the original route.
+Three years later, the battery needs 
+replacement—but the supplier has 
+discontinued that model.
+Someone asks: ‘We understood the 
+system before introducing it. Why are 
+we facing these problems?’
+The transport coordinator replies: ‘We 
+understood how its parts interact. But 
+did we design how the service would be 
+introduced, operated, maintained, 
+adapted and eventually replaced?’
+3
+Which of these later problems should have inﬂuenced our initial design decisions?
+“Systems thinking helped us see the shuttle service as a whole. Life-
+cycle engineering extends that view across time—so that decisions 
+made today support the system’s purpose throughout its life.”
+4
+
+--- PAGE 2 ---
+From understanding the system to engineering its life
+•The shuttle story raises a basic question: If we understood the system before 
+introducing it, why did problems appear later?
+•Our initial understanding may have captured the interactions operating at that time. 
+However, the system and its environment continue to change. 
+•Batteries age, people leave, demand shifts, software changes and suppliers 
+discontinue components. Engineering decisions must therefore consider how the 
+system will fulﬁl its purpose under these changing conditions.
+•Systems thinking already encourages us to examine change over time.
+• Life-cycle engineering turns that understanding into requirements, design 
+choices, supporting capabilities and decisions throughout the system’s 
+existence.
+5
+What are we bringing into existence?
+In the shuttle example, the intended outcome is 
+reliable and accessible campus mobility. Purchasing 
+an electric vehicle contributes to this outcome, but 
+several other capabilities are necessary:
+•routes and schedules that match travel needs;
+•charging facilities and electricity availability;
+•trained drivers and operating procedures;
+•maintenance, spare parts and failure recovery;
+•passenger information and feedback;
+•arrangements for upgrades, replacement and 
+retirement.
+•The vehicle is a product within the 
+campus mobility system. Its usefulness 
+depends on these relationships.
+•To realize a system is to bring its 
+intended capability into operation 
+through interacting technical, 
+human and organizational elements.
+•This also explains why systems 
+engineering applies to services. 
+•A healthcare service, university 
+registration service or cloud computing 
+service must be developed, operated, 
+supported, changed and eventually 
+replaced or withdrawn.6
+What does the life-cycle perspective add?
+•A life-cycle perspective connects present decisions with future 
+consequences.
+•For example, choosing a shuttle battery determines more than its 
+initial range. It also affects charging time, route scheduling, 
+replacement cost, maintenance skills, supplier dependence and 
+disposal arrangements.
+•We must therefore ask:
+•What does this decision enable, constrain or make necessary later 
+in the system’s life?
+•This question applies to architecture, technology, stafﬁng, contracts, 
+data, software and operating procedures.
+7
+Systems thinking becomes concrete through engineering decisions
+Systems thinking 
+idea Its expression in life-cycle engineering
+Purpose and 
+wholeness
+Deﬁne the required campus mobility outcome and evaluate the integrated 
+service against it.
+Boundary 
+judgments
+Decide which dependencies and affected people must be included in 
+requirements and analysis.
+InterdependenceCoordinate vehicle capacity, charging, schedules, stafﬁng and maintenance.
+Feedback Establish observations, reporting channels and authority to revise operation 
+or design.
+Emergence Examine system behaviour such as congestion, queue growth or service 
+reliability arising from interactions.
+Changing contextPlan how the service can respond to new buildings, altered demand, ageing 
+equipment and unavailable components.
+These ideas become useful when they inﬂuence what engineers specify, build, test, monitor and change.
+8
+
+--- PAGE 3 ---
+Understanding the life-cycle stages
+The stages provide a framework for organizing decisions. Their activities can overlap and repeat.
+Stage Central engineering question Shuttle example
+Need and 
+concept
+What outcome is needed, for whom, 
+and under what conditions?
+Establish travel demand and compare walking 
+improvements, bicycles and shuttle alternatives.
+Design and 
+development
+What arrangement can achieve that 
+outcome?
+Develop routes, vehicle speciﬁcations, charging 
+arrangements, interfaces and operating procedures.
+Realization and 
+deployment
+Can the designed capability be 
+brought into operation?
+Acquire vehicles, install charging facilities, train staff 
+and test the integrated service.
+Operation and 
+support
+Does the system fulﬁl its purpose 
+reliably in actual use?
+Monitor waiting time, availability, energy use, 
+maintenance and passenger experience.
+Renewal and 
+modiﬁcation
+What should change as needs, 
+evidence or conditions change?
+Revise routes, replace batteries, update software or 
+increase capacity.
+Retirement and 
+transition
+How can the system be withdrawn or 
+replaced responsibly?
+Maintain transport continuity, transfer useful assets and 
+arrange battery disposal.
+A problem discovered in operation may require reconsidering a design choice—or even the original concept. The life 
+cycle therefore involves both progression and feedback.9
+Future stages inﬂuence present design
+Maintenance begins operationally after deployment, but maintainability must 
+inﬂuence design before deployment. The same principle applies to training, recovery, 
+upgrading and retirement.
+For the shuttle:
+•Future battery replacement inﬂuences the initial battery and supplier choice.
+•Driver turnover inﬂuences training materials and procedure design.
+•Route expansion inﬂuences capacity and charging provision.
+•Software failure inﬂuences manual operating arrangements.
+•Retirement inﬂuences material recovery and replacement planning.
+This is the practical meaning of designing for the whole life cycle.
+A later activity often requires an earlier design provision.
+10
+Engineering the enabling systems
+•The shuttle service has its own life cycle, but so do the capabilities that enable it.
+•Charging infrastructure must be designed, installed, maintained and renewed. 
+•Maintenance capability requires tools, facilities, staff and spare-parts 
+arrangements. 
+•Training must be developed and updated as vehicles and procedures change.
+•These life cycles are related. Their readiness and changes must be coordinated. 
+•Delivering the vehicle before charging, training or support is ready does not 
+deliver an operational transport capability.
+11
+Feedback sustains the connection between purpose and reality
+- Once the service operates, engineers can compare expected behaviour with observed behaviour.
+- Suppose waiting times increase. The cause might be insufﬁcient capacity, delayed charging, longer 
+boarding times or a mismatch between schedules and demand. Each explanation suggests a different 
+intervention.
+Effective feedback requires:
+•suitable observations;
+•interpretation in the operating context;
+•a person or team authorized to act;
+•a way to evaluate whether the change improved the outcome.
+- Feedback may lead to an operating adjustment, maintenance action, design modiﬁcation or 
+reconsideration of requirements.
+12
+
+--- PAGE 4 ---
+Success must be assessed throughout life
+•A successful demonstration establishes that the service can work under the 
+demonstrated conditions. Continued success requires further evidence.
+•For the shuttle, system-level success includes reliable mobility, manageable 
+waiting times, accessibility, safety, affordable operation, recoverability and 
+continuity during replacement.
+•These outcomes arise from the integrated system. They cannot be 
+established solely by checking vehicle speciﬁcations.
+Systems thinking gives us a way to understand 
+purpose, relationships and behaviour. 
+Life-cycle engineering uses that understanding to 
+bring a capability into existence and sustain it as 
+conditions change. 
+Every major design decision should therefore be 
+examined for both its immediate effect and its 
+consequences across the system’s life.
+If you were designing the 
+VNIT shuttle service today, 
+which three future conditions 
+would most strongly inﬂuence 
+your initial design—and why?
+13
+From Understanding Systems to Engineering Their Life Cycles”
+Systems thinking helped us examine purpose, boundaries, interdependence, 
+feedback and emergence. We now examine how these considerations guide 
+decisions as a system is conceived, developed, deployed, sustained, changed 
+and retired.
+A life-cycle decision changes more than the system at that moment: it creates 
+possibilities, dependencies and constraints for its future.
+Some questions can then we ask?:
+•What purpose should remain fulﬁlled as conditions change?
+•Which interactions and supporting capabilities must be designed together?
+•What evidence should lead us to revise a requirement, architecture or operating practice?
+•What consequences may appear only after prolonged use or large-scale deployment?
+14
+System Realization and Life-Cycle Engineering
+◦So far we analyzed how systems can be understood.
+◦Next, we explore how systems are brought into being — moving from the 
+natural world to the human-made world, where engineered systems are 
+conceived, designed, realized, and sustained.
+◦This involves design, production, use, support, and phase-out — the 
+entire system life cycle.
+◦We will see how systems engineering provides the framework for creating 
+competitive, sustainable, and continuously improving human-made systems.
+15
+Systems Realization & Life Cycle Engineering
+16
+•Intended functions 
+guide our design 
+choices, while 
+available structures 
+enable and constrain 
+what the system can 
+do. 
+•As needs, technology 
+and operating 
+conditions change, we 
+reconsider both 
+functions and 
+structures. 
+•Sometimes behaviour 
+changes through 
+software or procedures 
+while physical 
+structures remain 
+unchanged; sometimes 
+a structural change 
+enables new functions.
+
+--- PAGE 5 ---
+Story: From Forest to City
+Imagine a forest. It is full of natural 
+systems — trees growing, rivers ﬂowing, 
+animals surviving. Each of these came into 
+being through evolution, not human 
+design. Functions came ﬁrst:
+•The heart pumps blood,
+•The eye senses light,
+•The leaf converts sunlight to energy. 
+Structures changed across species, but 
+functions remained constant.
+Now shift to a city nearby. This is the human-
+made world. The city has its own systems: 
+water supply, electricity, transport, hospitals, 
+digital networks. None of these systems evolved 
+by chance. They had to be designed. But here 
+too, functions come ﬁrst:
+•Water system → deliver clean water.
+•Power system → provide reliable energy.
+•Hospital IT → give doctors secure access to 
+patient data.
+In the forest, systems are shaped by natural 
+selection. 
+In the city, systems are shaped by systems 
+engineering.
+The difference?
+•Nature “designed” for survival.
+•Humans design for purpose, efﬁciency, and resilience.17
+And so, as engineers, when we move from analyzing “what systems 
+are” (state, situation, behavior, process, function) → to “how we bring 
+them into being,” we are stepping into the same role nature plays in 
+evolution — but with foresight, creativity, and responsibility.
+“When we design systems, we are doing consciously what nature has 
+always done unconsciously — shaping functions into structures, 
+creating order in the human-made world.”
+18
+Natural systems develop through evolutionary and ecological processes. Structures, functions and 
+interactions change together, without a predeﬁned goal.
+In engineered systems, identiﬁed needs and intended functions guide design. Engineers develop and 
+reﬁne structures using analysis, testing and feedback.
+Systems thinking helps us understand the whole system; life-cycle engineering applies that 
+understanding from conception through operation, renewal and retirement.
+19
+The Engineered System
+20
+
+--- PAGE 6 ---
+The Engineered System
+Deﬁnition
+•An engineered (technical) system = a human-made or human-modiﬁed system 
+designed to meet functional purposes or objectives.
+•In this course, “engineered system” implies a well-engineered system — 
+purposeful, effective, and sustainable.
+• But we must understand that a human-designed system can be ineffective, unsafe 
+or unsustainable.
+• We should evaluate engineering quality rather than assume it from the deﬁnition.
+21
+Characteristics of a Well-Engineered System
+1.Functional Purpose
+◦Built in response to identiﬁed needs.
+◦Must achieve stated operational objectives.
+2.Life Cycle Existence
+◦From needs identiﬁcation → design → 
+production & deployment → operation → 
+phase-out & disposal.
+3.Design Momentum
+◦Increases through design, production, and 
+deployment.
+◦Decreases through phase-out, retirement, and 
+disposal.
+4.Resource Integration
+◦Combines facilities, equipment, materials, 
+people, information, software, and money into 
+a harmonized whole.
+5.Subsystems & Components
+◦Built from interacting subsystems/components 
+that together create the system’s response or 
+behavior.
+6.Hierarchy & Inﬂuence
+◦Each system is part of a larger system-of-
+systems.
+◦Inﬂuenced by external factors and sibling 
+systems.
+7.Embedded in the Natural World
+◦Always interacts with the natural environment 
+— sometimes positively, sometimes negatively.
+22
+Systems Engineering as a Discipline
+•Deﬁnition: A functionally oriented, technologically based, 
+interdisciplinary process for:
+◦Bringing new human-made systems into being.
+◦Improving legacy systems.
+•Overarching Purpose: Make the world better for people by:
+◦Satisfying human needs effectively.
+◦Minimizing life-cycle costs.
+◦Reducing ecological and societal impacts.
+23
+Organizational Strategy
+•Organization = humanity’s greatest innovation for creating systems.
+•Focus not on entities themselves, but on what entities are intended to do.
+•In architecture: “Form follows function.”
+•In Systems Engineering: Focus on designing, delivering, and sustaining:
+◦Functionality
+◦Capability
+◦Solution
+Key Takeaway for Us
+An engineered system is not just hardware or software — it is a purposeful, 
+organized, life-cycle entity, designed with functions ﬁrst, then form. Systems 
+engineering ensures these systems are brought into being efﬁciently, sustainably, and 
+with human needs at the center. 24
+
+--- PAGE 7 ---
+Product and System Categories
+25
+Systems Identiﬁed by Products
+•Systems are often known by the products they produce, deliver, or bring into being.
+•Examples:
+◦Manufacturing systems → produce goods.
+◦Construction systems → erect structures.
+◦Transportation systems → move people/goods.
+◦Trafﬁc control systems → manage ﬂows.
+◦Maintenance systems → repair/restore.
+◦Service systems → meet consumer or patient needs.
+•What the system does is manifested through the product it provides.
+•The product and its system are inexorably linked.
+26
+Two Generic Categories of Engineered Systems
+A. Single-Entity Product Systems
+•Examples:
+◦Bridge, custom-designed software, home entertainment center.
+◦Custom service → counseling session, banquet.
+•Classiﬁcation:
+◦Consumables (e.g., banquet, counseling session).
+◦Repairables (e.g., bridge, highway, supercomputer).
+◦Consumer goods vs Producer goods (the latter produce the former).
+•Key Insight:
+◦The product alone ≠ engineered system.
+◦Engineered system = product + construction subsystem + maintenance subsystem + 
+operating & support subsystem + phase-out subsystem.
+◦Example: A bridge → not just the structure, but also design, maintenance, operations, and 
+eventual demolition.
+•Other single-entity systems: manufacturing plants, warehouses, hospitals, air trafﬁc control 
+centers. 27
+B. Multiple-Entity Population Systems
+•Deﬁned: Populations of homogeneous or near-homogeneous entities, studied probabilistically.
+•Examples:
+◦Airlines or military aircraft ﬂeets.
+◦Ground transit → taxis, rental cars, commercial trucks.
+◦Production equipment → looms, autoclaves, machine tools.
+◦Housing complexes (multi-family units).
+◦Ofﬁce buildings (multi-tenant).
+◦Public clinics in urban/suburban areas.
+◦Inventories → consumables (batteries, food, toiletries) and repairables (aircraft pumps, automobile starters, 
+automation controllers).
+•Characteristics:
+◦Populations allow economies of scale in design/production.
+◦Enable maintenance learning and statistical analysis (mortality, failure rates).
+◦Still, the engineered system > population itself, since support, regeneration, and phase-out subsystems are 
+essential.
+28
+
+--- PAGE 8 ---
+29
+ 30
+•In the single-entity view, we examine one identiﬁable entity—for example, one campus shuttle. 
+•We study its capability, internal interactions, reliability, maintenance needs and interfaces with its 
+environment. 
+•“Single” refers to the entity selected for analysis; it does not mean that the entity has only one 
+component.
+In the population or ﬂeet view, we examine multiple similar entities together.
+ New questions arise: 1.  How many shuttles are needed? 
+                                   2. How should they be scheduled? 
+                                   3. Can charging and maintenance facilities support them?
+                                   4.  How many can be unavailable while the service still 
+                                       meets demand?
+Eg. : Fleet performance depends on both 
+individual performance and collective 
+arrangements. 
+Three reliable shuttles may still provide an 
+unreliable service if all require charging during 
+peak travel hours. 
+A shared software defect can also affect several 
+shuttles simultaneously.
+•Life-cycle engineering applies to 
+both views. 
+•We must coordinate development, 
+deployment, operation, support, 
+renewal and retirement. 
+•Some enabling capabilities lie 
+within our chosen system boundary; 
+others are external dependencies 
+requiring explicit interfaces and 
+responsibilities.
+•The same shuttle 
+can be studied as a 
+system in its own 
+right and as an 
+entity within a 
+larger transport 
+system. 
+•The appropriate 
+view depends on 
+the question we 
+need to answer.
+Key Takeaway Line for Us: 
+“A product is the face of the system, but the engineered system is the whole body — with design, support, and life 
+cycle subsystems making it alive and sustainable.”
+31
+Engineering the Product and the System
+32
+
+--- PAGE 9 ---
+The Challenge
+•People often acquire products without considering:
+◦Companion supporting systems (maintenance, logistics, disposal).
+◦Impacts on natural environment, humans, and other systems.
+•Result: poor harmonization, hidden costs, reduced satisfaction.
+• Systems engineering ensures balanced evaluation of needs, resources, 
+and impacts → maximizing utility, minimizing problems.
+33 34
+Systems engineering 
+connects needs, 
+requirements and 
+functions with 
+components and 
+interfaces.
+Its economic goal is to 
+balance useful 
+outcomes against 
+total life-cycle costs, 
+within resource limits 
+and essential 
+constraints.
+Engineering Purpose
+•Engineering = economical use of limited resources to achieve objectives.
+•Expanded goal: create maximum utility at minimum cost (product cost, service cost, 
+social cost, environmental cost).
+•Systems engineering shifts focus:
+◦From: physical components & interfaces.
+◦To: conceptual factors (needs, requirements, functions).
+•Product cannot exist without:
+◦Production/construction capability.
+◦Support, maintenance, logistics, phase-out.
+•Must engineer the whole system + product together.
+35 36
+•Engineering turns limited resources 
+into useful capability. 
+•To achieve this, we must design the 
+product together with the 
+capabilities needed to produce, 
+operate, maintain, renew and retire 
+it. 
+•We evaluate alternatives by their 
+beneﬁts and costs throughout life, 
+including consequences for society 
+and the environment. 
+•Evidence from this evaluation 
+feeds back into our requirements 
+and design choices.”
+Again visiting the Engineering purpose….
+
+--- PAGE 10 ---
+Product = Not Always Hardware
+•A “product” may also be a service:
+◦Health care → health care system.
+◦Education → educational system.
+◦Entertainment → entertainment system.
+◦Finance → ﬁnancial system.
+◦Trafﬁc → trafﬁc control system.
+37
+Enhancing Cost-Effectiveness: Six 
+Emphases
+1.Scope of Needs
+◦Determine needs ﬁrst and broadly.
+◦Broader need deﬁnitions can yield 
+consolidated, cost-effective solutions.
+2.Requirements Deﬁnition
+◦Deﬁne system requirements early.
+◦Tie directly to veriﬁed customer needs + 
+external mandates.
+◦Specify essential performance and 
+characteristics.
+3.Life-Cycle Perspective
+◦Address total system (product + support 
++ renewal).
+◦Deﬁne system in functional terms ﬁrst, 
+before hardware/software details.
+4.Interactions in System Hierarchy
+◦Consider relationships:
+▪Between components.
+▪Across higher/lower levels.
+▪Between sibling subsystems.
+5.Integration Across Disciplines
+◦Organize engineering and related 
+ﬁelds into top-down, concurrent 
+effort.
+◦Requires coordination and timing.
+6.Disciplined Approach
+◦Reviews, evaluations, feedback 
+loops at each stage.
+◦Ensure orderly progress from needs 
+→ design → operation → disposal.38
+Finer points: 
+•Systems operate within larger systems and environments
+• Some participate in systems-of-systems
+•Boundaries depend on the question being examined.
+39
+Sustainability & Support Elements
+•Any useful system must respond to functional needs AND 
+include:
+◦Logistics support.
+◦Maintenance provisions.
+◦Failure recovery mechanisms.
+•System sustainability = ability to continue meeting functional 
+needs competitively as needs evolve.
+•Also contributes to environmental sustainability.
+40
+
+--- PAGE 11 ---
+Key Takeaway for Students
+•Products ≠ Systems.
+•A system includes: product + production + support + logistics + 
+phase-out.
+•Systems engineering = balance between needs, functions, 
+resources, and impacts → ensures sustainable, cost-effective, 
+and human-centered solutions.
+41
+Product Within the Engineered System
+This clearly shows why a product alone is not an engineered system 
+— it only “lives” when embedded in its system lifecycle.
+42
+Service Within the Engineered Healthcare System
+This complements the product view and makes it clear to that 
+services also need engineered systems around them to function 
+effectively.
+43
+ 44
+
+--- PAGE 12 ---
+System Life-Cycle Engineering
+45
+Why Life-Cycle Engineering Matters
+•Systems cannot be made effective & competitive if engineering effort is 
+applied only after deployment.
+•Outcomes during utilization must be anticipated during early design 
+stages.
+•Past neglect → failures, inefﬁciencies, high costs.
+•Life-cycle engineering = central focus of systems engineering.
+46
+The Product Life Cycle (Fig. 1)
+•Begins with Need identiﬁcation.
+•Phases:
+1.Conceptual / Preliminary 
+Design.
+2.Detail Design & Development.
+3.Production / Construction.
+4.Product Use, Support, Phase-
+out, Disposal.
+•Divided into Acquisition phase 
+(producer-driven) and Utilization 
+phase (customer-driven).
+•Focus: product’s direct existence.
+47
+The System Life Cycle (Fig. 2)
+•Goes beyond product life cycle — 
+includes parallel life cycles for:
+1.Product itself (design → use → 
+disposal).
+2.Production / Construction subsystem 
+(factories, contractors, production 
+processes).
+3.Support & Maintenance subsystem 
+(logistics, technical support, training, 
+regeneration).
+4.Retirement / Disposal subsystem 
+(phase-out, reuse, recycling).
+•All four life cycles progress concurrently 
+→ basis for concurrent engineering.
+ 48
+
+--- PAGE 13 ---
+Key Principles
+•During conceptual design, also plan:
+◦Production capability.
+◦Maintenance & support capability.
+◦Retirement / disposal strategy.
+•Support planning starts early → logistics, skills, maintenance methods 
+designed in.
+•Design should anticipate:
+◦End-of-life issues (recycling, reuse, safe disposal).
+◦System regeneration (upgrades, tech insertion, new regulations, 
+expansion).
+•Inter-system interactions must be addressed early to avoid redesign later:
+◦Companion products (compatibility).
+◦Environmental systems (sustainability).
+◦Platform dependencies (e.g., software + hardware environments).49
+Implications for Engineers
+•Systems engineering is not just designing the product, but 
+designing the entire ecosystem that enables it across its life.
+•Early life-cycle thinking:
+◦Reduces cost & redesign.
+◦Enhances sustainability.
+◦Increases competitiveness.
+• This is why “form follows function” extends to “design follows 
+life-cycle needs.”
+50
+Key Takeaway for Us
+•Product Life Cycle: linear, product-centered.
+•System Life Cycle: broader, concurrent, multi-subsystem.
+•Successful engineering = designing products + production + support + 
+disposal subsystems together, right from the start.
+51
+This makes it clear why systems 
+engineering must go beyond the 
+product to design the whole ecosystem.
+52
+
+--- PAGE 14 ---
+Example: Smartphone vs Metro Rail System
+Smartphone → Product Life Cycle
+•Need: Portable personal communication + computing.
+•Conceptual/Preliminary Design: Decide size, features (touchscreen, battery, 
+connectivity).
+•Detail Design & Development: Chipset design, OS, UI, apps.
+•Production/Construction: Mass manufacturing in factories, assembly lines.
+•Utilization Phase: Customer purchase, use, updates, repairs.
+•Phase-out & Disposal: E-waste recycling, resale markets, replacement.
+Mostly a single product-centered life cycle.
+•Factories exist, but are external to the user’s view.
+•Support (warranty, repair shops) is important but secondary to the product.
+53
+Metro Rail System → System Life Cycle
+•Need: Mass urban mobility to reduce 
+congestion & pollution.
+•Conceptual/Preliminary Design: Route 
+alignment, stations, capacity.
+•Detail Design & Development: Train 
+design, signaling system, ticketing software, 
+station facilities.
+•Production/Construction: Civil works 
+(tracks, tunnels, depots), rolling stock 
+manufacturing.
+•Utilization Phase: Train operations, 
+scheduling, staff training, passenger services.
+•Support & Maintenance:
+◦Rolling stock maintenance depots.
+◦Track & signaling upkeep.
+◦IT systems & cybersecurity support.
+•Phase-out & Disposal:
+◦Train replacement after 30–40 years.
+◦Station modernization/expansion.
+◦Safe disposal of electronic & civil 
+components.
+A concurrent multi-life-cycle system:
+•Product design + Production (civil 
+contractors, manufacturing plants) + 
+Support (depots, IT, staff training) + 
+Disposal all designed together.
+•Without support subsystems (depots, IT, 
+staff), the metro rail cannot function.
+Key Teaching Contrast
+•Smartphone = Product Life Cycle (linear, product-
+centric, mass consumer).
+•Metro Rail = System Life Cycle (concurrent, 
+subsystem-intensive, infrastructure scale).54
+We can see why Systems Engineering is 
+vital for large socio-technical systems 
+like Metro Rail.
+55
+Analytical Window
+Let us question ourselves:
+•Which of the two is easier to design — Smartphone or Metro 
+Rail? Why?
+•Do complexity, concurrency, support systems, and 
+sustainability need to be considered by Computer Science 
+personnel also?
+Should we then conclude: 
+Systems Engineering is essential for large socio-technical systems.
+56
+
+--- PAGE 15 ---
+Designing for the Life Cycle
+57
+What It Means
+•Ordinary design: focused mainly on performance & functionality.
+•Life-cycle design: must consider the entire system journey:
+◦From need → design → production → use → support → phase-out.
+◦Includes compatibility with related systems (physical, functional).
+•Responsive both to:
+◦Customer needs (functional requirements).
+◦Life-cycle outcomes (cost, reliability, sustainability).
+58
+What It Means
+•Ordinary design: focused mainly on performance & functionality.
+•Life-cycle design: must consider the entire system journey:
+◦From need → design → production → use → support → phase-out.
+◦Includes compatibility with related systems (physical, functional).
+•Responsive to both:
+◦Customer needs (functional requirements).
+◦Life-cycle outcomes (cost, reliability, sustainability).
+59
+Life-Cycle Process (Fig. 3)
+• Process is iterative, not serial.
+• Functions apply to new systems & re-engineering of legacy systems.
+• Phases mapped in Figure 3:
+1.Acquisition Phase → Blocks 1–4.
+2.Utilization Phase → Blocks 5–6.
+3.Design Phase → Blocks 1–3.
+4.Startup Phase → Block 4.
+5.Operation Phase → Block 5.
+6.Retirement Phase → Block 6.
+60
+
+--- PAGE 16 ---
+Key Technical Activities
+•Conceptual Design (Block 1): needs identiﬁcation, feasibility, functional 
+analysis.
+•Preliminary Design (Block 2): functional/system analysis, design criteria, 
+subsystem trade-offs.
+•Detail Design & Development (Block 3): system modeling, prototype, 
+testing, evaluation.
+•Production/Construction (Block 4): system build, evaluation, corrective 
+actions.
+•Utilization & Support (Block 5): operations, maintenance, corrective 
+modiﬁcations.
+•Phase-out/Disposal (Block 6): retirement, recycling, regeneration.
+61
+Challenges in Coordination
+•Designing product + production capability + support system + 
+disposal together requires coordination across disciplines.
+•Enabled by CAD/CAM and digital collaboration:
+◦CAD = 3D design, easy iteration.
+◦CAM = translate CAD into automated manufacturing 
+instructions.
+◦Shared platforms allow global, multidisciplinary 
+collaboration.
+62
+Defense vs Private Sector Practices
+•Defense systems (e.g., DOD):
+◦Producer = user → strong focus on life-cycle design.
+◦High intervention during acquisition.
+•Private sector:
+◦Producer ≠ user → less focus on operational problems.
+◦Good examples:
+▪Fuel-efﬁcient cars.
+▪Energy-efﬁcient appliances.
+▪Trucks with guaranteed life-cycle maintenance costs.
+◦But often, hidden problems pass to users instead of producers.
+63
+Key Takeaway for Us
+•Designing for the life cycle = designing for the future.
+•Success requires thinking not only about “what the system does” 
+but also “how it will be produced, supported, sustained, and 
+retired.”
+•Tools like CAD/CAM + system thinking help integrate all life-
+cycle functions early.
+64
+
+--- PAGE 17 ---
+We can see how life-cycle 
+design builds in layers of 
+responsibility.
+Starts with performance & 
+affordability, then expands to: 
+producibility, reliability, 
+maintainability, usability, 
+sustainability, and disposability.
+Helps us to see that 
+good design = more than 
+functionality
+ it’s about thinking ahead 
+through the full life cycle.
+65 66
+Element What changes during its life?
+Data and knowledge 
+sources Coverage, quality, relevance, access rights and freshness.
+Model Capability, limitations, version and supplier support.
+Application and toolsInterfaces, instructions, permissions and connected 
+services.
+Infrastructure Capacity, availability, energy use and operating cost.
+People and proceduresSkills, responsibilities, reliance on automation and 
+recovery practices.
+AI Systems Have Several Interacting Life Cycles
+An AI-enabled system includes more than its model:
+Design must coordinate elements that change at different speeds. A longer-lived service 
+may depend on shorter-lived models, datasets and interfaces.
+For example, a university may expect a student-support service to operate for ten years, 
+while changing its AI model, knowledge base and hosting arrangements several times.
+The Systems Engineering Process
+67
+Why a Deﬁned Process Matters
+•Principles of Systems Engineering are widely accepted — but implementation 
+varies across teams and systems.
+•Need for a baseline process model to:
+◦Provide a common frame of reference.
+◦Improve communication & coordination across disciplines.
+•Figure 4 = the reference model for this course.
+68
+
+--- PAGE 18 ---
+69
+Life-Cycle Phases & Steps (Fig. 4)
+•Generic model spans from Conceptual Design → Retirement.
+•Phases are not rigid; must be tailored to system application.
+•Iterative, evolutionary, and feedback-driven.
+Phases:
+1.Conceptual Design (Block 0.1–0.8)
+◦Requirements analysis → “What is needed?”
+◦Functional analysis → deﬁne system in functional terms.
+◦Trade-off studies, synthesis, evaluation.
+◦Result: Functional Baseline (System Speciﬁcation, Type A).
+2.Preliminary Design (Block 1.1–1.7)
+◦Translate “whats” into preliminary “hows”.
+◦Reﬁned functional analysis.
+◦Subsystem deﬁnition.
+◦Result: Allocated Baseline (Product/Process Specs, Types B–E).70
+3.Detail Design & Development (Block 2.1–2.5)
+◦Subsystem/component design.
+◦Prototype development & evaluation.
+◦Veriﬁcation of manufacturing & production processes.
+◦Result: Product Baseline (Detailed Speciﬁcations).
+4. Production & Construction (Block 3.x)
+•Full-scale production/construction.
+•Acceptance testing, operational readiness.
+•Corrective modiﬁcations for improvement.
+5. Operational Use & Support (Block 4.x)
+•System in operation → user environment.
+•Sustaining maintenance, logistic support.
+•Modiﬁcations for corrections or improvements.
+•Result: Updated Product Baseline (ﬁeld data feedback).
+6. Retirement / Phase-out
+•Safe disposal, recycling, regeneration. 71
+Iterative Evolution (Block Mapping)
+•Conceptual (0.x) → Preliminary (1.x) → Detail (2.x) → Production (3.x) 
+→ Support (4.x).
+•Each phase evolves from the previous one, reﬁning “whats” into “hows”.
+•With feedback loops at every step → design converges to success.
+72
+
+--- PAGE 19 ---
+Top-Down + Bottom-Up Approach
+•Top-down: Start with system-level needs, break down into subsystems 
+& components.
+•Bottom-up: Use component testing & operational feedback to reﬁne 
+higher-level designs.
+•Both must work together for convergence.
+73
+Baselines as Milestones
+•Functional Baseline → system requirements deﬁned.
+•Allocated Baseline → subsystem requirements allocated.
+•Product Baseline → detailed design ready for production.
+•Updated Baseline → post-ﬁeld modiﬁcations.
+74
+Practical Implications for Us
+•This is the “playbook” of Systems Engineering.
+•Helps translate needs → functions → design → production → 
+operations → retirement.
+•Used by industries like aerospace, defense, IT, healthcare, and 
+cyber-physical systems.
+75
+Key Takeaway
+The Systems 
+Engineering 
+Process is not a 
+linear waterfall. 
+It is:
+•Iterative.
+•Feedback-driven.
+•Evolves from 
+“whats” → 
+“hows”.
+•Anchored by 
+baselines at 
+milestones.
+Simpliﬁed Systems Engineering Process Flow with 
+Baseline Milestones
+76
+
+--- PAGE 20 ---
+The overarching objective is to describe a process (as a frame of 
+reference) that should be “tailored” to the speciﬁc program need.
+The illustration in Figure 4 is not intended to emphasize any 
+particular model, such as the “waterfall” model, the “spiral” model, 
+the “vee” model, or equivalent. These well-known process models 
+are illustrated and brieﬂy described in Figure 5.
+77
+System Process Models
+It is observed that the preference 
+expressed by individuals and 
+groups for one of the system 
+models is subjective.
+A study of the literature and 
+current practice is needed to 
+identify which 
+model ﬁts a speciﬁc situation best.
+78
+Waterfall Process Model
+The waterfall model, introduced by Royce 
+in 1970, initially was used for software 
+development.
+ This model usually consists of ﬁve to seven 
+series of steps or phases for systems 
+engineering or software development. 
+Boehm expanded this into an eight-step 
+series of activities in 1981.
+A similar model splits the hardware and 
+software into two distinct efforts. 
+Ideally, each phase is carried out to 
+completion in sequence until the product is 
+delivered. 
+However, this rarely is the case. When 
+deﬁciencies are found, phases must be 
+repeated until the product is correct.
+79
+System Design Considerations
+80
+
+--- PAGE 21 ---
+Role in Systems Engineering
+•Systems engineering = preferred approach for building cost-effective, 
+globally competitive systems.
+•System design evaluation is an essential technical activity.
+•Evaluation must be inherent and continuous throughout design, not a 
+one-time step.
+81
+Principles of System Evaluation
+•Should be performed regularly as design progresses.
+•Must always:
+◦Be guided by customer requirements.
+◦Use applicable design criteria (performance, safety, 
+sustainability, etc.).
+◦Preferably involve direct customer participation.
+•Purpose: Ensure continuous design improvement.
+82
+System Design Considerations (from Fig. 6)
+When developing design criteria, engineers should study a broad range of considerations, 
+including:
+•Performance → meeting functional requirements.
+•Cost-effectiveness → life-cycle cost, not just initial cost.
+•Reliability, availability, maintainability (RAM).
+•Usability and human factors.
+•Supportability and logistics.
+•Safety and risk management.
+•Sustainability, environmental impact, disposability.
+•Flexibility and adaptability to future needs.
+•Compliance with regulations and standards.
+•Interoperability with other systems.
+•Security and resilience (especially for cyber-physical/software-intensive systems).
+83
+Why This Matters
+•Design considerations are the starting pool of possibilities.
+•From these, design criteria are derived → measurable benchmarks 
+for system success.
+•The process is multi-criteria by nature → must balance trade-offs.
+•Example: Higher performance vs lower cost; sustainability vs 
+short-term proﬁt.
+84
+
+--- PAGE 22 ---
+Important Aspects to Note
+•Emphasize: System design is not about a single goal (like max 
+performance).
+•It is about balancing multiple competing considerations.
+•This is where systems engineers differ from domain specialists → they 
+must see the whole trade-off picture.
+85
+Key Takeaway for Us
+System design considerations = the compass that guides criteria.
+Without them, evaluation is blind. 
+With them, the design evolves toward a system that is not only 
+functional but also reliable, usable, sustainable, safe, and 
+competitive.
+86
+Development of Design Criteria
+1. Starting Point: Deﬁnition of Need
+•System-level needs trigger the development of 
+customer requirements.
+•Functions must be described at the top level:
+◦Operational functions → achieve the mission(s).
+◦Support functions → ensure availability when 
+required.
+•Include nonnegotiable requirements:
+◦Production, integration, retirement.
+87
+Role of Design Evaluation
+•Early step: establish a baseline for evaluating design alternatives.
+•Baseline created through iterative requirements analysis:
+◦Identify needs.
+◦Analyze feasibility.
+◦Deﬁne operational & support requirements.
+◦Select concepts for production, integration, retirement.
+•At each system level (system → subsystem → component), a more 
+speciﬁc baseline is developed.
+88
+
+--- PAGE 23 ---
+Functions and Expectations
+•Functions described with measurable factors:
+◦Cycle time, frequency, speed, cost, effectiveness, reliability.
+•Functional requirements are translated into design characteristics.
+89
+Establishing Metrics
+•Metrics must capture customer expectations:
+◦What? (functions)
+◦Where? (operational context)
+◦How often? (frequency)
+◦How reliable?
+◦At what cost?
+•Customers weigh some factors more heavily, guiding design trade-offs.
+90
+Candidate Systems & Evaluation
+•Candidate systems emerge from design synthesis.
+•Evaluation checks how well they meet design criteria.
+•Expressed via Technical Performance Measures (TPMs).
+91
+Key Deﬁnitions
+1.Design Considerations: full range of possible system attributes 
+(producer + customer interest).
+2.Design-Dependent Parameters (DDPs): attributes inherent in design 
+(e.g., reliability, weight, maintainability).
+3.Design-Independent Parameters (DIPs): external factors (e.g., labor 
+cost, fuel cost, interest rates).
+4.Technical Performance Measures (TPMs): predicted values of DDPs 
+or derived measures (availability, cost, ﬂexibility).
+5.Design Criteria: target values for TPMs, speciﬁed or negotiated with 
+customer.
+92
+
+--- PAGE 24 ---
+Big Picture
+•DDPs + DIPs → TPMs → Design Criteria.
+•This framework ensures evaluation of alternatives is 
+traceable, measurable, and customer-driven.
+•Forms the foundation for morphology of synthesis, analysis, 
+and evaluation.
+93
+Real-life example Tip: Use a real-world example—like 
+designing an electric bus ﬂeet:
+•DDPs: battery life, charging time.
+•DIPs: electricity tariff, government subsidies.
+•TPMs: availability %, cost/km.
+•Design criteria: customer target of 95% uptime, ₹8/km 
+operational cost.
+94
+Considering Multiple Criteria
+Role of Technical Performance Measures (TPMs)
+•At the system level, prioritized TPMs reﬂect how well the system meets 
+mission objectives.
+•Possible TPMs:
+◦Size and weight
+◦Range and accuracy
+◦Speed of performance
+◦Capacity
+◦Operational availability
+◦Reliability & maintainability
+◦Supportability
+◦Cost
+95
+Importance of Customer-Driven Prioritization
+•Measures of Effectiveness (MOEs) → must be prioritized 
+based on customer judgment.
+•Example 1:
+◦Mission requires high availability.
+◦Reliability less critical if system is easily maintainable.
+•Example 2:
+◦Mission does not allow maintenance.
+◦Reliability becomes top priority.
+•Conclusion: Mission context deﬁnes which TPMs matter most.
+96
+
+--- PAGE 25 ---
+Use of Design-Objectives Tree (Figure 8)
+•A structured tool for breaking down requirements.
+•Top-down hierarchy:
+1.First-order considerations – e.g., system value.
+2.Second-order – economic vs. technical factors.
+3.Third-order and beyond – speciﬁc design attributes.
+97
+Technical Factors in Design
+•System effectiveness depends on:
+◦Performance (speed, range, accuracy).
+◦Operational availability.
+◦Dependability (reliability + maintainability).
+◦Flexibility.
+•Example:
+◦If maintainability = high priority → design must stress 
+packaging, accessibility, diagnostics, mounting, 
+interchangeability.
+98
+Link to Design-Dependent Parameters (DDPs)
+•DDPs deﬁne the design space for trade-off decisions.
+•Criteria and DDPs must be:
+◦Established early (conceptual design).
+◦Carried through the entire design cycle.
+•During trade-offs, relate requirements to hierarchical level:
+◦System → Subsystem → Conﬁguration item (per Figure 7).
+99
+Key Takeaways for Us
+•Multiple criteria always exist → not all equally important.
+•Prioritization must reﬂect mission-speciﬁc needs.
+•A design-objectives tree helps organize trade-offs systematically.
+•DDPs set boundaries for feasible and effective design choices.
+100
+
+--- PAGE 26 ---
+ Real-life Example: 
+Compare designing a drone for urban delivery vs. designing a 
+drone for battleﬁeld reconnaissance:
+•In urban use: cost, maintainability, and ﬂexibility dominate.
+•In military use: reliability, range, and stealth dominate.
+101
+ 102
+visualize how criteria cascade down from high-level value into concrete design attributes.
+103
+System Synthesis, Analysis, and Evaluation
+104
+
+--- PAGE 27 ---
+Core Idea
+•System design = prime mover of 
+systems engineering.
+•System design evaluation = compass 
+guiding direction.
+•Process requires integration + 
+iteration across the life cycle (Figure 
+9).
+•Goal → continuous improvement and 
+reﬁnement of design.
+105
+A Morphology for Synthesis, 
+Analysis, and Evaluation (Figure 10)
+A. Linkage Across the System Life 
+Cycle
+•Block 0: Applied research & 
+technologies → innovation inputs.
+•Block 1: Customer needs.
+•Morphology provides a structured 
+view of how synthesis, analysis, and 
+evaluation connect design with 
+needs.
+106
+Synthesis (Blocks 2–5)
+•Deﬁnition: To design = to synthesize → projecting new solutions 
+to customer needs (Block 2).
+•Nature: Creative process → combine known elements into new, 
+useful combinations.
+•Enablers:
+◦Design team (Block 3).
+◦Tools: traditional + computer-based (Block 4).
+•Approach: Integrates top-down + bottom-up (Block 5).
+•Outcome: Candidate system designs → ready for analysis and 
+evaluation.
+107
+Analysis (Blocks 6–7)
+•Role: Provides estimates, predictions, and forecasts for 
+design alternatives.
+•Focus:
+◦Estimate DDPs → Technical Performance Measures 
+(TPMs) (Block 6).
+◦Forecast DIPs → external parameters from databases, 
+economics, environment (Block 7).
+•Methods: Systems analysis, operations research → adapted 
+for design domain.
+•Output: Quantitative basis for evaluation.
+108
+
+--- PAGE 28 ---
+Evaluation (Blocks 8–9)
+•Purpose: Compare candidate designs against:
+◦Each other.
+◦Customer requirements.
+•Process:
+◦Candidate’s DDP values (TPMs) → unique identiﬁers.
+◦DIP values (externalities) → apply across all candidates.
+◦Optimization (Block 8) before decision.
+•Decision:
+◦Made in Block 9 (Design Decision).
+◦Final choice is customer’s responsibility (subjective preference).
+109
+Real-life Examples
+1.Smart Irrigation System:
+◦Synthesis: combine sensors, pumps, software controls.
+◦Analysis: predict water usage efﬁciency (TPM), electricity tariff 
+sensitivity (DIP).
+◦Evaluation: compare low-cost vs. high-reliability options.
+2.Hospital IT System:
+◦Synthesis: integrate EHR, scheduling, IoT-based monitoring.
+◦Analysis: uptime (TPM), support staff availability & salary scales 
+(DIP).
+◦Evaluation: decide between cloud-hosted vs. on-premises.
+110
+Key Takeaways for Us
+•Synthesis → creativity.
+•Analysis → evidence-based prediction.
+•Evaluation → decision compass, balancing criteria.
+•Continuous feedback loops ensure evolving designs 
+remain aligned with customer needs.
+111
+Implementing Systems Engineering
+112
+
+--- PAGE 29 ---
+Why Implementation Matters
+•Complexity of technical systems is increasing.
+•Many existing systems fail in performance, effectiveness, or cost 
+efﬁciency.
+•Challenges today:
+◦New technologies constantly emerging.
+◦Extended life cycles of legacy systems.
+◦High costs for modiﬁcations.
+◦Shrinking resources.
+◦Global cooperation + international competition.
+•Need: measured, systematic implementation of systems engineering 
+over the full life cycle.
+113
+Application Domains 
+(Figure 11)
+Systems Engineering 
+applies whenever a new 
+need creates a new 
+system requirement.
+•At system level → 
+overall design effort.
+•At subsystem/
+component level → 
+equipment/software 
+design, COTS 
+integration, modiﬁcation 
+of existing items.
+114
+Categories of Application Domains
+1.Large-scale systems
+◦Many components.
+◦Examples: space-based systems, metro/urban transportation, 
+hydroelectric plants, health-care delivery systems.
+2.Small-scale systems
+◦Few components, but still require structured engineering.
+◦Examples: LAN communication networks, standalone computer 
+systems, hydraulic braking system, cash receipt system.
+3.Manufacturing & production systems
+◦Input–output relationships.
+◦Include: processes, processors, control software, facilities, human 
+resources.
+4.High technology introduction
+◦Systems where signiﬁcant new design and R&D effort is 
+required.
+◦Examples: AI-driven healthcare, quantum communication 
+networks. 115
+5.Reuse-based design
+◦Systems leveraging existing equipment, COTS software, or facilities.
+◦Example: adapting cloud platforms with modular IoT add-ons.
+6.Data/Software/Infrastructure-intensive systems
+◦Systems where software, facilities, data, or equipment dominate.
+◦Example: hospital IT systems, ﬁnancial risk management platforms.
+7.Supplier-dependent systems
+◦Multiple suppliers, often across international supply chains.
+◦Example: defense avionics, semiconductors, automotive production.
+8.Defense, civilian, commercial, or private sector systems
+◦Designed for speciﬁc or joint purposes.
+◦Example: satellite systems used for both civilian GPS and defense.
+9.Human-modiﬁed natural systems
+◦Natural systems adapted/augmented to meet human needs.
+◦Examples: dams on rivers, smart agriculture in natural soil ecosystems.
+116
+
+--- PAGE 30 ---
+Lecture Takeaways for Us
+•Systems Engineering applies universally: from micro (cash register) to 
+macro (national power grid).
+•Distinction is not in scale but in structured approach.
+•Relevance for Computer Science Engineers:
+◦Many systems today are cyber-physical (IoT, AI, cloud, 
+automation).
+◦CSE expertise is embedded in almost all domains (healthcare IT, 
+transportation logistics, ﬁnancial analytics, etc.).
+•Key question: How can CSE professionals help integrate software, 
+data, and algorithms into these systems for maximum effectiveness?
+117
+Recognizing and Managing Life-Cycle Im
+118
+Common Issues in Past System Developments
+•Lack of a disciplined top-down systems approach.
+•Poorly deﬁned requirements at the beginning.
+•Short-term focus: “deliver now, ﬁx later” mindset.
+•Over-reliance on bottom-up design approaches.
+•Result: Higher costs, inefﬁciencies, and ineffective systems.
+119
+Importance of Early Planning
+•Early stages are critical decision points for:
+◦Technology choices.
+◦System conﬁguration.
+◦Performance characteristics.
+◦Resource allocation.
+◦Life-cycle cost commitment.
+•Figure 12 insight:
+◦50–75% of total system life-cycle cost is “locked in” during conceptual & 
+preliminary design.
+◦But at this stage, system-speciﬁc knowledge is limited.
+120
+
+--- PAGE 31 ---
+Life-Cycle Dynamics (Figure 12)
+•Commitment to technology & cost rises 
+rapidly in early design.
+•Ease of change decreases as project 
+progresses.
+•System-speciﬁc knowledge grows only 
+after major commitments are made.
+•Cost incurred lags behind commitment 
+→ emphasizes the risk of early poor 
+decisions.
+121
+Role of Systems Engineering
+•Apply systems engineering principles early:
+◦Needs analysis.
+◦Requirements deﬁnition.
+◦Functional analysis & allocation.
+◦Progressive, logical follow-on activities with feedback loops.
+•Objective: Avoid “ﬁx later” costs by building resilience at the front end.
+122
+Managing Design Inﬂuence 
+(Figure 13)
+•Systems engineering 
+inﬂuence is highest in early 
+design phases (conceptual → 
+preliminary).
+•Inﬂuence declines as 
+discipline-speciﬁc 
+engineering takes over in 
+detail design & development.
+•Goal: Use systems 
+engineering to shape design 
+early, before subsystem-level 
+constraints dominate.
+123
+Takeaway for Us
+•Key Learning:
+◦Early system-level planning saves cost, time, and rework.
+◦Systems engineering = “front-loading intelligence into the design 
+process”.
+◦Balance between system-level needs and discipline-based design 
+contributions is crucial.
+This section helped  us appreciate why early systems thinking is critical, 
+tying directly to  lab exercises on identifying & analyzing systems.
+124
+
+--- PAGE 32 ---
+Potential Beneﬁts from Systems Engineering
+Context Setting
+•Understanding Figures 12 & 13 is key:
+◦Early design decisions lock in cost, knowledge grows late, changes 
+become hard.
+◦Systems engineering ensures design inﬂuence is maximized early and 
+guided effectively.
+•Full beneﬁts require:
+◦Integration of all engineering disciplines.
+◦Concurrent engineering across product, production, support, and 
+retirement life cycles (cf. Fig. 2).
+◦Strong communication networks (local & global) for distributed 
+teams.
+◦Right organizational environment: leadership, teamwork, 
+innovation, management support.125
+Key Beneﬁts
+126
+Reduction in Life-Cycle Cost
+•Cost savings across design, development, production, operation, support, 
+retirement, disposal.
+•Early SE may seem costly (extra steps in conceptual design) → but reduces 
+integration/test costs later.
+•Avoids “ﬁx it later” expensive corrections by building holistically from the 
+start.
+Reduction in Acquisition Time
+127
+Reduction in Acquisition Time
+•Early evaluation of multiple alternatives with CAD, simulation, 
+modeling → design matures faster.
+•Changes are easier and cheaper in early stages.
+•Faster integration, testing, evaluation → quicker delivery to 
+customer.
+128
+
+--- PAGE 33 ---
+1.Greater Visibility & Risk Reduction
+◦Long-term, life-cycle perspective shows cause-and-effect of early design decisions.
+◦Risks can be identiﬁed and mitigated early.
+◦Increases customer conﬁdence & satisfaction.
+129
+Conditions for Success
+•Requires both technology + management implementation.
+•Must be supported by:
+◦Top management commitment.
+◦Organizational environment that fosters creativity, innovation, and teamwork.
+◦Systems engineering management (SEM): planning, leadership, coordination.
+130
+Our Emphasis
+•SE is not just about better tools → it’s about better thinking + better organization.
+•Without proper environment, SE may be “present on paper” but absent in impact.
+•When applied seriously, SE enables:
+◦Lower cost, faster delivery, reduced risk, higher customer satisfaction.
+•Students should see SE as strategic leverage in modern engineering projects.
+131
+Three real-world case examples (successes and failures) to illustrate the 
+beneﬁts and risks of Systems Engineering (SE):
+132
+
+--- PAGE 34 ---
+Airbus A380 – Cost Overruns due to Lack of Early Systems Integration
+•Context: Airbus A380 was the world’s largest passenger aircraft, developed to 
+compete with Boeing’s long-haul dominance.
+•Problem:
+◦Different Airbus sites in Germany and France used different CAD software 
+versions (CATIA V4 vs V5).
+◦Wiring harnesses did not ﬁt when major components were assembled.
+◦Fixing this required redesign, delays of 2 years, and billions in overruns.
+•SE Lesson:
+◦Lack of early integration and communication discipline → caused rework 
+and cost explosion.
+◦If concurrent engineering + common standards had been enforced early, cost/
+time would have been saved.
+•Beneﬁt Missed: Risk reduction and lifecycle cost savings.
+133
+Aadhaar Project (India) – SE Success in Scaling Identity Infrastructure
+•Context: Aadhaar, India’s biometric ID system, aimed to provide a unique identity to 1.4 billion 
+people.
+•Challenges:
+◦Handling huge data volume (biometrics, demographics).
+◦Need for interoperability with banks, telecom, welfare, etc.
+◦Long-term security and privacy requirements.
+•SE Approach:
+◦System-of-systems design: UIDAI (Aadhaar authority) coordinated multiple vendors, databases, 
+and technologies.
+◦Modular architecture with APIs → enabled scaling and integration with diverse applications.
+◦Strong focus on requirements analysis + veriﬁcation.
+•Outcome:
+◦Aadhaar became the largest biometric ID system in the world.
+◦Enabled direct beneﬁt transfers, digital banking, e-KYC.
+•Beneﬁt Realized: Reduced cost (eliminated leakages in subsidies), reduced acquisition time (quick 
+rollout), improved risk management (scalability).
+134
+SpaceX – Rapid Iteration & SE for Reusability
+•Context: Traditional space missions (NASA, ESA) cost billions per launch, with rockets 
+discarded after one use.
+•SpaceX Goal: Reusable rockets to drastically cut costs.
+•SE Approach:
+◦Clear function → reusability identiﬁed as core system function.
+◦Concurrent engineering: Hardware, software, ﬂight dynamics teams worked together in 
+short iteration cycles.
+◦Feedback loops: Every test ﬂight fed into rapid redesign.
+•Outcome:
+◦Falcon 9 became the world’s ﬁrst successful reusable rocket system.
+◦Launch costs dropped dramatically (from ~$18,000/kg with Shuttle to ~$2,700/kg with 
+Falcon 9).
+•Beneﬁt Realized: Lower lifecycle cost, reduced acquisition time, higher customer satisfaction 
+(NASA, Starlink, private satellites).
+135
+Takeaway for Us
+•Airbus A380 → Failure due to neglect of SE principles (integration + communication).
+•Aadhaar → Success by applying SE in a socio-technical mega-system.
+•SpaceX → Success by embedding SE in iterative, feedback-driven design.
+136
+
+--- PAGE 35 ---
+Thank You
+137
+

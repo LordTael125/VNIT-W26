@@ -1,0 +1,518 @@
+--- PAGE 1 ---
+A. S. Mokhade   
+From Components to a System — 
+Relationships, Interactions and Emergence 
+From 17 to 22 Sept 2026
+CSL510 ISE W26 The Orchestra That Could Not Make Music
+Imagine an orchestra assembled with the ﬁnest musicians. The violinist is excellent. The pianist is 
+excellent. The percussionist never misses a beat. Every instrument is perfectly tuned.
+The conductor asks each musician to demonstrate individually. Everyone performs ﬂawlessly.
+Then the entire orchestra begins.
+It sounds terrible.
+Nothing is wrong with any musician. Nothing is wrong with any instrument.
+The problem is between them—their timing, coordination, listening, response to one another, and 
+interpretation of the conductor.
+Where does the music reside—in the musicians, in the instruments, or somewhere else?
+This will set the premise of today’s lecture:
+The musicians are the components. 
+Their coordination creates relationships. 
+Playing together creates interactions. 
+The score and conductor organize those interactions. 
+And music is an emergent property of the whole.
+“If I replace every musician with a better musician, will I necessarily get better music?”
+Not necessarily.
+This single question captures a central Systems Engineering lesson: optimizing components does not 
+necessarily optimize the system.
+
+--- PAGE 2 ---
+Why is a collection of components not necessarily a system?
+Recap of the three conditions:
+•Each component affects the whole.
+•Each component depends on at least one other component.
+•The components cannot be partitioned into completely independent subsets.
+What makes these components behave as a whole?
+This becomes the central question of the lecture.
+Components and Relationships
+A component is an identiﬁable part of the system, but 
+merely listing components tells us very little about the 
+system.
+ Different relationships:
+•Physical — road–vehicle, battery–charger
+•Information — sensor–controller
+•Control — controller–actuator
+•Energy — grid–charging station
+•Material — reservoir–pipeline
+•Human–technical — driver–vehicle
+•Organizational — department–central administration
+•Economic — service–payment/budget
+Analytical Window
+Two systems contain exactly 
+the same components. 
+Must they necessarily be 
+the same system?
+No. Different relationships 
+among identical components 
+can produce entirely different 
+systems.
+This is an important systems-
+thinking insight.
+Relationship is Not the Same as Interaction
+Let us make this distinction explicitly.
+Relationship: A is connected to B.
+Interaction: What happens between A and B?
+For example:
+Student ↔ Campus transport system
+The relationship exists because students use the transport service.
+Interactions include:
+•student requests transport;
+•system receives location/demand;
+•system allocates vehicle;
+•vehicle transports student;
+•system records journey.
+Therefore:
+Relationships describe connectivity; interactions produce system behaviour.
+What Flows Through an Interaction?
+We need to look beyond data ﬂow.
+Across system components may ﬂow:
+•Information
+•Control
+•Energy
+•Material
+•Money
+•People
+•Services
+•Responsibility/authority
+Example: Smart irrigation
+Soil sensor → data → controller 
+Controller → control command → valve 
+Water source → water → ﬁeld 
+Grid/solar → energy → pump 
+Farmer → decision/override → system
+A software engineer therefore needs to 
+understand not merely the information 
+ﬂow but the physical consequence of 
+information and control.
+
+--- PAGE 3 ---
+Interfaces — Where Interactions Become 
+Engineering
+Let us  Introduce interface:
+If two components must interact, how is that 
+interaction actually realized?
+An interface speciﬁes the point and conditions 
+of interaction.
+Software view: API, protocol, message format, 
+database interface.
+Systems view: much broader:
+•software–software;
+•hardware–software;
+•sensor–physical environment;
+•human–machine;
+•electrical;
+•mechanical;
+•organizational;
+•system–external environment.
+Example: E-vehicle charging
+The interface is not merely the 
+charging connector.
+It involves:
+Vehicle ↔ charger ↔ power grid 
+↔ payment/authorization ↔ 
+scheduling software ↔ user
+V oltage compatibility may be correct 
+while authentication fails. 
+Software may work while power is 
+unavailable.
+Hence:
+Interface correctness is not merely 
+technical compatibility; it is 
+successful interaction in the 
+operational situation.
+Dependency
+What happens to B when A changes?
+Examples:
+•Charging station unavailable → vehicle availability falls.
+•GPS gives incorrect location → scheduling decisions deteriorate.
+•ERP fails → warehouse may physically contain material but procurement 
+transactions stop.
+•Power failure → water pumps stop → water distribution changes.
+This helps us establish dependency.
+Coupling
+Dependencies differ in strength.
+Loosely coupled
+A change in one component has limited 
+consequences elsewhere.
+Tightly coupled
+Changes propagate quickly or strongly 
+across components.
+Example:
+A classroom projector failure is 
+relatively localized.
+Failure of the campus authentication 
+service could simultaneously affect Wi-
+Fi, ERP access, library systems and 
+other services.
+Is tighter coupling always bad?
+No. Tight coupling may provide 
+efﬁciency, speed and coordination, but 
+can also increase propagation risk.
+This prepares us for trade-offs and 
+resilience.
+From Local Behaviour to System Behaviour
+Let us now make a distinction that we often miss.
+A component has its own behaviour:
+•bus moves;
+•sensor measures;
+•algorithm predicts;
+•charger supplies energy.
+But the system behaviour results from their interactions.
+For campus transportation:
+Vehicle movement + student demand + schedules + charging + road 
+conditions + dispatch decisions 
+→ transport-system behaviour
+Therefore, studying each component individually may still fail to predict 
+what the whole system will do.
+
+--- PAGE 4 ---
+Emergence — The Critical Step
+Where is “campus mobility” located?
+Not in the bus. 
+Not in the driver. 
+Not in the scheduling algorithm. 
+Not in the charging station.
+Yet the complete system provides mobility.
+System Components/interactions Emergent property
+Campus 
+transport Vehicles, users, routes, schedules, charging Mobility/accessibility
+Power systemGeneration, transmission, control, loads Grid stability
+Hospital Doctors, patients, equipment, information, 
+processes Quality of care
+Internet Networks, routers, protocols, servers, users Global connectivity
+VNIT Students, faculty, infrastructure, processes, 
+culture
+Educational/research 
+environment
+Emergent properties.
+Examples:
+Emergence may also be undesirable:
+•trafﬁc congestion;
+•cascading failures;
+•misinformation;
+•queues;
+•deadlocks;
+•resource contention.
+This is especially valuable for us because we already know phenomena such as 
+deadlock and network congestion but may not have viewed them as system-level 
+consequences of interactions.
+Is emergence singular?
+A system can exhibit multiple emergent properties, and which ones become visible
+—and to what degree—depends on the interactions, operating situation, boundary, 
+scale, time, and observer's measure of interest.
+
+--- PAGE 5 ---
+How Do We “See” Emergence?
+If emergence belongs to the whole system, where should we look for it?
+Not inside an individual component.
+Look instead at:
+Components → Relationships → Interactions → Collective Behaviour → System-level 
+Property
+Take your campus e-transport example:
+•Vehicle → moves people
+•Charger → transfers energy
+•Scheduling system → allocates vehicles
+•Students → generate demand
+•Roads → provide paths
+•Drivers → operate vehicles
+None individually possesses campus mobility.
+But their coordinated interaction produces:
+Mobility as an emergent property
+So, a practical way of identifying emergence is:
+Ask: “What can the whole system do, exhibit, or experience that cannot meaningfully be 
+attributed to any single component?”
+But There Is Not Just One 
+Emergence
+We will have conceptual 
+advancement:  The same campus 
+transportation system may 
+simultaneously exhibit:
+Desirable emergence
+•Accessibility
+•Mobility
+•Energy efﬁciency
+•Convenience
+•Adaptability
+•Resilience
+Undesirable emergence
+•Congestion
+•Long queues
+•Unequal service
+•Charging bottlenecks
+•Cascading delays
+•Unsafe driving patterns
+Therefore:
+Emergence is not synonymous with “beneﬁt.”
+Nor is it necessarily something deliberately designed.
+Some emergent properties are intended, some 
+unintended, and some may only become apparent 
+during operation.
+What Determines Which Emergence 
+Appears?
+Consider an emergent property 
+conceptually as dependent on:
+Components + interaction structure + 
+operating situation + time + system 
+boundary
+1. Component properties
+Vehicle capacity, battery capacity, charging 
+rate, sensor accuracy.
+2. Interaction structure
+Who communicates with whom? 
+Which vehicle uses which charger? 
+How are routes coordinated?
+3. Interaction strength/frequency
+How frequently are vehicles dispatched? 
+How strongly does demand inﬂuence 
+scheduling?
+4. Operating situation
+Normal class day, examination day, convocation, 
+heavy rain, vehicle breakdown.
+5. Feedback
+Does the system detect queues and modify dispatch? 
+Does it learn from previous demand?
+6. Time
+A conﬁguration that appears efﬁcient for 30 minutes 
+may create charging congestion three hours later.
+7. Boundary
+If you consider only vehicles, you may see ﬂeet 
+efﬁciency. 
+Include yourself (students) and you see accessibility. 
+Include the power system and you may see energy 
+sustainability.
+This last point is particularly valuable for Systems 
+Engineering.
+Situation Interactions that 
+dominate
+Possible 
+emergent 
+propertyNormal class hoursPredictable demand + 
+scheduled movement
+Regular 
+mobility
+Class-change 
+period Simultaneous demandQueuing/
+congestion
+Heavy rain Increased demand + 
+slower movement
+Delay 
+ampliﬁcation
+One vehicle failsRedistribution of 
+passengers
+Resilience or 
+cascading delay
+Charger unavailableVehicles compete for 
+charging
+Resource 
+bottleneck
+AI dynamically 
+reallocates vehicles
+Demand–dispatch 
+feedback
+Adaptive 
+mobility
+AI optimizes only 
+occupancy
+Vehicles concentrate on 
+popular routes
+Unequal 
+accessibility
+Same System, Different Situation → Different Emergence
+The last two rows are 
+particularly important.
+The same AI 
+subsystem can 
+contribute to 
+different emergent 
+outcomes depending 
+upon what it 
+optimizes.
+
+--- PAGE 6 ---
+Emergence Is Observer- and Level-
+Dependent
+This deserves attention because it 
+develops systems thinking.
+Imagine the same campus 
+transportation system.
+A student observes:
+“Can I get to my class on time?”
+Emergence of interest → accessibility
+The Estate/Transport Section 
+observes:
+“How effectively is the ﬂeet being 
+utilized?”
+Emergence of interest → operational 
+efﬁciency
+Institute management observes:
+“Has campus dependence on private vehicles reduced?”
+Emergence of interest → sustainable mobility
+Therefore, don't say that emergence 
+itself is purely subjective. Rather:
+The system may possess several 
+system-level properties; what becomes 
+important or observable depends 
+partly on the system boundary, level 
+of abstraction, stakeholder and 
+measure of interest.
+This distinction is important.
+How Can an Engineer Analyze Emergence?
+A usable procedure.
+Emergence Analysis Window
+For any system:
+1.Deﬁne the system boundary.
+2.Identify important components.
+3.Map signiﬁcant relationships and interfaces.
+4.Identify what ﬂows across them — information, control, energy, material, 
+people, resources.
+5.Vary the situation or operating condition.
+6.Observe the resulting collective behaviour.
+7.Identify properties visible only at the system level.
+8.Classify them: desirable/undesirable; intended/unintended.
+9.Identify which interactions amplify or suppress each property.
+10.Ask what happens if a component, relationship or feedback rule changes.
+This transforms emergence from an abstract philosophical concept into something 
+you can actually analyze during system design.
+Example for CSE Students:
+Distributed trafﬁc-signal control
+Suppose every junction has an AI controller.
+Each controller has one objective:
+Minimize waiting time at its own junction.
+Every AI may perform its assigned function 
+correctly.
+Yet at the city level, their independent 
+decisions can potentially produce:
+•trafﬁc waves,
+•downstream congestion,
+•starvation of minor roads,
+•unstable switching patterns,
+•or network-wide gridlock.
+Now change the interactions. Allow 
+controllers to exchange queue and 
+downstream-capacity information.
+Potentially different properties emerge:
+•coordinated ﬂow,
+•adaptive routing,
+•congestion containment,
+•faster recovery after incidents.
+The important Systems Engineering 
+lesson is:
+Emergence is produced not merely 
+by intelligent components, but by the 
+organization of their interactions.
+This is highly relevant to contemporary 
+AI engineering.
+Emergence Can Compete With Emergence
+Improving one emergent property can 
+degrade another:
+Maximum vehicle utilization 
+→ fewer idle vehicles 
+→ improved efﬁciency
+but possibly
+→ reduced spare capacity 
+→ poorer resilience during sudden demand.
+Similarly:
+Aggressive trafﬁc-ﬂow 
+optimization 
+→ reduced average travel time
+but potentially
+→ poorer pedestrian accessibility 
+or safety.
+Thus system design is not simply:
+“Create emergence.”
+It is:
+Understand, shape and balance 
+multiple emergent properties 
+under changing situations and 
+constraints.
+
+--- PAGE 7 ---
+Place of AI in this Picture
+Now let us make the lecture contemporary.
+AI can become:
+A component
+An AI model performs prediction/
+classiﬁcation.
+An interaction mediator
+AI determines how other components 
+interact—vehicle dispatch, energy 
+allocation, trafﬁc control.
+A feedback mechanism
+Observe → analyze → decide → act → 
+observe again.
+But the systems question remains vital:
+If an AI component locally optimizes its 
+objective, does it necessarily improve the 
+whole system?
+Not necessarily.
+For example, an AI trafﬁc controller may 
+maximize ﬂow on one road while creating 
+congestion elsewhere.
+Therefore:
+Local intelligence ≠ System intelligence
+This we need to understand  as we are coming 
+from a Computer Science’s perspective but are 
+now learning Systems Engineering.
+Example for the Entire Lecture:  VNIT campus transportation system
+Components 
+Vehicles, students, drivers, charging stations, roads, scheduling software, sensors.
+↓
+Relationships 
+Who/what is connected?
+↓
+Interactions 
+What information, energy, people and control ﬂow?
+↓
+Interfaces 
+How do those interactions occur?
+↓
+Dependencies 
+What depends upon what?
+↓
+Coupling 
+How strongly does a change propagate?
+↓
+Collective Behaviour 
+How does the transportation system respond over time?
+↓
+Emergence 
+Mobility, accessibility, congestion, sustainability, resilience.
+This gives us one continuous mental model rather than eight separate deﬁnitions.
+Closing Analytical Window
+Let us ﬁnish with three questions:
+If every component of a system is 
+working correctly, can the system still 
+fail?
+Can improving one component make the 
+overall system worse?
+Can a property exist at the system level 
+that exists in none of its components?
+If we can reason through these three questions, 
+we have moved from a component-oriented 
+engineering mindset toward systems thinking.
+So far we have looked inside the system.
+The next question then is: 
+“But where does the system end?”
+This gives rise to three more 
+questions: 
+1. Can the same components 
+produce different emergent 
+properties? What must change?
+2. Can improving the behaviour 
+of every component individually 
+worsen a system-level property?
+3. If AI continuously changes 
+interactions within a system, are 
+the emergent properties 
+themselves likely to remain 
+static?
+Thank You
+

@@ -1,0 +1,51 @@
+% ============================================================================
+% Master Document — CSL510ISE W26 Practical 3 (Group 27)
+% Multi-TeX Modular Report Structure
+% ============================================================================
+\documentclass[11pt, a4paper]{article}
+
+\input{config/metadata}
+\input{config/preamble}
+
+\begin{document}
+
+% --- Front Matter (excluded from 12-15 page body count) ---
+\pagenumbering{roman}
+\input{frontmatter/titlepage}
+
+% --- Main Body: Deliverables A through K (Target: 12-15 pages) ---
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\renewcommand{\thesection}{\Alph{section}}
+\renewcommand{\thesubsection}{\Alph{section}\arabic{subsection}}
+
+% Classic centered system title header (matching edit.pdf)
+{\centering
+{\LARGE\bfseries \assignedSystem}\\[3pt]
+{\small\itshape \groupNumber\ --- \systemOfInterest}\par}
+\vspace{4pt}
+
+\input{sections/secA_system_of_interest}
+\input{sections/secB_principal_lifecycle}
+\input{sections/secC_acquisition_utilization}
+\input{sections/secD_concurrent_lifecycles}
+\input{sections/secE_lifecycle_functions}
+\input{sections/secF_design_parameters}
+\input{sections/secG_early_decisions}
+\input{sections/secH_alternatives_eval}
+\input{sections/secI_feedback_learning}
+\input{sections/secJ_disruption}
+\input{sections/secK_overall_judgement}
+
+% --- Back Matter (excluded from 12-15 page body count) ---
+\clearpage
+\input{backmatter/secL_reflections}
+\clearpage
+\input{backmatter/secM_contribution}
+\input{backmatter/secN_panel_discussion}
+\input{backmatter/references}
+
+\end{document}
+

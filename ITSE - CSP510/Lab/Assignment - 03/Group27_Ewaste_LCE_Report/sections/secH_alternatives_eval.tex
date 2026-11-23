@@ -1,0 +1,62 @@
+% ============================================================================
+% Section H: Evaluate Alternative Life-Cycle Designs (Deliverable H)
+% ============================================================================
+\section{Evaluation of Alternative Life-Cycle Designs}
+\label{sec:H}
+
+We evaluate \textbf{Decision D1} across three feasible architectures:
+\begin{itemize}
+    \item \textbf{Alternative 1 (A1) --- Manual-Intensive + Basic Shredder:} Low CapEx ($\approx\text{INR } 3.2\text{ Cr}$); 45--50 manual workers + coarse shredder and magnetic belt.
+    \item \textbf{Alternative 2 (A2) --- Modular Hybrid De-pollution + Sensor-Assisted Sorting:} Moderate CapEx ($\approx\text{INR } 7.8\text{ Cr}$); enclosed negative-pressure manual battery/hazard removal feeding bolted granulator, magnetic, eddy-current, and optical/XRT skids (22--25 staff).
+    \item \textbf{Alternative 3 (A3) --- Monolithic Automated Shred-First Line:} High CapEx ($\approx\text{INR } 13.5\text{ Cr}$); heavy twin-stage shredders ingesting mixed devices directly (12--14 staff).
+\end{itemize}
+
+\subsection{Comparative Evaluation Matrix (Annexure L)}
+Weights sum to $1.00$: \textbf{TPM-1 (0.22)} and \textbf{TPM-4 (0.22)} lead because safety is a non-negotiable license-to-operate gate and MRR drives EPR/revenue; \textbf{TPM-6 (0.18)} captures 15-year viability; \textbf{TPM-2 (0.16)} protects SLAs; \textbf{TPM-3 (0.12)} covers catchment capacity; and \textbf{TPM-5 (0.10)} captures energy exposure. Scores use a 1--10 scale ($10=$ high margin above target, $7\text{--}8=$ cleanly passes, $4\text{--}6=$ marginal/fails) based on WEEE plant benchmarks and engineering assumptions (Table~\ref{tab:annexL}).
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.20}
+\begin{xltabular}{\textwidth}{L{2.35cm} L{2.45cm} Y Y Y}
+\caption{Evaluation of three design alternatives for Decision D1 against TPMs and criteria (Annexure L format).}
+\label{tab:annexL}\\
+\toprule
+\hdrrow \tblhead{TPM (Weight)} & \tblhead{Design criterion} & \tblhead{Alternative 1 (Manual)} & \tblhead{Alternative 2 (Modular Hybrid)} & \tblhead{Alternative 3 (Shred-First)} \\
+\midrule
+\endfirsthead
+\multicolumn{5}{l}{\footnotesize\color{SlateMuted}\textit{Table~\ref{tab:annexL} continued from previous page.}}\\
+\toprule
+\hdrrow \tblhead{TPM (Weight)} & \tblhead{Design criterion} & \tblhead{Alternative 1 (Manual)} & \tblhead{Alternative 2 (Modular Hybrid)} & \tblhead{Alternative 3 (Shred-First)} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{TPM-1: MRR} (0.22) & $\ge 82\%$ ($\ge 95\%$ purity) & \textbf{76\%} \textcolor{CrimsonRisk}{(Fail)} --- Poor PCB recovery. \textit{Score: 5} & \textbf{86\%} \textcolor{TealAccent}{(Pass)} --- Clean optical/eddy purity. \textit{Score: 9} & \textbf{79\%} \textcolor{CrimsonRisk}{(Fail)} --- Cross-contamination. \textit{Score: 6} \\
+\midrule
+\textbf{TPM-2: $A_o$} (0.16) & $\ge 88\%$ (MTTR $\le 4$ h) & \textbf{92\%} \textcolor{TealAccent}{(Pass)} --- Simple tools. \textit{Score: 8} & \textbf{90\%} \textcolor{TealAccent}{(Pass)} --- Parallel bays, MTTR 3.5 h. \textit{Score: 8} & \textbf{78\%} \textcolor{CrimsonRisk}{(Fail)} --- Jams \& fires, MTTR 14 h. \textit{Score: 5} \\
+\midrule
+\textbf{TPM-3: $Q_p$} (0.12) & $\ge 10.0\text{ t/d}$ & \textbf{6.5 t/d} \textcolor{CrimsonRisk}{(Fail)} --- Labor bottleneck. \textit{Score: 4} & \textbf{11.0 t/d} \textcolor{TealAccent}{(Pass)} --- Scalable 2nd shift. \textit{Score: 8} & \textbf{15.0 t/d} \textcolor{TealAccent}{(Pass)} --- Peak raw speed. \textit{Score: 10} \\
+\midrule
+\textbf{TPM-4: $E_{\text{PM}}$} (0.22) & $\le 30 / 2.0\text{ mg/m}^3$; ZLD & \textbf{28 / 2.6} \textcolor{CrimsonRisk}{(Fail)} --- Open indoor dust. \textit{Score: 4} & \textbf{16 / 1.1} \textcolor{TealAccent}{(Pass)} --- Enclosed HEPA/ZLD. \textit{Score: 9} & \textbf{24 / 1.9} \textcolor{AmberWarn}{(Marg.)} --- Fire/VOC spikes. \textit{Score: 6} \\
+\midrule
+\textbf{TPM-5: SEC} (0.10) & $\le 180\text{ kWh/t}$ & \textbf{95 kWh/t} \textcolor{TealAccent}{(Pass)} --- Low power. \textit{Score: 9} & \textbf{155 kWh/t} \textcolor{TealAccent}{(Pass)} --- VFD dry sorting. \textit{Score: 8} & \textbf{245 kWh/t} \textcolor{CrimsonRisk}{(Fail)} --- Twin shredders. \textit{Score: 4} \\
+\midrule
+\textbf{TPM-6: $\text{LCC}_t$} (0.18) & $\le \text{INR } 18{,}500/\text{t}$ & \textbf{19,200/t} \textcolor{CrimsonRisk}{(Fail)} --- High wage/TSDF. \textit{Score: 5} & \textbf{16,200/t} \textcolor{TealAccent}{(Pass)} --- Best 15-yr LCC. \textit{Score: 9} & \textbf{20,400/t} \textcolor{CrimsonRisk}{(Fail)} --- CapEx/power/sludge. \textit{Score: 4} \\
+\midrule
+\subhdrrow \textbf{Weighted Total} & \textbf{Criteria Passed} & \textbf{5.54 / 10} (2/6 passed) & \textbf{8.62 / 10} (\textbf{6/6 passed}) & \textbf{5.76 / 10} (2/6 passed) \\
+
+\end{xltabular}
+\endgroup
+
+\subsection{Recommendation and Systems Interpretation}
+We recommend \textbf{Alternative 2 (Modular Hybrid, 8.62/10)}---not solely for its top score, but because it is the \textbf{only design meeting all six criteria} without offloading risk onto operators or site retirement:
+\begin{enumerate}
+    \item \textbf{Criteria Satisfied:} Passes all six gates---MRR (86\%), $A_o$ (90\%), $Q_p$ (11.0 t/d), $E_{\text{PM}}$ (16/1.1 $\text{mg/m}^3$), SEC (155 kWh/t), and $\text{LCC}_t$ (INR 16,200/t).
+    \item \textbf{Where It Falls Short:} Higher initial CapEx than A1 (+INR 4.6 Cr), lower raw burst speed than A3 (11 vs.\ 15 t/d), and ongoing optical/XRT calibration needs.
+    \item \textbf{Stakeholders Benefiting:} Operators and neighbors (clean air, fire safety), OEMs/buyers (high purity, steady EPR credits), and maintenance/closure teams (bolted modular skids).
+    \item \textbf{Stakeholders Bearing Extra Cost/Risk:} Promoters carry moderate upfront financing cost, and maintenance must retain sensor-calibration technicians (mitigated via OEM AMC).
+    \item \textbf{DIPs That Could Shift the Result:} Severe skilled-labor scarcity (\textbf{DIP-5}) or a mandatory surge to $>25\text{ t/d}$ (\textbf{DIP-2}) narrows A2's edge over a pre-screened automated line; severe capital scarcity with $<5\text{ t/d}$ volume favors A1.
+    \item \textbf{Conditions Favoring Another Alternative:} \textbf{A1} (with dust hoods) fits a small $<4\text{ t/d}$ feeder hub; \textbf{A3} (with automated X-ray battery ejection) fits a $>30\text{ t/d}$ mega-city homogeneous white-goods plant.
+    \item \textbf{Immediate Performance vs.\ Whole-Life Value:} A3 leads raw immediate throughput and A1 minimizes initial CapEx, but \textbf{A2 delivers superior complete life-cycle value} across safety, adaptability, and 15-year cost.
+\end{enumerate}

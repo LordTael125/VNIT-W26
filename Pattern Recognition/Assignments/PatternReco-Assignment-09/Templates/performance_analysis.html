@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparative Benchmark Studio | Parzen Window, Ho-Kashyap, KNN & Bayes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- KaTeX Math Formula Rendering (Local Assets) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/katex/katex.min.css') }}">
+    <script defer src="{{ url_for('static', filename='vendor/katex/katex.min.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='vendor/katex/auto-render.min.js') }}"></script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-logo">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Comparative Analysis Studio</h1>
+                    <p class="subtitle">Parzen Window vs. Ho-Kashyap, KNN & Gaussian Naive Bayes Benchmark Matrix</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a href="{{ url_for('index') }}" class="nav-btn benchmark-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Back to Main Studio
+                </a>
+
+                <form action="{{ url_for('shutdown') }}" method="post" style="display:inline;" onsubmit="return confirm('Shut down Classifiers Studio?');">
+                    <button type="submit" class="nav-btn shutdown-btn" title="Safely shutdown server">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                            <line x1="12" y1="2" x2="12" y2="12"></line>
+                        </svg>
+                        Shut Down
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                        <div class="flash-msg flash-{{ category }}">
+                            <span>{{ message }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Executive Summary Banner -->
+        <section class="card mb-4" style="background: linear-gradient(135deg, rgba(30,41,59,0.95), rgba(15,23,42,0.98)); border-left: 4px solid var(--primary);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <span class="badge badge-purple" style="font-size: 0.8rem; margin-bottom: 0.5rem;">Pattern Recognition Studio Benchmark</span>
+                    <h2 style="font-size: 1.4rem; font-weight: 800; color: #ffffff;">Unified Multi-Classifier Comparative Analysis</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">
+                        Rigorous empirical evaluation comparing Non-Parametric Density Estimation (<strong>Parzen Window</strong>),
+                        Linear Hyperplane Discriminants (<strong>Ho-Kashyap</strong>), Instance-Based Classification (<strong>KNN</strong>),
+                        and Parametric Generative Density Estimation (<strong>Gaussian Naive Bayes</strong>).
+                    </p>
+                </div>
+                {% if analysis.best_model %}
+                <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid var(--success); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; text-align: right;">
+                    <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #34d399; letter-spacing: 0.05em;">Top Performing Classifier</div>
+                    <div style="font-size: 1.2rem; font-weight: 800; color: #ffffff;">{{ analysis.best_model.name }}</div>
+                    <div style="font-size: 0.85rem; color: #cbd5e1;">Test Accuracy: <strong style="color: #34d399;">{{ analysis.best_model.accuracy }}%</strong> &bull; F1: <strong style="color: #34d399;">{{ analysis.best_model.f1_score }}%</strong></div>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Benchmark Matrix Table & Visual Comparison -->
+        <div class="grid grid-2 mb-4" style="gap: 1.5rem; align-items: stretch;">
+            <!-- Benchmark Comparison Table -->
+            <section class="card" style="display: flex; flex-direction: column;">
+                <div class="card-header">
+                    <div class="card-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="8" y1="6" x2="21" y2="6"></line>
+                            <line x1="8" y1="12" x2="21" y2="12"></line>
+                            <line x1="8" y1="18" x2="21" y2="18"></line>
+                            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                        </svg>
+                        Performance Benchmark Matrix
+                    </div>
+                    <span class="badge badge-info">{{ app_state.filename }}</span>
+                </div>
+
+                <div class="table-responsive" style="flex: 1;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Classifier</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Accuracy</th>
+                                <th style="text-align: right;">Error Rate</th>
+                                <th style="text-align: right;">Macro F1</th>
+                                <th style="text-align: right;">Latency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in analysis.benchmark_table %}
+                            <tr {% if row.status != 'Evaluated' %}style="opacity: 0.6;"{% elif analysis.best_model and row.name == analysis.best_model.name %}style="background: rgba(99, 102, 241, 0.12); font-weight: 600;"{% endif %}>
+                                <td>
+                                    <strong>{{ row.name }}</strong>
+                                    {% if analysis.best_model and row.name == analysis.best_model.name %}
+                                        <span class="badge badge-success" style="font-size: 0.65rem; margin-left: 0.35rem;">BEST</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if row.status == 'Evaluated' %}
+                                        <span class="badge badge-success">{{ row.status }}</span>
+                                    {% else %}
+                                        <span class="badge badge-warning">{{ row.status }}</span>
+                                    {% endif %}
+                                </td>
+                                <td style="text-align: right; color: #38bdf8; font-weight: 700;">
+                                    {% if row.status == 'Evaluated' %}{{ row.accuracy }}%{% else %}&mdash;{% endif %}
+                                </td>
+                                <td style="text-align: right; color: #f43f5e; font-weight: 700;">
+                                    {% if row.status == 'Evaluated' %}{{ row.error_rate }}%{% else %}&mdash;{% endif %}
+                                </td>
+                                <td style="text-align: right; color: #34d399; font-weight: 700;">
+                                    {% if row.status == 'Evaluated' %}{{ row.f1_score }}%{% else %}&mdash;{% endif %}
+                                </td>
+                                <td style="text-align: right; color: #cbd5e1; font-family: monospace;">
+                                    {% if row.status == 'Evaluated' %}{{ row.latency_ms }} ms{% else %}&mdash;{% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.75rem; border-top: 1px solid var(--border-subtle); padding-top: 0.5rem;">
+                    * All metrics evaluated on identical stratified held-out test splits. Latency reflects test set scoring inference time in milliseconds.
+                </div>
+            </section>
+
+            <!-- Comparative Chart -->
+            <section class="card" style="display: flex; flex-direction: column;">
+                <div class="card-header">
+                    <div class="card-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                        Accuracy & F1 Benchmark Visualization
+                    </div>
+                </div>
+
+                <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 0.5rem;">
+                    <img src="{{ url_for('static', filename=analysis.benchmark_chart) }}" alt="Comparative Benchmark Chart" style="max-width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                </div>
+            </section>
+        </div>
+
+        <!-- Deep Theoretical Foundations & Paradigm Comparison -->
+        <section class="card mb-4">
+            <div class="card-header">
+                <div class="card-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    Theoretical Frameworks & Comparative Paradigm Analysis
+                </div>
+            </div>
+
+            <div class="grid grid-2" style="gap: 1.5rem; margin-top: 0.5rem;">
+                <!-- Card 1: Parzen Window Density Estimator -->
+                <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+                    <h3 style="font-size: 1.05rem; font-weight: 800; color: #38bdf8; margin-bottom: 0.65rem;">
+                        1. Parzen Window Density Estimation (Assignment 09)
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                        Estimates the continuous class-conditional probability density function \(p(\mathbf{x}|\omega_j)\) directly from data samples without assuming an underlying parametric distribution:
+                    </p>
+                    <div style="background: rgba(0, 0, 0, 0.4); padding: 0.75rem; border-radius: var(--radius-sm); font-size: 0.95rem; color: #7dd3fc; text-align: center; margin-bottom: 0.75rem; border: 1px solid var(--border-subtle);">
+                        \[ p(\mathbf{x} | \omega_j) = \frac{1}{N_j V_n} \sum_{i=1}^{N_j} \varphi\left(\frac{\mathbf{x} - \mathbf{x}_{ji}}{h}\right) \]
+                    </div>
+                    <ul style="font-size: 0.82rem; color: var(--text-secondary); margin-left: 1.25rem; line-height: 1.6;">
+                        <li><strong>Hypercube Window:</strong> \(\varphi(\mathbf{u}) = 1\) if \(\max_k |u_k| \le 0.5\), else \(0\). Fast counts in \(V = h^d\); detects empty regions (\(\sum k_j = 0\)).</li>
+                        <li><strong>Gaussian Window:</strong> Smooth mixture of spherical Gaussians. With small \(h\) or high dimensions \(d\), underflow is prevented via the <strong>Log-Sum-Exp trick</strong>:
+                        \[ \ln p(\mathbf{x}|\omega_j) = -\ln N_j - \frac{d}{2}\ln(2\pi) - d\ln h + \text{LSE}\left(-\frac{\|\mathbf{x} - \mathbf{x}_i\|^2}{2h^2}\right) \]
+                        </li>
+                        <li><strong>Optimal Window Width \(h^*\):</strong> Balances bias (large \(h\), oversmoothed) and variance (small \(h\), spiky/underflow).</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Ho-Kashyap Linear Discriminant -->
+                <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+                    <h3 style="font-size: 1.05rem; font-weight: 800; color: #818cf8; margin-bottom: 0.65rem;">
+                        2. Ho-Kashyap Linear Classification Procedure (Assignment 08)
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                        Finds a separating weight vector \(\mathbf{a}\) and margin vector \(\mathbf{b} > \mathbf{0}\) by minimizing squared error \(J_H = \frac{1}{2}\|Y\mathbf{a} - \mathbf{b}\|^2\):
+                    </p>
+                    <div style="background: rgba(0, 0, 0, 0.4); padding: 0.75rem; border-radius: var(--radius-sm); font-size: 0.95rem; color: #a5b4fc; text-align: center; margin-bottom: 0.75rem; border: 1px solid var(--border-subtle);">
+                        \[ \mathbf{a}(k+1) = Y^\dagger \mathbf{b}(k+1), \quad \mathbf{b}(k+1) = \mathbf{b}(k) + 2\eta \max(\mathbf{0}, Y\mathbf{a}(k) - \mathbf{b}(k)) \]
+                    </div>
+                    <ul style="font-size: 0.82rem; color: var(--text-secondary); margin-left: 1.25rem; line-height: 1.6;">
+                        <li><strong>Separability Diagnosis:</strong> Guarantees finite convergence if linearly separable. If \(\mathbf{e}(k) \le \mathbf{0}\) with \(\mathbf{e}(k) \ne \mathbf{0}\), rigorously proves linear non-separability!</li>
+                        <li><strong>Inference Speed:</strong> Extremely lightweight planar evaluation \(g(\mathbf{x}) = \mathbf{a}^T [1, \mathbf{x}]^T\).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 3: 4-Way Paradigm Comparison Grid -->
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-top: 1.5rem;">
+                <h3 style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin-bottom: 0.85rem;">
+                    3. Cross-Paradigm Comparison: Strengths, Complexities & Ideal Use Cases
+                </h3>
+                <div class="grid grid-4" style="gap: 1rem;">
+                    <!-- Parzen Window -->
+                    <div style="background: var(--bg-elevated); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                        <h4 style="font-size: 0.85rem; color: #38bdf8; margin-bottom: 0.35rem;">Parzen Window</h4>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Non-Parametric Density</div>
+                        <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+                            Arbitrary non-linear boundaries; full posterior distribution \(P(\omega_j|\mathbf{x})\); sensitive to window width \(h\); log-sum-exp ensures numerical stability.
+                        </p>
+                    </div>
+
+                    <!-- Ho-Kashyap -->
+                    <div style="background: var(--bg-elevated); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                        <h4 style="font-size: 0.85rem; color: #818cf8; margin-bottom: 0.35rem;">Ho-Kashyap</h4>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Linear Discriminant</div>
+                        <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+                            Optimal linear margin; formally detects linear separability; instantaneous inference \(\mathcal{O}(d)\); restricted to hyperplanar boundaries.
+                        </p>
+                    </div>
+
+                    <!-- KNN -->
+                    <div style="background: var(--bg-elevated); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                        <h4 style="font-size: 0.85rem; color: #fb923c; margin-bottom: 0.35rem;">KNN (Elbow Method)</h4>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Instance-Based Lazy</div>
+                        <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+                            Zero training phase; tunes \(K^*\) via elbow curve; transparent neighbor explainability; test latency scales as \(\mathcal{O}(Nd)\).
+                        </p>
+                    </div>
+
+                    <!-- Bayes -->
+                    <div style="background: var(--bg-elevated); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                        <h4 style="font-size: 0.85rem; color: #34d399; margin-bottom: 0.35rem;">Gaussian Naive Bayes</h4>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Parametric Generative</div>
+                        <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5;">
+                            Estimates mean \(\mu\) and variance \(\sigma^2\) per feature; highly resilient to small sample sizes; assumes feature conditional independence.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="app-footer">
+        <div class="container" style="margin: 0 auto; padding: 1.5rem 0; text-align: center; border-top: 1px solid var(--border-subtle); color: var(--text-muted); font-size: 0.85rem;">
+            Pattern Recognition Laboratory &bull; VNIT-W26 &bull; Roll No: MT26MCS024 &bull; Assignment 09: Parzen Window Density Estimation
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "\\[", right: "\\]", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false}
+                    ]
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

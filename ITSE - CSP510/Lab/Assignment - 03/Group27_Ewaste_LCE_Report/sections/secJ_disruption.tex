@@ -1,0 +1,30 @@
+% ============================================================================
+% Section J: Introduce a Life-Cycle Disruption (Deliverable J)
+% ============================================================================
+\section{Life-Cycle Disruption Analysis}
+\label{sec:J}
+
+\begin{warnbox}{Year-6 Compound Life-Cycle Disruption Scenario}
+In \textbf{Year 6 of operation}, two external shocks strike UA-EWRRF simultaneously:
+\begin{enumerate}
+    \item \textbf{Regulatory \& Feedstock Shift:} CPCB mandates pre-shredding segregation of embedded Li-ion batteries (now in 28\% of incoming devices, up from 10\%) and bans blending brominated flame-retardant (BFR) plastics, requiring verified NIR/XRF separation.
+    \item \textbf{External Cost Surge:} Maharashtra industrial electricity tariffs jump \textbf{+30\%} (INR 10 to 13/kWh), while Butibori TSDF gate fees rise \textbf{+35\%} (INR 15k to 20.25k/t) alongside regional EHS technician wage pressure (+18\%).
+\end{enumerate}
+\end{warnbox}
+
+\subsection{Impact and Adaptation Analysis}
+\begin{enumerate}
+    \item \textbf{DIPs Changed:} \textbf{DIP-1} (tighter BFR/Li-ion rules), \textbf{DIP-2} (surge in glued Li-ion devices), \textbf{DIP-4} (+30\% grid tariff), and \textbf{DIP-5} (+35\% TSDF fees \& EHS wage inflation).
+    \item \textbf{Invalidated Assumptions:} Manual battery extraction slows from 4 to 9--11 min/unit for glued devices; standard optical sorters cannot certify BFR-free polymers; baseline power (INR 1,550/t) and TSDF cost budgets break down.
+    \item \textbf{TPMs Affected (Unadapted A2):}
+    \begin{itemize}
+        \item \textbf{TPM-3 ($Q_p$):} Falls from $11.0$ to \textbf{$8.4\text{ t/d}$} (\textcolor{CrimsonRisk}{fails $\ge 10.0$}) due to glued-battery triage bottlenecks.
+        \item \textbf{TPM-1 (MRR):} Falls from $86\%$ to \textbf{$77\%$} (\textcolor{CrimsonRisk}{fails $\ge 82\%$}) as unseparated BFR plastics ($\approx 9\%$) divert to TSDF.
+        \item \textbf{TPM-4 ($E_{\text{PM}}$):} Higher thermal-runaway risk pushes momentary dust/VOC spikes near $2.0\text{ mg/m}^3$.
+        \item \textbf{TPM-6 ($\text{LCC}_t$):} Rises from INR 16,200 to \textbf{INR 19,850/t} (\textcolor{CrimsonRisk}{fails $\le 18{,}500$}) from power, TSDF, and wage hikes. (\textit{By contrast, monolithic A3 would breach INR 25,500/t and face fire-safety closure.})
+    \end{itemize}
+    \item \textbf{Stakeholders \& Phases Affected:} Impacts Phases 6--8 (operation, retrofits, updated closure) and affects operators (fire risk), promoters (margin squeeze), OEMs (EPR delays), plastic buyers, TSDF, and MPCB.
+    \item \textbf{Continuing Acceptability:} Unadapted A2 fails TPM-1, TPM-3, and TPM-6; however, its modular bolted architecture (\textbf{DDP-1, DDP-7}) preserves physical headroom to adapt without major reconstruction.
+    \item \textbf{Necessary Adaptation (Modular Phase-2 Retrofit):} Within the reserved modular bay, add (a)~a semi-automated thermal adhesive-release \& inert Li-ion cell with IR fire detection (restores $Q_p$ to $10.8\text{ t/d}$), (b)~a bolted NIR/XRF BFR optical sorter skid (restores MRR to $84.5\%$), and (c)~a 250~kWp shed-roof solar PV array (offsets $\approx 38\%$ of grid draw). Total retrofit ($\approx\text{INR } 1.85\text{ Cr}$) installs in 14 days, restoring $\text{LCC}_t$ to \textbf{INR 17,400/t} (\textcolor{TealAccent}{passes}).
+    \item \textbf{Evolution vs.\ Replacement:} UA-EWRRF \textbf{evolves cleanly via modular bay expansion} without replacing civil slabs, HEPA/ZLD containment, shredders, or EPR IT---proving the payoff of early modularity.
+\end{enumerate}

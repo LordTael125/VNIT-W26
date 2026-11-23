@@ -1,0 +1,45 @@
+% ============================================================================
+% Section D: Analyze the Concurrent Life Cycles (Deliverable D)
+% ============================================================================
+\section{Concurrent Life-Cycle Analysis}
+\label{sec:D}
+
+Delivering UA-EWRRF requires managing \textbf{four concurrent life cycles} in parallel from conceptual design onward (Figure~\ref{fig:concurrent_lc}): (1)~the operational recovery plant, (2)~construction and fabrication capability, (3)~support and maintenance infrastructure, and (4)~retirement and site-closure capability. Table~\ref{tab:annexD} summarizes their dependencies and late-development risks (Annexure~D).
+
+\input{figures/fig_concurrent_lifecycles}
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.22}
+\begin{xltabular}{\textwidth}{L{2.3cm} Y L{2.0cm} Y Y}
+\caption{Analysis of the four concurrent life cycles of UA-EWRRF (Annexure D format).}
+\label{tab:annexD}\\
+\toprule
+\hdrrow \tblhead{Life cycle} & \tblhead{What must be created or prepared?} & \tblhead{When should planning begin?} & \tblhead{Dependence on other life cycles} & \tblhead{Consequence of late consideration} \\
+\midrule
+\endfirsthead
+\multicolumn{5}{l}{\footnotesize\color{SlateMuted}\textit{Table~\ref{tab:annexD} continued from previous page.}}\\
+\toprule
+\hdrrow \tblhead{Life cycle} & \tblhead{What must be created or prepared?} & \tblhead{When should planning begin?} & \tblhead{Dependence on other life cycles} & \tblhead{Consequence of late consideration} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{1. Operational System LC} & 10 t/d plant, sorting skids, HEPA/ZLD, 12 kiosks, 4 vans, EPR portal. & Phase 1 (Need). & Depends on LC-2 build, LC-3 availability ($A_o \ge 88\%$), and LC-4 closure rules. & Unmet EPR quotas, safety incidents, premature obsolescence. \\
+\midrule
+\textbf{2. Construction Capability LC} & MIDC plot, epoxy slabs, crane rigging, skid jigs, SAT test rigs. & Phase 2 (Concept). & Uses LC-1 DDPs; embeds LC-3 hoist clearances and LC-4 bolted anchors. & 6--9 mo delay; grouted slabs block Year-6 modular upgrades. \\
+\midrule
+\textbf{3. Support \& Maint.\ LC} & Wear-blade stock, XRT calibration, CMMS, EHS lab, DISH training. & Phase 3 (Prelim.). & Uses LC-1 BOM/MTTR specs; feeds reliability data back to LC-1. & Spare delays cut $A_o < 75\%$; uncalibrated sensors cut MRR $<80\%$. \\
+\midrule
+\textbf{4. Retirement \& Disposal LC} & Baseline soil survey, closure escrow, TSDF quota, MPCB NOC plan. & Phase 2 (Concept); survey pre-Ph.\ 5. & Imposes DDP-7 constraints on LC-1/LC-2; uses LC-3 incident logs. & Unfunded soil remediation ($\ge$INR 2.5 Cr) \& MPCB closure denial. \\
+
+\end{xltabular}
+\endgroup
+
+\subsection{Why Support, Construction, and Retirement Cannot Be Deferred}
+\begin{enumerate}
+    \item \textbf{Physical Lock-In:} Overhead hoist access, quick-change blade housings (DDP-3), and sealed epoxy containment with bolted skid rails (DDP-7) must be designed before pouring concrete in Phase~5; retrofitting them at Year~15 is physically impossible.
+    \item \textbf{Lead-Time Synchronization:} Eddy-current rotors, XRT lamps, and DISH-certified technicians require 4--9 months of preparation before Day-1 startup.
+    \item \textbf{Baseline \& Escrow Continuity:} Without a pre-construction soil baseline and Year-1 closure escrow accrual, the promoter cannot legally separate prior industrial contamination from plant operations at Year~15.
+\end{enumerate}

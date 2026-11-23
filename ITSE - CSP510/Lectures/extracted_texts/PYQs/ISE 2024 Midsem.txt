@@ -1,0 +1,137 @@
+VISVESVARAYA NATIONAL INSTITUTE OF TECHNOLOGY NAGPUR
+Department of Computer Science & Engineering
+Examination: Mid-Sem W24 Subject: CSL5l0Introduction to Systems Engineering
+Class: B. Tech 7 Sem and PhD Date & Time: 27 Sept 202410200-11:30 AM
+Slot: C
+Time: 1:30 Hour
+Max. Marks:25
+Note: l. All questions are compulsory.
+2. It's an open book, open notes. open lecture slides exam
+3. Please express your answers in your own words. Verbatim anslvers from the book
+or reading material rvill be ignored and will not carry any credit.
+4. Please write your assumptions wherever required.
+Qr.
+
+a) With the increasing integration of software-intensive systems and 141
+supporting hardware in multi-specialty hospitals for advanced [col.c02,
+
+diagnostics, patient care, and management. analyze how safety and co3, co4l
+security issues can be addressed in these systems. Using Systems
+Theory, describe the key components, interactions, and feedback
+mechanisms essential in designing a regulatory framework for
+such hospitals at a national level.
+
+b) FIow does systems theory help ensure salety and security in this
+complex healthcare environment'J
+
+(Hint and domain knorvledge for both a & b: To effectively address safety
+
+eucl security in softlvare-intensive systerrs and suppoiting hai'dware vlithin
+multi-specialty hospitals. requires an understanding of several key areas:
+fundamentals of healthcare operations and workflows frorn registration of
+patient, OPD. diagnosis. and admission: cybersecurity principles for protecting
+sensitive patient data. and software development techniqLres for critical systems.
+focusing on validation and real-time processing; ernbedded systems. IoT-based
+medical devices, and their integration into hospital networks is essential. Risk
+managemellt practices in systems engineering, particularly
+analyzing
+leedback loops to mitigate potential hazards.
+
+in
+
+Q2.
+
+Analyse the following statements on the Systems Engineering (each 200 words t6l
+
+lcol,
+
+max):
+
+a) Systems Theory contributes to identifuing and mitigating risks in c04,cosl
+sofrware-intensive systems by lbcusing on inteructions behyeen
+system components ancl the role rf-.feedhctck loops in ensuring
+overctll system sctfety ancl security
+b) System Theoretic Process Arutlysis can be applied ot cm early
+stctge oJ' cleveloping o new system to eliminctte or mitigate
+hazards in the design.
+c) AI algorithms can qutomcrte hazarcl identlication in complex
+software intensive-systems by analyzing vast datasets ond
+recognizing patterns that may be missed by human analysts.
+cil The elJbctiyeness oJ'AI subsystem:; is determined by the quality,
+clttantity, crnd relevance oJ'the datct they process, with potential
+risk.s arising from inadequate, biased, or inconsisteil dcrta in
+int erc o nne c t e d sys t e ms.
+
+(P.l'.o )
+
+Page 1 of 2
+
+Q3.
+
+At a technology institution for higher learning, a newly implemented 14U2l
+[Col.a62.
+software system is responsible for managing various academic and CO3,
+C641
+
+administrative tasks, such as student course registration, scheduling,
+marks and grade tracking and management, and faculty course mapping.
+
+However, after deployment, several "crazy" decisions have been
+observed:
+
+- Students are being assigned to conflicting courses at the same time.
+
+- Students were removed from the courses they had not requested to
+be dropped from.
+
+- Faculty members are being schcdulcd lor classcs thcy arc not
+qualified to teach.
+- Important academic data is being overwritten by unrelated
+administrative updates.
+
+a) Analyze how such "crazy" decisions could arise from subsystem
+interactions within this complex software system. What system design
+issues might contribute to these errors?
+
+b) Using Systems Theory analyse how feedback loops and control
+mechanisms could be applied to identify and mitigate these issues early
+in the design phase.
+
+e) Propose a sl,stems engineering approach to redesign the system tc
+prevent these types of errors in the future. How would you ensure that
+subsystems operate correctly and do not lead to conflicting decisions?
+
+Q4.
+
+Following are the descriptions of some abstractions in the world. Which
+of them are systems and which are not? Why? What additions will be
+required to convert the non-systems into systems?
+a) Athought
+b) Books scattered from a school bag
+c) Painting materials in a professional studio
+d) Mobile phones of family members
+e) Wild trees growing on VNIT camprrs
+
+l1 u2l
+Ic02,cos]
+
+Q5
+
+In the context of transportation within an academic institution of higher
+technical learning-where e-vehicles and minibusses transport students
+and staff to various locations such as classroom complexes, departments.
+new academic and assembly blocks. campus exits, and city outings.
+a) Analyze the concepts of emergence and hierarchy to this campustransport management system as applied in Systems Engineering.
+b) How do these properties manifest in such a transportation system?
+c) Why are they important for ensuring its functionality and efficiency?
+
+[3] [co2.
+co3, co4.
+
+cosl
+
+*****
+
+Page 2 of 2
+
+

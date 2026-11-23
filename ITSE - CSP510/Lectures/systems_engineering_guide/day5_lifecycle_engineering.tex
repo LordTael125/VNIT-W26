@@ -1,0 +1,475 @@
+% ==============================================================================
+% DAY 5: SYSTEMS REALIZATION & LIFE-CYCLE ENGINEERING
+% ==============================================================================
+\chapter{Systems Realization, Life-Cycle Engineering \& The Vee Model}
+\label{chap:day5}
+
+\begin{tcolorbox}[colback=sePrimary!5!white,colframe=sePrimary,title={\sffamily \textbf{DAY 5 CURRICULUM OVERVIEW \& LEARNING TARGETS}}]
+\small
+\textbf{Primary Objective:} Master the formal methodologies required to bring complex socio-technical systems into physical existence and sustain them across their entire operational lifespan. Explore the VNIT Shuttle allegory; distinguish between the Product Life Cycle and the Four Concurrent System Life Cycles; master international standards (ISO/IEC/IEEE 15288); internalize the Vee Model with its horizontal verification and validation traceability; and govern Configuration Baselines (Functional, Allocated, Product, Updated).
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+    \item \textbf{Module 5.1:} Story: ``We Bought a Shuttle --- Did We Create a Transport System?''
+    \item \textbf{Module 5.2:} Bringing Capabilities into Existence: Products vs. Engineered Systems.
+    \item \textbf{Module 5.3:} Product Life Cycle (Fig.~1) vs. The Four Concurrent System Life Cycles (Fig.~2).
+    \item \textbf{Module 5.4:} Comparative Lifecycle Analysis: Smartphone vs. Metro Rail System.
+    \item \textbf{Module 5.5:} ISO/IEC/IEEE 15288 \& INCOSE Standard Life-Cycle Stages.
+    \item \textbf{Module 5.6:} The Life-Cycle Process Model (Fig.~3) \& Detailed Phased Steps (Fig.~4).
+    \item \textbf{Module 5.7:} The Vee Model (V-Model): Verification vs. Validation (\textit{``Right System vs. System Right''}).
+    \item \textbf{Module 5.8:} Top-Down Decomposition vs. Bottom-Up Synthesis \& Baseline Evolution.
+    \item \textbf{Module 5.9:} Multi-Speed Life Cycles in Artificial Intelligence Systems.
+    \item \textbf{Module 5.10:} Day 5 Review, Step-by-Step Lifecycle Mapping Exercises, and Exam Drills.
+\end{itemize}
+\end{tcolorbox}
+
+% ------------------------------------------------------------------------------
+% SECTION 5.1: THE VNIT SHUTTLE STORY
+% ------------------------------------------------------------------------------
+\section{Story: We Bought a Shuttle --- Did We Create a Transport System?}
+\label{sec:shuttle_story}
+
+To introduce the critical necessity of Life-Cycle Engineering, Dr.~Mokhade presents the narrative of the campus transportation initiative.
+
+\begin{storybox}{We Bought a Shuttle --- Did We Create a Transport System?}
+Imagine that the administration of VNIT decides to introduce an electric shuttle service to improve campus mobility. 
+
+The project team begins with exemplary Systems Thinking:
+\begin{itemize}[leftmargin=1.5em]
+    \item They identify key components: students, faculty, drivers, electric vans, roads, charging kiosks, timetables, and pedestrians.
+    \item They analyze dynamic feedback: an overloaded shuttle causes boarding delays; boarding delays cause queue congestion at the academic complex; queue congestion triggers student complaints and pedestrian spillover.
+    \item They establish clear boundaries, considering municipal power connections and weather constraints.
+\end{itemize}
+The institute procures four state-of-the-art electric passenger vans. A grand inaugural ceremony takes place. On Day 1, the shuttles operate smoothly. The initiative is hailed as a resounding success.
+
+\textbf{Three Years Later, The Operational Collapse:}
+Fast-forward thirty-six months. The campus transport service is in shambles:
+\begin{enumerate}[leftmargin=1.5em]
+    \item Two of the four vehicles sit immobile on flat tires behind the maintenance shed. Their lithium-ion battery packs have degraded, holding only 15 minutes of charge. 
+    \item When the procurement officer contacts the vehicle manufacturer, they discover the company has pivoted to a new chassis platform and \textbf{permanently discontinued that battery pack model}. Custom replacement battery retrofits will cost 80\% of the original vehicle price.
+    \item The original trained drivers resigned for higher wages in commercial logistics; the temporary replacement drivers frequently damage vehicle suspension on speed bumps.
+    \item The proprietary cloud scheduling app abandoned its serverless backend, rendering the student mobile tracking interface inoperable.
+    \item The charging kiosks were installed on an unshaded electrical line subject to summer voltage sags, tripping thermal circuit breakers every afternoon.
+\end{enumerate}
+
+An exasperated institute committee summons the transport coordinator:
+\begin{quote}
+\textit{``We performed comprehensive systems thinking before launching this initiative. We modeled the components, the users, and the queues. Why did the system fail?''}
+\end{quote}
+The transport coordinator delivers the profound Systems Realization verdict:
+\begin{center}
+\textbf{\large ``We bought an electric vehicle. We never engineered the transport system's life cycle.''}
+\end{center}
+\end{storybox}
+
+\subsection{What Are We Bringing into Existence?}
+The fundamental error made by the committee was confusing an \textbf{acquired physical product} with an \textbf{engineered operational capability}:
+
+\begin{equation}
+    \text{Product Acquisition} \ne \text{Systemic Capability Realization}
+\end{equation}
+
+In the VNIT shuttle case, the intended operational capability was: \textbf{``Reliable, safe, accessible, and sustainable campus mobility for a decade.''}
+Delivering that capability requires engineering an extensive, concurrent socio-technical infrastructure:
+\begin{itemize}[leftmargin=1.5em]
+    \item Route architectures and dynamic scheduling algorithms matched to shifting class timetables;
+    \item Robust electrical distribution, fast-charging infrastructure, and transformer capacity;
+    \item Driver recruitment pipelines, ergonomics, and institutional operating procedures;
+    \item Scheduled preventive maintenance, spare-part inventory logistics, and diagnostic tooling;
+    \item Battery second-life regeneration, recycling contracts, and eventual vehicle phase-out.
+\end{itemize}
+
+\begin{takeawaybox}{The Axiom of Life-Cycle Engineering}
+A system is not defined by its initial demonstration on Day 1. 
+\textbf{True engineering excellence is measured by the system's ability to fulfill its mission reliably, affordably, and safely throughout its entire life cycle—as components age, technologies evolve, personnel change, and suppliers disappear.}
+\end{takeawaybox}
+
+% ------------------------------------------------------------------------------
+% SECTION 5.2: NATURE TO CITY: ENGINEERED SYSTEMS
+% ------------------------------------------------------------------------------
+\section{From Forest to City: The Nature of Engineered Systems}
+\label{sec:nature_to_city}
+
+To appreciate why life-cycle engineering demands relentless discipline, contrast natural ecosystems with human-made engineered systems:
+
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Natural Ecosystems (The Forest):} A primordial forest sustains itself autonomously over millennia. Leaves fall, decompose, replenish soil nutrients, and feed new trees. Biological systems possess \textbf{closed-loop regenerative life cycles} honed by billions of years of natural selection. They require no external engineering management.
+    \item \textbf{Human-Made Engineered Systems (The City):} A modern metropolis is a synthetic, high-entropy construct. Water treatment plants, electrical substations, mass transit rail networks, and sewer conduits do not self-repair. The moment human engineering effort ceases, thermodynamics reasserts itself: concrete spalls, steel oxidizes, software databases fragment, and the city decays.
+\end{itemize}
+
+\begin{definitionbox}{Engineered System}
+An \textbf{Engineered System} is a purposeful, human-designed socio-technical construct brought into being through deliberate resource allocation, maintained against environmental entropy through structured operational support, and retired responsibly at the end of its utility.
+\end{definitionbox}
+
+\subsection{Characteristics of a Well-Engineered System}
+A mature engineered system satisfies three fundamental criteria:
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{Functional Purpose:} It is conceived, justified, and designed strictly in response to well-authenticated, validated stakeholder needs.
+    \item \textbf{Architectural Integrity:} It is realized through a coherent structural, functional, and physical architecture that cleanly manages interfaces and bounds complexity.
+    \item \textbf{Life-Cycle Sustainability:} It is designed from Day 1 with explicit capabilities for manufacturability, testability, deployability, maintainability, evolvability, and safe environmental decommissioning.
+\end{enumerate}
+
+% ------------------------------------------------------------------------------
+% SECTION 5.3: PRODUCT VS SYSTEM LIFE CYCLE
+% ------------------------------------------------------------------------------
+\section{Product Life Cycle vs. The Four Concurrent System Life Cycles}
+\label{sec:product_vs_system_lc}
+
+One of the most consequential conceptual breakthroughs in Dr.~Mokhade's curriculum is the structural distinction between the traditional \textbf{Product Life Cycle} (Figure 1 in slides) and the holistic \textbf{System Life Cycle} (Figure 2 in slides).
+
+\subsection{The Traditional Product Life Cycle (Slide Fig.~1)}
+The traditional view of a product's life cycle is strictly linear and product-centric:
+\begin{equation}
+\begin{aligned}
+    \text{Need Identification} &\longrightarrow \text{Design \& Development} \longrightarrow \text{Production} \\
+    &\longrightarrow \text{Utilization \& Support} \longrightarrow \text{Disposal}
+\end{aligned}
+\end{equation}
+This model is bifurcated into two temporal domains:
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{The Acquisition Phase (Producer-Driven):} The engineering enterprise conceives, designs, and manufactures the physical artifact.
+    \item \textbf{The Utilization Phase (Customer-Driven):} The customer purchases the artifact, uses it, maintains it, and eventually discards it.
+\end{itemize}
+
+\subsection{The Four Concurrent System Life Cycles (Slide Fig.~2)}
+The systems engineering paradigm rejects this narrow view. Systems Engineering recognizes that \textbf{bringing a system into reality requires designing and progressing FOUR CONCURRENT LIFE CYCLES simultaneously} (Figure~\ref{fig:four_concurrent_lifecycles}):
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+    scale=0.9,
+    box/.style={rectangle, draw=sePrimary, thick, rounded corners, minimum width=10.5cm, minimum height=1.1cm, align=left, font=\small\sffamily}
+]
+    \node[box, fill=seSecondary!15] (lc1) at (0, 4.5) {
+        \textbf{1. THE PRODUCT LIFE CYCLE:}\\
+        Conceptual Design $\longrightarrow$ Preliminary Design $\longrightarrow$ Detail Design $\longrightarrow$ Field Use $\longrightarrow$ Phase-Out.
+    };
+    
+    \node[box, fill=seGreen!15, draw=seGreen!80!black] (lc2) at (0, 3.0) {
+        \textbf{2. THE PRODUCTION / CONSTRUCTION SUBSYSTEM LIFE CYCLE:}\\
+        Factory tooling design $\longrightarrow$ Supply chain qualification $\longrightarrow$ Assembly lines $\longrightarrow$ Quality QC $\longrightarrow$ Plant decommissioning.
+    };
+    
+    \node[box, fill=seAmber!15, draw=seAmber!80!black] (lc3) at (0, 1.5) {
+        \textbf{3. THE MAINTENANCE \& SUPPORT SUBSYSTEM LIFE CYCLE:}\\
+        Logistics planning $\longrightarrow$ Diagnostic test benches $\longrightarrow$ Technician training $\longrightarrow$ Spare-parts supply chain $\longrightarrow$ Depot retirement.
+    };
+    
+    \node[box, fill=seAccent!15, draw=seAccent!80!black] (lc4) at (0, 0.0) {
+        \textbf{4. THE RETIREMENT \& DISPOSAL SUBSYSTEM LIFE CYCLE:}\\
+        Hazardous waste planning $\longrightarrow$ Disassembly procedures $\longrightarrow$ Material recycling streams $\longrightarrow$ Environmental site remediation.
+    };
+    
+    \draw[thick, dashed, color=sePrimary] (-5.6, 5.2) -- (-5.6, -0.6);
+    \node[rotate=90, font=\footnotesize\bfseries\color{sePrimary}] at (-6.0, 2.25) {CONCURRENT PROGRESSION (Day 1 Onward)};
+\end{tikzpicture}%
+}
+\caption{The Four Concurrent Life Cycles of Systems Engineering (Slide Fig.~2).}
+\label{fig:four_concurrent_lifecycles}
+\end{figure}
+
+\begin{takeawaybox}{Concurrent Engineering: Designing the Enablers}
+You cannot successfully engineer the \textbf{Product} unless you concurrently engineer the \textbf{Manufacturing Plant}, the \textbf{Support Infrastructure}, and the \textbf{Disposal Pipeline}!
+If an engineer designs an ultra-compact electric motor that cannot be assembled by factory robotic arms, or that requires a specialized wrench that field technicians do not possess, the design is an engineering failure—regardless of its electromagnetic efficiency.
+\end{takeawaybox}
+
+% ------------------------------------------------------------------------------
+% SECTION 5.4: COMPARATIVE ANALYSIS: SMARTPHONE VS METRO RAIL
+% ------------------------------------------------------------------------------
+\section{Comparative Life-Cycle Analysis: Smartphone vs. Metro Rail}
+\label{sec:smartphone_vs_metro}
+
+To anchor the difference between consumer product lifecycles and massive socio-technical system lifecycles, examine Table~\ref{tab:phone_vs_metro}:
+
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{p{3.2cm}p{5.5cm}X}
+\toprule
+\textbf{Life-Cycle Dimension} & \textbf{Consumer Smartphone (Product Focus)} & \textbf{Metro Rail Transit System (System Focus)} \\
+\midrule
+\textbf{Primary Objective} & Personal digital communication \& compute. & High-capacity, decarbonized urban mass mobility. \\
+\textbf{Operational Lifespan} & 2 to 4 years. & 30 to 50 years. \\
+\textbf{Design Focus} & Sleek ergonomics, high screen refresh rate, camera computational photography. & Structural fatigue, fail-safe signaling interlocks, passenger flow throughput, fire safety. \\
+\textbf{Manufacturing Subsystem} & Highly automated global cleanroom fabrication (Foxconn/TSMC assembly lines). & Massive civil civil works (tunneling boring, track laying) + specialized rolling stock manufacturing. \\
+\textbf{Support Subsystem} & Over-the-air (OTA) OS updates; consumer battery replacement / swap-out. & Dedicated maintenance depots, track inspection trains, traction power substations, trained mechanical staff. \\
+\textbf{Retirement / Disposal} & E-waste collection bins; precious metal recovery; lithium shredding. & Decommissioning rolling stock; rail track recycling; underground tunnel repurposing or stabilization. \\
+\textbf{Stakeholder Matrix} & Individual consumer, app developers, cellular carriers. & Commuters, city government, municipal transit authority, emergency services, tax-paying citizens. \\
+\bottomrule
+\end{tabularx}
+\caption{Comparative Life-Cycle Analysis: Smartphone vs. Metro Rail System.}
+\label{tab:phone_vs_metro}
+\end{table}
+
+% ------------------------------------------------------------------------------
+% SECTION 5.5: ISO/IEC/IEEE 15288 & INCOSE LIFE-CYCLE STAGES
+% ------------------------------------------------------------------------------
+\section{ISO/IEC/IEEE 15288 \& INCOSE Standard Life-Cycle Stages}
+\label{sec:iso_incose_stages}
+
+International standard \textbf{ISO/IEC/IEEE 15288} (Systems and software engineering --- System life cycle processes) defines six universal stages governing the lifespan of an engineered system:
+
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{lp{4cm}X}
+\toprule
+\textbf{Stage} & \textbf{Central Engineering Question} & \textbf{Key Technical Activities \& Milestones} \\
+\midrule
+\textbf{1. Need \& Concept} & What operational outcome is needed, for whom, and under what constraints? & Stakeholder needs identification; operational concept formulation (ConOps); feasibility analysis; high-level functional trade-offs. \\
+\textbf{2. Design \& Development} & What technical arrangement and architecture will achieve that outcome? & Functional decomposition; subsystem allocation; trade studies; preliminary and detailed design; prototyping; interface specification. \\
+\textbf{3. Realization \& Deployment} & Can the physical capability be built, integrated, and brought into operation? & Subsystem fabrication; software coding; integration; acceptance testing; facility construction; operator training; commissioning. \\
+\textbf{4. Operation \& Support} & Does the deployed system fulfill its mission reliably in actual daily use? & Sustaining logistics; routine maintenance; telemetry monitoring; customer support; fault diagnosis; software patching. \\
+\textbf{5. Renewal \& Modification} & What must change as operational needs, technologies, or regulations evolve? & Technology insertion; retrofitting newer subsystems (e.g., upgrading signaling to CBTC); battery pack overhauls; capability expansion. \\
+\textbf{6. Retirement \& Transition} & How can the system be withdrawn or replaced responsibly without disruption? & Decommissioning; graceful transition to successor system; hazardous waste decontamination; recycling; site remediation. \\
+\bottomrule
+\end{tabularx}
+\caption{The Six Standard Life-Cycle Stages of ISO/IEC/IEEE 15288.}
+\label{tab:iso_stages}
+\end{table}
+
+% ------------------------------------------------------------------------------
+% SECTION 5.6: THE LIFE-CYCLE PROCESS MODEL
+% ------------------------------------------------------------------------------
+\section{The Life-Cycle Process Model \& Phased Steps (Fig.~3 \& 4)}
+\label{sec:phased_steps}
+
+Dr.~Mokhade synthesizes the life-cycle engineering journey into an iterative block architecture spanning the \textbf{Acquisition Phase} and the \textbf{Utilization Phase}:
+
+\subsection{The Acquisition Phase (Design through Startup)}
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{Conceptual Design (Blocks 0.1--0.8):}
+    \begin{itemize}
+        \item Identification of operational need and deficiency;
+        \item Feasibility analysis and alternative system concept exploration;
+        \item System operational requirements formulation;
+        \item Maintenance and support concept definition;
+        \item Functional analysis: translating operational requirements into system functions;
+        \item \textbf{Milestone Deliverable:} \textbf{Functional Baseline (System Specification, Type A)}.
+    \end{itemize}
+    \item \textbf{Preliminary Design (Blocks 1.1--1.7):}
+    \begin{itemize}
+        \item Subsystem functional allocation: mapping functions to preliminary physical/software modules;
+        \item Trade-off studies and synthesis of design alternatives;
+        \item Specification of engineering design criteria;
+        \item Preliminary design reviews (PDR);
+        \item \textbf{Milestone Deliverable:} \textbf{Allocated Baseline (Development \& Product Specifications, Types B--E)}.
+    \end{itemize}
+    \item \textbf{Detail Design \& Development (Blocks 2.1--2.5):}
+    \begin{itemize}
+        \item Detailed component engineering, schematic capture, software source code realization;
+        \item Prototype engineering and qualification testing;
+        \item Critical Design Review (CDR);
+        \item Verification of manufacturing, production tooling, and assembly procedures;
+        \item \textbf{Milestone Deliverable:} \textbf{Product Baseline (Detailed Build-to / Code-to Specs)}.
+    \end{itemize}
+    \item \textbf{Production \& Construction (Block 3.x):}
+    \begin{itemize}
+        \item Full-scale industrial manufacturing, civil construction, and software staging;
+        \item System integration and operational readiness verification;
+        \item Formal acceptance testing by customer/stakeholders.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{The Utilization Phase (Operation through Retirement)}
+\begin{enumerate}[leftmargin=2em]
+    \setcounter{enumi}{4}
+    \item \textbf{Operational Use \& Support (Block 4.x):}
+    \begin{itemize}
+        \item Field operations in real customer operational environments;
+        \item Sustaining engineering, preventive and corrective maintenance;
+        \item In-service operational feedback loop and field engineering changes;
+        \item \textbf{Milestone Deliverable:} \textbf{Updated Baseline (As-Maintained Configuration)}.
+    \end{itemize}
+    \item \textbf{Phase-Out \& Disposal (Block 5.x):}
+    \begin{itemize}
+        \item Safe shutdown, asset harvesting, materials recycling, and permanent environmental disposal.
+    \end{itemize}
+\end{enumerate}
+
+% ------------------------------------------------------------------------------
+% SECTION 5.7: THE VEE MODEL (V-MODEL)
+% ------------------------------------------------------------------------------
+\section{The Vee Model: Verification vs. Validation}
+\label{sec:vee_model}
+
+The preeminent systems engineering process framework used across aerospace, defense, automotive, and software engineering is the \textbf{Vee Model} (Figure~\ref{fig:vee_model}).
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+    scale=0.9,
+    every node/.style={transform shape},
+    vbox/.style={rectangle, draw=sePrimary, fill=seLightGray, thick, rounded corners, minimum width=3.8cm, minimum height=0.9cm, align=center, font=\scriptsize\sffamily},
+    rightvbox/.style={rectangle, draw=seSecondary, fill=seSecondary!15, thick, rounded corners, minimum width=3.8cm, minimum height=0.9cm, align=center, font=\scriptsize\sffamily},
+    trace/.style={<->, dashed, thick, color=seAccent}
+]
+    % Left side (Decomposition & Definition)
+    \node[vbox] (l1) at (0, 6) {\textbf{Concept of Operations (ConOps)}\\Stakeholder Needs};
+    \node[vbox] (l2) at (1.5, 4.5) {\textbf{System Requirements}\\System Specification (Type A)};
+    \node[vbox] (l3) at (3.0, 3.0) {\textbf{Subsystem Architecture}\\Allocated Spec (Type B)};
+    \node[vbox] (l4) at (4.5, 1.5) {\textbf{Detailed Component Design}\\Schematics, Module Specs};
+
+    % Bottom (Implementation)
+    \node[rectangle, draw=seGreen!80!black, fill=seGreen!20, thick, rounded corners, minimum width=4cm, minimum height=0.8cm, align=center, font=\small\bfseries\sffamily] (bot) at (6, 0) {
+        IMPLEMENTATION\\Coding \& Fabrication
+    };
+
+    % Right side (Integration, Verification & Validation)
+    \node[rightvbox] (r4) at (7.5, 1.5) {\textbf{Component / Unit Testing}\\Code Coverage, Hardware Testing};
+    \node[rightvbox] (r3) at (9.0, 3.0) {\textbf{Subsystem Integration Test}\\Interface \& Protocol Verification};
+    \node[rightvbox] (r2) at (10.5, 4.5) {\textbf{System Verification}\\``Built the System Right?''};
+    \node[rightvbox] (r1) at (12.0, 6) {\textbf{System Validation}\\``Built the Right System?''};
+
+    % Left Downward Flow
+    \draw[-{Stealth[scale=1.2]}, very thick, color=sePrimary] (l1) -- (l2);
+    \draw[-{Stealth[scale=1.2]}, very thick, color=sePrimary] (l2) -- (l3);
+    \draw[-{Stealth[scale=1.2]}, very thick, color=sePrimary] (l3) -- (l4);
+    \draw[-{Stealth[scale=1.2]}, very thick, color=sePrimary] (l4) -- (bot);
+
+    % Right Upward Flow
+    \draw[-{Stealth[scale=1.2]}, very thick, color=seSecondary] (bot) -- (r4);
+    \draw[-{Stealth[scale=1.2]}, very thick, color=seSecondary] (r4) -- (r3);
+    \draw[-{Stealth[scale=1.2]}, very thick, color=seSecondary] (r3) -- (r2);
+    \draw[-{Stealth[scale=1.2]}, very thick, color=seSecondary] (r2) -- (r1);
+
+    % Horizontal Traceability Links
+    \draw[trace] (l4) -- (r4) node[midway, above, font=\tiny\bfseries\color{seAccent}] {Component Verification};
+    \draw[trace] (l3) -- (r3) node[midway, above, font=\tiny\bfseries\color{seAccent}] {Interface Verification};
+    \draw[trace] (l2) -- (r2) node[midway, above, font=\tiny\bfseries\color{seAccent}] {System Spec Verification};
+    \draw[trace] (l1) -- (r1) node[midway, above, font=\tiny\bfseries\color{seAccent}] {OPERATIONAL VALIDATION};
+
+    % Top labels
+    \node[font=\small\bfseries\sffamily\color{sePrimary}] at (1.5, 6.8) {DECOMPOSITION \& DEFINITION};
+    \node[font=\small\bfseries\sffamily\color{seSecondary}] at (10.5, 6.8) {INTEGRATION \& EVALUATION};
+\end{tikzpicture}%
+}
+\caption{The Systems Engineering Vee Model with Horizontal Traceability Links.}
+\label{fig:vee_model}
+\end{figure}
+
+\subsection{Verification vs. Validation: The Inviolable Distinction}
+Students and junior engineers constantly confuse Verification and Validation. Memorize these foundational definitions:
+
+\begin{definitionbox}{Verification vs. Validation}
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Verification asks: ``Are we building the system right?''}
+    \begin{itemize}
+        \item \textit{Focus:} Conformance to engineering specifications.
+        \item \textit{Objective:} Verifying that the realized technical artifact satisfies the documented requirements, tolerances, protocols, and performance thresholds established during design.
+        \item \textit{Method:} Inspection, analysis, demonstration, laboratory testing against the specification document.
+    \end{itemize}
+    \item \textbf{Validation asks: ``Are we building the right system?''}
+    \begin{itemize}
+        \item \textit{Focus:} Satisfaction of genuine operational stakeholder needs in the actual operational environment.
+        \item \textit{Objective:} Confirming that the system, when operated by real human users under real field conditions, successfully fulfills its intended mission purpose and delivers the desired value.
+        \item \textit{Method:} Operational testing, user trials, flight testing, field deployment reviews.
+    \end{itemize}
+\end{itemize}
+\end{definitionbox}
+
+\begin{examplebox}{The Classic Failure of Verification Without Validation}
+A software contractor is hired to build an automated emergency dispatch system for municipal fire trucks.
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Specification:} \textit{``System shall transmit incident alarm data packets across encrypted 4096-bit TLS connection within 150 milliseconds.''}
+    \item \textbf{Verification Result:} Passed with 100\% compliance! The software code verifies against the spec perfectly in laboratory benchmarks.
+    \item \textbf{Operational Validation in the Field:} The dispatch touchscreen is installed inside the fire engine cab. When an emergency call occurs at night, the fire captain puts on heavy thermal fire-resistant gloves and climbs into the moving truck. The captain attempts to tap the confirmation button on the capacitive glass screen; \textbf{the screen does not respond to gloves!} Furthermore, the high-resolution font is illegible while bouncing at 60 km/h over potholes.
+\end{itemize}
+\textbf{The Verdict:} The system was 100\% \textbf{Verified} (built exactly to specification), but completely \textbf{Invalidated} (failed to fulfill the real human need in the operational situation).
+\end{examplebox}
+
+% ------------------------------------------------------------------------------
+% SECTION 5.8: BASELINES MANAGEMENT
+% ------------------------------------------------------------------------------
+\section{Top-Down Decomposition, Bottom-Up Synthesis \& Baselines}
+\label{sec:baselines_mgmt}
+
+Systems Engineering manages complexity through a simultaneous dual movement:
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textbf{Top-Down Decomposition:} Starting with broad stakeholder needs and progressively refining them down into system requirements, subsystem functional blocks, and individual component blueprints.
+    \item \textbf{Bottom-Up Synthesis \& Integration:} Building individual components, verifying them against unit tests, integrating them into subsystems, and validating the assembled whole against the operational concept.
+\end{enumerate}
+
+\subsection{The Four Formal Configuration Baselines}
+To prevent scope creep and chaotic redesign, Systems Engineering freezes the design at formal milestones known as \textbf{Baselines} (Table~\ref{tab:four_baselines}):
+
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{lp{3.5cm}p{4cm}X}
+\toprule
+\textbf{Baseline} & \textbf{Phase Established} & \textbf{Formal Specification} & \textbf{Contents \& Operational Purpose} \\
+\midrule
+\textbf{1. Functional Baseline} & Conceptual Design Phase Review & System Specification (\textbf{Type A}) & Defines \textit{what} the system must achieve functionally; performance thresholds; operational envelope. \\
+\textbf{2. Allocated Baseline} & Preliminary Design Phase (PDR) & Development \& Process Specs (\textbf{Types B--E}) & Translates system-level functions into subsystem allocations; defines interfaces and subsystem requirements. \\
+\textbf{3. Product Baseline} & Detail Design Phase (CDR) & Product / Build-to Specifications & Contains complete manufacturing drawings, bills of materials, verified software binaries, and assembly tooling. \\
+\textbf{4. Updated Baseline} & Operational Field Deployment & As-Maintained Configuration Logs & Captures field engineering changes, software patches, retrofits, and component obsolescence modifications. \\
+\bottomrule
+\end{tabularx}
+\caption{The Four Formal Configuration Baselines of Systems Engineering.}
+\label{tab:four_baselines}
+\end{table}
+
+% ------------------------------------------------------------------------------
+% SECTION 5.9: MULTI-SPEED AI LIFE CYCLES
+% ------------------------------------------------------------------------------
+\section{Multi-Speed Life Cycles in Artificial Intelligence Systems}
+\label{sec:ai_multispeed_lc}
+
+A cutting-edge contribution of Dr.~Mokhade's lectures is analyzing the \textbf{mismatch of life-cycle speeds} in modern AI-enabled cyber-physical systems (Table~\ref{tab:ai_multispeed}):
+
+\begin{table}[htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{lp{4cm}X}
+\toprule
+\textbf{System Element} & \textbf{Lifecycle Velocity} & \textbf{Architectural Challenge \& Systems Solution} \\
+\midrule
+\textbf{Data \& Knowledge Sources} & Days to Weeks & Data drift, concept drift, changing privacy laws. Requires continuous automated data-quality pipelines. \\
+\textbf{AI Model Weights} & Weeks to Months & Supplier deprecation, retraining runs, catastrophic forgetting. Requires modular model-swapping wrappers. \\
+\textbf{Software APIs \& Orchestration} & Months to Years & Library upgrades, microservice refactoring. Requires backward-compatible gRPC/REST interface contracts. \\
+\textbf{Compute Hardware \& Racks} & 3 to 5 Years & Silicon depreciation, thermal limits, PCIe bus bandwidth. Requires modular server blade architectures. \\
+\textbf{Physical Infrastructure (Tunnels, Chassis)} & 30 to 50 Years & Extreme physical longevity. Must be architected with sufficient power and thermal headroom to accommodate 10 generations of IT evolution! \\
+\bottomrule
+\end{tabularx}
+\caption{Multi-Speed Interacting Life Cycles in Modern AI-Enabled Systems.}
+\label{tab:ai_multispeed}
+\end{table}
+
+% ------------------------------------------------------------------------------
+% SECTION 5.10: DAY 5 REVIEW & EXAM PROBLEMS
+% ------------------------------------------------------------------------------
+\section{Day 5 Review, Step-by-Step Mapping Exercises \& Exam Drills}
+\label{sec:day5_exercises}
+
+\begin{examprepbox}{High-Yield Exam Concept: The Vee Model \& Four Baselines}
+When asked to describe the Systems Realization process:
+\begin{enumerate}[leftmargin=1.5em]
+    \item Draw the complete \textbf{Vee Model} diagram with both legs, the bottom implementation block, and the \textbf{horizontal traceability arrows}.
+    \item Explicitly articulate the difference between \textbf{Verification} (\textit{``Did we build the system right?''} against specs) and \textbf{Validation} (\textit{``Did we build the right system?''} against stakeholder operational needs).
+    \item List the \textbf{Four Baselines} in temporal sequence: Functional (Type A), Allocated (Types B--E), Product, and Updated Baseline.
+\end{enumerate}
+\end{examprepbox}
+
+\subsection{Practice Problems \& Analytical Exercises}
+
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{Problem 5.1 (The Shuttle Battery Obsolescence Post-Mortem):}
+    Analyze the VNIT electric shuttle battery obsolescence failure using the \textbf{Four Concurrent Life Cycles model} (Figure~\ref{fig:four_concurrent_lifecycles}). Which specific life cycles were neglected during the conceptual design phase? Propose three engineering requirements that should have been written into the \textbf{Allocated Baseline} to prevent this failure.
+
+    \item \textbf{Problem 5.2 (Verification vs. Validation Scenario):}
+    An autonomous delivery drone is engineered to transport medicine. 
+    \begin{itemize}
+        \item In factory testing, the drone achieves 100\% GPS positional hold in 40 km/h wind tunnels.
+        \item In field deployment in a coastal tropical city, the drone crashes into dense coconut palm fronds during monsoon showers.
+    \end{itemize}
+    Classify the factory test and field trial using the terms \textit{Verification} and \textit{Validation}. Explain why passing verification did not guarantee operational validity.
+
+    \item \textbf{Problem 5.3 (Baselines Management in Cloud AI):}
+    Explain how an enterprise engineering team can manage configuration baselines for an autonomous customer-service AI platform where the large language model weights are updated weekly, but the corporate safety compliance baseline must remain legally audited and frozen.
+\end{enumerate}
+

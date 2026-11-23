@@ -1,0 +1,198 @@
+% ============================================================================
+% Section F: Translate Life-Cycle Concerns into Design Parameters (F1-F5)
+% ============================================================================
+\section{Translation of Life-Cycle Concerns into Design Parameters}
+\label{sec:F}
+
+Stakeholder concerns are translated systematically into Design Considerations (F1), Design-Dependent Parameters (F2), Design-Independent Parameters (F3), Technical Performance Measures (F4), and Design Criteria (F5).
+
+\subsection{Design Considerations (Annexure F)}
+\label{subsec:F1}
+Eight system-specific considerations (DC-1 to DC-8) represent acquiring, operating, user, regulatory, environmental, and retirement stakeholders (Table~\ref{tab:annexF}).
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.20}
+\begin{xltabular}{\textwidth}{L{2.7cm} L{2.65cm} L{2.0cm} Y}
+\caption{System-specific design considerations for UA-EWRRF (Annexure F format).}
+\label{tab:annexF}\\
+\toprule
+\hdrrow \tblhead{Design consideration} & \tblhead{Stakeholder concerned} & \tblhead{Relevant phase} & \tblhead{Why it should influence the design} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{l}{\footnotesize\color{SlateMuted}\textit{Table~\ref{tab:annexF} continued from previous page.}}\\
+\toprule
+\hdrrow \tblhead{Design consideration} & \tblhead{Stakeholder concerned} & \tblhead{Relevant phase} & \tblhead{Why it should influence the design} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{DC-1. Recovery Yield \& Purity} & Promoter, OEMs, Buyers, Smelters & Ph.\ 2--4, 6 & Drives commodity revenue and CPCB EPR recovery targets; impure streams incur penalties. \\
+\midrule
+\textbf{DC-2. Throughput \& EPR Traceability} & Promoter, Bulk Users, CPCB, NMC & Ph.\ 2--4, 6 & Clears 10 t/day within CPCB's 180-day storage cap with auditable batch mass balance. \\
+\midrule
+\textbf{DC-3. Worker Safety \& Fire Control} & Operators, DISH, Community & Ph.\ 2--8 & Punctured Li-ion batteries and lead/mercury dust create severe fire and health hazards. \\
+\midrule
+\textbf{DC-4. Emission \& ZLD Containment} & MPCB, CPCB, MIDC, Community & Ph.\ 3--8 & Particulate ($\text{PM}_{10}$) or heavy-metal leachate violations trigger immediate CTO revocation. \\
+\midrule
+\textbf{DC-5. Reliability \& Maintainability} & Maint.\ Team, Operators, Promoter & Ph.\ 3--4, 6--7 & Abrasive PCBs wear shredder blades rapidly; high MTTR breaches pickup SLAs. \\
+\midrule
+\textbf{DC-6. Modularity \& Adaptability} & Operations, Future Planners, OEMs & Ph.\ 2--3, 7 & Shifting device designs (glued IoT/Li-ion) obsolete rigid monolithic lines early. \\
+\midrule
+\textbf{DC-7. Energy \& Life-Cycle Affordability} & Promoter, Investors, Society & Ph.\ 1--8 & Balances CapEx, energy OpEx, TSDF fees, and closure cost over 15 years. \\
+\midrule
+\textbf{DC-8. De-contaminability \& Closure} & Decomm.\ Contr., MPCB, MIDC & Ph.\ 3, 5, 8 & Heavy-metal seepage into unsealed slabs creates multi-crore Year-15 soil liability. \\
+
+\end{xltabular}
+\endgroup
+
+\subsection{Design-Dependent Parameters --- DDPs (Annexure G)}
+\label{subsec:F2}
+Seven DDPs lie directly within UA-EWRRF design authority during conceptual, preliminary, and detailed design (Table~\ref{tab:annexG}).
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.20}
+\begin{xltabular}{\textwidth}{L{2.7cm} Y L{2.45cm} Y}
+\caption{Design-Dependent Parameters (DDPs) under UA-EWRRF design authority (Annexure G format).}
+\label{tab:annexG}\\
+\toprule
+\hdrrow \tblhead{DDP} & \tblhead{Design decision influencing it} & \tblhead{Stakeholder affected} & \tblhead{Life-cycle consequence} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{l}{\footnotesize\color{SlateMuted}\textit{Table~\ref{tab:annexG} continued from previous page.}}\\
+\toprule
+\hdrrow \tblhead{DDP} & \tblhead{Design decision influencing it} & \tblhead{Stakeholder affected} & \tblhead{Life-cycle consequence} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{DDP-1. Line Modularity} & Skid-mounted bays with quick-connect utilities vs.\ monolithic train. & EPC, Maint., Upgrade Team. & Allows Year-6 Li-ion/NIR add-ons without plant shutdown; aids asset resale. \\
+\midrule
+\textbf{DDP-2. Sorting Architecture} & Manual de-pollution + granulator + magnetic, eddy \& optical/XRT skids. & Ops, Buyers, Smelters, TSDF. & Governs purity ($\ge 95\%$), MRR ($\ge 82\%$), and prevents shredder battery fires. \\
+\midrule
+\textbf{DDP-3. Maintainability (MTTR)} & Quick-swap blade cassettes, overhead hoist, dual baghouse fans. & Maint.\ Team, Ops, OEMs. & Sustains $A_o \ge 88\%$ despite PCB wear; removes single-point air-filter failures. \\
+\midrule
+\textbf{DDP-4. Dust \& ZLD Containment} & Negative-pressure hoods, HEPA/carbon scrubbers, closed ZLD loop. & Ops, MPCB, Community. & Holds stack $\text{PM} \le 30$ and work-zone $\le 2\text{ mg/m}^3$; zero liquid discharge. \\
+\midrule
+\textbf{DDP-5. Digital EPR Integration} & QR/RFID tags, digital weighbridge, CPCB EPR \& Form-10 API. & EHS, CPCB, OEMs, Users. & Eliminates mass-balance errors and accelerates EPR credit settlement. \\
+\midrule
+\textbf{DDP-6. Specific Energy Intensity} & VFD motors on shredders/blowers; dry mechanical over wet thermal sorting. & Promoter, MSEDCL, Society. & Holds SEC $\le 180\text{ kWh/t}$, insulating OpEx from electricity tariff hikes. \\
+\midrule
+\textbf{DDP-7. De-contaminable Floor} & Impermeable epoxy secondary containment slab + bolted skid anchors. & Civil EPC, MPCB, MIDC, Decomm. & Blocks heavy-metal soil seepage; cuts Year-15 closure cost by $>60\%$. \\
+
+\end{xltabular}
+\endgroup
+
+\subsection{Design-Independent Parameters --- DIPs (Annexure H)}
+\label{subsec:F3}
+Five DIPs are external regulatory, market, and utility forces strictly outside the facility's design boundary and authority (Table~\ref{tab:annexH}).
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.20}
+\begin{xltabular}{\textwidth}{L{2.5cm} L{2.25cm} L{2.2cm} L{2.25cm} Y}
+\caption{Design-Independent Parameters (DIPs) external to UA-EWRRF design authority (Annexure H format).}
+\label{tab:annexH}\\
+\toprule
+\hdrrow \tblhead{DIP} & \tblhead{External source} & \tblhead{Expected range} & \tblhead{Decision affected} & \tblhead{Effect of uncertainty} \\
+\midrule
+\endfirsthead
+\multicolumn{5}{l}{\footnotesize\color{SlateMuted}\textit{Table~\ref{tab:annexH} continued from previous page.}}\\
+\toprule
+\hdrrow \tblhead{DIP} & \tblhead{External source} & \tblhead{Expected range} & \tblhead{Decision affected} & \tblhead{Effect of uncertainty} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{DIP-1. EPR \& Emission Rules} & MoEFCC / CPCB \& MPCB CTO norms. & 70--80\% EPR; stack PM $\le 30\text{ mg/m}^3$. & Containment (DDP-4), PCB/BFR (D2). & Tighter BFR/Li-ion rules break rigid non-modular lines. \\
+\midrule
+\textbf{DIP-2. WEEE Volume \& Mix} & Consumer trends, OEM gluing, informal sector. & 8--12 t/d; rising Li-ion, falling CRT. & Throughput sizing, automation mix (D1). & Low inflow raises $\text{LCC}_t$; glued batteries slow triage. \\
+\midrule
+\textbf{DIP-3. Commodity Prices} & Global LME/MCX metal \& polymer markets. & Cu INR 720--850/kg; Au/Pd $\pm 25\%$. & Sorting purity (DDP-2) \& reserve. & Price drops squeeze margins of high-OpEx plants. \\
+\midrule
+\textbf{DIP-4. Grid Power Tariff} & MSEDCL / MERC regulated tariffs. & INR 9.0--11.5/kWh (+4--6\%/yr). & VFD selection (DDP-6) \& solar PV. & Tariff spikes severely penalize shred-first plants (A3). \\
+\midrule
+\textbf{DIP-5. TSDF Fees \& EHS Wages} & Butibori TSDF \& regional labor market. & TSDF INR 12--18k/t; wages +7--10\%/yr. & Pre-sorting depth (D1) \& haz-scope (D2). & High TSDF fees punish impure streams; wages hit A1. \\
+
+\end{xltabular}
+\endgroup
+
+\subsection{Technical Performance Measures --- TPMs (Annexure I)}
+\label{subsec:F4}
+Six measurable TPMs enable quantitative evaluation from conceptual design through operation (Table~\ref{tab:annexI}).
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.20}
+\begin{xltabular}{\textwidth}{L{2.5cm} L{2.25cm} L{2.7cm} L{2.0cm} Y}
+\caption{Technical Performance Measures (TPMs) for UA-EWRRF (Annexure I format).}
+\label{tab:annexI}\\
+\toprule
+\hdrrow \tblhead{TPM} & \tblhead{Related DDPs \& DIPs} & \tblhead{Unit / assessment method} & \tblhead{Phase assessed} & \tblhead{Responsible stakeholder} \\
+\midrule
+\endfirsthead
+\multicolumn{5}{l}{\footnotesize\color{SlateMuted}\textit{Table~\ref{tab:annexI} continued from previous page.}}\\
+\toprule
+\hdrrow \tblhead{TPM} & \tblhead{Related DDPs \& DIPs} & \tblhead{Unit / assessment method} & \tblhead{Phase assessed} & \tblhead{Responsible stakeholder} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{TPM-1. Material Recovery Rate (MRR)} & DDP-1,2,5; DIP-1,2 & \% intake mass recovered at $\ge 95\%$ metal purity; weighbridge \& assay. & Ph.\ 2--4, 5 (SAT), 6. & Plant Ops, Quality Lab \& CPCB Auditor. \\
+\midrule
+\textbf{TPM-2. Availability ($A_o$)} & DDP-1,3; DIP-2,5 & \% of 2,400 h/yr operational: $\text{MTBF}/(\text{MTBF}+\text{MTTR})$ via CMMS. & Ph.\ 3--4, 6--7. & Maintenance Mgr \& Equip.\ OEM. \\
+\midrule
+\textbf{TPM-3. Throughput ($Q_p$)} & DDP-1,2,3; DIP-2 & Metric tonnes/day (t/d) at compliant purity \& safety; SCADA count. & Ph.\ 2--3, 5, 6. & Plant Ops Mgr \& EPC (SAT). \\
+\midrule
+\textbf{TPM-4. Emission \& ZLD ($E_{\text{PM}}$)} & DDP-4,7; DIP-1 & Stack/work-zone $\text{PM}_{10}$ ($\text{mg/m}^3$) via NABL sampler; \% ZLD reuse. & Ph.\ 4, 5 (CTO), 6--8. & EHS Officer, NABL Lab \& MPCB. \\
+\midrule
+\textbf{TPM-5. Specific Energy (SEC)} & DDP-2,6; DIP-2,4 & kWh/tonne processed; sub-meter readings / weighbridge mass. & Ph.\ 3--4, 5, 6. & Electrical Eng.\ \& Energy Auditor. \\
+\midrule
+\textbf{TPM-6. Life-Cycle Cost ($\text{LCC}_t$)} & DDP-1--7; DIP-2--5 & INR/tonne over 15 yr (CapEx + OpEx + maint.\ + TSDF + escrow). & Ph.\ 2--3, 6--8. & Promoter CFO, Sys.\ Eng.\ \& Lenders. \\
+
+\end{xltabular}
+\endgroup
+
+\subsection{Design Criteria and Integrated Framework (Annexure J)}
+\label{subsec:F5}
+Table~\ref{tab:annexJ} defines verifiable target ranges and bases (explicitly noting engineering assumptions), while Figure~\ref{fig:integrated_framework} maps how UA-EWRRF stakeholder concerns flow into design trade-offs and closed-loop feedback.
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.20}
+\begin{xltabular}{\textwidth}{L{2.05cm} L{2.4cm} L{2.55cm} L{2.1cm} Y}
+\caption{Design criteria established for UA-EWRRF TPMs (Annexure J format).}
+\label{tab:annexJ}\\
+\toprule
+\hdrrow \tblhead{TPM} & \tblhead{Target / acceptable range} & \tblhead{Basis for criterion} & \tblhead{Stakeholder} & \tblhead{Consequence of non-achievement} \\
+\midrule
+\endfirsthead
+\multicolumn{5}{l}{\footnotesize\color{SlateMuted}\textit{Table~\ref{tab:annexJ} continued from previous page.}}\\
+\toprule
+\hdrrow \tblhead{TPM} & \tblhead{Target / acceptable range} & \tblhead{Basis for criterion} & \tblhead{Stakeholder} & \tblhead{Consequence of non-achievement} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{TPM-1 (MRR)} & $\ge 82\%$ (Target: 85\%; min.\ 80\%) & CPCB EPR targets + WEEE benchmarks (\textit{assumption}). & CPCB, OEMs, Promoter. & EPR shortfall, lost metal revenue, higher TSDF waste. \\
+\midrule
+\textbf{TPM-2 ($A_o$)} & $\ge 88\%$ (Target: 90\%; MTTR $\le 4$ h) & Need to clear 3,000 t/yr in 300 d (\textit{assumption}). & Promoter, Users, Maint. & Storage exceeds 180-day cap; SLA penalties. \\
+\midrule
+\textbf{TPM-3 ($Q_p$)} & $\ge 10.0\text{ t/d}$ (Range: 9.5--12.5) & Nagpur catchment forecast (\textit{assumption}). & Promoter, NMC, Users. & Unabsorbed e-waste leaks back to informal sector. \\
+\midrule
+\textbf{TPM-4 ($E_{\text{PM}}$)} & Stack $\le 30$; Indoor $\le 2.0\text{ mg/m}^3$; ZLD 100\% & MPCB CTO, Air Act \& Factories Act (\textit{regulation}). & MPCB, DISH, Ops, Public. & Stop-work order, CTO suspension, health claims. \\
+\midrule
+\textbf{TPM-5 (SEC)} & $\le 180\text{ kWh/t}$ (Target: $\le 160$) & Medium dry WEEE plant benchmark (\textit{assumption}). & Promoter, Investors. & Rising power OpEx erodes margin \& carbon benefit. \\
+\midrule
+\textbf{TPM-6 ($\text{LCC}_t$)} & $\le \text{INR } 18{,}500/\text{t}$ (Target: $\le 16{,}500$) & Viability vs.\ EPR + metal revenue (\textit{assumption}). & Board, Lenders, OEMs. & Negative NPV; unfunded upgrades \& closure escrow. \\
+
+\end{xltabular}
+\endgroup
+
+\input{figures/fig_integrated_framework}

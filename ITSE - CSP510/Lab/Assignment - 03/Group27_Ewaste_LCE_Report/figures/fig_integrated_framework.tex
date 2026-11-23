@@ -1,0 +1,93 @@
+% ============================================================================
+% Figure 5: System-Specific Integrated Design Framework Relationship Diagram
+% (Deliverable F4 / End of Section F)
+% Non-floating minipage + \captionof ensures exact inline placement after Table 9
+% ============================================================================
+\noindent\begin{minipage}{\textwidth}
+\vspace{6pt}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.45cm]
+
+% Column Title Banners (clean pastel academic headers)
+\node[sebanner, fill=LightTint, draw=black!60, minimum width=2.85cm, minimum height=0.6cm] (h1) at (0, 6.45) {Stakeholder Concerns};
+\node[sebanner, fill=DiagTealFill, draw=DiagTealDraw, minimum width=3.05cm, minimum height=0.6cm] (h2) at (3.55, 6.45) {Design Considerations};
+\node[sebanner, fill=DiagBlueFill, draw=DiagBlueDraw, minimum width=3.35cm, minimum height=0.6cm] (h3) at (7.55, 6.45) {DDPs (Internal) \& DIPs (Ext.)};
+\node[sebanner, fill=DiagTealFill, draw=DiagTealDraw, minimum width=3.15cm, minimum height=0.6cm] (h4) at (11.65, 6.45) {TPMs \& Design Criteria};
+\node[sebanner, fill=AmberTint, draw=DiagOrgDraw, minimum width=2.75cm, minimum height=0.6cm] (h5) at (15.30, 6.45) {Decisions \& Eval.};
+
+% --- Col 1: Stakeholder Concerns ---
+\node[sebox, text width=2.65cm] (st1) at (0, 5.25) {\textbf{Promoter / OEMs}\\EPR compliance, ROI,\\metallic recovery value};
+\node[sebox, text width=2.65cm] (st2) at (0, 3.85) {\textbf{Operators / Maint.}\\Safe workplace, low\\downtime, easy repair};
+\node[sebox, text width=2.65cm] (st3) at (0, 2.45) {\textbf{CPCB/MPCB/Public}\\Zero toxic leakage,\\clean air, traceability};
+\node[sebox, text width=2.65cm] (st4) at (0, 1.05) {\textbf{Retirement / MIDC}\\Clean site handover,\\low closure liability};
+
+% --- Col 2: Design Considerations ---
+\node[seboxTeal, text width=2.85cm] (dc1) at (3.55, 5.30) {\textbf{DC-1, DC-2}\\Recovery yield, 10 t/d\\throughput, EPR trace};
+\node[seboxTeal, text width=2.85cm] (dc2) at (3.55, 3.90) {\textbf{DC-3, DC-5, DC-6}\\Safety/fire, MTTR,\\modular adaptability};
+\node[seboxTeal, text width=2.85cm] (dc3) at (3.55, 2.50) {\textbf{DC-4, DC-7}\\Dust/ZLD containment,\\energy \& affordability};
+\node[seboxTeal, text width=2.85cm] (dc4) at (3.55, 1.10) {\textbf{DC-8}\\End-of-life closure \&\\de-contaminability};
+
+% --- Col 3: DDPs (Top) & DIPs (Bottom) ---
+\node[sebox, text width=3.15cm] (ddp1) at (7.55, 5.30) {\textbf{DDP-1, DDP-2, DDP-5}\\Modular skids, hybrid sort,\\QR/EPR API logging};
+\node[sebox, text width=3.15cm] (ddp2) at (7.55, 4.00) {\textbf{DDP-3, DDP-4, DDP-6}\\Quick-swap blades, HEPA/\\ZLD hoods, VFD motors};
+\node[sebox, text width=3.15cm] (ddp3) at (7.55, 2.75) {\textbf{DDP-7}\\Sealed epoxy slab \&\\bolted skid anchors};
+
+\node[seboxRisk, text width=3.15cm] (dip1) at (7.55, 1.48) {\textbf{DIP-1, DIP-2 (External)}\\CPCB quotas \& WEEE\\product-mix / Li-ion shift};
+\node[seboxRisk, text width=3.15cm] (dip2) at (7.55, 0.08) {\textbf{DIP-3--5 (External)}\\Metal prices, MSEDCL\\tariff, TSDF \& wages};
+
+% --- Col 4: TPMs & Criteria ---
+\node[seboxTeal, text width=2.95cm] (tpm1) at (11.65, 5.35) {\textbf{TPM-1 (MRR) $\ge 82\%$}\\\textbf{TPM-3 ($Q_p$) $\ge 10$ t/d}};
+\node[seboxTeal, text width=2.95cm] (tpm2) at (11.65, 4.10) {\textbf{TPM-2 ($A_o$) $\ge 88\%$}\\(MTTR $\le 4$ h)};
+\node[seboxTeal, text width=2.95cm] (tpm3) at (11.65, 2.85) {\textbf{TPM-4 ($E_{\text{PM}}$) $\le 30/2$}\\Stack/indoor mg/m$^3$, ZLD};
+\node[seboxTeal, text width=2.95cm] (tpm4) at (11.65, 1.60) {\textbf{TPM-5 (SEC) $\le 180$}\\kWh/tonne processed};
+\node[seboxTeal, text width=2.95cm] (tpm5) at (11.65, 0.35) {\textbf{TPM-6 ($\text{LCC}_t$) $\le 18.5$k}\\INR/tonne (15-yr life)};
+
+% --- Col 5: Decisions, Trade-offs & Disruption ---
+\node[seboxAmber, text width=2.55cm, minimum height=1.35cm] (ev1) at (15.30, 4.75) {\textbf{Early Decisions}\\D1: Sort/Dismantle\\D2: PCB Strategy\\D3: Civil/Anchors};
+\node[seboxTeal, text width=2.55cm, minimum height=1.45cm] (ev2) at (15.30, 2.70) {\textbf{Trade-off Matrix}\\A1 (5.54) vs.\ A3 (5.76)\\\textbf{Select A2 (8.62)}\\Best Life-Cycle Value};
+\node[seboxRisk, text width=2.55cm, minimum height=1.15cm] (ev3) at (15.30, 0.80) {\textbf{Yr-6 Disruption}\\Li-ion/BFR + Tariff\\Test Resilience};
+
+% Connecting Arrows
+\draw[searrow] (st1.east) -- (dc1.west);
+\draw[searrow] (st2.east) -- (dc2.west);
+\draw[searrow] (st3.east) -- (dc3.west);
+\draw[searrow] (st4.east) -- (dc4.west);
+
+\draw[searrow] (dc1.east) -- (ddp1.west);
+\draw[searrow] (dc2.east) -- (ddp2.west);
+\draw[searrow] (dc3.east) -- (ddp2.west);
+\draw[searrow] (dc4.east) -- (ddp3.west);
+
+\draw[searrow] (ddp1.east) -- (tpm1.west);
+\draw[searrow] (ddp2.east) -- (tpm2.west);
+\draw[searrow] (ddp2.east) -- (tpm3.west);
+\draw[searrow] (ddp2.east) -- (tpm4.west);
+\draw[searrow] (ddp3.east) -- (tpm5.west);
+
+\draw[seextarrow] (dip1.east) -- (tpm1.west);
+\draw[seextarrow] (dip1.east) -- (tpm3.west);
+\draw[seextarrow] (dip2.east) -- (tpm4.west);
+\draw[seextarrow] (dip2.east) -- (tpm5.west);
+
+\draw[searrow] (tpm1.east) -- (ev1.west);
+\draw[searrow] (tpm2.east) -- (ev2.west);
+\draw[searrow] (tpm3.east) -- (ev2.west);
+\draw[searrow] (tpm4.east) -- (ev2.west);
+\draw[searrow] (tpm5.east) -- (ev2.west);
+\draw[searrow] (ev1.south) -- (ev2.north);
+\draw[seriskarrow] (ev2.south) -- (ev3.north);
+
+% Clean orthogonal closed-loop feedback routed underneath DIP boxes and up open channel x=5.48
+\draw[sefeedback]
+    (ev3.south) -- (15.30, -0.92)
+    -- node[selabel] {Closed-Loop Feedback: Operational Telemetry, Maintenance MTTR \& Disruption Audits Update DDPs \& Criteria}
+    (5.48, -0.92) |- ($(ddp3.west)+(0,-0.15)$);
+\draw[sefeedback] (5.48, 2.60) |- ($(ddp2.west)+(0,-0.25)$);
+
+\end{tikzpicture}%
+}
+\captionof{figure}{System-Specific Integrated Design Framework for UA-EWRRF Tracing Stakeholder Concerns through Design Considerations, DDPs, DIPs, TPMs, and Criteria.}
+\label{fig:integrated_framework}
+\vspace{4pt}
+\end{minipage}

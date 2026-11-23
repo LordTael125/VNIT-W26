@@ -1,0 +1,671 @@
+CSL510 INTRODUCTION TO SYSTEMS ENGINEERING W26
+
+Why System Engineering M tters For Every CSE Student?
+- CSL510: A Gateway to Smarter, System-Aware Engineering
+
+Every engineering problem begins with a human problem.
+Examples
+
+Science asks: How does the world
+work?
+Engineering asks: How can we use
+that knowledge to improve human
+life?
+Engineering is the disciplined
+process of
+
+Human Need
+
+Engineering Solution
+
+Safe transportation
+
+Roads, Cars, Railways
+
+Communication
+
+Internet, Mobile Networks
+
+Clean water
+
+Water Treatment Plants
+
+Health
+
+MRI, AI Diagnosis
+
+Food
+
+Precision Agriculture
+
+Engineering is Solving Human
+Problems
+Which is the real problem?
+A village has no hospital.
+Is the problem
+❌ No building?
+
+•Understanding human needs
+•Applying scienti c knowledge
+•Working within practical
+constraints
+•Designing useful solutions
+•Improving quality of life
+
+Engineering is not about machines.
+
+a
+
+Engineering is about people. Machines are only the means.
+
+❌ No MRI machine?
+❌ No doctors?
+No.
+The real problem is
+People cannot receive timely
+healthcare.
+
+Engineering thinking
+Human Problem
+↓
+Understand Needs
+↓
+Generate Alternatives
+↓
+Evaluate Constraints
+↓
+Design Solution
+↓
+Implement
+↓
+
+Constraints always exist
+
+•Cost
+•Time
+•Technology
+•Safety
+•Ethics
+•Environment
+•Society
+•Laws
+Engineering therefore is
+Finding the best possible
+solution, not the perfect solution.
+Engineering is the art of making
+what is desirable possible under
+real-world constraints.
+
+Improve
+
+fi
+
+Engineering: Beyond Science
+
+3 & 4 August 2026
+
+fi
+
+What is Engineering?
+
+Systems Engineering is about understanding and designing complex, interconnected
+systems — not just isolated code. It equips you to:
+•See the bigger picture of how your software ts into real-world operations.
+•Understand how decisions, feedback, delays, and human behavior shape outcomes.
+•Solve real problems in healthcare, transport, agriculture, public systems, cyberphysical environments, and more.
+
+a
+
+By A. S. Mokh de
+
+What is Systems Engineering?
+
+Why Systems Engineering?
+Traditional Engineering
+Worked When Systems Were
+Simple
+Earlier
+One engineer could understand
+the whole product.
+Example
+•Bicycle
+•Steam Engine
+•Pump
+•Radio
+Mostly mechanical.
+
+Traditional Engineering
+Design the part
+Optimize a component
+Solve technical problems
+Focus on performance
+
+fl
+
+Success = Working component
+
+Modern Examples
+
+Today
+Products contain
+•Hardware
+•Software
+•Electronics
+•AI
+•Networking
+•Cloud
+•Security
+•Human operators
+•Government
+regulations
+•Environmental impact
+One person cannot
+understand everything.
+
+•Aircraft
+•Smart City
+•Digital Payment System
+•Autonomous Car
+•Space Mission
+•Hospital Information System
+•National Power Grid
+These are no longer machines.
+They are Systems of Systems.
+Therefore
+Traditional engineering asks
+"How do I design this component?"
+Systems Engineering asks
+"How do all components work
+together throughout the system's
+life?"
+
+Systems Engineering
+Design the whole
+Optimize the complete system
+Solve socio-technical problems
+Balance performance, cost, safety, sustainability,
+and stakeholder needs
+Success = Working system that delivers value
+
+2. Interactions
+4. Lifecycle
+What is Systems
+A system is born...
+How do these parts
+Engineering?
+Designed
+in uence one another?
+Built
+An interdisciplinary
+Examples
+Tested
+approach to designing,
+•Feedback
+Operated
+integrating, operating, and
+•Communication
+Maintained
+improving complex systems
+•Dependencies
+Upgraded
+throughout their entire life
+•Interfaces
+Retired
+cycle.
+Systems Engineering considers the
+3. Stakeholders
+Four Questions
+entire lifecycle, not just development.
+Who cares about the system?
+1. Components
+A component can be perfect,
+•Users
+What are the parts?
+yet the system can still fail.
+•Customers
+•Hardware
+•
+Operators
+Systems Engineering exists
+•Software
+•Managers
+because success depends on
+•Data
+•Government
+how parts, people, and
+•People
+•Society
+processes work together—not
+•Processes
+•Future generations
+merely on how well individual
+Each stakeholder has different needs components are designed.
+and constraints.
+
+Why It’s Essential for Computer Science Engineers
+CSE Area
+
+How Systems Thinking Helps
+
+Software
+Engineering
+AI/ML & Data
+Science
+
+Understand software as part of a socio-technical system. Improve design
+thinking and architecture.
+Embed models into feedback-driven environments (e.g., traf c control,
+agriculture, fraud detection).
+
+Cybersecurity
+
+Identify vulnerabilities as systemic failures, not just code bugs.
+
+IoT & Embedded
+See how sensors + software + humans interact. Handle uncertainty,
+Systems
+constraints, and delays.
+Cloud & Distributed Optimize resource coordination and scalability across layers of a
+Systems
+system.
+DevOps & Agile
+
+From Coding to Thinking: Evolve as an Engineer
+Most engineers write code. Great engineers model, simulate, and improve systems.
+This course shifts your mindset:
+•From local thinking to system-level design.
+•From writing features to evaluating strategies.
+•From just execution to decision-making under uncertainty.
+
+Enhance continuous feedback handling and system adaptation.
+
+What’s New This Semester?
+This course includes:
+•Field Observations of real systems (transport, hospitals, campus services)
+•Systems Mapping & Feedback Analysis
+•Simulations like the Beer Distribution Game/or Similar Games
+•Use of CSO Framework: Concept → Strategy → Operation
+
+•Modeling tools & scenario-based assignments
+• Practicals
+
+Career Relevance
+Product Companies (Google, Microsoft): Value engineers who see full-system behavior.
+Startups: Need adaptive thinkers who can architect smart systems.
+Research & Higher Studies: Use this to strengthen SOPs and research pro les.
+Public Systems / Agri-Tech / Health-Tech: Critical for impactful innovation.
+
+Story: "The Programmer and the Pump"
+Once upon a time in a small town in India, there
+was a young computer science graduate named
+Aditya. Fresh out of college, Aditya landed his
+rst job with the municipal smart water
+management project.
+His task seemed simple:
+“Write code to automate the operation of water
+pumps based on demand and tank levels.”
+
+Let us begin with a Story…
+
+Aditys was excited. He built a clean, ef cient algorithm.
+It read the water level, calculated demand, and turned pumps
+on and off.
+It worked beautifully in simulation.
+But when deployed, chaos followed.
+•Pumps turned on at night, wasting electricity.
+•Water over owed or didn't reach certain homes.
+•The villagers blamed the municipality.
+•The municipality blamed the “buggy code.”
+Aditys was stunned. “The code works. I followed the logic.
+Why did it fail?”
+
+fi
+
+"No software system exists in isolation. Code lives inside ecosystems —
+shaped by users, data, delays, and decisions. This course helps you see, shape,
+and improve those ecosystems."
+
+fl
+
+fi
+
+Final Thought
+
+The Systems Engineer Arrives
+Enter Angel, a Systems Engineer with a background in
+both software and public systems.
+She asked questions Aditya hadn’t thought of:
+•"Who uses the water and when?"
+•"What time does electricity cost less?"
+•"What’s the role of the operator in switching pumps
+manually?"
+•"What if there’s a pipe leak? What’s the feedback
+loop?"
+They went into the eld together. Aditya saw:
+•Some tanks were not level-calibrated properly.
+•Operators bypassed automation due to distrust.
+•Power cuts interfered with the timing.
+•People lled water as a precaution even when they
+didn’t need it — triggering false high demand.
+
+The Realization
+Aditya nally realized:
+“My code was correct, but my system was blind.”
+He wasn’t just automating pumps —
+He was intervening in a living, human-technical
+system.
+To succeed, he needed to:
+•Map the entire system (Concept)
+•Design with constraints and human behavior in
+mind (Strategy)
+•Simulate and adjust for real-world operation
+(Operation)
+
+The Mindset Change
+Moral
+“In Systems Engineering, success lies not in perfect code, but in
+understanding imperfect systems.”
+Code is not the solution — it is just one part of a system that must be
+understood, in uenced, and designed systemically.
+
+fi
+
+fl
+
+fi
+
+fi
+
+fi
+
+From a coder who just wrote instructions,
+Aditya became a System Thinker who:
+•Observed rst,
+•Modeled behavior,
+•Designed for robustness,
+•And collaborated with people — not just code.
+
+Example:
+Design a sorting algorithm.
+"Which algorithm is fastest?"
+Merge Sort.
+Problem solved.
+
+Now the problem is no longer
+algorithmic.
+It has become systemic.
+So Systems Engineering asks
+"How do interactions create
+Level 2: Systems Problem
+behaviour?"
+Solving
+rather than
+Why is the software still slow?
+"Which component is wrong?"
+•network
+•database
+•cache
+•hardware
+•users
+•operating system
+
+The relationship
+
+WORLD
+│
+Observe Reality
+│
+┌───────────┴────────────┐
+│
+│
+Technical Thinking
+Systems Thinking
+│
+│
+Solve Component
+Understand Whole
+│
+│
+└───────────┬────────────┘
+│
+Con icting Goals
+│
+▼
+Dialectic Thinking
+Synthesis of Opposites
+│
+▼
+Better System Design
+
+fi
+
+Farmer:
+More rainfall is good.
+City:
+More rainfall causes
+oods.
+Engineer:
+Need dams.
+Environmentalist:
+Dams disturb ecosystems.
+Dialectical Thinking:
+The issue is not rainfall
+alone but the interaction
+of water, infrastructure,
+ecology, and society.
+
+All are technically correct.
+Now the problem cannot be solved by programming.
+It requires
+•balancing objectives
+•resolving contradictions
+•creating a better design.
+That is dialectic thinking.
+Not
+Who is right?
+But
+How do con icting truths produce a better system?
+
+So, dialectical thinking can be understood as
+The ability to understand reality by identifying contradictions, examining opposing
+viewpoints, and synthesizing a better understanding instead of accepting a single
+perspective.
+
+fl
+
+Customer says:
+Add more features.
+Developer says:
+More features increase
+complexity.
+Management says:
+We need faster delivery.
+Testing team says:
+More features require more
+testing.
+The dialectical question is:
+How do we balance
+functionality, complexity,
+quality, and delivery time?
+
+fl
+
+Technical Thinking
+There is traf c congestion. Build
+a yover.
+Dialectical Thinking
+•Will it reduce congestion?
+•Will it induce more traf c?
+•Will pedestrians suffer?
+•What about public transport?
+•Can traf c management solve
+the problem instead?
+Conclusion
+The problem is not simply "lack
+of road," but the interaction
+between roads, vehicles, public
+transport, and human behavior.
+
+fl
+
+Example 3: Climate
+Change
+
+fi
+
+Example 2: Software
+Engineering
+
+fi
+
+Dialectic Problem Solving
+Suppose a government says
+"Install facial recognition everywhere."
+Engineer says
+"It works."
+Privacy activist says
+"It violates rights."
+Police say
+"It increases security.”
+Citizen says
+"I don't trust surveillance."
+
+Level 1: Technical Problem
+Solving
+
+Example 1: Flyover
+Construction
+
+fl
+
+fl
+
+fl
+
+THINKING ABOUT PROBLEMS
+Technical Thinking
+│
+"How do I solve this?"
+│
+▼
+Technical Problem Solving
+(Algorithms, Models, Tools)
+│
+works inside a system
+▼
+Systems Thinking
+"How do all parts interact?"
+│
+▼
+Systems Engineering
+(Structure, Feedback,
+Emergence, Constraints)
+│
+con icting viewpoints
+▼
+Dialectic Thinking
+"Which assumptions con ict,
+and what new solution emerges?"
+│
+▼
+Sustainable Decisions
+
+This course is not about making you better programmers.
+It is about changing the way you think.
+Programming solves technical problems.
+Systems Engineering solves systems problems.
+Dialectic thinking solves problems where even the de nition of the problem is disputed.
+
+Technical thinking asks: How can I solve it?
+Systems thinking asks: Why does the whole system behave this way?
+Dialectic thinking asks: What assumptions are competing, and how can they be synthesized into a
+better solution?
+
+Engineering in the Age of AI
+AI is changing engineering—but not
+replacing engineers.
+AI is becoming very good at
+
+Systems Engineering is just not another branch of engineering. It is
+the disciplined application of systems thinking and dialectic thinking
+to design, build, operate, and improve complex socio-technical
+systems.
+
+•Writing code
+•Designing algorithms
+•Optimizing parameters
+•Generating reports
+•Detecting patterns
+•Assisting design
+Therefore
+
+fl
+
+fi
+
+AI increasingly solves technical
+tasks.
+Engineers must increasingly solve
+systems problems.
+
+AI still struggles with
+
+•Understanding the real human problem
+•Balancing con icting stakeholder needs
+•De ning system boundaries
+•Ethical decision making
+•Responsibility and accountability
+•Long-term societal impact
+Future Engineer
+Less programmer
+↓
+More system architect
+↓
+More integrator
+↓
+More decision maker
+↓
+More responsible for societal impact
+
+Why Study Systems Engineering in the AI Era?
+Traditional engineer asked
+How do I build it?
+AI increasingly answers that.
+Systems Engineer asks
+•Should we build it?
+•For whom?
+•Under what constraints?
+•What risks will emerge?
+•What happens after deployment?
+•What are the unintended consequences?
+AI cannot answer these independently because they involve values, tradeoffs, governance, and human judgment.
+
+The age of AI does not reduce the importance of Systems Engineering—
+it increases it.
+As machines become better at solving technical problems, engineers must
+become better at asking the right questions, understanding complex systems,
+and making responsible decisions.
+
+If AI is becoming good at technical problem solving, then what kind of
+thinking must humans develop?
+
+That is why we study Systems Engineering.
+
+fi
+
+Technical Thinking
+↓
+Systems Thinking
+↓
+Dialectic Thinking
+↓
+Systems Engineering
+
+The Industrial Age rewarded those who could do the work.
+The Information Age rewarded those who could automate the work.
+The AI Age will reward those who can de ne the right problems, design
+responsible systems, and integrate humans, technology, and society.
+
+Thank You
+
+

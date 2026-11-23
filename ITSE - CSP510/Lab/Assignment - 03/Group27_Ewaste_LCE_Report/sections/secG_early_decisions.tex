@@ -1,0 +1,67 @@
+% ============================================================================
+% Section G: Analyze Early Design Decisions and Their Life-Cycle Consequences
+% (Deliverable G)
+% ============================================================================
+\section{Early Design Decisions and Life-Cycle Consequences}
+\label{sec:G}
+
+Three early conceptual/preliminary design decisions govern production/construction (D1, D3), operation/support (D1, D2), and retirement/disposal (D2, D3), summarized in Annexure~K (Table~\ref{tab:annexK}).
+
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{1.20}
+\begin{xltabular}{\textwidth}{L{2.4cm} L{1.7cm} L{1.7cm} L{1.7cm} L{1.8cm} Y}
+\caption{Early design decisions and traced life-cycle consequences (Annexure K format).}
+\label{tab:annexK}\\
+\toprule
+\hdrrow \tblhead{Early design decision} & \tblhead{Consid.} & \tblhead{DDPs} & \tblhead{DIPs} & \tblhead{TPMs} & \tblhead{Consequences across life cycle} \\
+\midrule
+\endfirsthead
+\multicolumn{6}{l}{\footnotesize\color{SlateMuted}\textit{Table~\ref{tab:annexK} continued from previous page.}}\\
+\toprule
+\hdrrow \tblhead{Early design decision} & \tblhead{Consid.} & \tblhead{DDPs} & \tblhead{DIPs} & \tblhead{TPMs} & \tblhead{Consequences across life cycle} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{D1. Dismantling \& Sorting Architecture} (Manual vs.\ Hybrid vs.\ Shred-First) & DC-1,2, 3,5,7 & DDP-1, 2,3,6 & DIP-2, 4,5 & TPM-1--6 & Sets CapEx, fire risk, purity, MTTR, power draw, and adaptability to glued/Li-ion devices. \\
+\midrule
+\textbf{D2. PCB Precious-Metal Strategy} (Dry Pre-Conc.\ + Off-Site Smelter vs.\ Acid Leach) & DC-1,3, 4,7,8 & DDP-2, 4,7 & DIP-1, 3,5 & TPM-1, 4,6 & Dry pre-concentration trades $\approx 5\text{--}8\%$ local Au/Pd margin to avoid heavy acid ETP CapEx, corrosion, and toxic sludge. \\
+\midrule
+\textbf{D3. Civil Containment \& Foundations} (Bolted Skids on Epoxy vs.\ Grouted Concrete) & DC-4,6, 7,8 & DDP-1, 7 & DIP-1, 2,5 & TPM-4, 6 & Adds $\approx\text{INR } 55$ lakh civil CapEx (+7\%) but enables Year-6 retrofits and saves $>$INR 2.2 Cr in Year-15 soil cleanup. \\
+
+\end{xltabular}
+\endgroup
+
+\subsection{Life-Cycle Consequence Analysis}
+
+\subsubsection*{Decision D1: Dismantling \& Sorting Architecture (Acquisition--Utilization Paradox)}
+\begin{enumerate}
+    \item \textbf{Immediate Benefit:} A monolithic shred-first line promises 15 t/day headline throughput with minimal headcount, while a manual shop minimizes initial CapEx (INR 3.2 Cr).
+    \item \textbf{Production/Construction:} Shred-first needs heavy concrete foundations, 630 kVA transformers, and long import lead times; modular hybrid skids use standard drops and commission faster.
+    \item \textbf{Operation \& Support (Paradox):} Shred-first detonates unremoved Li-ion cells, causing fires, cross-contaminated streams (MRR 79\%), high power draw (245 kWh/t), and 14-h jam repairs ($A_o = 78\%$). Manual lines breach indoor dust limits ($2.6\text{ mg/m}^3$). Hybrid de-pollution + optical/eddy skids balance safety and purity.
+    \item \textbf{Upgrading:} Monolithic lines halt completely during retrofits; modular skids accept bay-by-bay NIR/Li-ion upgrades.
+    \item \textbf{Retirement/Sustainability:} Shred-first increases hazardous TSDF fines by 35--45\% and complicates Year-15 duct decontamination.
+    \item \textbf{Difficulty to Change Later:} \textbf{Very High} --- requires tearing out conveyors and halting revenue for 3--5 months.
+\end{enumerate}
+
+\subsubsection*{Decision D2: PCB Precious-Metal \& Hazardous Fraction Strategy}
+\begin{enumerate}
+    \item \textbf{Immediate Benefit:} On-site acid hydrometallurgy appears to retain local Au/Pd refining margins instead of paying external smelter fees.
+    \item \textbf{Production/Construction:} Acid leaching adds +INR 4.5 Cr CapEx, acid-proof tanks, wet scrubbers, and 9--12 months of stricter EIA/CTE permitting; dry pre-concentration builds cleanly and fast.
+    \item \textbf{Operation \& Support:} Wet leaching brings pump corrosion, scarce chemical staff (DIP-5), acid fume hazards, and toxic sludge; dry mechanical concentration uses standard mechanical support.
+    \item \textbf{Upgrading:} Chemical plants are regulatory-locked; dry lines easily swap electrostatic/eddy modules.
+    \item \textbf{Retirement/Sustainability:} Acid leaching leaves severe drain/tank contamination at Year~15; dry pre-concentration keeps chemical legacy minimal.
+    \item \textbf{Difficulty to Change Later:} \textbf{High} --- removing an acid plant mid-life is punitive, and adding one requires fresh EIA clearance.
+\end{enumerate}
+
+\subsubsection*{Decision D3: Civil Containment \& Modular Foundation Strategy}
+\begin{enumerate}
+    \item \textbf{Immediate Benefit:} Plain concrete with grouted anchor bolts saves $\approx\text{INR } 55$ lakh during Phase~5 civil works.
+    \item \textbf{Production/Construction:} Epoxy secondary containment with bolted rails adds $\approx 3$ weeks curing and bund detailing.
+    \item \textbf{Operation \& Support:} Seamless epoxy floors enable rapid HEPA dust cleanup and instant electrolyte-spill detection ($\text{PM} \le 2.0\text{ mg/m}^3$).
+    \item \textbf{Upgrading:} Bolted skids swap obsolete units in 10--14 days without breaking concrete.
+    \item \textbf{Retirement/Sustainability:} Bolted skids retain 20--30\% resale value and sealed floors prevent soil seepage, avoiding $>$INR 2.2 Cr in excavation remediation.
+    \item \textbf{Difficulty to Change Later:} \textbf{Extreme} --- cannot retrofit beneath active heavy machinery without demolition.
+\end{enumerate}

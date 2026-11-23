@@ -1,0 +1,1916 @@
+--- PAGE 1 ---
+A. S. Mokhade 
+Introduction to Systems &  
+Systems Engineering 
+- Definition, Types, Applications, Analysis  
+I. Introduction: Essence of the Lecture
+- This Lecture sets the foundation for understanding systems, systems
+science, and systems engineering.
+- It explores how systems are structured, classiﬁed, and applied in human-
+made and natural environments.
+- It bridges conceptual thinking with engineering application, preparing you
+for the interdisciplinary and hierarchical nature of systems engineering in
+the modern age.
+Anecdote: The Broken Escalator Paradox
+In 2003, two people in Stockholm stepped
+onto an escalator at a busy metro station.
+Midway, the escalator stopped. The two
+stood still, waiting for it to start again. They
+didn’t move. Soon others joined, standing
+frozen on the non-moving escalator. Some
+started climbing down, and some up. A
+technician arrived minutes later and walked
+up the escalator stairs to restart it—only then
+did people realize: they could have walked
+up all along.
+A behavioral scientist watching remarked,
+“People were not stuck on the escalator.
+Their thinking was.”
+Suppose an AI assistant is controlling the escalator.
+What information does AI require?
+•sensors?
+•camera?
+•passenger count?
+Is that sufﬁcient?
+No?
+AI must also understand
+•human expectations
+•safety
+•emergency procedures
+•crowd behaviour
+AI also requires systems thinking.
+Not just machine learning.
+
+--- PAGE 2 ---
+Relevance to Systems Engineering:
+This anecdote is not just about behavior. It’s abouthow we view systems:
+•We interact with systems (like the escalator) assuming they’ll work a certain
+way.
+•When one part fails, many people freeze—not because of physical incapacity,
+buta lack of system-level awareness and adaptability.
+•The problem wasn’t technical. It was systemic: assumptions, feedback, roles,
+and behavior all played a part.
+II. What is a System? – Deﬁnitions and Key Elements
+Deﬁnition of a System
+•Asystemis a set ofinterrelated componentsworking together to achievecommon
+objectives.
+•It isnota mere collection; relationships and functionality are key.
+Elements of a System
+1.Components– The individual parts.
+2.Attributes– Characteristics* (e.g., color, strength, speed limit).
+3.Relationships– Functional links between components.
+*characteristics, conguration, qualities, powers, constraints,  
+and state 
+Intelligence (Human or Artiﬁcial)
+Reason
+Modern systems now contain
+•Human intelligence
+•Machine intelligence
+•Hybrid decision making
+Examples
+Tesla
+Hospital
+Smart Factory
+Drone swarm
+Digital Twin
+System Behaviors
+•State: Condition at a speciﬁc point in time.
+- situation (condition and location) at a point in time of the system, or of
+a system component, with regard to its attributes and relationships.
+•Behavior: A connected series of changes in the state over time
+•Process: The set of all behaviors with their relative sequence and timing
+- The process of a component may control the process of another component
+System Redeﬁned:“A system is a set of interrelated components functioning together
+toward some common objective(s) or purpose(s).”
+•Function: Purposeful action (e.g., conversion of energy or information).
+- Common system function: altering material, energy, or information
+System Conditions
+•Emergence: The whole exhibits properties the parts alone do not.
+•Hierarchy: Systems contain subsystems; each may be a system in another context.
+
+--- PAGE 3 ---
+Today's systems exhibit
+•Adaptation
+•Learning
+•Self-optimization
+because AI changes behaviour over time.
+Traditional systems
+remain predictable.
+AI-enabled systems
+can evolve.
+That is a huge systems engineering challenge.
+AI Impact:
+ChatGPT also has a "state."
+Conversation
+Memory
+Prompt
+Retrieved documents
+Current context
+All these inﬂuence
+the next response.
+Exactly like state variables.
+State and Situation:
+State: Astateof a system is the complete set of values of its descriptive variables
+(attributes) at a given instant in time, which are necessary to determine the
+system’s future behavior, given its inputs.
+Term Meaning
+Descriptive
+variables
+Internal variables (attributes) like position, speed, status, memory, voltage,
+etc.
+Complete set The state includesallinformation required to predict what the system will
+do next
+Given its inputs Future evolution is determined by both current state and incoming external
+inputs
+At an instantIt’s asnapshot—ﬁxed in time, dynamic over time
+Let’s break this down:
+Component State Variables
+Elevatorposition Floor number (e.g., 5thﬂoor)
+Direction Going up / down / idle
+Door status Open / closed
+Load sensor Number of passengers or weight
+Queue Requestedﬂoors (e.g., 2, 4, 6)
+Example: Elevator System
+Let’s deﬁne thestateof an elevator system in a building:
+So thestateat a given time could be:
+Floor = 5, Direction = Up, Doors = Closed, Load = 420 kg, Queue = [6, 2]
+Thisstatewill determine:
+•Next action (go to 6thﬂoor)
+•How the system responds to new requests
+•Whether to stop, reverse, alert, etc.
+
+--- PAGE 4 ---
+Suppose AI controls the elevator.
+Additional state variables?
+- Passenger age
+- Predicted destinations
+- Crowd density
+- Wheelchair user
+- Fire alarm probability
+- VIP access
+Learning from historical trafﬁc:
+The system becomes adaptive.
+Property Explanation
+Minimal It should containonlywhat’s necessary to determine next behavior
+DeterministicIf you know the current state and the input, you can determine the
+next state
+Change over
+time
+As inputs arrive or system evolves, the state updates (state
+transition)
+Observable or
+hidden
+Some state variables may beobservable(like speed), others may be
+internal(like a timer variable)
+Key Properties of State
+Uncertainty
+Traditional systems know their state.
+AI systems often estimate their state.
+Examples
+- Autonomous vehicle
+- Robot
+- Drone
+- Medical diagnosis
+- LLM
+Everything becomes probabilistic.
+Term How It Relates
+Situation Broader than state — includes spatial, environmental, and relational
+context
+Mode Acoarser abstractionof state (e.g., "emergency mode",
+"maintenance mode")
+State
+Transition A change from one state to another due to events, time, or input
+Related Concepts
+
+--- PAGE 5 ---
+In Software and Control Systems
+•FSMs (Finite State Machines)use a set of discrete states and transitions.
+•Cyber-physical systemsusecontinuous state variables(e.g., velocity,
+temperature).
+•AI systemsmay representbelief states, especially in uncertain or probabilistic
+environments.
+Conclusion:
+“State is what the systemknowsabout itself at a moment in time — enough to
+decide what to do next.”
+It isinternal,precise, andevolveswith inputs.
+AI makes "Situation Awareness"
+much richer.
+Situation now includes
+- Weather
+- Social media
+- Sensor streams
+- Satellite imagery
+- Historical data
+- Predictions
+- Risk estimates
+- Future possibilities
+Situation is no longer only current
+context.
+It is current past predicted future.
+AI systems represent
+- Belief state
+- Knowledge state
+- Conﬁdence
+- Uncertainty
+- Intent
+- Context
+- Memory
+Example: Campus Wi-Fi Login System
+Situation Statement (Deﬁned Using the Above Deﬁnition):
+At2:15 PMin theComputer Science Department, theWi-Fi Access Controller (system
+component)was in a"congested" condition, handlinglogin requests from over 120 devices.
+Itsattribute: CPU usage at 92%,
+Itsrelationship: queueing up requests from student devices and failing to authenticate with the
+central server within the timeout window.
+Situation:”A situation is the condition and location at a point in
+time of the system or of a system component, with regard to its
+attributes and relationships" Suppose Agentic AI manages this network.
+What would it do?
+- Monitor
+- Predict congestion
+- Reallocate bandwidth
+- Restart services
+- Notify administrator
+- Generate report
+- Learn from failures
+
+--- PAGE 6 ---
+Concept How It Appears in This Example
+Point in Time"At 2:15 PM" – it's time-speciﬁc
+Location"Computer Science Department" – physical context
+System / Component"Wi-Fi Access Controller" – subsystem under focus
+Condition"Congested", "CPU at 92%" – system state/health
+Attributes CPU usage, queue length, response time
+Relationships Talks to devices + central authentication server
+Dissecting the Deﬁnition from Example:
+Situational Thinking in Systems Engineering:
+This approach allows engineers to:
+•Model dynamic behavior("What happened at 2:15 PM?")
+•Tracesystem degradation/failure points
+•Observehow attributes and relationships shift over time
+•Prepare formonitoring, control, and fault recovery
+A "situation" is asnapshot of reality— a speciﬁc system/component,
+at a speciﬁc time and place, describednot only by its internal state
+(attributes) but also by itsactive connections and dependencies
+(relationships).
+Aspect State Situation
+Deﬁnition
+A set of values of all relevant system
+variables (attributes) at a point in
+time.
+Adescriptive snapshotof a system/component at a time and
+place, consideringattributes AND relationships.
+Scope Often internal; focused on the
+system’s own conﬁguration
+Includescontext: spatial location, interactions, and
+environment
+Example
+(Self) “Database server is at 92% CPU” “Database server in Zone A is at 92% CPU and unable to fetch
+data from backup node due to network lag”
+Used In Control theory, software state
+machines,ﬁnite automata
+Systems engineering, situational awareness, safety/security
+analysis
+FocusInternal system variables System + Environment + Relationships
+AI Example LLM context window User goal + environment + retrieved knowledge +
+organizational policy
+State vs. Situation – Key Differences
+
+--- PAGE 7 ---
+Why AI Needs Systems Engineering
+Quick Analogy
+•Stateis likeyour internal health status: heart rate, temperature, blood pressure.
+•Situationis likeyou at a party, at 9 PM, talking to friends, hungry, with low phone
+battery — i.e.,your state + relationships + context.
+In Systems Engineering:
+•Usestatewhen you're buildingmodels,
+designing control logic, or implementingﬁnite
+state machines.
+•Usesituationwhen you're doingsafety
+analysis,mission planning,resilience
+assessment, or looking atemergent behavior.
+Conclusion:
+”All situations include a state, but not all states describe
+the situation."
+Situations arericher and more contextual, which is why
+they matter so much inSystems Engineering, especially for
+decision-making and analysis.
+- AI Governance
+- Human-AI
+Collaboration
+- Digital Twins
+- Autonomous V ehicles
+- Healthcare AI
+- Multi-agent Systems
+Those are exactly
+where Systems
+Engineering is going.
+
+--- PAGE 8 ---
+Quick Exercise (In-Class)
+Y ou have to describe asituationfor one of the following systems:
+•Acampus shuttlearriving late
+•Online food ordering systemcrashing during festival lunch hour
+•Asmart irrigation systemreacting to unexpected rainfall
+They must include:
+•Time
+•Location
+•Component
+•Condition
+•Attributes
+•Relationships
+Behavior 
+Anecdote: The Train That Never Stopped at Night
+Context:
+This occurred in aEuropean city’s newly automated
+metro system. The system was highly advanced —
+featuring real-time scheduling, AI-driven energy
+optimization, and automated train control. No drivers.
+All logic coded. All systems tested.
+The Incident:
+One winter night, thelast train of the daywas supposed
+to stop atStation X— a suburban residential area.
+Passengers waited on the platform.
+But the traindidn’t stop.
+This happenedagain the next night. And again.
+Complaints poured in.
+Engineers checked thetrain software— it was working.
+Thestation systems— allﬁne.
+No errors in the logs.
+Finally, a system behavior specialist stepped in to
+analyzenot just the parts, but the whole.
+The Root Cause: Emergent Behavior
+Here’s what they discovered:
+•TheAI scheduling modulewas designed tooptimize energy usage.
+•At night, whenfew passengers were detectedon the platform (based on infrared
+sensors), and if the train wasbehind schedule, the AIskipped the stationto
+conserve power and maintain timetable.
+•The systemwas not malfunctioning— it wasbehaving exactly as designed.
+•But it was doing somethingno human intended— leaving behind actual waiting
+passengers in the dark.
+Thesensors failed to detectpassengers wearing thick winter coats, standing still in the
+cold — making them appear invisible to the thermal system.
+
+--- PAGE 9 ---
+Takeaway:
+The system didn’t crash. It behaved — but the behavior wasemergent, based on subtle
+interactions between sensors, algorithms, and assumptions.
+Systems Engineering Insight:
+This is whybehavior modelingandscenario-based analysisare critical.
+Y ou must ask:
+•What does the system do over time, under varying conditions?
+•What if inputs are wrong, or incomplete?
+•What feedback loops exist, and are they trustable?
+Moral:
+“Even when every part works, the system may not behave.”
+— That is the paradox and beauty of systems behavior.
+Deﬁnition of Behavior in Systems Engineering
+“Behavior is the sequence of states and outputs exhibited by a system over time in
+response to internal dynamics and external stimuli.”
+Element Meaning
+Sequence
+of states
+How the system transitions from one state to
+another
+Outputs Actions, signals, or effects the system generates
+Internal
+dynamics
+State transitions driven by rules, algorithms,
+control logic
+External
+stimuli
+Inputs or events from the environment (user
+commands, sensor data, failures, etc.)
+Over timeBehavior isnot static; it evolves — this temporal
+dimension is key
+Let’s Break This Down
+
+--- PAGE 10 ---
+Example 1: Smart Irrigation System
+•Inputs: Soil moisture sensor, weather forecast, time of day
+•State: Current water level in tank, valve status, schedule
+•Behavior:
+◦If soil is dryandrain is not expected→open valve
+◦If tank is low→delay irrigation, trigger reﬁll
+◦If emergency stop is triggered→close valve and raise alert
+The system’sbehavioris this time-dependent chain of decisions, state changes, and
+actuator outputs.
+Term Focus Example
+Function What the system is
+designed to do “Irrigate crops”
+Behavior How it does it over time
+under conditions
+“Starts irrigation at 6AM if soil is
+dry and tank is full, pauses on
+rainfall forecast”
+Behavior≠Function
+Function isintent; behavior isexecution over timeunder real-world complexity.
+Type Explanation
+Nominal BehaviorExpected behavior under normal conditions
+Off-Nominal
+Behavior Behavior under unexpected, degraded, or faulty conditions
+Emergent
+Behavior
+Behavior that arises from interactions between components, not
+designed explicitly
+Autonomous
+Behavior Decision-making by system components without human input
+Adaptive BehaviorBehavior changes based on learning or updated parameters
+Types of Behavior
+Tool Purpose
+Statecharts / FSMsDiscrete state transitions
+System DynamicsContinuous feedback-driven behavior
+Activity DiagramsSequential behaviors
+Simulink / ModelicaSimulation of time-based behavior
+STPASafety-oriented behavior modeling and control loop behavior
+Behavior Modeling Tools
+
+--- PAGE 11 ---
+Why Behavior Matters in Systems Engineering
+•Helps inrequirement veriﬁcation: “Did the system behave as intended?”
+•Aids infault diagnosis: Understanding what led to failure
+•Critical fordesigning test casesandsafety analysis
+•Enablesscenario-based analysis: “What happens when X fails?”
+Conclusion
+“Behavior is the story the system tells over time, driven by what it
+senses, what it knows, and how it is designed to respond.”
+It iscentral to understanding performance, safety, resilience, and
+usabilityin any engineered system.
+Systems & Processes
+Clarifying the Relationship between Systems Behavor and
+Process:
+Behavior is the building block; Process is the structure.
+Let’s take a simple deﬁnition:
+"Process: The set of all behaviors with their relative sequence and
+timing.”
+And if We ask:
+What exactly is "behavior" in the system's context that gets
+assembled into a process?
+Why this question? (We will answer this in the end of this topic. )
+
+--- PAGE 12 ---
+Understanding Behavior in the System's Context
+In Systems Engineering, "behavior" refers to the system’s observable
+response to inputs and internal conditions over time — captured as
+changes in state and outputs.
+In other words:
+•It’showthe system reacts
+•It’swhat it does, not just what it is
+•It includes bothinternal transitionsandexternal effects
+Characteristic Description
+Time-dependentIt happensover time— not a static property
+Input-drivenBehavior emerges in response to stimuli or conditions
+State-linkedIt arisesfromthe current state and leadstoa new state
+Observable or
+inferred
+Some behaviors are visible (e.g., lights turn on), others internal
+(e.g., queue priority changes)
+Governed by
+logic Behavior follows system rules, algorithms, constraints
+Dynamic &
+contextual V aries depending on situation, input timing, feedback loops
+Key Characteristics of Behavior in Systems Context
+Behavior vs. State vs. Process – A Concrete Illustration
+Example: Campus Shuttle System
+•State:
+Shuttle is at Stop A, Engine ON, 3 passengers onboard, next stop = B.
+•Behavior:
+When a boarding request from Stop B arrives→Shuttle starts moving, updates location,
+picks up new passenger, updates passenger count.
+•Process:
+The entiresequence of behaviorsfrom morning to evening:
+◦Start route
+◦Check stops
+◦Accept signals
+◦Transport passengers
+◦Park and refuel
+With timing, coordination, and rules.
+Summary: Behavior in Systems Context
+Behavior iswhat the system does,how it evolves, andhow it interactswith its
+environmentover time— expressed through state changes and outputs.
+•Behavior can be:
+◦Discrete(e.g., “door opens”)
+◦Continuous(e.g., “temperature rises steadily”)
+◦Reactive(e.g., “alarm sounds when limit is exceeded”)
+When yousequence and coordinate behaviors, respectingtiming and
+dependencies, it becomes aprocess.
+
+--- PAGE 13 ---
+Concept What it Captures
+StateSnapshot at a moment
+BehaviorResponse pattern over time
+ProcessOrchestrated sequence of behaviors with timing and causality
+Systems Engineering View:
+In the age of AI, does“system behavior”still mean only
+reaction, or can it includeproactive (anticipatory)actions
+too?
+Yes— with AI,system behavior is evolvingfrom beingreactiveto
+also beingproactive(and even predictive or autonomous). This
+changeshow we deﬁne and model behaviorin Systems
+Engineering.
+Traditional Systems Behavior: Reactive
+In classical systems engineering:
+•Systems behave based oninputs+current state
+•Behavior is deﬁned as:
+“The observable response to inputs and internal conditions over time”
+This isevent-drivenanddeterministicor rule-based.
+E.g., thermostat turns on heatingaftertemperature drops.
+
+--- PAGE 14 ---
+AI-Enabled Systems Behavior: Proactive / Predictive
+With AI/ML capabilities, modern systems can:
+•Predictfuture conditions
+•Anticipate needs
+•Adapt behavior without direct stimuli
+•Evenlearn new behaviorsover time
+This is not just reacting to the environment — it’sco-evolvingwith it.
+Reactive Behavior Proactive Behavior (AI)
+Brake when an object is detected Slow down earlier by predicting pedestrian
+intent
+Turn on wipers when rain sensor
+triggers
+Adjust driving stylebeforerain based on
+weather forecast
+Follow speed limits Optimize energy use based onpredicted
+trafﬁc patterns
+Example: Self-Driving Car
+How Systems Engineering Needs to Evolve
+From:
+Behavior =Response to inputs
+To:
+Behavior =Time-evolving pattern of responses, predictions, decisions, and
+adaptationsarising from bothinternal logic and learned models
+Revised View of Behavior:
+Behavior is not only what the systemdoes in responseto inputs, but also what it
+chooses to dobased on predictions, goals, and learning.
+Area Old Paradigm AI-Enhanced Paradigm
+Modeling State→Input→
+Next State
+State→Input + Prediction + Learning→
+Next State
+VeriﬁcationFixed rule-checking Probabilistic, scenario-based, dynamic
+veriﬁcation
+Control Feedback loops Feedback + Feedforward + Learning loops
+Safety/
+Security Design-time control Runtime monitoring, anomaly detection,
+recovery planning
+Implications for System Designers and Engineers
+
+--- PAGE 15 ---
+Summary
+Y ou are spot-on:
+AI pushes system behavior beyond “reaction” into “proaction,” “prediction,”
+and even “intention modeling.”
+This shift demands:
+•Broader deﬁnitions of behavior
+•New modeling and safety strategies
+•Greater attention toexplainability,adaptability, andtrust
+Function
+‘Function’is a core term in Systems Engineering and often used
+alongsidestate, behavior, situation, and process. But it has its
+own distinct roleandsemantic weight.
+Deﬁnition of Function in Systems Engineering
+A function is an abstract speciﬁcation of what a system or a
+system component is intended to do — independent of how it
+does it.
+In simpler terms:
+“Function = What the system must do”
+(without sayingwhen,where,how, orby whom)
+
+--- PAGE 16 ---
+Feature Description
+Abstract Describeswhatis to be achieved, nothowit is done
+Purpose-driven Tied to fulﬁlling system goals or stakeholder needs
+Technology-independentDeﬁned before choosing tools, components, or
+architectures
+Stable across
+implementations Function stays the same even if technology changes
+Key Characteristics of Function
+Term Example
+FunctionIrrigate crops based on soil moisture
+State Water tank = 50%, V alve = closed
+BehaviorV alve opens for 15 minutes when moisture < threshold
+Process Sequence of checking sensor, deciding, opening valve, monitoring
+time, logging data
+SituationAt 6:30 AM, in Field A, soil is dry, valve is open, forecast is rain
+Example: Smart Irrigation System
+Term What It Describes
+FunctionWhatneeds to be done (goal)
+BehaviorHow the system respondsover time (actual dynamics)
+ProcessOrdered sequenceof behaviors to implement the function
+Function vs. Behavior vs. Process
+Term Example
+FunctionBrew coffee
+BehaviorDetects button press, heats water, pumps intoﬁlter
+StateWater temperature = 95°C, Pump = ON
+Process 1. Start pump→2. Heat water→3. Dispense→4. Stop
+Situation7:45 AM, Brew cycle in progress, water low, heating on
+Analogy: Coffee Machine
+
+--- PAGE 17 ---
+Role Why It Matters
+Requirement
+Capture Functions deﬁne what the system must achieve to meet user needs
+Design
+Decomposition
+Functions are decomposed into subfunctions, then mapped to
+components
+Veriﬁcation &
+Validation Y ou verify iffunctions are fulﬁlled(regardless of how)
+Traceability Keeps track of why each component or behavior exists (to fulﬁll a
+function)
+Modularity Function-based thinking supports clean architectural design and
+change management
+Relevance of Function in Systems Engineering
+Summary
+Function is the anchor point in Systems Engineering:
+It deﬁneswhat must be achieved, which leads to designingbehaviors, organizing
+them intoprocesses, and monitoring them throughsituations and states.
+But in theﬁrst instace Why I asked:
+"What exactly is 'behavior' in the system's context that gets
+assembled into a process?"
+This question serves apedagogical purpose— it’s meant to:
+Prompt Critical Thinking
+Most learners (and even professionals) use the word "behavior"intuitively
+orinterchangeablywith "process" or "function" — but in Systems
+Engineering:
+•Behavioriswhat the system does over time(transitions, responses).
+•Processis thestructured orchestration of behaviors, with logic and
+timing.
+Asking"what behavior gets assembled into a process?"forces us to slow
+down anddissect the building blocks.
+
+--- PAGE 18 ---
+Emphasize Hierarchical Structure
+This question emphasizes that:
+•Process≠one big behavior
+•Aprocess = multiple behaviors→arranged withsequence,
+conditions, and timing
+So if we don’t understandwhat behaviors exist, we can’t build a
+meaningfulprocess model.
+Guide from Observation to Design
+When students:
+•Observe asystem's behavior(e.g., pump turning on when tank is low)
+•Understandwhy that behavior occurs(rules, feedback, triggers)
+…they can thenassemble those observed behaviors into a coherent
+process.
+This is foundational in:
+•STPA (System-Theoretic Process Analysis)
+•Control system design
+•Digital twin modeling
+•Resilience engineering
+Link to Strategy and Emergence
+Once we recognizeindividual behaviors, we can:
+•Optimize them
+•Sequence them
+•Add fallback or adaptive logic
+•Identify unintended or emergent behavior
+That’s when Systems Engineering becomesstrategic— not just descriptive.
+Summary:
+The question was meant to transition learners from asking:
+"What does the system do?"
+to
+"How do its behaviors form structured, strategic operations over time?"
+
+--- PAGE 19 ---
+Concept of ‘Components’ of the Systems 
+Up to now, we have established a conceptual foundation for
+understanding how systems act and are perceived — Function, State,
+Situation, Behavior, and Process — all of which describewhat the
+system is forandhow it operates.
+But before we can meaningfully talk aboutstrategyor analyse a
+system as a whole, we need to understand:
+What the system is made of — its Components — and how those
+components interact.
+Why moving to Components now makes sense
+1.Bridges to the 'System' as a Whole
+◦Components are thebuilding blockswhose relationships and interactions produce
+thebehaviorswe’ve already discussed.
+2.Connects to the Concept of Architecture
+◦Strategy in Systems Engineering often involvesreconﬁguring or optimizing
+components.
+3.Foundation for Trade-off Analysis
+◦Without knowing the components, we can’t evaluateredundancy, failure points,
+scalability, orcost-performance trade-offs.
+4.Natural Progression for our Lecture Flow
+◦We’ve covereddynamic/systemic concepts(state, process, etc.).
+◦Next step:structural concepts(components, interfaces, interconnections).
+◦Then we can unify both into astrategic system analysis.
+Key Points to Cover in Components Discussion
+•Deﬁnition: A component is a physical or logical part of a system, with
+deﬁned boundaries and responsibilities.
+•Types: Hardware, software, human, environmental, informational.
+•Interfaces: How components exchange material, energy, or information.
+•Hierarchy: Components→Subsystems→System.
+•Coupling & Cohesion: Tight vs. loose coupling, functional cohesion.
+•Failure Modes: How component-level failure affects the whole system.
+
+--- PAGE 20 ---
+Set of components meets the following requirements*:
+1.The properties and behavior of each component of the set have an effect on the properties
+and behavior of the set as a whole.
+2.The properties and behavior of each component of the set depend on the properties and
+behavior of at least one other component in the set.
+3.Each possible subset of components meets the two requirements listed above; the
+components cannot be divided into independent subsets.
+- Components of a system may themselves be systems, and every system may be part of
+a larger system in a hierarchy
+* requirements ensure that the set of components constituting a system always has some
+property, or behavior pattern, that cannot be exhibited by any of its subsets acting alone.
+Deﬁnition –What is a Component?
+Acomponentin Systems Engineering is:
+A distinct physical or logical part of a system, with deﬁned boundaries,
+responsibilities, and interfaces, contributing to the system’ s functions.
+— adapted from INCOSE SE Handbook (2023)
+Key elements:
+•Physical or Logical– could be tangible (pump, CPU) or abstract (encryption
+algorithm, database schema).
+•Boundaries– deﬁneswhat’ s inside,what’ s outside.
+•Responsibilities– therolein achieving one or more system functions.
+Example (CSE): In a distributed database system, astorage nodeis a component
+with the responsibility to store and retrieve data blocks.
+Reference:
+• INCOSE Systems Engineering Handbook, 5th Ed., Ch. 3.
+• Maier, M.W., Rechtin, E. (2009).The Art of Systems Architecting. CRC Press.
+Types of Components in Systems with cross-domain examples
+Type Description CSE System
+Example
+Cyber-Physical System
+Example
+General System
+Example
+Hardware Tangible equipment or
+devices that execute functions
+GPU card in an AI
+inference server
+LiDAR sensor in an
+autonomous vehicle
+Conveyor belt in a
+manufacturing plant
+Software
+Programs, algorithms, logic
+controlling hardware or
+processes
+Large Language
+Model inference
+engine
+Real-time braking control
+algorithm in train automation
+Hospital patient
+admission & billing
+software
+Human
+People interacting with the
+system — as operators,
+maintainers, or users
+Network administrator
+managing a data
+center
+Air trafﬁc controller
+coordinating aircraft landing
+Farmers operating
+irrigation pumps
+Environmental
+Physical or contextual
+external factors that inﬂuence
+the system
+Data center
+temperature &
+humidity levels
+Wind speed affecting drone
+ﬂight stability
+Seasonal rainfall
+patterns affecting water
+reservoir
+Informational Data, documents, knowledge
+bases, or any codiﬁed content
+Training dataset for
+ML model
+Sensor fusion data from
+weather and trafﬁc for smart
+city control
+Historical patient health
+records in a hospital
+
+
+--- PAGE 21 ---
+Why these cross-domain examples matter
+•We cansee applicability across domains— making Systems Engineering
+transdisciplinary.
+•CPS examples highlightreal-time control + computation + physical feedback
+loops.
+•General systems examples showCSE components are often embedded in broader
+socio-technical contexts.
+Suggested References:
+•Lee, E.A. (2008).Cyber Physical Systems: Design Challenges. IEEE ISORC.
+•INCOSE SE Handbook, 5th Ed. (2023) — Ch. 2 & Ch. 3.
+•Maier & Rechtin.The Art of Systems Architecting, CRC Press.
+Why classiﬁcation matters:
+•Helps identifyfailure domains(hardware breakdown, human error, data
+corruption).
+•Supportsmultidisciplinary analysis.
+Reference:
+•Blanchard, B.S., Fabrycky, W.J. (2014).Systems Engineering and
+Analysis. Pearson.
+Interfaces –How Components Talk
+Deﬁnition:
+Interfaces deﬁne thepoints of interactionwhere components exchangematerial,
+energy, or information.
+Types in CSE Systems:
+•Material– USB port transferring data via physical medium.
+•Energy– Power supply to GPU cluster.
+•Information– API call between microservices.
+Why important:
+•Interfaces arewhere failures propagate(API downtime, signal degradation).
+•Strong interface deﬁnition reducesintegration risk.
+Reference:
+•IEEE 1471 / ISO/IEC/IEEE 42010:2011 – Systems and software engineering —
+Architecture description.
+
+--- PAGE 22 ---
+Hierarchy –From Components to System
+Typical hierarchy:
+Component→Subsystem→System
+Example (Campus Wi-Fi System):
+•Component: Wireless Access Point
+•Subsystem: Departmental Wi-Fi network
+•System: Institute-wide Wi-Fi infrastructure
+Why important:
+•Allowszooming in/outduring analysis.
+•Supportsmodular design and replacement.
+Reference:
+•Maier, M.W., Emery, D. (2000).Principles for architecting systems. Systems
+Engineering, 3(4), 243–260.
+Coupling & Cohesion
+•Coupling: Degree of dependency between components.
+◦Tight coupling– components heavily depend on each other’s internal details
+(riskier to change).
+◦Loose coupling– components interact via minimal, well-deﬁned interfaces (more
+robust).
+•Cohesion: Degree to which responsibilities of a component belong together.
+◦High cohesion– component’s functions are closely related (good).
+◦Low cohesion– scattered responsibilities (bad for maintainability).
+Example (Software Engineering):
+Microservices architecture→aims forloose coupling+high cohesion.
+Reference:
+•Stevens, W.P ., Myers, G.J., Constantine, L.L. (1974).Structured Design. IBM
+Systems Journal.
+Failure Modes –Component-level failures ripple up
+Deﬁnition: Ways in which a component can fail and affect the system.
+Common in CSE systems:
+•Hardware failure (disk crash)
+•Software fault (memory leak, null pointer exception)
+•Human error (misconﬁguration)
+•Interface failure (API timeout, packet loss)
+•Data failure (corrupted training dataset)
+Why important:
+•SupportsFailure Modes and Effects Analysis (FMEA).
+•Helps designredundancy and recovery strategies.
+Reference:
+•Stamatis, D.H. (2003).Failure Mode and Effect Analysis: FMEA from Theory to
+Execution. ASQ.
+How This Leads to Strategy
+Once we understandcomponents, their types, their
+interfaces, and their failure modes, they can:
+1.Analysesystem vulnerability.
+2.Optimise fornormal operation.
+3.Createresilience strategiesfor abnormal conditions.
+
+--- PAGE 23 ---
+Concept Deﬁnition Relevance in Systems
+Engineering Examples
+Deﬁnition of
+Component
+Adistinct physical or logical
+part of a system with deﬁned
+boundaries, responsibilities, and
+interfaces.
+Identiﬁes building blocks
+for design, integration, and
+analysis.
+CSE: API gateway; CPS: LiDAR sensor in
+autonomous car; General: Water pump in
+irrigation system
+Types of
+Components
+Classiﬁcation of components by
+nature and role in the system.
+Helps structure design,
+assign responsibilities, and
+manage risks.
+Hardware: GPU card (CSE), braking actuator
+(CPS), conveyor belt (General).
+Software: Database engine (CSE), braking
+algorithm (CPS), billing software (General).
+Human: Network admin (CSE), pilot (CPS),
+farmer (General).
+Environmental: Data center temperature
+(CSE), wind speed (CPS), rainfall (General).
+Informational: ML dataset (CSE), sensor
+fusion data (CPS), patient records (General).
+Interfaces
+Points of interaction where
+components exchange material,
+energy, or information.
+Critical for integration,
+interoperability, and
+identifying failure
+propagation paths.
+CSE: REST API; CPS: CAN bus in vehicle;
+General: Power cable in factory machinery
+System Components – Summary Table for Understanding Systems
+Concept Deﬁnition Relevance in Systems
+Engineering Examples
+Hierarchy
+Structural arrangement:
+Components→
+Subsystems→System.
+Supports modularity,
+scalability, and system-
+of-systems thinking.
+CSE: Server node→Cluster→Cloud
+platform; CPS: Sensor→Control
+module→Automated plant; General:
+Pump→Distribution network→Water
+supply system
+Coupling &
+Cohesion
+Coupling: Degree of
+dependency between
+components.
+Cohesion: How closely
+responsibilities in a
+component relate.
+Guides architectural
+decisions for
+maintainability,
+ﬂexibility, and fault
+tolerance.
+Loose coupling + high cohesion→
+Microservices architecture (CSE),
+modular drone subsystems (CPS), self-
+contained medical kits (General)
+Failure Modes
+The ways a component can
+fail and how that affects
+the system.
+Core to risk analysis,
+resilience planning,
+and maintenance
+strategy.
+CSE: Database crash; CPS: Sensor
+miscalibration; General: Broken
+conveyor belt link
+System Components – Summary Table for Understanding Systems…contd
+Strategy:  
+Since we have completed Components, the natural next step is to look how 
+Strategy operates above the functional/structural level, shaping how systems 
+behave in both normal and non-normal (abnormal, degraded, or failure) 
+conditions. 
+What follows is a structured approach to analysing and explainingStrategyin
+the Systems Engineering context, withexamples from Software-Intensive
+Systems, Cyber-Physical Systems, and General Systems .
+What is Strategy in Systems Engineering?
+In Systems Engineering,Strategyis theplanned set of decisions and guiding principles
+that determinehow the system achieves its missionunder varying conditions.
+It answers questions like:
+•How will the system handle uncertainty?
+•What will be done when key components fail?
+•How will it scale when demand surges?
+•How will it adapt when its operating environment changes?
+
+--- PAGE 24 ---
+Analytical Dimensions of Strategy:
+1.Purpose Alignment— Ensures system goals align with stakeholder needs and
+constraints.
+2.Scenario-Based Thinking— Considersnormal,degraded, andfailure
+conditions.
+3.Adaptability & Resilience— Embedsﬂexibility to reconﬁgure resources or
+roles.
+4.Optimization vs. Robustness— Balances peak performance with fault
+tolerance.
+5.Feedback & Learning Loops— Allows self-correction over time.
+Step What to Ask Purpose
+1 What are the system’s
+mission goals? Anchor the strategy in purpose.
+2 What operating conditions
+are expected? Deﬁne the normal operational envelope.
+3 What are the high-impact
+risks? Focus on failure points and bottlenecks.
+4What is the recovery plan? Decide whether to degrade gracefully, failover,
+or shut down.
+5 How will the system adapt
+over time? Plan for upgrades, learning, and external change.
+How to Analyse Strategy — Step-by-Step
+Examples
+A. Software-Intensive System
+Case:Cloud-based AI language translation platform
+•Normal Strategy:Scale computing instances based on user trafﬁc; prioritize
+popular language pairs.
+•Non-Normal Strategy:If a GPU cluster fails, reroute jobs to less-loaded regions,
+possibly with reduced model accuracy but higher throughput.
+•Teaching Point:Students see thatreducing quality temporarilymay be
+strategically better than a total service outage.
+Research Tie-in:
+C. Fehling et al.,Cloud Computing Patterns— scalability & elasticity strategies.
+B. Cyber-Physical System
+Case:Autonomous metro rail system
+•Normal Strategy:Synchronize train movements with passengerﬂow
+predictions from AI analytics.
+•Non-Normal Strategy:If track sensors fail, switch to conservative manual-
+control mode at reduced speed, increasing headway between trains to maintain
+safety.
+•Teaching Point:Strategy deﬁnessafe fallback stateswhile maintaining partial
+functionality.
+Research Tie-in:
+Leveson, N.,Engineering a Safer World— STAMP/STPA for failure-mode
+strategy.
+
+--- PAGE 25 ---
+C. General System
+Case:Hospital emergency management
+•Normal Strategy:Electronic Health Record (EHR) system supports
+optimized patient routing and resource allocation.
+•Non-Normal Strategy:If EHR is down (cyberattack), switch to pre-printed
+triage forms and ofﬂine diagnostic workﬂows, then sync data once systems
+are restored.
+•Teaching Point:Non-digital fallback strategies protect mission-critical
+operations.
+Research Tie-in:
+Hollnagel, E.,Resilience Engineering in Practice— balancing efﬁciency and
+thoroughness.
+Key Message:
+A well-designed system without a strategy is like a ship with a perfect
+engine but no navigation plan — it works until the sea changes.
+III. Classiﬁcation of Systems
+1. Natural vs. Human-Made Systems
+•Natural: Created by nature (e.g., water cycle).
+•Human-Made: Designed and constructed by
+people.
+•Human-Modiﬁed: Natural systems altered by
+human-made subsystems (e.g., Nile River
+post-Aswan Dam).
+2. Physical vs. Conceptual Systems
+•Physical: Tangible (e.g., computers, bridges).
+•Conceptual: Idea-based (e.g., blueprints,
+theories, models).
+•Measure of disorder. Decreasing entropy =
+increasing order. Engineering often reduces
+entropy by creating organized systems.
+3. Static vs. Dynamic Systems
+•Static: Structural only (e.g., a bridge).
+•Dynamic: Includesﬂow and operating
+components (e.g., a school system).
+4. Closed vs. Open Systems
+•Closed: Little/no interaction with
+environment (e.g., closed chemical
+reaction).
+•Open: Exchange with environment; self-
+regulating (e.g., ecosystems, business).
+Entropy
+Measure of disorder. Decreasing entropy =
+increasing order. Engineering often reduces
+entropy by creating organized systems.
+IV . Systems Science: Origins and
+Perspectives
+1. Cybernetics
+•Coined byNorbert Wiener.
+•Focus:Controlandfeedbackin systems.
+•Examples: Thermostats, homeostasis.
+•Key Contribution: Introduced
+informationﬂowandmathematical
+control principles.
+3. Systemology
+•Scientiﬁc study of systems.
+•Enablesinterdisciplinarycollaboration.
+•Basis ofOperations Research,
+Management Science, etc.
+2. General Systems Theory (GST)
+• Introduced byLudwig von
+Bertalanffy.
+• Goal: Unify science across disciplines
+through system principles.
+•Boulding’s Hierarchy(levels of
+system complexity):
+1.Static structures
+2.Clockworks
+3.Thermostats
+4.Cells
+5.Plants
+6.Animals
+7.Humans
+8.Social organizations
+9.Transcendental systems
+
+--- PAGE 26 ---
+V . Technology and Technical Systems
+1. Relationship Between Technology and Society
+•Culture expresses itself through technology.
+•Technology createsstress and progress.
+•Requirestechnological literacyfor societal participation.
+2. Characteristics of Technical Systems
+•Engineered systems consist of products, structures, and services.
+•Classiﬁcations blur (e.g., mechanical + software systems).
+•Systems arehybrids– complex and interactive.
+3. Drivers of Technological Change
+•Social, ecological, political inﬂuences.
+•Ethical responsibilities (e.g., environment, social justice).
+•Interconnectednessdemands systems thinking.
+VI. The Transition to the Systems Age
+1. The Machine Age
+•Dominated byreductionismandmechanism.
+•Analytic thinking: Break down and analyze parts.
+•Causal laws, deterministic systems, and dehumanized work.
+2. The Systems Age
+•Emphasizesexpansionism,teleology, andsynthetic thinking.
+•Focus onwholes,purpose, andinterconnections.
+•Systems thinking = holistic + inside-out perspective.
+•Dominant interest inorganizations and social systems.
+VII. Engineering in the Systems Age
+Key Characteristics
+•Requiresinterdisciplinary teams.
+•Integratestechnical and humanconsiderations.
+•Applies tolarge-scale complex systems(e.g., transit systems, aircraft).
+Functions in Large Projects
+•Multiple engineering domains: civil, mechanical, electrical, software.
+•Coordination acrosssuppliers and global locations.
+•Emphasis onintegration,supportability,communication.
+VIII. Systems Engineering: Deﬁnitions and Practice
+No Single Deﬁnition – But Common Themes:
+1.Interdisciplinaryapproach.
+2.Life-cycleorientation.
+3.Top-downsystems view.
+4.Emphasis onintegration,optimization, andeffectiveness.
+Key Deﬁnitions (from INCOSE, IEEE, DoD, etc.)
+•Focus on achieving system goals across the full life cycle.
+•Incorporates analysis, design, synthesis, veriﬁcation, and control.
+Core Activities
+•Requirements deﬁnition and traceability.
+•Design and development coordination.
+•Integration ofreliability,supportability,human factors.
+•Process-oriented andholistic thinking.
+
+--- PAGE 27 ---
+Problems Based on 
+State, Situations, Behavior, Process, Functions, & Strategy
+State Identication
+Example 1 – State Identiﬁcation
+Problem:
+Asmart irrigation systemhas soil moisture sensors, a central
+controller, and water valves. Identify two possiblesystem-level states
+and twosubsystem-level states.
+Example 1 – State Identiﬁcation
+Problem:
+Asmart irrigation systemhas soil moisture sensors, a central controller, and
+water valves. Identify two possiblesystem-level statesand twosubsystem-level
+states.
+Solution:
+•System-level states:
+1.Idle— waiting for sensor input.
+2.Active Irrigation— water valves are open, irrigation is in progress.
+•Subsystem-level states(sensor subsystem):
+1.Measuring Moisture— sensor is actively taking readings.
+2.Reporting Data— sending moisture level to controller.
+
+--- PAGE 28 ---
+What are the steps to arrive at these answers?
+A. Steps to identify States (systematic procedure)
+1.Clarify purpose (Function) & scope
+◦What must the system achieve? (e.g., “Keep soil moisture within target band
+while minimizing water use.”)
+◦What is inside vs. outside the boundary? (Field, sensors, controller, valves,
+pump are inside; weather service may be outside.)
+2.Choose the analysis level & time scale
+◦Level(s): system vs. subsystem (sensors / controller / pump & valves / comms).
+◦Time granularity: seconds/minutes for control; hours/days for agronomic
+outcomes.
+•nternalﬂags: control mode, faultﬂags, comms link health.
+4. Decide the abstraction (name the states you care to distinguish)
+•From raw variables→few, mutually exclusive, collectively exhaustivenamed states per level.
+•Keepminimalsets for clarity in teaching/ops (you can reﬁne later).
+5. Write guard conditions (logical rules) that place the system in a state
+•Example: “Active Irrigationif (avg moisture < low threshold) AND (schedule window open)
+AND (tank level > min) AND (no fault).”
+6. Check MECE & add safeties
+•Ensure states don’t overlap; add
+“Maintenance” or “Fault/Unknown” to cover
+gaps.
+7. Validate against scenarios
+•Normal day, hot afternoon, sensor failure,
+comms drop, low tank.
+•Each scenario must map to exactly one state
+at each level.
+8. Deﬁne transition rules (behavior edges)
+•Example: Idle→Active when trigger
+condition holds; Active→Idle when moisture
+≥high threshold OR timeout OR tank low.
+MECEstands forMutually Exclusive, Collectively
+Exhaustive.
+In the context ofstate identiﬁcation in systems
+engineering:
+•Mutually Exclusive→No two states can be true at
+the same time for thesamesystem or subsystem.
+◦Example (Smart Irrigation): The system cannot
+be bothIdleandActive Irrigation
+simultaneously.
+◦Ensures clarity and avoids ambiguity in decision
+logic.
+•Collectively Exhaustive→All possible situations
+the system can be in are covered by the set of states.
+◦Example: If you only deﬁne “Idle” and “Active
+Irrigation” but forget “Fault/Maintenance” when
+no irrigation occurs due to a pump failure, your
+state set isnotexhaustive.
+
+--- PAGE 29 ---
+10. Check observability
+•Can you determine the state from available sensors? If not, add a measurable proxy
+(e.g.,ﬂow sensor to detect ‘valve open but noﬂow’ situations).
+11. Document state deﬁnitions & data sources
+•One line per state: name, guard condition, sensors used, outputs/actions.
+12.(Optional) Reﬁne hierarchy
+•System modes (Idle/Active/Maint/Fault) + subsystem states (Sensor/Actuator/
+Network).
+•This is where you connect tobehavior(transitions) andprocess(orchestration).
+
+
+--- PAGE 30 ---
+C. Quick checklist
+•State thefunction&boundary.
+•List candidatestate variables(continuous & discrete).
+•Pick aminimal named state setat system and one subsystem.
+•Deﬁneguard conditionsfor each state (precise, measurable).
+•EnsureMECE(no overlaps, nothing missing).
+•Addtransition rules(when do states change?).
+•Specifyinvariants/constraints(safety/policy).
+•Checkobservability(do sensors allow you to infer the state?).
+•V alidate with3 scenarios(normal, stressed, fault).
+•Documentstate→actions(what the controller does in each state).
+Situation Mapping Example
+
+--- PAGE 31 ---
+Example 2 – Situation Mapping
+Problem:
+Describe the situation of ahospital IT systemduring an emergency where aﬁre
+alarm has gone off in the ICU.
+Solution:
+•Condition: ICU servers are still operational, but power is unstable.
+•Location: ICU network segment in hospital building B.
+•Attributes: System is in “emergency mode,” activating patient record backup
+and emergency alerts.
+•Relationships: Interfaces withﬁre alarm system, nurse stations, and external
+emergency services.
+let’s go step by step forarriving at “situation” problemsin Systems
+Engineering.
+Remember:
+•State= internal condition snapshot.
+•Situation= state+ context(time, location, environment, external
+conditions, constraints).
+Steps to Identify a Situation (General Method)
+1.Deﬁne the System Boundary
+◦Clarify what system you are analyzing (Smart
+Irrigation, Hospital IT).
+◦Identify main subsystems and stakeholders.
+2.List Key States
+◦Enumerate possible states of the system/
+subsystem (Idle, Irrigating, Maintenance for
+irrigation; Database Online, Backup in Progress,
+Overload for hospital IT).
+◦Ensure MECE (Mutually Exclusive, Collectively
+Exhaustive).
+3.Identify Contextual Variables
+◦Ask:What external factors change how the state
+is interpreted?
+◦Examples: time of day, season, resource
+availability, user demand, emergencies.
+Combine State + Context
+•A “situation” is formed by pairing the
+internal statewith therelevant contextual
+variables.
+Validate with Stakeholders
+•Check whether the deﬁned situations are
+realistic and operationally meaningful.
+•Discard irrelevant or redundant
+combinations.
+Formulate the Problem Statement
+•Phrase the situation clearly in words:
+◦“The irrigation system is in Irrigating
+state during peak summer with low water
+reservoir level.”
+◦“The hospital IT system is in Database
+Overload state during mass casualty
+emergency, while backup is unavailable.”
+Worked Example 1: Smart Irrigation System
+Step 1 – Boundary:Smart irrigation with sensors, pump, control unit.
+Step 2 – States:Idle, Irrigating, Maintenance.
+Step 3 – Contextual Variables:Soil moisture, weather forecast, reservoir water
+level, time of day.
+Step 4 – Combine:
+•Idle + High moisture + Rain forecast→Situation: “No irrigation required.”
+•Irrigating + Low reservoir level + High heat→Situation: “Critical water stress
+scenario.”
+Step 5 – Validate:Farmers conﬁrm these are operationally meaningful.
+Step 6 – Final Problem Statement:“System is irrigating under water shortage
+during peak heat, risking both crop health and reservoir depletion.”
+
+--- PAGE 32 ---
+Worked Example 2: Hospital IT System
+Step 1 – Boundary:Hospital patient information & clinical systems.
+Step 2 – States:Database Online, Backup in Progress, System Overload, System Failure.
+Step 3 – Contextual Variables:Patient load, cyber-attack attempts, network status, emergency
+inﬂux.
+Step 4 – Combine:
+•Online + Cyberattack attempt + Night shift→Situation: “Potential breach under minimal
+staff supervision.”
+•Overload + Mass casualty event + Backup delayed→Situation: “Critical IT bottleneck
+during emergency response.”
+Step 5 – Validate:Doctors/IT conﬁrm such conditions have occurred in past drills.
+Step 6 – Final Problem Statement:“Hospital IT system is overloaded during mass casualty
+event with backup unavailable, risking data loss and delay in care.”
+Key Distinction:
+•Statealone is abstract (e.g.,Overload).
+•Situationgrounds it inreal operational context(e.g.,Overload
+during emergency with no backup).
+Behaviour Examples
+Behavior= theobservable dynamic responseof a system to
+inputs and internal conditions over time (how the system
+changes states or produces outputs).
+
+--- PAGE 33 ---
+Example 1: Smart Irrigation System
+•State:Irrigating
+•Input/Condition:Sudden rain detected by sensors
+•Behavior:System automaticallyshuts off irrigationwithin 2 minutes to avoid overwaterin g
+•Observation:Change instate transition→from “Irrigating” to “Idle” due to feedback.
+Example 2: Hospital IT System
+•State:Handling patient records under normal load
+•Input/Condition:Sudden spike of 300 emergency patient admissions in 10 minutes
+•Behavior:Systemslows down response time(e.g., login requests take 30 seconds instead
+of 3).
+•Observation:A performance degradation behavior under load.
+Example 3: Autonomous Vehicle (CPS)
+•State:Cruising at 60 km/h
+•Input/Condition:Obstacle detected at 30 meters ahead
+•Behavior:V ehicleapplies brakes, signals lane change, and reroutes path.
+•Observation:Amulti-step adaptive response→internal control + external action.
+Example 4: Cloud-Based E-Commerce System
+•State:Normal transaction processing
+•Input/Condition:“Black Friday” trafﬁc surge×10 load
+•Behavior:
+◦Systemspins up 50 more server instances(auto-scaling).
+◦Queue timesincrease temporarilybut stabilize.
+•Observation:Elastic scaling behavior + temporary instability.
+So, thedifference from State/Situationis:
+•State= snapshot (e.g., “Irrigating”).
+•Situation= state + context (e.g., “Irrigating with low reservoir in peak
+summer”).
+•Behavior=how the system dynamically respondsto changes (e.g.,stopping
+irrigation when rain starts).
+How Behavior is Identiﬁed After Situation
+
+--- PAGE 34 ---
+•Situation= snapshot of attributes + context at timet.
+•Behavior= thetrajectoryof changes in that situation when system
+inputs/conditions evolve.
+Methodologically, we ask:
+1.What inputs or triggers are present in this situation?
+2.What internal rules/logic govern the system’s response?
+3.What outputs or state transitions happen over time?
+4.Does this form a recognizablepattern(feedback loop, oscillation,
+degradation, adaptation)?
+State→Situation→Behavior→Process→Function→Strategy→Components
+Worked Examples
+1. Smart Irrigation System
+•Situation:Soil moisture at 15% (dry), weather forecast = “no rain for 2
+days.”
+•Behavior Identiﬁcation:
+◦Trigger: dryness + no rain.
+◦Rule: if moisture < 20% and no rain→activate pump.
+◦Behavior: Systemcycles into irrigationuntil threshold reached→
+then shuts off.
+•System Design Insight:Behavior = “threshold-driven irrigation cycle.”
+Hospital IT System (Patient Monitoring)
+•Situation:Patient’s oxygen saturation falls below 90%, alert
+threshold = 92%.
+•Behavior Identiﬁcation:
+◦Trigger: O₂< threshold.
+◦Rule: escalate alert→nurse + doctor notiﬁcation.
+◦Behavior: Systemescalates alarm behavior, possibly with
+redundancy (if nurse doesn’t acknowledge within X sec, notify
+doctor).
+•System Design Insight:Behavior = “escalating alarm escalation
+loop.”
+Cyber-Physical Trafﬁc Control
+•Situation:Congestion detected at intersection A during peak
+hour.
+•Behavior Identiﬁcation:
+◦Trigger: vehicle queue length > threshold.
+◦Rule: adjust signal timing dynamically.
+◦Behavior: System adapts signal cycle length→adaptive
+control behavioremerges.
+•System Design Insight:Behavior = “feedback-based
+adaptive cycle.”
+
+--- PAGE 35 ---
+Method to Determine Behavior in Systems Engineering
+1.Model Situations as State + Context:deﬁne attributes clearly.
+2.Identify Triggers:What events/conditions drive change?
+3.Map System Logic:(rules, algorithms, AI models, heuristics).
+4.Simulate or Observe:Run “what-if” changes to see dynamic response.
+5.Abstract as Pattern:classify behavior (stable, adaptive, oscillatory, failing).
+Behavior isnot a single eventbut apattern of responseswhen the system is perturbed in a
+given situation.
+In design, engineers model behaviors to predict resilience, failure, or efﬁciency.
+Process Examples
+Example 1: Smart Irrigation System – Process
+Process Name:Automated Irrigation Cycle
+Trigger:Soil moisture < threshold or scheduled time.
+Goal:Maintain soil moisture within safe band while conserving water.
+Process (ﬁnalﬂow form):
+1.Measure soil moistureacross all zones.
+2.Fetch forecast(rain probability, temperature).
+3.Compute irrigation plan(volume/time per zone).
+4.Open valves & run pumpsaccording to plan.
+5.Verifyﬂow/pressure→adjust if abnormal.
+6.Stop irrigation & log results.
+Exceptions/Degraded Path:
+•Rain detected→abort cycle.
+•Low tank level→irrigate priority zones only.
+•Pipe break (abnormal pressure)→close faulty zone, continue others.
+Measure → Forecast → Plan → Actuate → Verify → Stop 
+             └─ if rain → Stop 
+             └─ if low tank → Partial plan 
+             └─ if pipe fault → Adjust/Abort
+Representation (text BPMN* /ﬂow):
+*Business Process Model and Notation
+
+--- PAGE 36 ---
+Example 2: Hospital IT System – Process
+Process Name:Patient Data Access & Update during Surge
+Trigger:Patient admission or record request.
+Goal:Ensure critical patient data remains available with minimal delay, even under
+overload.
+Process (ﬁnalﬂow form):
+1.Patient intakerecord creation.
+2.Authenticate user(doctor/nurse).
+3.Read/Write operationson EHR database.
+4.Asynchronous ingestionof lab/imaging reports.
+5.Replication/backupto secondary site.
+Exceptions/Degraded Path:
+•Load > threshold→Switch tocached reads+ throttle non-critical writes.
+•Severe overload→Read-only modewithpriority write queue(ICU/ER only).
+•Storage failure→Failover to DR site.
+Intake → Auth → Read/Write → Ingest → Replicate 
+          └─ if high load → Degrade 
+          └─ if overload → Read-only + Priority queue 
+          └─ if storage fault → Failover
+Key idea for students:
+•Aprocess= asequence of behaviors with ordering, timing, and branching.
+•Both examples shownormal path+degraded/exception path.
+Method: Steps to derive a Process
+1.State→Behavior inventory
+◦List thestatesand thebehaviorsthat cause transitions or produce outputs.
+◦Example notation:B1: Measure,B2: Decide,B3: Actuate, etc.
+2.Deﬁne the trigger & goal
+◦What starts this process (event/time/threshold)?
+◦What is the success condition (goal/output/invariant satisﬁed)?
+3.Order the behaviors (controlﬂow)
+◦Decide thesequence,branching, andjoins(AND/OR).
+◦Choose a representation:Activity diagram,BPMN, or(Coloured) Petri Net.
+4.Attach timing & resources
+◦For each step, specifyduration(deterministic/stochastic),deadlines,resources
+(sensor, GPU, staff).
+◦Markdelaysandqueues(where tokens wait).
+
+--- PAGE 37 ---
+1.Deﬁne guards & data dependencies
+◦Writeguard conditionsthat must be true to proceed (e.g.,moisture < low,server CPU < 80%).
+◦Identifydata produced/consumedbetween steps.
+2.Specify failure/exception paths
+◦For each step, deﬁneexceptionsandrecovery behaviors(timeouts, retries, degraded modes).
+3.Performance and safety constraints
+◦Add SLAs/invariants: latency bounds, safety margins, accuracy targets.
+4.Validate with scenarios
+◦Walk normal, peak, and fault scenarios through the process.
+◦Check for deadlocks, livelocks, unbounded queues, or unreachable goals.
+5.Instrument & metrics
+◦Deﬁne what to log/monitor at each step (time, errors, queues) and how to decide the process is “healthy”.
+6.Trace to strategy
+•Note hownormalvsdegradedstrategies changebranches,timings, orresource allocationsin the process.
+Worked Example 1 — Smart Irrigation System (ﬁeld-scale, automated)
+1) State & behavior inventory
+•States (system level):Idle, Active Irrigation, Fault/Maintenance.
+•Behaviors:
+◦B1Measure soil moisture per zone
+◦B2Fetch forecast (rain/temperature)
+◦B3Compute irrigation plan (volume per zone)
+◦B4Open valves & run pump
+◦B5V erifyﬂow/pressure & adjust
+◦B6Stop irrigation & log results
+Start → B1: Measure → B2: Forecast 
+      → Gateway G1 (moisture < low & rain_prob < θ & tank > Lmin?) 
+          ├─ Yes → B3: Plan → B4: Actuate → B5: Verify → Gateway G2 
+          │          ├─ OK → B6: Stop/Log → End 
+          │          └─ Not OK → Exception E1 (Adjust plan / Reduce ow / Abort) 
+          └─ No  → End (Skip irrigation; log) 
+4) Timing & resources
+•B1 (sensors): 10–60 s (parallel across zones).
+•B3 (compute): 0.5–2 s (edge CPU).
+•B4 (actuation): ~1 s to open valves; pump spin-up 3–5 s.
+•B5 (verify):ﬂow/pressure stabilization 20–60 s.
+5) Guards & data
+•G1:avg(m_i) < m_lowANDrain_prob <θANDL
+> LminANDno_fault.
+•G2:flow_in_rangeANDpressure≤p_maxAND
+valve_feedback=OPEN.
+
+--- PAGE 38 ---
+6) Exceptions (examples)
+•E1a:Lowﬂow→throttle other zones; re-balance plan; if unresolved, abort zone.
+•E1b:Rain detected→immediatestop(override).
+•E1c:Tank low mid-cycle→stop,ﬂag reﬁll.
+7) Constraints
+•Safety:pressure≤p_max, pump duty cycle≤D%/hr.
+•Policy: Daily water≤B liters; quiet hours 22:00–05:00.
+8) Scenario validation (sketch)
+•Normal dry morning:Full cycle completes; moisture enters band.
+•Rain onset mid-cycle:B5 detects rain→E1b→stop.
+•Crushed pipe:B5 out-of-rangeﬂow→E1a→re-balance or abort zone.
+Instrumentation
+•Log: timestamps for B1–B6,ﬂow curves, energy use, water volume,
+decisions at G1/G2, exceptions.
+•KPI*s: liters saved/day, % time in band, false-positive irrigations
+avoided.
+10) Strategy linkage
+•Degraded mode:If compute is limited, usepre-computed plan; if tank
+low,partial zonesonly; if commsﬂaky,local fallbackwith
+conservative volumes.
+Optional Petri net sketch (places→transitions):
+(Measured)→(Planned)→(Actuating)→
+(Verifying)→(Completed)with side arcs to(Abort)from
+verifying/actuation under E1a/E1b/E1c.
+*Key Performance Indicator
+Worked Example 2 — Hospital IT System (EHR* during surge)
+1) State & behavior inventory
+•States (platform):Normal, High Load, Overloaded, Read-only, Failover.
+•Behaviors:
+◦B1Intake triage record creation
+◦B2Authentication/authorization
+◦B3EHR read/write ops
+◦B4Asynchronous lab/imaging ingestion
+◦B5Replication/backup jobs
+◦B6Rate-limit & degrade (switch features, cache, read-only)
+◦B7Failover to DR site / revert
+2) Trigger & goal
+•Trigger:Mass-casualty incident (surge arrivals).
+•Goal:Maintaincontinuity of care—minimize write failures and preserve read access; no data
+loss. * Electronic Health Record
+Start (Incident) → B1 Triage Intake → B2 Auth 
+      → Gateway G1 (Load < L1?) 
+          ├─ Yes → B3 Normal R/W → B4 Async ingest → B5 Replicate → End 
+          └─ No  → Gateway G2 (L1 ≤ Load < L2?) 
+                ├─ Yes → B6 Degrade: cache, reduce writes, delay analytics → End 
+                └─ No  → B6' Read-only Mode + Priority Write Queue 
+                        → Gateway G3 (Storage/DBMS healthy?) 
+                              ├─ Yes → Continue in guarded mode → End 
+                              └─ No  → B7 Failover to DR → End 
+
+--- PAGE 39 ---
+4) Timing & resources
+•Auth: target P95 < 1 s (degrade to 5 s under surge).
+•R/W ops: target P95 < 3 s (allow up to 30 s under overload).
+•Replication RPO/RTO* targets (e.g., RPO≤60 s, RTO≤10 min).
+5) Guards & data
+•G1/G2 thresholds from observability: queue depth, DB CPU/IO, error rate.
+•Priority classes:ICU/ER writes > routine writes(triage-driven policy).
+6) Exceptions
+•E1:Authentication backlog→issueemergency tokensto on-site devices.
+•E2:Primary storage pressure→tier hot reads to cache, move non-critical writes toasynchronous queue.
+•E3:Replication lag > RPO→freeze analytics, protect core EHR.
+7) Constraints
+•Safety/invariants:No loss of critical vitals/med orders.
+•Compliance: Audit logs must remain consistent; access control must not be bypassed for non-emergency roles.
+*RPO-Recovery Point Objective. RTO-Recovery Time Objective
+Scenario validation
+•Moderate surge:Stays belowL2; B6 degrades gracefully (read-heavy, write-queue
+for non-critical).
+•Severe surge + storage issue:CrossL2and storage warning→Read-only for
+routine areas;priority write queuefor ER/ICU; if storage fault persists→B7
+Failover.
+9) Instrumentation
+•Real-time dashboards: auth latency, DB CPU/IO, error rate, replication lag, write-
+queue time, per-role success.
+•KPIs: % critical writes admitted, mean time in degraded mode, RPO/RTO adherence.
+10) Strategy linkage
+•Normal strategy:autoscale app servers, prefetch critical patient data, continuous
+replication.
+•Degraded strategy: read-only + priority write queue, cache hot datasets, throttle
+analytics,fast DR failoverif storage/DB crosses fault thresholds.
+Final Form of the Examples - Function
+
+--- PAGE 40 ---
+So far we’ve seen how a system exists in differentstates, how those become
+situationsin context, how it exhibitsbehaviors, and how we organize those
+intoprocesses. But we still haven’t asked: Why are we doing all of this?
+What is the system meant to achieve in theﬁrst place?
+Let us Deﬁne Function
+•Function = the intended purpose of the system, expressed as
+what it must deliver to its environment.
+•Function answers:
+◦“What problem is the system solving?”
+◦“What value does it provide to stakeholders?”
+Function in Contrast to Process?
+Contrast with Process
+•Process = how the system works internally.
+•Function = why the system exists at all.
+“A hospital IT system has many processes: intake, auth, replication.
+But its function is simply:Ensure safe, continuous access to patient
+information to support care.
+Domain Examples
+•Smart Irrigation
+◦Function: Maintain soil moisture for crop health with minimal water use.
+•Hospital IT
+◦Function: Provide reliable, secure, and timely patient data access.
+•Trafﬁc Light System
+◦Function: Ensure safe, efﬁcient trafﬁcﬂow at intersections.
+
+--- PAGE 41 ---
+How Functions Guide Design
+•Functions are like theNorth Star: all states, situations, behaviors, and
+processes must serve them.
+•Functions also help deﬁneKPIs→if KPIs aren’t being met, processes
+may be optimized, but the system isfailing its function.
+Methodology for Identifying Functions in a System (Systems Engineering)
+1.Clarify Stakeholders & Needs
+◦Ask:“Who uses or depends on the system? What do they expect it to deliver?”
+◦E.g., farmer→“I want consistent crop health with minimal water waste.”
+2.Deﬁne System Boundary & Environment
+◦What’s inside (controllable) vs. outside (external)?
+◦E.g., sensors, pumps, controller (inside); weather (outside).
+3.Abstract Purpose from Processes
+◦Don’t confuse steps with function.
+◦E.g., “Measure soil moisture” is a process, not a function.
+◦Function is:Maintain optimal soil moisture.
+1.Express in Input→Output terms
+◦Identify what the systemtakes inand what itdelivers.
+◦E.g., Input = soil condition, Output = water delivered to maintain target.
+2.Generalize Beyond Implementation
+◦Function should be solution-neutral.
+◦E.g., Function = “Provide irrigation control” (not “Run pump motor”).
+3.Check Measurability
+◦Link function to KPIs (how do we know the function is fulﬁlled?).
+◦E.g., soil moisture kept within band 80% of time.
+4.Validate with Scenarios
+◦V erify: Does this function hold in normal + stressed + degraded conditions?
+How This Relates to Software Engineering
+Functional Requirements
+Software Engineering Functional
+Requirement (FR):
+•Describes what a software system shoulddo
+(features, tasks, services).
+•Written as:“The system shall [do X].”
+•Examples:
+◦“The system shall allow a doctor to view
+patient records within 3 seconds.”
+◦“The system shall irrigate Zone A if soil
+moisture < 20%.”
+Systems Engineering Function:
+•Broader, higher-level, and purpose-
+oriented.
+•Abstracted from technology→
+describeswhy the system existsand
+whatroleit plays in the larger
+environment.
+•Example:“Maintain reliable patient
+data access to support clinical
+decisions.”
+
+--- PAGE 42 ---
+Aspect Systems Engineering Function Software Engineering Functional
+Requirement
+Scope Whole system (may include hardware,
+software, human operators, environment)Software subsystem only
+Purpose Deﬁneswhythe system exists (its
+mission)
+Deﬁneswhatthe software must do
+(features, services)
+Level of
+Abstraction High-level, solution-neutral Detailed, solution-speciﬁc
+Expression Often phrased as outcomes or roles (e.g.,
+“Provide safe irrigation”)
+Written as “The system shall…”
+statements
+Validation Against mission objectives, KPIs,
+stakeholder needs Against test cases, acceptance criteria
+Examples Smart irrigation: “Maintain crop soil
+health efﬁciently”
+Irrigation SW: “Log moisture every 30
+mins and trigger valve if < 20%”
+Systems Engineering Vs Software Engineering Function Analysis: Key Differences
+In Systems
+Engineering, function is
+like the North Star —
+why the system exists.
+In Software
+Engineering, functional
+requirements are like
+the itinerary — what
+exact steps the software
+must take.
+Both are essential, but
+they operate at different
+levels of abstraction.
+•Top:Systems Engineering Function→thepurposeof the whole system.
+•Middle:Sub-functions→divided acrossHardware,Software, andHuman
+responsibilities.
+•Bottom:Software Engineering Functional Requirements→thedetailed “The
+system shall…”speciﬁcations derived from the software sub-function.
+- software functional requirements are derived from the broader functions
+of the system, not written in isolation.
+From Functions to Functional Requirements
+Objective
+To practice identifyingsystem-level functions, decomposing them intosub-functions
+(hardware, software, human), andﬁnally derivingsoftware functional requirements.
+Instructions
+1.Select a givensystem(choose from examples below).
+2.Write down themain function(purpose).
+3.Decompose intosub-functionsacross hardware, software, and human.
+4.For thesoftware sub-function, write at least 3functional requirementsin “The
+system shall…” form.
+5.Discuss in groups: Are these requirements sufﬁcient to realize the system function?
+Where are the gaps?
+Example 1: Smart Irrigation System
+•System Function:Maintain soil moisture in optimal range using
+minimal water.
+•Sub-functions:
+◦Hardware: Pump control, V alve actuation, Sensor operation.
+◦Software: Moisture monitoring, Irrigation scheduling logic,
+Data logging.
+◦Human: Override controls, Maintenance, Farm-level strategy.
+•Sample Software Functional Requirements:
+◦The system shall record soil moisture every 30 minutes.
+◦The system shall open the pump if average soil moisture <
+20%.
+◦The system shall log water usage after each irrigation cycle.
+
+--- PAGE 43 ---
+Example 2: Hospital IT (EHR) System
+•System Function:Provide secure, timely, and reliable access to patient
+health records.
+•Sub-functions:
+◦Hardware: Servers, Network, Storage devices.
+◦Software: Authentication, Database access, Replication.
+◦Human: Doctor decision-making, Nurse data entry, IT staff monitoring.
+•Sample Software Functional Requirements:
+◦The system shall allow doctors to retrieve patient records within 3
+seconds.
+◦The system shall restrict record access to authenticated users only.
+◦The system shall replicate all records to a secondary server within 5
+minutes.
+Why Functions Are the Best Way to Build Systems
+Let us Start with what you know: Programming Functions
+•In C, Python, or Java, afunctionis a reusable block:
+◦Input→Processing→Output.
+◦Example:def add(a, b): return a+b
+•What you already know:
+◦Functions bringclarity,reusability,abstraction, andtestability.
+◦They allow programmers to build complex software out of simple, reliable
+building blocks.
+Imagine writing a whole program without functions — a giant unstructured
+blob. That’s what designing systems without functions looks like.
+Functions in Systems Engineering: A Higher Abstraction
+•Asystem function=the purpose the system delivers to its environment.
+•It’s not aboutcode reusebut aboutmission clarity.
+•Example:
+◦Irrigation system→“Maintain soil moisture.”
+◦Hospital IT system→“Provide safe, reliable patient data access.”
+•Just like programming functions,system functions:
+◦Break down big complexity into manageable roles.
+◦Allowdecompositioninto sub-functions (hardware, software, human).
+◦Areveriﬁable(via KPIs, not just test cases).
+Key message:Functions scale the same philosophy from code→to whole systems.
+
+--- PAGE 44 ---
+Why “Function First” is Powerful
+•Purpose-driven design:Function deﬁneswhybeforehow.
+•Flexibility:Implementation can change, but the function remains.
+◦Example: Flight navigation function can be realized by sextant,
+GPS, or AI autopilot — function = constant,
+implementation = evolving.
+•Universality:Functions apply equally to biological, social, and
+technical systems.
+◦Heart: function = pump blood.
+◦Internet: function = move information.
+◦Democracy: function = distribute power/accountability.
+Natural Evolution as Context
+•Inevolution, functions emergeﬁrst, structures follow.
+◦Eye→function = sense light, then evolved multiple structural designs
+(compound eyes in insects, camera eyes in humans).
+◦Wing→function = enable movement through air, then implemented as
+bird feathers, insect membranes, bat skin.
+•Lesson:Nature doesn’t evolve organsﬁrst; it evolves functions that
+matter for survival.
+◦Structure changes, but function endures.
+Key point: “Just as evolution favors functions that help survival, engineers
+must deﬁne functions that ensure usefulness and resilience.”
+Contextualizing for Us:
+•As Programmers:Functions = reusable building blocks.
+•As Engineers:Functions = guiding purposes that hold designs together.
+•As Future Leaders:Functions = the ability to ask“What is the purpose?”before
+“How do we do it?”.
+This knowledge contextualizes into:
+•Software Engineering:Write better requirements.
+•Systems Engineering:Design more resilient systems.
+•AI/Agentic Systems:Teach machines not just to react, but to serve functions under
+constraints.
+•Life:Always(most of the time) ask the “why” before jumping into the “how.”
+Conclusion:
+Functions are the best way to build anything — from a small program, to a
+hospital IT system, to life itself.
+Because they deﬁne purpose.
+And once purpose is clear , processes, behaviors, and components will naturally
+align.
+
+--- PAGE 45 ---
+Chapter Summary: From State to Function in Systems Engineering
+1. State –“What the system is at a given
+moment.”
+•Deﬁnition:Internal condition snapshot of a
+system or subsystem.
+•Example:Smart Irrigation→Pump ON,
+moisture = 18%.
+•Why it matters:States deﬁne the “now”→
+form the basis for analysis.
+2. Situation –“State in context.”
+•Deﬁnition:State + environment +
+external factors (time, place, constraints).
+•Example:Pump ON + Moisture 18% +
+Reservoir low + Summer heat.
+•Why it matters:Situations tell us
+whether a state iscritical, normal, or
+risky.
+3. Behavior –“How the system responds
+dynamically.”
+•Deﬁnition:Observable response to
+triggers, captured astransitions
+between states.
+•Example:If rain detected→Pump
+shuts off in 2 minutes.
+•Why it matters:Behaviors reveal
+adaptability, stability, or failure
+patterns.
+4. Process –“Behaviors organized over
+time.”
+•Deﬁnition:Sequence + timing + logic of
+behaviors that achieve outcomes.
+•Example (Irrigation):
+Measure→Forecast→Plan→Actuate→
+V erify→Stop.
+•Why it matters:Processes let us design
+workﬂows, verify correctness, and plan
+resilience paths.
+5. Function –“Why the system exists at all.”
+•Deﬁnition:The ultimate purpose of the system, expressed in terms of value
+delivered.
+•Example:Maintain crop soil health efﬁciently.
+•Why it matters:Functions provide theNorth Star— everything else (states,
+situations, behaviors, processes) serves the function.
+Connecting the Concepts
+•Stateis the building block.
+•Situationaddscontext.
+•Behaviorshowsdynamic change.
+•Processorganizes behavior intostructured operation.
+•Functionanchors it all withpurpose.
+Example Integration (Hospital IT System)
+•State:DB overloaded.
+•Situation:DB overloaded + mass casualty event + backup delayed.
+•Behavior:System slows response, enters degraded mode.
+•Process:Intake→Auth→Read/Write→Ingest→Replicate→Degraded
+Mode if overload.
+•Function:Provide secure, reliable, and timely access to patient data to
+support care.
+
+--- PAGE 46 ---
+Key Takeaway for Us
+•Systems Engineering is not just about coding or hardware — it’s about
+understanding purpose (function),predicting dynamics (behavior/process), and
+preparing for context (situation).
+•These concepts scale acrosssoftware-intensive systems, CPS, and general socio-
+technical systems.
+Closure:
+“In systems engineering, we never lose sight of the function. Because
+states, situations, behaviors, and processes are just means to achieve it.
+Functions let us step back and ask: Is this system delivering what it’s
+meant to deliver?”
+Pivoting to Strategy & Components:
+•Strategy = “How to maintain function when things go wrong?”
+•Components = “Which parts together realize the function?”
+Base:State→snapshot of system
+condition
++ Context:Situation
+Dynamic:Behavior
+Organized:Process
+Capstone:Function→purpose, why
+the system exists
+Thank You
+

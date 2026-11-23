@@ -1,0 +1,61 @@
+% ============================================================================
+% Figure 2: Principal-System Life-Cycle Diagram with Iterations & Feedback
+% (Deliverable B — Classic Academic Serif Style)
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.55cm]
+
+% Subtle dashed acquisition vs utilization bands
+\draw[dashed, draw=black!50, fill=LightTint!50, rounded corners=3pt] (-0.35, -1.15) rectangle (10.35, 2.55);
+\draw[dashed, draw=black!50, fill=DiagTealFill!55, rounded corners=3pt] (10.55, -1.15) rectangle (16.95, 2.55);
+
+\node[font=\rmfamily\scriptsize\bfseries\color{black}] at (5.0, 2.28)
+    {ACQUISITION-ORIENTED PHASES (Bringing the System into Existence: Years $-2$ to $0$)};
+\node[font=\rmfamily\scriptsize\bfseries\color{black}] at (13.75, 2.28)
+    {UTILIZATION-ORIENTED PHASES (Years $1$ to $15+$)};
+
+% 8 Phases
+\node[sebox, text width=1.65cm, minimum height=1.15cm] (p1) at (0.65, 0.75) {\textbf{1. Need}\\Identification\\{\tiny(Gap \& EPR)}};
+\node[sebox, text width=1.65cm, minimum height=1.15cm] (p2) at (2.80, 0.75) {\textbf{2. Conceptual}\\Design\\{\tiny(Arch \& TPMs)}};
+\node[sebox, text width=1.65cm, minimum height=1.15cm] (p3) at (4.95, 0.75) {\textbf{3. Preliminary}\\Design\\{\tiny(DDPs \& Layout)}};
+\node[sebox, text width=1.65cm, minimum height=1.15cm] (p4) at (7.10, 0.75) {\textbf{4. Detailed}\\Design \& Dev.\\{\tiny(Specs \& SOP)}};
+\node[sebox, text width=1.65cm, minimum height=1.15cm] (p5) at (9.25, 0.75) {\textbf{5. Construction}\\{\tiny\& Fabrication}\\{\tiny(Civil/Skids)}};
+
+\node[seboxTeal, text width=1.70cm, minimum height=1.15cm] (p6) at (11.55, 0.75) {\textbf{6. Deployment}\\{\tiny\& Operation}\\{\tiny(10 t/d Run)}};
+\node[seboxTeal, text width=1.70cm, minimum height=1.15cm] (p7) at (13.75, 0.75) {\textbf{7. Support,}\\{\tiny Maint.\ \& Upgrade}\\{\tiny(Spares/Mod)}};
+\node[seboxRisk, text width=1.70cm, minimum height=1.15cm] (p8) at (15.95, 0.75) {\textbf{8. Phase-Out,}\\{\tiny Recovery \&}\\{\tiny Disposal}};
+
+% Forward primary arrows
+\foreach \i/\j in {p1/p2, p2/p3, p3/p4, p4/p5, p5/p6, p6/p7, p7/p8} {
+    \draw[searrow] (\i.east) -- (\j.west);
+}
+
+% Short iteration loops (top)
+\draw[sefeedback] (p3.north) -- ++(0,0.42) -| node[selabel, pos=0.25] {Trade-off / EIA Re-baseline} (p2.north);
+\draw[sefeedback] (p4.north) -- ++(0,0.75) -| node[selabel, pos=0.25] {D\&V Test Defect Loop} (p3.north);
+\draw[sefeedback] (p5.north) -- ++(0,0.42) -| node[selabel, pos=0.25] {Commissioning Snags} (p4.north);
+\draw[sefeedback, draw=DiagTealDraw] (p7.north) -- ++(0,0.52) -| node[selabel, pos=0.25] {Refurbished Line / Mod-Upgrade} (p6.north);
+
+% Major cross-phase learning feedback loops (bottom)
+\draw[sefeedback] (p6.south) -- ++(0,-0.45) -| node[selabel, pos=0.25]
+    {FB-1: Operational Safety, Purity \& Feedstock Shift Data} (p3.south);
+
+\draw[sefeedback, draw=DiagOrgDraw] (p7.south) -- ++(0,-0.88) -| node[selabel, pos=0.25]
+    {FB-2: Blade Wear, MTTR \& Sensor Calibration Records $\rightarrow$ Next Bay / Redesign} (p4.south);
+
+\draw[seriskarrow] (p8.south) -- ++(0,-1.35) -| node[selabel, pos=0.25]
+    {FB-4: Decommissioning Cost, Soil Decontamination \& TSDF Lessons $\rightarrow$ Next-Gen System Need} (p1.south);
+
+% Legend strip
+\node[font=\rmfamily\tiny\color{black!80}, anchor=west] at (-0.25, -1.75)
+    {\textbf{Legend:} \textcolor{black!65}{\rule[2pt]{14pt}{0.9pt}} Primary Life-Cycle Progression \quad
+     \textcolor{DiagBlueDraw}{- - -} Verification \& Operational Feedback Loops \quad
+     \textcolor{DiagRedDraw}{- - -} End-of-Life Learning to Next-Generation Systems};
+
+\end{tikzpicture}%
+}
+\caption{Principal-System Life-Cycle Representation of UA-EWRRF across Eight Phases with Iterations and Feedback Loops.}
+\label{fig:principal_lc}
+\end{figure}

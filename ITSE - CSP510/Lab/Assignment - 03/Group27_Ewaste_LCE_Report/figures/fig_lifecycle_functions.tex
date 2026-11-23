@@ -1,0 +1,63 @@
+% ============================================================================
+% Figure 4: Life-Cycle Functions & Multi-Stakeholder Map (Deliverable E)
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}
+
+% Column headers (Subtle pastel bordered headers matching edit.pdf)
+\foreach \x/\title/\fillcol/\drawcol in {
+    1.8/{Design \& V\&V\\(Phases 1--4)}/DiagBlueFill/DiagBlueDraw,
+    5.4/{Build \& Deploy\\(Phases 5--6a)}/DiagTealFill/DiagTealDraw,
+    9.1/{Operate \& Monitor\\(Phase 6)}/LightTint/black!60,
+    12.7/{Support \& Upgrade\\(Phase 7)}/DiagBlueFill/DiagBlueDraw,
+    16.1/{Retire \& Dispose\\(Phase 8)}/DiagRedFill/DiagRedDraw%
+}{
+    \node[sebanner, fill=\fillcol, draw=\drawcol, text width=3.0cm, minimum height=0.82cm]
+        at (\x, 5.25) {\title};
+    \draw[dashed, draw=black!45, fill=white, rounded corners=2pt] (\x-1.55, 1.35) rectangle (\x+1.55, 4.78);
+}
+
+% Functions inside each phase column
+\node[sebox, text width=2.7cm] (f1) at (1.8, 4.25) {\textbf{Design \& Development}\\{\tiny Promoter + EPC + EHS Cons.}};
+\node[sebox, text width=2.7cm] (f2) at (1.8, 3.15) {\textbf{Verification \& Validation}\\{\tiny EPC + MPCB + 3rd-Party Lab}};
+\node[sebox, text width=2.7cm] (f3) at (1.8, 2.05) {\textbf{Procurement \& Supply}\\{\tiny Promoter + Equip.\ OEMs}};
+
+\node[seboxTeal, text width=2.7cm] (f4) at (5.4, 4.25) {\textbf{Civil Const.\ \& Fab.}\\{\tiny EPC + MIDC + Civil Sub.}};
+\node[seboxTeal, text width=2.7cm] (f5) at (5.4, 3.15) {\textbf{Transport \& Install.}\\{\tiny OEMs + Logistics + Safety}};
+\node[seboxTeal, text width=2.7cm] (f6) at (5.4, 2.05) {\textbf{Operator Training}\\{\tiny OEMs + DISH + Plant EHS}};
+
+\node[sebox, text width=2.7cm] (f7) at (9.1, 4.25) {\textbf{Collection \& Operation}\\{\tiny Ops Team + NMC + Aggreg.}};
+\node[sebox, text width=2.7cm] (f8) at (9.1, 3.15) {\textbf{EHS \& EPR Monitoring}\\{\tiny EHS + CPCB Portal + MPCB}};
+\node[sebox, text width=2.7cm] (f9) at (9.1, 2.05) {\textbf{Hazardous Handling}\\{\tiny Ops + Manifest Carrier + TSDF}};
+
+\node[seboxTeal, text width=2.7cm] (f10) at (12.7, 4.25) {\textbf{Maint.\ \& Repair}\\{\tiny Maint.\ Team + Equip.\ OEMs}};
+\node[seboxTeal, text width=2.7cm] (f11) at (12.7, 3.15) {\textbf{Resource Replenish.}\\{\tiny Supply Chain + MSEDCL}};
+\node[seboxTeal, text width=2.7cm] (f12) at (12.7, 2.05) {\textbf{Upgrade \& Modernize}\\{\tiny Promoter + Tech Vendors}};
+
+\node[seboxAmber, text width=2.7cm] (f13) at (16.1, 4.25) {\textbf{Decommissioning}\\{\tiny Decom.\ Contr.\ + MIDC}};
+\node[seboxAmber, text width=2.7cm] (f14) at (16.1, 3.15) {\textbf{Asset Recovery/Recycle}\\{\tiny Secondary Equip.\ Buyers}};
+\node[seboxRisk, text width=2.7cm] (f15) at (16.1, 2.05) {\textbf{Final Haz.\ Disposal}\\{\tiny Butibori TSDF + MPCB NOC}};
+
+% Cross-cutting Enabling Information & Governance Bus
+\node[rectangle, rounded corners=2pt, draw=black!60, fill=LightTint, line width=0.7pt,
+      minimum width=17.4cm, minimum height=0.82cm, align=center, font=\rmfamily\scriptsize\color{black}]
+    (bus) at (8.95, 0.45)
+    {\textbf{Shared Enabling Infrastructure \& Information Exchange Bus:} Digital ERP/CMMS $\bullet$ CPCB EPR API \& Form-10 Manifests $\bullet$ Environmental SCADA $\bullet$ Escrow \& Asset Registry};
+
+% Vertical orange connections to the shared bus
+\foreach \x in {1.8, 5.4, 9.1, 12.7, 16.1} {
+    \draw[seextarrow, <->] (\x, 1.35) -- (\x, 0.88);
+}
+
+% Horizontal flow arrows between stages
+\foreach \xa/\xb in {3.35/3.85, 6.95/7.55, 10.65/11.15, 14.25/14.55} {
+    \draw[searrow] (\xa, 3.15) -- (\xb, 3.15);
+}
+
+\end{tikzpicture}%
+}
+\caption{Life-Cycle Functions Map for UA-EWRRF Showing Functional Grouping, Multi-Stakeholder Co-Responsibility, and Enabling Systems.}
+\label{fig:lc_functions}
+\end{figure}

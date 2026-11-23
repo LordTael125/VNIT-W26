@@ -1,0 +1,191 @@
+% ==============================================================================
+% PREAMBLE: SYSTEMS ENGINEERING COURSE GUIDE (CSL510 / CSP510)
+% ==============================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in, a4paper]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage{centernot}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning,calc,fit,backgrounds,decorations.pathreplacing}
+
+% Color Definitions
+\definecolor{sePrimary}{RGB}{20, 45, 85}       % Deep Navy Blue
+\definecolor{seSecondary}{RGB}{45, 95, 140}    % Steel Blue
+\definecolor{seAccent}{RGB}{160, 40, 45}       % Crimson / Accent Red
+\definecolor{seGreen}{RGB}{25, 115, 65}        % Forest Green / Success
+\definecolor{seAmber}{RGB}{180, 105, 15}       % Amber / Warning
+\definecolor{sePurple}{RGB}{95, 45, 120}      % Purple / Theory
+\definecolor{seLightGray}{RGB}{247, 249, 252}  % Light Box Background
+\definecolor{seBorderGray}{RGB}{210, 220, 230} % Border Gray
+\definecolor{seDarkText}{RGB}{30, 35, 42}      % Soft Black for text
+
+% Hyperref Setup
+\usepackage[
+    colorlinks=true,
+    linkcolor=sePrimary,
+    citecolor=seSecondary,
+    urlcolor=seAccent,
+    bookmarksdepth=3,
+    bookmarksnumbered=true
+]{hyperref}
+
+% Page Layout & Headers
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\color{seSecondary}\nouppercase{\leftmark}}
+\fancyhead[LO]{\color{seSecondary}\nouppercase{\rightmark}}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{seSecondary}\leaders\hrule height \headrulewidth\hfill}}
+\setlength{\headheight}{26pt}
+\addtolength{\topmargin}{-12pt}
+
+% Section & Chapter Formatting
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\huge\bfseries\color{sePrimary}}
+  {\filleft\Huge\color{seSecondary}DAY \thechapter}
+  {1ex}
+  {\titlerule[1.5pt]\vspace{1.5ex}\filright}
+  [\vspace{1ex}\titlerule]
+
+\titleformat{\section}
+  {\normalfont\sffamily\Large\bfseries\color{sePrimary}}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\sffamily\large\bfseries\color{seSecondary}}
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\sffamily\normalsize\bfseries\color{seDarkText}}
+  {\thesubsubsection}{1em}{}
+
+% Custom tcolorbox Environments
+% 1. Core Definition Box
+\newtcolorbox{definitionbox}[1]{
+    enhanced,
+    colback=seLightGray,
+    colframe=sePrimary,
+    fonttitle=\bfseries\sffamily\color{white},
+    title={\small \textbf{DEFINITION:} #1},
+    coltitle=white,
+    boxrule=1.2pt,
+    arc=3pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    before skip=10pt, after skip=10pt,
+    breakable
+}
+
+% 2. Pedagogical Story / Case Anecdote Box
+\newtcolorbox{storybox}[1]{
+    enhanced,
+    colback=seLightGray,
+    colframe=seSecondary,
+    fonttitle=\bfseries\sffamily\color{white},
+    title={\small \textbf{PEDAGOGICAL CASE STORY:} #1},
+    coltitle=white,
+    boxrule=1.2pt,
+    arc=3pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    before skip=10pt, after skip=10pt,
+    breakable
+}
+
+% 3. Core Systems Engineering Takeaway / Insight Box
+\newtcolorbox{takeawaybox}[1]{
+    enhanced,
+    colback=seGreen!5!white,
+    colframe=seGreen!85!black,
+    fonttitle=\bfseries\sffamily\color{white},
+    title={\small \textbf{KEY SYSTEMS ENGINEERING INSIGHT:} #1},
+    coltitle=white,
+    boxrule=1.2pt,
+    arc=3pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    before skip=10pt, after skip=10pt,
+    breakable
+}
+
+% 4. Dialectic Thinking Box
+\newtcolorbox{dialecticbox}[1]{
+    enhanced,
+    colback=sePurple!5!white,
+    colframe=sePurple!85!black,
+    fonttitle=\bfseries\sffamily\color{white},
+    title={\small \textbf{DIALECTIC SYNTHESIS:} #1},
+    coltitle=white,
+    boxrule=1.2pt,
+    arc=3pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    before skip=10pt, after skip=10pt,
+    breakable
+}
+
+% 5. Industrial & CSE Worked Example Box
+\newtcolorbox{examplebox}[1]{
+    enhanced,
+    colback=seLightGray,
+    colframe=seSecondary!80!black,
+    fonttitle=\bfseries\sffamily\color{white},
+    title={\small \textbf{WORKED ENGINEERING EXAMPLE:} #1},
+    coltitle=white,
+    boxrule=1.2pt,
+    arc=3pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    before skip=10pt, after skip=10pt,
+    breakable
+}
+
+% 6. Exam Alert & Common Pitfall Box
+\newtcolorbox{examprepbox}[1]{
+    enhanced,
+    colback=seAccent!5!white,
+    colframe=seAccent!90!black,
+    fonttitle=\bfseries\sffamily\color{white},
+    title={\small \textbf{EXAM ALERT \& FREQUENT PITFALL:} #1},
+    coltitle=white,
+    boxrule=1.2pt,
+    arc=3pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    before skip=10pt, after skip=10pt,
+    breakable
+}
+
+% 7. Step-by-Step Procedure / Checklist Box
+\newtcolorbox{checklistbox}[1]{
+    enhanced,
+    colback=seAmber!5!white,
+    colframe=seAmber!90!black,
+    fonttitle=\bfseries\sffamily\color{white},
+    title={\small \textbf{SYSTEMATIC ENGINEERING PROCEDURE:} #1},
+    coltitle=white,
+    boxrule=1.2pt,
+    arc=3pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    before skip=10pt, after skip=10pt,
+    breakable
+}
+
+% Math helpers
+\newcommand{\MTBF}{\text{MTBF}}
+\newcommand{\MTTR}{\text{MTTR}}
+\newcommand{\MDT}{\text{MDT}}
+\newcommand{\LCC}{\text{LCC}}
+\newcommand{\TCO}{\text{TCO}}

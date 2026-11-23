@@ -1,0 +1,1117 @@
+Story: The Broken Clock Tower
+
+CSL510 Introduction To Systems Engineering
+
+Systems Thinking - Fundamentals to Practice
+
+22 to 29 Sept 2026
+
+In a busy town square stood a giant clock tower, built more than 100 years ago. One day, the clock
+stopped working.
+The mayor called in three experts:
+• A mechanical engineer looked at the gears and said: “The cogs are worn out. Replace them and it
+will work again.”
+• An electrical engineer checked the wiring and declared: “The circuits are faulty. Fix them and
+the clock will tick.”
+• A software engineer examined the new digital display and concluded: “The program is outdated.
+Upgrade it, and time will be correct again.”
+Each expert was right — but even after xing gears, wires, and software, the clock still wouldn’t run
+properly.
+Finally, an old watchmaker came along. He didn’t just look at parts; he looked at how the whole
+system — gears, wiring, display, weather exposure, and even how townsfolk maintained it —
+interacted. He adjusted not just one element, but how they all worked together.
+Within hours, the clock was running perfectly again.
+
+Moral for Students
+
+• Each discipline sees a part of the system.
+• But only when we think like the watchmaker — in terms of interactions, feedback, and
+the whole — do we get to real solutions.
+
+• This is what we mean by Systems Thinking: not xing parts in isolation, but
+How do we relate this to Systems Engineering:
+Just like the clock tower, every modern engineering system — from hospitals to metros to
+smart grids — needs us to think in terms of systems, not parts.
+We’ll explore how engineers across disciplines see systems, and how this evolves from
+multidisciplinary to transdisciplinary thinking.
+
+But there is another dimension to the story:
+What if the clock could now observe its own performance, learn from its
+environment, change how it operates, and call other software tools to
+correct itself?
+Is our original system boundary still adequate?
+
+traditional system → software-intensive system → AI-enabled adaptive/agentic system.
+
+fi
+
+understanding how the whole system behaves.
+
+Introduction
+1. What is Systems Thinking?
+
+• A holistic approach to understanding complex entities not just as the
+sum of parts but as interdependent wholes.
+• Emphasizes relationships, interconnections, feedback, and emergence.
+• Opposed to reductionist thinking, which isolates components without
+capturing interactions.
+• Useful for problems where linear cause-effect is insuf cient.
+
+Key Principles:
+1.Interconnectedness – Every element in uences and is in uenced
+by others.
+2.Feedback Loops – Positive (reinforcing) and negative
+(balancing) loops govern system behavior.
+3.Emergence – System-level properties not found in individual
+components.
+4.Boundaries and Perspectives – The way we draw system
+boundaries changes how we see the problem.
+5.Leverage Points – Small changes in system structure can create
+large-scale impact.
+
+Systems Thinking vs. Engineering Viewpoints
+
+• Systems Thinking is a mindset: seeing the “whole” before the “parts.”
+• Engineering Viewpoints are structured frameworks or lenses through which engineers analyze
+
+Evolution of Systems Thinking Across Engineering Disciplines
+
+fl
+
+systems.
+Engineering Viewpoints include:
+1.Functional viewpoint – What the system must do.
+2.Structural viewpoint – How the system is organized (architecture, modules, components).
+3.Behavioral viewpoint – How the system responds dynamically to inputs and environments.
+4.Physical viewpoint – Real-world instantiation (hardware, networks, physical processes).
+5.Lifecycle viewpoint – From conception to decommissioning.
+6.Stakeholder viewpoint – Different stakeholders perceive systems differently (operator, user,
+regulator).
+Together, they prevent engineers from “blind spots” by ensuring multiple perspectives.
+
+Past: Origins of System View in Engineering
+
+• Discipline-speci c Systems (traditional naming
+conventions):
+◦Civil: Hydraulic systems, structural systems,
+irrigation systems.
+◦Mechanical: Thermodynamic systems, control
+systems, manufacturing systems.
+◦Electrical: Power systems, circuit systems,
+generation & distribution systems.
+◦Electronics: Communication systems, embedded
+systems.
+◦Mining: Mine ventilation systems, ore transport
+systems.
+◦Computer Science: Computer systems, operating
+systems, database systems.
+
+Present: Convergence and Interdependence
+
+Observation:
+Each discipline thought in silos
+— the “system” was limited to
+physical infrastructure, energy,
+or computation. Interaction
+across domains was minimal.
+Example:
+• A power plant in 1950s:
+purely about turbines, boilers,
+transmission lines — no realtime software, no embedded
+electronics.
+
+• Hardware + Software Fusion:
+
+Example:
+• A metro rail system today:
+◦Civil engineers build
+tracks & stations,
+◦Electrical engineers
+design traction and power,
+◦Electronics engineers
+handle signaling,
+◦Electronics → System-on-Chip integrating hardware + rmware.
+Computer engineers
+◦
+◦Mining → Autonomous drilling with AI-enabled geological
+integrate real-time
+modeling.
+scheduling,
+◦Computer Science → Cloud systems, distributed systems,
+Policy engineers regulate
+◦
+networked OS with AI orchestration.
+safety & sustainability.
+🔹 Observation:
+→ It’s a “System of
+Boundaries between disciplines have blurred. Systems are no longer
+Systems.”
+just physical or logical; they are socio-technical ecosystems.
+Increasingly, engineering systems are software-intensive,
+networked, cyber-physical, and AI-enabled.
+◦Civil → Smart infrastructure, digital twins of bridges, IoT
+sensors for safety.
+◦Mechanical → CNC machines with software controllers,
+autonomous vehicles.
+◦Electrical → Smart grids, demand-response algorithms.
+
+Future: Toward Transdisciplinary & Intelligent Systems
+
+• Emergence of AI + Systems Engineering:
+Systems will be self-adaptive, learning, and evolving over their lifecycle.
+
+◦Civil: Self-healing materials, adaptive urban systems.
+◦Mechanical: Bio-inspired robotics, swarm manufacturing.
+◦Electrical/Energy: AI-optimized renewable grids with quantum
+communication.
+
+Physical → Electromechanical → Software-intensive → Networked/CPS
+→ AI-enabled → Agentic/Adaptive
+
+◦Electronics: Neuromorphic and quantum chips.
+◦Mining: Autonomous sustainable mining with environmental digital twins.
+◦Computer Systems: Quantum computing ecosystems, bio-digital
+interfaces.
+
+• Engineering Viewpoints Extended:
+Traditional viewpoints (functional, structural, behavioral, etc.) will need to
+be enriched with:
+
+◦Cognitive viewpoint – how systems “think” (AI integration).
+◦Ethical viewpoint – societal implications, fairness, safety.
+◦Sustainability viewpoint – lifecycle extended to ecological and social
+
+fi
+
+impact.
+
+Example:
+• Future healthcare
+system: AI-enabled
+diagnostics + IoT
+devices + blockchain
+data security +
+quantum
+computation for drug
+discovery → a sociotechnical-cyberphysical ecosystem.
+
+Evolution of Decision-Making
+System generation
+
+Decision-making
+
+Traditional engineered
+system
+
+Human-designed xed rules
+
+Evolutionary Arc
+
+Software-intensive system
+
+Programmed algorithms
+
+1.Past: System = Discipline-centric (isolated physical/logical constructs).
+2.Present: System = Multi-disciplinary, cyber-physical, integrated.
+3.Future: System = Transdisciplinary, adaptive, ethical, sustainable.
+
+Cyber-physical system
+
+Sensing + feedback + control
+
+AI-enabled system
+
+Prediction + learned decisions
+
+Agentic system
+
+Goal-directed planning + tool/action selection
+
+Future system-of-agents
+
+Distributed human–AI–machine decisionmaking
+
+fi
+
+fi
+
+Here’s the mind-map
+handout tracing the evolution
+of systems thinking:
+• From discipline-speci c
+systems (Civil, Mechanical,
+Electrical, etc.),
+• To cyber-physical systems
+(smart grids, digital twins,
+autonomous vehicles),
+• Toward future
+transdisciplinary
+intelligent systems (AIoptimized, quantum, biodigital).
+
+Multidisciplinary (Present Systems)
+
+• De nition: Different disciplines work side by side, each
+contributing its own expertise, but mostly keeping their
+boundaries intact.
+
+• Nature: Integration is additive → “sum of parts.”
+• Example:
+◦Smart grid project →
+▪Electrical engineers design power ow,
+▪Computer engineers handle control software,
+▪Civil engineers design physical structures.
+Each team hands over its part, and the system works
+when all parts are joined.
+🔹 Keyword: “Parallel contribution.”
+
+Transdisciplinary (Future Systems)
+
+• De nition: Disciplines don’t just cooperate —
+
+Here are the visuals contrasting
+Multidisciplinary (parallel
+contributions, additive
+integration) vs.
+Transdisciplinary (converged
+knowledge, emergent
+frameworks).
+They are explaining the shift
+from present to future
+systems.
+
+they converge, creating new frameworks,
+languages, and methods that transcend
+traditional boundaries.
+
+• Nature: Integration is transformative → new
+emergent knowledge.
+
+• Example:
+◦Autonomous urban transport →
+▪Civil + AI + Policy + Human factors
+merge into a single adaptive urban
+mobility system.
+
+▪Engineers must think about ethics,
+cognitive modeling, sustainability
+together, not as “added modules.”
+🔹 Keyword: “Beyond disciplines – new whole.”
+
+• Complex socio-technical problems (autonomous vehicles,
+
+fi
+
+fi
+
+fi
+
+smart grids, hospitals, defense systems) cannot be solved
+by one discipline.
+• Helps engineers avoid local optimization (subsystem
+perfection but system failure).
+• Supports design for resilience, robustness, and
+adaptability.
+
+Pedagogical Example
+
+• Case: Metro rail system.
+◦Systems thinking: Focus on how passengers, operators, ticketing,
+traf c, and urban development interact.
+◦Engineering viewpoints: Break into signaling system (functional),
+rolling stock design (physical), scheduling (behavioral), lifecycle
+maintenance (lifecycle), passenger experience (stakeholder).
+
+fl
+
+Why Systems Thinking Matters for Engineers
+
+We looked at the Metro Rail System as an example of a modern, complex
+system. We saw how many subsystems come together — civil engineering
+for tracks, electrical for traction, electronics for signaling, and computer
+science for scheduling.
+
+To go deeper, we need a way of thinking that tells us:
+• How do these subsystems interact?
+• What patterns repeat across very different systems?
+• Why do some designs succeed while others fail, even if the parts
+are well-made?
+
+But if we stop at only naming subsystems, we are still thinking in silos.
+
+So now, let’s step back from the metro rails, and see what
+Bertalanffy’s fundamentals of Systems Thinking can
+teach us — principles that apply not just to metros, but to
+every system we will ever design or interact with.”
+
+fi
+
+This way of thinking was rst systematically described by Ludwig von
+Bertalanffy in his classic work General System Theory more than 50 years
+ago. His insights gave birth to what we now call Systems Thinking.
+And what’s fascinating is — even though he wrote in the 1960s, the
+principles are still valid today in the AI-driven world we live in. For
+example:
+• His idea of open systems explains why AI models must continuously
+interact with new data.
+• His principle of feedback loops is exactly how neural networks learn.
+• His concept of emergence helps us understand why whole systems (like
+smart cities or healthcare networks) behave in ways that no single
+subsystem can explain.
+
+System as a Whole (vs. Reductionism)
+
+• Bertalanffy’s Insight: A system
+
+Systems Thinking Fundamentals from Bertalanffy (Reframed for
+Today)
+
+cannot be fully understood by
+analyzing its parts in isolation; the
+organization of parts matters.
+• Today: AI models, like neural
+networks, cannot be explained by
+looking at single neurons — it’s the
+emergent behavior of the network
+that matters.
+
+Open vs. Closed Systems
+
+• Bertalanffy: Most real-world systems are open
+systems, exchanging matter, energy, and information
+with the environment.
+
+• Today:
+◦AI systems learn continuously from data streams
+(open).
+
+◦Cybersecurity and privacy challenges emerge because
+AI systems are never closed.
+
+◦Example: A self-driving car interacts with roads,
+humans, sensors, weather → open and adaptive.
+
+Equi nality
+
+Hierarchy of Systems
+
+• Bertalanffy: In open systems,
+
+• Bertalanffy: Systems are
+Feedback and Regulation
+
+• Bertalanffy: Feedback loops are
+essential for stability and
+adaptation.
+• Today:
+◦AI models rely on training
+feedback (loss functions,
+backpropagation).
+◦Engineering systems (smart
+grids, healthcare monitoring)
+require real-time feedback loops
+for resilience.
+
+organized in hierarchies — cells →
+organs → organisms →
+ecosystems.
+• Today:
+◦Cloud AI services: Chip →
+Server → Data Center → Cloud
+Ecosystem.
+◦Smart cities: Sensors →
+Subsystems (transport, energy,
+water) → Urban ecosystem.
+
+◦Reinforces the idea of systems
+of systems.
+
+fl
+
+fi
+
+fi
+
+different initial conditions can lead to
+the same nal state.
+• Today:
+◦Multiple AI algorithms (SVM,
+deep learning, reinforcement
+learning) may all reach the same
+goal (e.g., face recognition).
+◦This underlines design exibility
+in engineering complex systems.
+
+Isomorphism (Similar Patterns Across
+Domains)
+
+• Bertalanffy: Common structures (feedback,
+control, networks) appear in biology,
+engineering, and society.
+• Today:
+◦Network theory applies to neurons, supply
+chains, and social media.
+◦Same mathematics (graph theory,
+optimization) drives both AI and logistics.
+◦Encourages to transfer knowledge across
+disciplines.
+
+What happens when many agents interact?
+Individual agents may be locally rational, yet collectively produce:
+• oscillation,
+• resource competition,
+• coordination,
+• deadlock,
+• cascading decisions,
+• unexpected collective behaviour.
+This beautifully reconnects modern agentic AI with Bertalanffy's
+fundamental proposition: you cannot infer the whole simply by
+inspecting its components.
+
+Domain
+
+Representation
+
+Mathematical
+Commonality:
+Both use adjacency
+matrices, graph traversal,
+connectivity, centrality,
+and path optimization
+algorithms.
+
+Purpose / Insight
+
+Neural networks → directed
+Learn patterns by
+AI / Machine
+graphs (nodes = neurons, edges optimizing weights
+Learning
+(gradient descent).
+= weighted connections).
+Knowledge
+Graphs
+
+Same mathematics (graph theory, optimization) drives both AI
+and logistics
+Systems Engineering Perspective
+In Systems Engineering, mathematics is not just calculation — it is structure.
+
+• Systems engineers look for patterns of interconnection, ow, control, and
+optimization that repeat in physical, digital, and social systems.
+
+• Graph theory and optimization are two of the most universal tools because they
+model:
+
+◦Relationships (who connects to whom, what depends on what), and
+◦Decisions (how to allocate, minimize, maximize, or balance).
+Thus, both AI systems and logistics systems can be understood as networks of
+interacting elements seeking optimal states.
+
+Optimization: The Common Goal
+
+Graph Theory: The Common Skeleton
+
+Inference, reasoning,
+Entities and relations as nodes/
+contextual AI (e.g.,
+edges; semantic connections.
+search, chatbots).
+
+fi
+
+Warehouses, transport routes, Find shortest paths,
+Logistics /
+suppliers → graphs (nodes = minimum cost ows,
+Supply Chain locations, edges = transport
+resilient routing.
+links).
+Systems
+System architecture diagrams = Identify critical links,
+Engineering dependency graphs between
+failure propagation
+Integration
+subsystems.
+paths, redundancy.
+
+fl
+
+fl
+
+Emergence asks: “What system-level behaviour arises from interactions?”
+Agency asks: “Which element can observe, decide, act, and adapt?”
+
+Example:
+
+• The algorithmic idea
+behind backpropagation
+(computing gradients
+over a network graph) is
+mathematically similar to
+ow conservation or
+dynamic programming
+over a logistics network.
+
+Optimizatio
+n Objective
+
+AI Context
+
+Logistics Context
+
+Minimize
+loss / error
+
+Neural network training →
+minimize cost function via
+gradient descent.
+
+Minimize cost of
+transportation, delay, or
+resource use.
+
+Maximize
+Reinforcement learning →
+performance
+maximize reward over time.
+/ utility
+
+Maximize throughput,
+service level, pro t.
+
+Constraint Regularization, safety
+satisfaction constraints, explainability.
+
+Capacity limits,
+scheduling constraints,
+demand satisfaction.
+
+Dynamic
+Online learning, adaptive
+optimization control.
+
+Real-time routing,
+inventory updates,
+adaptive supply chains.
+
+Mathematical Commonality:
+Both rely on linear
+programming, nonlinear
+optimization, dynamic
+programming, and
+stochastic optimization.
+Example:
+
+• The Bellman equation
+(used in Reinforcement
+Learning) is identical in
+mathematical form to
+dynamic programming
+for shortest-path
+logistics optimization.
+
+Dynamic Programming:
+If the best decision now depends on the best decisions available from subsequent states, solve the
+problem through those states rather than considering every complete solution independently.
+Abstraction level
+
+Logistics example
+
+AI example
+
+Real system
+
+Trucks, warehouses, customers
+
+Robot/agent interacting with environment
+
+System model
+
+Locations, routes, capacities, demand
+
+States, actions, transitions, rewards
+
+Mathematical abstraction
+
+Graph + costs + constraints
+
+State-transition graph + rewards
+
+Solution methodology
+
+Dynamic Programming
+
+Dynamic Programming / RL methods
+
+Algorithm/implementation
+
+shortest-path computation
+
+value iteration/policy iteration etc.
+
+Operational action
+
+Send truck through selected route
+
+Agent takes selected action
+
+Let us distinguish three levels:
+Systems-design
+level
+
+Question
+
+Role of DP
+
+What system should we build?
+What components and
+Usually not DP
+interactions are needed?
+Given alternative states/actions,
+Model &
+DP belongs
+what sequence of decisions best
+decision-analysis
+principally here
+meets the objective?
+A DP algorithm
+Detailed
+How will the selected decision
+may be
+implementation logic actually execute?
+implemented here
+System/
+architectural
+
+- Systems Thinking
+identi es the whole, its
+interactions, feedback,
+boundaries and purpose;
+- Systems Design
+creates models and
+architectures from that
+understanding;
+optimization formulates
+desirable decisions;
+Dynamic Programming
+becomes one method for
+solving certain
+sequential decision
+problems within those
+models.
+
+DP exists primarily at the solution-method/mathematical-computational level, above the
+implementation details but below the system-level purpose and physical reality.
+
+Real-World Example
+AI-driven logistics optimization (Amazon / FedEx / Swiggy):
+
+• Different systems (AI, logistics, networks, ecosystems) exhibit the same structure
+of feedback, ow, and optimization.
+
+• The mathematics gives us a universal language to:
+◦Model interdependencies (graphs),
+◦Quantify performance (objective functions), and
+◦Search for optimal or resilient con gurations (optimization algorithms).
+This is what Bertalanffy meant by isomorphism across systems:
+
+fl
+
+fi
+
+“Similar structures of relations appear in different elds — physics, biology, sociology
+— because the pattern of interdependence is the same.”
+
+• Graph theory: models delivery network and dependencies.
+• AI (Reinforcement Learning): learns optimal routing decisions from experience.
+• Optimization algorithms: minimize total delivery cost and time under
+constraints.
+So — AI learns the rules dynamically, logistics provides the physical
+constraints, and systems engineering integrates both into a functioning sociotechnical system.
+
+“Whether you are training a neural network or routing trucks across India, you are
+solving the same mathematical problem — optimizing ows and decisions on a graph.
+Systems Engineering teaches you to recognize the same structure beneath different
+technologies.”
+
+fi
+
+In Systems Engineering, this is viewed as abstraction equivalence:
+
+fi
+
+Systems-Theoretic Implication: Same Math, Different Systems
+
+Different physical meanings, similar relational structure:
+where V represents nodes and E represents connections (edges).
+
+• Bertalanffy: Systems show
+
+G = (V, E)
+System
+
+Nodes
+
+Edges
+
+What ows/propagates?
+
+Neural network
+
+neurons/
+operations
+
+weighted
+connections
+
+activations forward; gradients
+backward
+
+Logistics
+network
+
+warehouses/
+cities
+
+roads/routes
+
+goods
+
+Computer
+network
+
+routers
+
+communication
+links
+
+packets
+
+dependencies
+
+constraints/information
+
+Project network activities
+
+Teleology (Goal-Oriented
+Systems)
+
+Emergence
+
+The interpretation depends on the system:
+
+• Bertalanffy: Systems can be goal-
+
+properties not present in components.
+• Today:
+◦AI-generated creativity (art,
+language, drug discovery) =
+emergent property.
+◦Smart grids show resilience only at
+the whole-network level.
+◦Emergence is the bridge from
+multidisciplinary to
+transdisciplinary design.
+
+seeking, not just reactive.
+• Today:
+◦AI systems are trained with
+objective functions.
+◦Autonomous robots and vehicles
+are goal-directed agents.
+◦Reinforces that engineering
+design must explicitly de ne
+objectives at system level.
+
+Practices in today’s times (Derived from GST)
+1.Always look for interactions → draw system maps, not just lists of
+components.
+2.Identify feedback loops → where does reinforcement or balancing occur?
+
+• Ch. 3: Open Systems and Equi nality → relevance to AI & modern systems.
+• Ch. 5: General Principles of Systems → hierarchy, feedback, isomorphism.
+
+fi
+
+fl
+
+fi
+
+5.Anticipate emergence → what could happen when parts work together that
+you can’t predict from parts alone?
+6.De ne goals clearly → system success is measured by purpose, not just
+operation.
+7.Transfer patterns across domains → same math/logic often works across
+biology, AI, and engineering.
+
+Suggested Reading Segments (from Bertalanffy):
+• Ch. 1 & 2: Introduction and Systems as a Concept → basics of holism.
+
+fi
+
+3.Check for openness → what external factors (social, environmental, ethical)
+shape the system?
+4.Think in hierarchies → what subsystem–supersystem levels exist?
+
+Systemic vs. Systematic Thinking
+
+• Systematic = linear, step-by-step, reductionist, recipe-driven.
+◦Good for well-bounded, clear problems (e.g., software
+debugging).
+From theory of system to practice of systems
+Systems Thinking Fundamentals from Checkland (Reframed for Today)
+
+• Systemic = holistic, contextual, relational, emergent.
+◦Needed for messy, complex, socio-technical problems (e.g.,
+regulating AI bias, urban transport planning).
+
+• Today: Engineers must combine both. Example: Training an AI
+model (systematic) + deploying it responsibly in society (systemic).
+
+Connectivity and Feedback
+Boundaries and Perspectives
+
+• A system is de ned by interconnections and ows
+
+• Systems are not “found” but formulated by drawing boundaries.
+• Different stakeholders de ne boundaries differently, depending on
+
+• Feedback loops (positive, negative) drive stability or
+
+fi
+
+chaos.
+• Today: AI recommendation systems reinforce biases
+(positive feedback) or regulate content (negative
+feedback). Understanding feedback helps prevent
+unintended consequences.
+
+fi
+
+fi
+
+perspectives.
+• Today: In AI ethics, regulators, developers, and users draw boundaries
+differently (privacy vs. utility vs. pro t). Recognizing multiple perspectives is
+essential.
+
+(information, energy, money).
+
+Hard vs. Soft Systems Thinking
+Emergence and Unintended Consequences
+
+• Hard systems tradition: World contains systems that can be
+
+• Whole systems display properties not present in parts
+
+engineered; problem-solution orientation.
+• Soft systems tradition: World is problematical; systems models
+are constructs to explore perspectives and enable learning.
+• Today:
+◦Hard systems → algorithm development, robotic design.
+
+(emergence).
+• Poorly designed systems often produce unintended
+consequences (e.g., traf c jams after building new
+highways).
+• Today: Generative AI produces creativity (emergence) but
+also misinformation (unintended consequence).
+
+• Purposive: Purpose is imposed externally (e.g., a thermostat).
+• Purposeful: Systems can de ne and adapt their own purpose (e.g.,
+human organizations, AI agents with reinforcement learning).
+• Today: AI agents and autonomous vehicles increasingly show
+purposeful behavior, requiring ethical oversight.
+
+fi
+
+problems” (Rittel & Webber).
+• Wicked problems have no single de nition or solution —
+multiple stakeholders, shifting goals.
+• Today: Regulating autonomous weapons, ensuring fairness
+in AI, climate change adaptation.
+
+Purposeful vs. Purposive Systems
+
+fi
+
+• Checkland emphasized “messes” (Ackoff) and “wicked
+
+IT adoption.
+◦Both needed together.
+
+fi
+
+Messy (Wicked) Problems
+
+◦Soft systems → stakeholder negotiation in AI ethics, healthcare
+
+Tools and Practices
+
+Relevance for Today’s AI-driven World
+
+Checkland emphasized practical methods for working
+systemically. Still highly relevant:
+• Rich Pictures → unstructured sketches to capture messy
+realities (great for AI project scoping).
+• Systems Maps → show elements, boundaries, environment.
+
+1.Systemic vs. systematic → AI projects must balance coding rigor with
+ethical/social considerations.
+2.Boundaries → In AI, who de nes “system of interest” matters
+(developers, government, citizens).
+3.Emergence → AI systems display emergent creativity but also
+emergent risks.
+4.Wicked Problems → No simple solutions; e.g., balancing innovation
+with fairness in AI.
+5.Tools → Rich pictures, causal maps, and in uence diagrams are still
+among the best ways to understand AI-society interactions.
+
+• Multiple Cause Diagrams → show feedback and causality.
+• In uence Diagrams → map in uence pathways.
+• Control Models → explore how systems maintain balance.
+These remain useful lab tools: hand-drawn, conceptual,
+resistant to “copy-paste” shortcuts.
+
+What AI Changes — and What Systems Thinking Does Not Let Us Forget
+
+Systems Thinking asks...
+
+Components can learn
+
+How does learning alter whole-system behaviour?
+
+Decisions become adaptive
+
+What feedback loops are created?
+
+Agents can act
+
+Who/what has control and authority?
+
+• Bertalanffy gave us the scienti c foundation: systems are open,
+
+Systems use external tools/data
+
+Where is the boundary?
+
+AI affects users/environment
+
+How does the environment feed back?
+
+Behaviour changes after deployment
+
+How do we assure the lifecycle?
+
+hierarchical, emergent. Checkland built on that, showing us how to
+practice systems thinking in messy, human situations.
+• In today’s AI-driven world, we need both — the scienti c lens of
+Bertalanffy and the practical, human-centered lens of Checkland.
+
+Multiple agents interact
+
+What emergent behaviour can arise?
+
+AI assists engineers
+
+Who validates the engineer–AI decision?
+
+fl
+
+fi
+
+Transition from Bertalanffy → Checkland:
+
+fi
+
+fl
+
+AI changes...
+
+Thematic Connections
+
+Let us Position Both Thinkers
+
+• Bertalanffy (1940s–60s) → A biologist/philosopher giving us the
+scienti c theory of systems (GST).
+• Checkland (1970s onwards) → A management scientist giving us
+methods and tools to practice systems thinking in real-world
+“messy” contexts.
+So: Bertalanffy = “What is a system?”
+Checkland = “How do we work with systems in practice?”
+
+Bertalanffy’s Fundamentals
+(GST)
+
+Checkland’s Practice-Oriented Extensions
+
+Relevance in Today’s AI-Driven World
+
+Open Systems – systems
+exchange matter, energy, info
+with environment
+Feedback & Regulation –
+stability and control through
+loops
+
+Boundaries & Environment – systems are
+formulated depending on stakeholder
+perspectives
+Connectivity, Multiple Cause Diagrams –
+practical mapping of cause–effect and
+unintended consequences
+
+In AI ethics, where to “draw the boundary”
+between developer responsibility and user
+responsibility
+
+Equi nality – many paths to
+the same end state
+
+Systemic vs. Systematic Thinking – multiple In ML, multiple algorithms (DL, RL, SVM)
+methods may reach different or same outcomes reach same predictive goal
+
+AI recommender systems, self-driving cars
+require explicit modeling of feedback
+
+Wicked Problems & Unintended
+Emergence – wholes have
+Generative AI emergence: creativity, but
+Consequences – emergent social challenges
+properties not reducible to parts
+also misinformation
+when tech meets society
+Hierarchy of Systems – nested Soft Systems Methodology (SSM) –
+AI deployment: Chip → Data center →
+layers (cells → organs →
+recognizes that “systems of interest” are
+Cloud → Society
+socially constructed
+organisms)
+Purposeful vs. Purposive Systems –
+Teleology – systems are goalAI agents trained with goals (purposive) vs.
+distinction between imposed vs. self-articulated
+seeking
+adaptive self-learning agents (purposeful)
+purpose
+
+What Narrative Can We Build:
+
+Thank You
+
+fi
+
+fi
+
+fi
+
+1.“Bertalanffy taught us the scienti c DNA of systems — open,
+feedback-driven, emergent, hierarchical.”
+2.“Checkland asked: Okay, but how do we use these ideas when we
+face real-world problems in business, governance, or AI systems?
+That’s where he gave us tools like rich pictures, boundary judgments,
+and the systemic vs. systematic distinction.”
+3.“So — Bertalanffy is the theory, Checkland is the practice. Together
+they help us both understand and design systems in the AI-driven 21st
+century.”
+
+

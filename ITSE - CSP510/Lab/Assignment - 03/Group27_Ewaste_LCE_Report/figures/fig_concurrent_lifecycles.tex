@@ -1,0 +1,86 @@
+% ============================================================================
+% Figure 3: Four Concurrent Life Cycles Diagram (Deliverable D)
+% ============================================================================
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}
+
+% --- Horizontal Timeline Grid ---
+\draw[->, line width=0.8pt, draw=black!80] (2.9, 8.65) -- (17.2, 8.65) node[right, font=\rmfamily\scriptsize\bfseries] {Time};
+\foreach \x/\lbl in {3.4/Need, 5.4/Conceptual, 7.5/Prelim., 9.5/Detailed, 11.5/Construct, 13.8/Operation (Y1--Y15), 16.3/Retirement} {
+    \draw[dashed, draw=RuleGray] (\x, 1.35) -- (\x, 8.65);
+    \node[font=\rmfamily\tiny\bfseries\color{black!85}, above] at (\x, 8.68) {\lbl};
+}
+
+% --- Swimlane 1: Product / Operational System Life Cycle (y = 7.6) ---
+\node[sebanner, fill=DiagBlueFill, draw=DiagBlueDraw, text width=2.45cm, minimum height=1.22cm]
+    (l1) at (1.35, 7.6) {1. Operational\\System LC\\{\tiny(UA-EWRRF)}};
+
+\node[sebox, text width=1.45cm, minimum height=0.88cm] (p_need) at (3.95, 7.6) {Need \&\\EPR Scope};
+\node[sebox, text width=2.45cm, minimum height=0.88cm] (p_des)  at (6.75, 7.6) {Concept, Prelim.\\\& Detailed Design};
+\node[sebox, text width=2.05cm, minimum height=0.88cm] (p_bld)  at (10.15, 7.6) {Build, Install\\\& CTO Test};
+\node[seboxTeal, text width=3.15cm, minimum height=0.88cm] (p_ops) at (13.65, 7.6) {\textbf{Capability Ready (Y1)}\\10 t/d Collection, Recovery\\\& Mid-Life Upgrading};
+\node[seboxAmber, text width=1.45cm, minimum height=0.88cm] (p_ret) at (16.55, 7.6) {Phase-Out\\(Year 15)};
+
+\draw[searrow] (p_need) -- (p_des);
+\draw[searrow] (p_des) -- (p_bld);
+\draw[searrow] (p_bld) -- (p_ops);
+\draw[searrow] (p_ops) -- (p_ret);
+
+% --- Swimlane 2: Production / Construction Capability Life Cycle (y = 5.6) ---
+\node[sebanner, fill=DiagTealFill, draw=DiagTealDraw, text width=2.45cm, minimum height=1.22cm]
+    (l2) at (1.35, 5.6) {2. Construction\\Capability LC\\{\tiny(Civil \& Skids)}};
+
+\node[seboxTeal, text width=2.85cm, minimum height=0.88cm] (c_plan) at (6.75, 5.6) {\textbf{Plan Starts: Concept}\\EPC Vendor, MIDC Plot,\\Skid Fabrication Prep};
+\node[seboxTeal, text width=2.75cm, minimum height=0.88cm] (c_exec) at (10.35, 5.6) {\textbf{Capability Ready (Y$-1$)}\\Epoxy Slab, MEP, HEPA,\\Skid Commissioning};
+\node[sebox, text width=2.65cm, minimum height=0.88cm] (c_mod)  at (13.95, 5.6) {Mid-Life Bay Expansion\\(Li-ion / NIR Skid Add-on)};
+
+\draw[searrow] (c_plan) -- (c_exec);
+\draw[searrow] (c_exec) -- (c_mod);
+
+% --- Swimlane 3: Support & Maintenance System Life Cycle (y = 3.6) ---
+\node[sebanner, fill=LightTint, draw=black!60, text width=2.45cm, minimum height=1.22cm]
+    (l3) at (1.35, 3.6) {3. Support \&\\Maint.\ LC\\{\tiny(Spares/EHS/IT)}};
+
+\node[sebox, text width=2.95cm, minimum height=0.88cm] (s_plan) at (8.35, 3.6) {\textbf{Plan Starts: Prelim.}\\Spares Stocking, EHS Lab,\\CMMS \& Tech Training};
+\node[seboxTeal, text width=3.95cm, minimum height=0.88cm] (s_ops) at (13.15, 3.6) {\textbf{Capability Ready (Pre-Y1)}\\Blade Swap (MTTR $\le 4$ h), XRT Calib.,\\EPR API \& Worker Biomonitoring};
+\node[seboxAmber, text width=1.65cm, minimum height=0.88cm] (s_end) at (16.55, 3.6) {Spares Close\\\& Support End};
+
+\draw[searrow] (s_plan) -- (s_ops);
+\draw[searrow] (s_ops) -- (s_end);
+
+% --- Swimlane 4: Retirement, Recovery & Disposal System Life Cycle (y = 1.8) ---
+\node[sebanner, fill=DiagRedFill, draw=DiagRedDraw, text width=2.45cm, minimum height=1.12cm]
+    (l4) at (1.35, 1.8) {4. Retirement\\\& Disposal LC\\{\tiny(Site Closure)}};
+
+\node[seboxAmber, text width=2.95cm, minimum height=0.88cm] (r_plan) at (6.75, 1.8) {\textbf{Plan Starts: Concept}\\Bolted Anchors, Escrow,\\TSDF \& Closure Spec};
+\node[sebox, text width=3.95cm, minimum height=0.88cm] (r_esc)  at (11.55, 1.8) {Annual Closure Escrow Accrual,\\Soil Baseline Audits \& Skid Asset Log};
+\node[seboxRisk, text width=2.65cm, minimum height=0.88cm] (r_exec) at (16.05, 1.8) {\textbf{Capability Ready (Y15)}\\Decontam., Skid Resale,\\MPCB Site Closure NOC};
+
+\draw[searrow] (r_plan) -- (r_esc);
+\draw[searrow] (r_esc) -- (r_exec);
+
+% --- Clean Cross-Cycle Dependencies & Information Exchange Arrows ---
+\draw[sefeedback] (p_des.south) -- node[selabel] {Plant Layout / DDPs} (c_plan.north);
+\draw[sefeedback] (c_exec.north) -- node[selabel] {Commissioned Plant} (p_bld.south);
+\draw[sefeedback, draw=DiagTealDraw] ($(p_des.south east)+(-0.1,0)$) -- ++(0,-0.45) -| node[selabel, pos=0.86] {MTTR / BOM} (s_plan.north);
+\draw[sefeedback, draw=DiagTealDraw] ($(s_ops.north east)+(-0.15,0)$) -- ++(0,0.48) -| (15.52, 6.6) |- node[selabel, pos=0.25] {Availability $A_o$} ($(p_ops.east)+(0,-0.18)$);
+\draw[sefeedback, draw=DiagOrgDraw] (r_plan.west) -| node[selabel, pos=0.62] {De-contam.\ Reqs (DDP-7)} (4.72, 6.6) |- ($(p_des.west)+(0,-0.15)$);
+\draw[seriskarrow] ($(p_ret.south)+(-0.35,0)$) -- ++(0,-0.35) -| (15.58, 2.75) -- node[selabel, pos=0.45] {Y15 Handover} (15.58, 2.26);
+
+% --- Dedicated Bottom Strip: Consequence of Late Development Callouts ---
+\node[seboxRisk, text width=5.2cm, minimum height=0.85cm, font=\rmfamily\tiny, anchor=west] at (0.15, 0.35)
+    {\textbf{If Late (LC-2 Construction):} Permanent grouted slabs delay CTO by 6--9 mo and physically block Year-6 modular bay retrofits.};
+
+\node[seboxRisk, text width=5.3cm, minimum height=0.85cm, font=\rmfamily\tiny, anchor=west] at (5.85, 0.35)
+    {\textbf{If Late (LC-3 Support/Maint.):} Imported blade/XRT lead times cut $A_o < 75\%$; uncalibrated sensors cut MRR $<80\%$ \& risk CTO suspension.};
+
+\node[seboxRisk, text width=5.55cm, minimum height=0.85cm, font=\rmfamily\tiny, anchor=west] at (11.65, 0.35)
+    {\textbf{If Late (LC-4 Retirement):} Unfunded heavy-metal soil remediation ($\ge$INR 2.5--4.0 Cr), zero skid resale, and MPCB site-closure refusal.};
+
+\end{tikzpicture}%
+}
+\caption{Concurrent Life-Cycle Diagram for UA-EWRRF Showing Planning Initiation, Capability Readiness, Inter-Cycle Dependencies, and Late-Consideration Consequences.}
+\label{fig:concurrent_lc}
+\end{figure}

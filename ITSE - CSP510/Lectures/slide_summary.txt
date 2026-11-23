@@ -1,0 +1,131 @@
+==============================
+FILE: extracted_texts/L1_L2-CSL510ISE-3and4Aug26-WhySEMattersForCSE.txt
+==============================
+Total pages/slides: 10
+Slide 1: CSL510 INTRODUCTION TO SYSTEMS ENGINEERING W26 | Why System Engineering M tters For Every CSE Student? | - CSL510: A Gat
+Slide 2: Why Systems Engineering? | Traditional Engineering | Worked When Systems Were
+Slide 3: Why It’s Essential for Computer Science Engineers | CSE Area | How Systems Thinking Helps
+Slide 4: Story: "The Programmer and the Pump" | Once upon a time in a small town in India, there | was a young computer science g
+Slide 5: The Systems Engineer Arrives | Enter Angel, a Systems Engineer with a background in | both software and public systems.
+Slide 6: Example: | Design a sorting algorithm. | "Which algorithm is fastest?"
+Slide 7: This course is not about making you better programmers. | It is about changing the way you think. | Programming solves t
+Slide 8: Why Study Systems Engineering in the AI Era? | Traditional engineer asked | How do I build it?
+Slide 9: Thank You
+==============================
+FILE: extracted_texts/L3_CSL510ISE_IntroductionSysAndEngg-W26 - L3_onwards-CSL510ISE_IntroductionSysAndEngg-W26.txt
+==============================
+Total pages/slides: 47
+Slide 1: Introduction to Systems & | Systems Engineering | - Definition, Types, Applications, Analysis
+Slide 2: II. What is a System? – Deﬁnitions and Key Elements | Deﬁnition of a System | Relevance to Systems Engineering:
+Slide 3: AI Impact: | ChatGPT also has a "state." | Conversation
+Slide 4: Key Properties of State | Property | Suppose AI controls the elevator.
+Slide 5: In Software and Control Systems | •FSMs (Finite State Machines) use a set of discrete states and transitions. | •Cyber-p
+Slide 6: Dissecting the Deﬁnition from Example: | Concept | How It Appears in This Example
+Slide 7: Why AI Needs Systems Engineering | In Systems Engineering: | •Use state when you're building models,
+Slide 8: Quick Exercise (In-Class) | You have to describe a situation for one of the following systems: | •A campus shuttle arriv
+Slide 9: Systems Engineering Insight: | Takeaway: | The system didn’t crash. It behaved — but the behavior was emergent, based on
+Slide 10: Example 1: Smart Irrigation System | •Inputs: Soil moisture sensor, weather forecast, time of day | •State: Current wate
+Slide 11: Why Behavior Matters in Systems Engineering | •Helps in requirement veriﬁcation: “Did the system behave as intended?” | 
+Slide 12: Key Characteristics of Behavior in Systems Context | Characteristic | Understanding Behavior in the System's Context
+Slide 13: Systems Engineering View: | Concept | State
+Slide 14: Example: Self-Driving Car | Reactive Behavior | Proactive Behavior (AI)
+Slide 15: Summary | You are spot-on: | AI pushes system behavior beyond “reaction” into “proaction,” “prediction,”
+Slide 16: Key Characteristics of Function | Example: Smart Irrigation System | Feature
+Slide 17: Relevance of Function in Systems Engineering | Role | Why It Matters
+Slide 18: Guide from Observation to Design | Emphasize Hierarchical Structure | This question emphasizes that:
+Slide 19: Concept of ‘Components’ of the Systems | Up to now, we have established a conceptual foundation for | understanding how 
+Slide 20: Deﬁnition – What is a Component? | Set of components meets the following requirements*: | 1.The properties and behavior 
+Slide 21: Why these cross-domain examples matter | •We can see applicability across domains — making Systems Engineering | transdi
+Slide 22: Hierarchy – From Components to System | Typical hierarchy: | Component → Subsystem → System
+Slide 23: System Components – Summary Table for Understanding Systems | Concept | Deﬁnition
+Slide 24: How to Analyse Strategy — Step-by-Step | Step | Analytical Dimensions of Strategy:
+Slide 25: C. General System | Case: Hospital emergency management | •Normal Strategy: Electronic Health Record (EHR) system suppor
+Slide 26: V. Technology and Technical Systems | 1. Relationship Between Technology and Society | •Culture expresses itself through
+Slide 27: Problems Based on | State, Situations, Behavior, Process, Functions, & Strategy | State Identication
+Slide 28: A. Steps to identify States (systematic procedure) | 1.Clarify purpose (Function) & scope | ◦What must the system achiev
+Slide 29: 10. Check observability | •Can you determine the state from available sensors? If not, add a measurable proxy | (e.g., ﬂ
+Slide 30: C. Quick checklist | •State the function & boundary. | •List candidate state variables (continuous & discrete).
+Slide 31: Example 2 – Situation Mapping | Problem: | Describe the situation of a hospital IT system during an emergency where a ﬁr
+Slide 32: Worked Example 2: Hospital IT System | Step 1 – Boundary: Hospital patient information & clinical systems. | Step 2 – St
+Slide 33: Example 1: Smart Irrigation System | •State: Irrigating | •Input/Condition: Sudden rain detected by sensors
+Slide 34: State → Situation → Behavior → Process → Function → Strategy →Components | Worked Examples | •Situation = snapshot of at
+Slide 35: Method to Determine Behavior in Systems Engineering | 1.Model Situations as State + Context: deﬁne attributes clearly. |
+Slide 36: Example 2: Hospital IT System – Process | Process Name: Patient Data Access & Update during Surge | Trigger: Patient adm
+Slide 37: Worked Example 1 — Smart Irrigation System (ﬁeld-scale, automated) | 1.Deﬁne guards & data dependencies | ◦Write guard c
+Slide 38: Instrumentation | 6) Exceptions (examples) | •E1a: Low ﬂow → throttle other zones; re-balance plan; if unresolved, abort
+Slide 39: Scenario validation | 4) Timing & resources | • Auth: target P95 < 1 s (degrade to 5 s under surge).
+Slide 40: Let us Deﬁne Function | •Function = the intended purpose of the system, expressed as | what it must deliver to its envir
+Slide 41: Methodology for Identifying Functions in a System (Systems Engineering) | How Functions Guide Design | •Functions are li
+Slide 42: Systems Engineering Vs Software Engineering Function Analysis: Key Differences | Aspect | Systems Engineering Function
+Slide 43: Example 2: Hospital IT (EHR) System | •System Function: Provide secure, timely, and reliable access to patient | health 
+Slide 44: Why “Function First” is Powerful | •Purpose-driven design: Function deﬁnes why before how. | •Flexibility: Implementatio
+Slide 45: 1. State – “What the system is at a given | moment.” | • Deﬁnition: Internal condition snapshot of a
+Slide 46: Key Takeaway for Us | •Systems Engineering is not just about coding or hardware — it’s about | understanding purpose (fu
+==============================
+FILE: extracted_texts/L11toL13_Slides-CSL510ISE-W26-FromComponentsToASystem.txt
+==============================
+Total pages/slides: 8
+Slide 1: CSL510 ISE W26 | From Components to a System — | Relationships, Interactions and Emergence
+Slide 2: Why is a collection of components not necessarily a system? | Recap of the three conditions: | •Each component affects t
+Slide 3: Software view: API, protocol, message format, | database interface. | Systems view: much broader:
+Slide 4: Emergent properties. | Examples: | System
+Slide 5: Undesirable emergence | •Congestion | •Long queues
+Slide 6: Institute management observes: | “Has campus dependence on private vehicles reduced?” | Emergence of interest → sustaina
+Slide 7: Place of AI in this Picture | Now let us make the lecture contemporary. | AI can become:
+==============================
+FILE: extracted_texts/L14toL17-Slides-CSL510ISE-W26-Topic3-SystemsThinking.txt
+==============================
+Total pages/slides: 15
+Slide 1: Story: The Broken Clock Tower | CSL510 Introduction To Systems Engineering | Systems Thinking - Fundamentals to Practice
+Slide 2: Introduction | 1. What is Systems Thinking? | • A holistic approach to understanding complex entities not just as the
+Slide 3: Past: Origins of System View in Engineering | • Discipline-speci c Systems (traditional naming | conventions):
+Slide 4: Evolution of Decision-Making | System generation | Decision-making
+Slide 5: Multidisciplinary (Present Systems) | • De nition: Different disciplines work side by side, each | contributing its own 
+Slide 6: We looked at the Metro Rail System as an example of a modern, complex | system. We saw how many subsystems come together
+Slide 7: System as a Whole (vs. Reductionism) | • Bertalanffy’s Insight: A system | Systems Thinking Fundamentals from Bertalanff
+Slide 8: What happens when many agents interact? | Individual agents may be locally rational, yet collectively produce: | • oscil
+Slide 9: Dynamic Programming: | If the best decision now depends on the best decisions available from subsequent states, solve th
+Slide 10: Different physical meanings, similar relational structure: | where V represents nodes and E represents connections (edge
+Slide 11: Systemic vs. Systematic Thinking | • Systematic = linear, step-by-step, reductionist, recipe-driven. | ◦Good for well-bo
+Slide 12: Hard vs. Soft Systems Thinking | Emergence and Unintended Consequences | • Hard systems tradition: World contains system
+Slide 13: Tools and Practices | Relevance for Today’s AI-driven World | Checkland emphasized practical methods for working
+Slide 14: Thematic Connections | Let us Position Both Thinkers | • Bertalanffy (1940s–60s) → A biologist/philosopher giving us the
+==============================
+FILE: extracted_texts/L18toL24-Slides-CSL510ISE-W26-SysReal-LifeCyEngg.txt
+==============================
+Total pages/slides: 36
+Slide 1: Recap: From Last 10 lectures on Introduction to Systems Engineering | Systems Realization & Life | Cycle Engineering
+Slide 2: From understanding the system to engineering its life | •The shuttle story raises a basic question: If we understood the
+Slide 3: Understanding the life-cycle stages | The stages provide a framework for organizing decisions. Their activities can over
+Slide 4: From Understanding Systems to Engineering Their Life Cycles” | Systems thinking helped us examine purpose, boundaries, i
+Slide 5: Now shift to a city nearby. This is the humanmade world. The city has its own systems: | water supply, electricity, tran
+Slide 6: Characteristics of a Well-Engineered System | 1.Functional Purpose | ◦Built in response to identi ed needs.
+Slide 7: Systems Identi ed by Products | • Systems are often known by the products they produce, deliver, or bring into being. | 
+Slide 8: • In the single-entity view, we examine one identi able entity—for example, one campus shuttle. | • We study its capabil
+Slide 9: Systems engineering | connects needs, | requirements and
+Slide 10: 1.Scope of Needs | ◦Determine needs rst and broadly. | ◦Broader need de nitions can yield
+Slide 11: Product Within the Engineered System | Key Takeaway for Students | • Products ≠ Systems.
+Slide 12: Why Life-Cycle Engineering Matters | • Systems cannot be made effective & competitive if engineering effort is | System 
+Slide 13: Key Principles | • During conceptual design, also plan: | ◦Production capability.
+Slide 14: Example: Smartphone vs Metro Rail System | • Phase-out & Disposal: | ◦Train replacement after 30–40 years.
+Slide 15: What It Means | • Ordinary design: focused mainly on performance & functionality. | • Life-cycle design: must consider t
+Slide 16: Key Technical Activities | • Conceptual Design (Block 1): needs identi cation, feasibility, functional | analysis.
+Slide 17: We can see how life-cycle | design builds in layers of | responsibility.
+Slide 18: Life-Cycle Phases & Steps (Fig. 4) | • Generic model spans from Conceptual Design → Retirement. | • Phases are not rigid
+Slide 19: Top-Down + Bottom-Up Approach | Baselines as Milestones | • Top-down: Start with system-level needs, break down into sub
+Slide 20: System Process Models | The overarching objective is to describe a process (as a frame of | reference) that should be “t
+Slide 21: Principles of System Evaluation | Role in Systems Engineering | • Systems engineering = preferred approach for building 
+Slide 22: Important Aspects to Note | Key Takeaway for Us | • Emphasize: System design is not about a single goal (like max
+Slide 23: Establishing Metrics | • Functions described with measurable factors: | ◦Cycle time, frequency, speed, cost, effectivene
+Slide 24: Big Picture | • DDPs + DIPs → TPMs → Design Criteria. | • This framework ensures evaluation of alternatives is
+Slide 25: Technical Factors in Design | • System effectiveness depends on: | ◦Performance (speed, range, accuracy).
+Slide 26: Real-life Example: | Compare designing a drone for urban delivery vs. designing a | drone for battle eld reconnaissance:
+Slide 27: Core Idea | A Morphology for Synthesis, | Analysis, and Evaluation (Figure 10)
+Slide 28: Evaluation (Blocks 8–9) | Real-life Examples | • Purpose: Compare candidate designs against:
+Slide 29: Application Domains | (Figure 11) | Why Implementation Matters
+Slide 30: Lecture Takeaways for Us | • Systems Engineering applies universally: from micro (cash register) to | macro (national po
+Slide 31: Life-Cycle Dynamics (Figure 12) | • Commitment to technology & cost rises | Role of Systems Engineering
+Slide 32: Potential Bene ts from Systems Engineering | Context Setting | • Understanding Figures 12 & 13 is key:
+Slide 33: 1.Greater Visibility & Risk Reduction | ◦Long-term, life-cycle perspective shows cause-and-effect of early design decisi
+Slide 34: Airbus A380 – Cost Overruns due to Lack of Early Systems Integration | • Context: Airbus A380 was the world’s largest pa
+Slide 35: Thank You | 137
