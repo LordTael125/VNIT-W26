@@ -1,0 +1,11 @@
+=== Part D: Controlled Disturbances on FIFO & Priority Baselines (W=4, Unbounded) ===
+  [D0_Normal | fifo] Succ=1200 Fail=0 PeakQ=2 Thru=949.8 HighMed/p95=2.48/3.59 NormMed/p95=2.46/3.54 MaxNormWait=0.22ms Rec=0.00ms
+  [D0_Normal | priority] Succ=1200 Fail=0 PeakQ=2 Thru=949.9 HighMed/p95=2.51/3.61 NormMed/p95=2.48/3.59 MaxNormWait=0.20ms Rec=0.00ms
+  [D1_Burst | fifo] Succ=1200 Fail=0 PeakQ=190 Thru=1221.2 HighMed/p95=36.68/119.35 NormMed/p95=23.56/119.87 MaxNormWait=127.32ms Rec=339.11ms
+  [D1_Burst | priority] Succ=1200 Fail=0 PeakQ=190 Thru=1221.1 HighMed/p95=3.20/4.59 NormMed/p95=25.62/135.43 MaxNormWait=141.77ms Rec=338.89ms
+  [D2_SlowTasks | fifo] Succ=1200 Fail=0 PeakQ=11 Thru=946.2 HighMed/p95=3.44/13.03 NormMed/p95=3.50/13.25 MaxNormWait=10.58ms Rec=0.00ms
+  [D2_SlowTasks | priority] Succ=1200 Fail=0 PeakQ=12 Thru=945.0 HighMed/p95=3.32/12.51 NormMed/p95=3.44/13.85 MaxNormWait=14.04ms Rec=0.00ms
+  [D3_TransientFail | fifo] Succ=1127 Fail=73 PeakQ=2 Thru=891.1 HighMed/p95=2.44/3.52 NormMed/p95=2.49/3.56 MaxNormWait=0.20ms Rec=0.00ms
+  [D3_TransientFail | priority] Succ=1127 Fail=73 PeakQ=2 Thru=890.5 HighMed/p95=2.57/3.52 NormMed/p95=2.43/3.49 MaxNormWait=0.23ms Rec=0.00ms
+  [D4_PriorityPressure | fifo] Succ=1200 Fail=0 PeakQ=2 Thru=945.8 HighMed/p95=2.49/3.55 NormMed/p95=2.51/3.56 MaxNormWait=0.18ms Rec=0.00ms
+  [D4_PriorityPressure | priority] Succ=1200 Fail=0 PeakQ=2 Thru=946.0 HighMed/p95=2.46/3.53 NormMed/p95=2.47/3.53 MaxNormWait=0.19ms Rec=0.00ms

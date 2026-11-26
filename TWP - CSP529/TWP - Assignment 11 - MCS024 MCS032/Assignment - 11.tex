@@ -71,7 +71,7 @@
 
 \subTitle{1. Selected Research Paper Details}
 
-To maintain rigorous continuity with the research gap, hypotheses, and scheduling models investigated in Practicals~7, 8, and 10, our group selected the foundational peer-reviewed systems paper that first evaluated size-based scheduling under inaccurate runtime estimates:
+To maintain rigorous continuity with the research gap, hypotheses, and scheduling models investigated in previous practicals, our group selected the foundational peer-reviewed systems paper that first evaluated size-based scheduling under inaccurate runtime estimates:
 
 \vspace{0.2em}
 \begin{center}
@@ -93,7 +93,7 @@ To maintain rigorous continuity with the research gap, hypotheses, and schedulin
 \end{center}
 
 \vspace{0.4em}
-\subTitle{2. Structured Technical Summary (200--250 Words)}
+\subTitle{2. Structured Technical Summary }
 
 \textbf{Research Problem and Objectives:} \\
 Classical size-based scheduling policies, notably Shortest Remaining Processing Time (SRPT) and the Fair Sojourn Protocol (FSP), provably minimize mean response time in queueing systems. However, their practical deployment has been hindered by the strict prerequisite that all job runtimes must be known accurately in advance. Lu, Sheng, and Dinda evaluate the fundamental behavior of size-based scheduling when only inaccurate scheduling information is available, examining response time and fairness as functions of the correlation coefficient ($R$) between actual and estimated job sizes.
@@ -104,8 +104,9 @@ The authors developed a discrete-event trace simulator supporting $M/G/1/m$ and 
 \textbf{Main Findings and Contributions:} \\
 The study demonstrates that size-based scheduling performance strongly depends on the correlation degree $R$. Crucially, estimators do not require high accuracy; with moderate correlation ($R \ge 0.4$ for short jobs, and $R \ge 0.73$ for 93\% of all jobs), SRPT-E and FSP-E comfortably outperform Processor Sharing in both mean response time and slowdown. The paper proves that preserving the relative rank order of jobs in the queue is far more important than exact burst duration predictions, establishing practical viability for P2P chunk scheduling and network backups.
 
-\vspace{0.4em}
-\noindent{\small \textbf{Word Count Verification:} Exactly 236 words (strictly within the prescribed 200--250 word requirement).\par}
+
+
+
 
 % ============================================================================================
 % PAGE 3: TASK 2 - CRITICAL ANALYSIS NARRATIVE
@@ -116,7 +117,7 @@ The study demonstrates that size-based scheduling performance strongly depends o
 
 \subTitle{1. Dimension-by-Dimension Methodological Critique}
 
-We critically evaluate Lu et al.~[1] across the three required dimensions:
+We critically evaluate Lu et al.  across the three required dimensions:
 
 \vspace{0.2em}
 \textbf{A. Methodology (Appropriateness, Soundness, and Flaws):} \\
@@ -140,10 +141,10 @@ However, graphical presentation suffers from two notable weaknesses: Figure~5 pl
 % PAGE 4: TASK 2 - STRENGTHS & WEAKNESSES MATRIX
 % ============================================================================================
 \newpage
-{\centering\fontsize{13.5}{16.5}\selectfont\textbf{Task 2 (Continued) --- Strengths and Weaknesses Matrix}\par}
+{\centering\fontsize{13.5}{16.5}\selectfont\textbf{Task 2 --- Strengths and Weaknesses Matrix}\par}
 \vspace{0.5em}
 
-Table~\ref{tab:strengths_weaknesses} provides a structured comparative breakdown of three key strengths and three key weaknesses of Lu et al.~[1], explicitly supported by sections, figures, tables, and algorithms from the published paper.
+Table~\ref{tab:strengths_weaknesses} provides a structured comparative breakdown of three key strengths and three key weaknesses of Lu et al. , explicitly supported by sections, figures, tables, and algorithms from the published paper.
 
 \vspace{0.5em}
 \begin{center}
@@ -214,7 +215,7 @@ This manuscript evaluates size-based scheduling policies (SRPT-E and FSP-E) when
 \vspace{0.15em}
 \subTitle{2. Three Major Comments (Research Methodology, Theoretical Rigor, and Validity)}
 
-\begin{enumerate}[label=\textbf{Major Comment \arabic*:}, leftmargin=1.5em, itemsep=0.2em, parsep=0pt]
+\begin{enumerate}[label=\textbf{Comment \arabic*:}, leftmargin=1.5em, itemsep=0.2em, parsep=0pt]
 
     \item \textbf{Absence of Context-Switch and Memory Hierarchy Latency Modeling in Preemption Decisions:} \\
     The foundational thesis is that size-based scheduling is practically robust to estimation inaccuracies. However, the simulation assumes idealized, instantaneous preemption ($t_{cs}=0$) and zero cache reload delay ($t_{cache}=0$). Under scheduling noise, the system triggers frequent erroneous preemptions, suspending a running job for one that is actually longer. On real processors, each preemption incurs register state swaps ($2$--$10\,\mu\text{s}$) and cache invalidations ($10$--$30\,\mu\text{s}$). In a system operating at 90\% load ($\rho=0.9$), cumulative switching stalls can easily offset the marginal queueing advantage of size-based ordering. \\
@@ -234,12 +235,12 @@ This manuscript evaluates size-based scheduling policies (SRPT-E and FSP-E) when
 % PAGE 6: TASK 3 - PEER-REVIEW REPORT (PART 2: MINOR COMMENTS & RECOMMENDATION)
 % ============================================================================================
 \newpage
-{\centering\fontsize{13.5}{16.5}\selectfont\textbf{Task 3 (Continued) --- Minor Comments and Editorial Recommendation}\par}
+{\centering\fontsize{13.5}{16.5}\selectfont\textbf{Task 3 --- Minor Comments and Editorial Recommendation}\par}
 \vspace{0.5em}
 
 \subTitle{3. Three Minor Comments (Writing, Presentation, Figures, and References)}
 
-\begin{enumerate}[label=\textbf{Minor Comment \arabic*:}, leftmargin=1.5em, itemsep=0.4em, parsep=0pt]
+\begin{enumerate}[label=\textbf{Comment \arabic*:}, leftmargin=1.5em, itemsep=0.4em, parsep=0pt]
 
     \item \textbf{Readability and Dynamic Range Compression in Figure 5 Logarithmic Plot:} \\
     In Figure~5, mean response time is displayed on a logarithmic scale spanning four orders of magnitude ($0.1$ to $1000$). At higher correlation coefficients ($R > 0.6$), the curves for SRPT, SRPT-E, FSP, and FSP-E compress tightly together near the bottom of the graph, rendering it impossible to distinguish the performance difference between SRPT-E and FSP-E. \\
@@ -268,8 +269,7 @@ This manuscript evaluates size-based scheduling policies (SRPT-E and FSP-E) when
 \textbf{Formal Recommendation Justification:} \\
 The manuscript addresses a fundamentally important gap in scheduling theory by evaluating size-based policies (SRPT-E and FSP-E) under imperfect job-size information. The proposed NORTA-based correlation methodology is elegant, and the finding that coarse rank ordering preserves substantial queueing benefits provides valuable practical intuition. However, a Major Revision is recommended because the current evaluation rests on two critical idealizations: zero context-switch latency ($t_{cs}=0$) and exclusive reliance on heavily skewed Bounded Pareto workloads ($\alpha=2.0$). In physical systems, erroneous preemptions under low correlation incur severe switching penalties, and low-variance workloads offer no anti-convoy buffer to mask these losses. The authors must evaluate non-zero preemption latencies, benchmark low-variance workloads ($C_v \le 1$), and provide 95\% confidence intervals to substantiate their broad practical claims.
 
-\vspace{0.4em}
-\noindent{\small \textbf{Word Count Verification:} Exactly 133 words (strictly within the prescribed 100--150 word requirement).\par}
+
 
 % ============================================================================================
 % PAGE 7: TASK 4 - INDIVIDUAL REFLECTIONS (STUDENT 1 & STUDENT 2)
@@ -281,7 +281,7 @@ The manuscript addresses a fundamentally important gap in scheduling theory by e
 \subTitle{1. Student 1: Gaurav Acharya (MT26MCS024)}
 
 \textbf{Question 1: What was the most important weakness you identified in the paper?} \\
-The most critical weakness I identified in Lu et al.~[1] is the assumption of costless, instantaneous preemption ($t_{cs} = 0$). In physical processors, estimation errors under low correlation ($R < 0.5$) cause false preemptions, where longer jobs interrupt shorter ones. The resulting context-switch latencies, register saves, and L1/LLC cache thrashing quickly destroy SRPT's marginal queuing benefit.
+The most critical weakness I identified in Lu et al.  is the assumption of costless, instantaneous preemption ($t_{cs} = 0$). In physical processors, estimation errors under low correlation ($R < 0.5$) cause false preemptions, where longer jobs interrupt shorter ones. The resulting context-switch latencies, register saves, and L1/LLC cache thrashing quickly destroy SRPT's marginal queuing benefit.
 
 \textbf{Question 2: What did you learn about evaluating research claims and experimental evidence?} \\
 I learned that experimental evidence must always be scrutinized against its underlying workload assumptions. The authors claim size-based scheduling is exceptionally resilient to noise, but this holds solely because their Pareto workload has extreme skew ($\alpha = 2.0$), where coarse sizing prevents giant convoys. In non-skewed workloads, this anti-convoy defense vanishes.
@@ -289,8 +289,8 @@ I learned that experimental evidence must always be scrutinized against its unde
 \textbf{Question 3: How will this activity help you improve your own research writing?} \\
 This review exercise showed me that a strong research paper must proactively stress-test its own failure modes. In my future research writing, I will explicitly model physical hardware overheads, report statistical confidence intervals, and clearly demarcate operational boundaries rather than claiming sweeping, unconditional superiority.
 
-\vspace{0.25em}
-\noindent{\small \textbf{Word Count Verification (Student 1):} Exactly 141 words (strictly within the prescribed 100--150 word requirement).\par}
+
+
 
 \vspace{0.6cm}
 \subTitle{2. Student 2: Sandeep (MT26MCS032)}
@@ -299,13 +299,12 @@ This review exercise showed me that a strong research paper must proactively str
 For me, the most significant weakness was the complete absence of statistical dispersion metrics or confidence intervals across their 20 simulation replications, particularly when operating at 90\% system load ($\rho = 0.9$) where queueing delay variance is inherently volatile.
 
 \textbf{Question 2: What did you learn about evaluating research claims and experimental evidence?} \\
-I learned that published research claims often obscure severe tail trade-offs behind aggregated averages. While Lu et al.~[1] highlight impressive mean response time improvements, their percentile slowdown graphs (Figures~6--7) reveal that poor estimators ($R \approx 0.02$) impose massive delay penalties across all percentiles compared to standard processor sharing.
+I learned that published research claims often obscure severe tail trade-offs behind aggregated averages. While Lu et al.  highlight impressive mean response time improvements, their percentile slowdown graphs (Figures~6--7) reveal that poor estimators ($R \approx 0.02$) impose massive delay penalties across all percentiles compared to standard processor sharing.
 
 \textbf{Question 3: How will this activity help you improve your own research writing?} \\
 Conducting this review directly strengthens my research methodology and scientific reporting. I now appreciate the necessity of displaying dispersion bounds, justifying distribution parameters, presenting normalized comparative plots, and addressing architectural overheads so my findings remain defensible and reproducible under peer review.
 
-\vspace{0.25em}
-\noindent{\small \textbf{Word Count Verification (Student 2):} Exactly 137 words (strictly within the prescribed 100--150 word requirement).\par}
+
 
 % ============================================================================================
 % PAGE 8: DISCLOSURE, NOTATIONS & ACADEMIC REFERENCES
@@ -316,7 +315,7 @@ Conducting this review directly strengthens my research methodology and scientif
 
 \subTitle{Generative AI Assistance Disclosure}
 {\small \noindent
-In compliance with the course submission guidelines for CSP529 (Technical Writing \& Publishing), we disclose that generative AI assistance was utilized during the preparation of this practical report. Specifically, AI tools were employed for LaTeX typesetting formatting, tabular alignment, checking grammatical consistency, and verifying exact word-count constraints across required summary, justification, and reflection sections. All critical analyses, identification of methodological weaknesses in Lu et al.~[1], formulation of major and minor peer-review comments, editorial recommendations, individual student reflections, and cross-referencing against original literature were independently conceived, verified, and authored by the student group members. No experimental findings, reviewer comments, or citations were fabricated.
+In compliance with the course submission guidelines for CSP529 (Technical Writing \& Publishing), we disclose that generative AI assistance was utilized during the preparation of this practical report. Specifically, AI tools were employed for LaTeX typesetting formatting, tabular alignment, checking grammatical consistency, and verifying exact word-count constraints across required summary, justification, and reflection sections. All critical analyses, identification of methodological weaknesses in Lu et al.~ , formulation of major and minor peer-review comments, editorial recommendations, individual student reflections, and cross-referencing against original literature were independently conceived, verified, and authored by the student group members. No experimental findings, reviewer comments, or citations were fabricated.
 \par}
 
 \vspace{0.5em}
@@ -342,8 +341,7 @@ In compliance with the course submission guidelines for CSP529 (Technical Writin
 \end{tabular}
 }
 
-\vspace{0.5em}
-\subTitle{References}
+
 \begin{thebibliography}{9}
 \small
 \setlength{\itemsep}{0.2em}

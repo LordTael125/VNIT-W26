@@ -1,0 +1,17 @@
+?   	vnit.ac.in/csp502/lab9/cmd/runner	[no test files]
+=== RUN   TestHandVerifiedFixture_SequentialAndConcurrent
+--- PASS: TestHandVerifiedFixture_SequentialAndConcurrent (0.01s)
+=== RUN   TestPriorityScheduler_PreservesIntraClassFIFOOrder
+--- PASS: TestPriorityScheduler_PreservesIntraClassFIFOOrder (0.00s)
+=== RUN   TestModified_FiniteQueueRetriesAndExactOnceAccounting
+    engine_test.go:117: Modified D3+Overload: Gen=300 Succ=283 Rej=17 Fail=0 T/O=0 Attempts=321 Retries=38 Acct=true SeqMatch=true
+--- PASS: TestModified_FiniteQueueRetriesAndExactOnceAccounting (0.22s)
+=== RUN   TestModified_CancellationPreventsLateAggregateUpdates
+    engine_test.go:160: Cancel Test: Gen=300 Succ=25 Cancel=273 Rej=0 T/O=2 Acct=true SeqMatch=true GoroutineDelta=0
+--- PASS: TestModified_CancellationPreventsLateAggregateUpdates (0.05s)
+=== RUN   TestFairness_AgingReducesMaxNormalWaitUnderPriorityPressure
+    engine_test.go:202: D4 MaxNormalWait: StrictPriority=143.09ms vs FairnessAging=12.22ms
+--- PASS: TestFairness_AgingReducesMaxNormalWaitUnderPriorityPressure (0.55s)
+PASS
+ok  	vnit.ac.in/csp502/lab9/engine	1.836s
+?   	vnit.ac.in/csp502/lab9/events	[no test files]

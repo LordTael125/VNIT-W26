@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D DFT Spectral Analysis & Pattern Recognition Studio | VNIT Assignment 10</title>
+    <!-- KaTeX CSS & JS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/katex/katex.min.css') }}">
+    <script defer src="{{ url_for('static', filename='vendor/katex/katex.min.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='vendor/katex/auto-render.min.js') }}"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v={{ cache_buster }}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-badge">VNIT • PR LAB 10</span>
+            <span class="brand-title">2D DFT Spectral Analysis & Invariant Feature Studio</span>
+        </div>
+        <div class="nav-actions">
+            <a href="/docs" target="_blank" class="btn btn-secondary btn-sm" title="Open complete interactive visual documentation guide" style="color: var(--accent-cyan); text-decoration: none;">
+                📘 Visual Docs Guide
+            </a>
+            <button id="btn_cleanup" class="btn btn-secondary btn-sm" title="Clear temp files and trigger garbage collector">
+                🧹 Clean Temp Files
+            </button>
+            <form action="{{ url_for('reset_studio') }}" method="POST" style="margin: 0;">
+                <button type="submit" class="btn btn-secondary btn-sm" title="Reset all studio states">
+                    🔄 Reset Studio
+                </button>
+            </form>
+            <form action="{{ url_for('shutdown_server') }}" method="POST" style="margin: 0;" onsubmit="return confirm('Shutdown web server?');">
+                <button type="submit" class="btn btn-danger btn-sm" title="Stop Flask server">
+                    🛑 Shut Down
+                </button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Main Workspace Container -->
+    <div class="container">
+
+        <!-- ==================================================================== -->
+        <!-- STEP 1: IMAGE INGESTION & DATASET SELECTION -->
+        <!-- ==================================================================== -->
+        <section class="card" id="step-upload">
+            <div class="card-header">
+                <div class="step-indicator">
+                    <span class="step-number">1</span>
+                    <h2 class="card-title">Image Ingestion & Dataset Selection</h2>
+                </div>
+                <span class="badge badge-info">Ingestion</span>
+            </div>
+            <p class="card-subtitle">
+                Upload a custom test image (Grayscale or Color; PNG, JPG, BMP) or select a representative pattern from the bundled reference library.
+            </p>
+
+            <form action="{{ url_for('upload_image') }}" method="POST" enctype="multipart/form-data">
+                <div class="grid-2">
+                    <!-- Dropzone -->
+                    <div>
+                        <label class="form-label">Upload Custom Image File:</label>
+                        <div class="dropzone" id="main_dropzone">
+                            <div class="dropzone-icon">📁</div>
+                            <p style="font-weight: 500; color: #f8fafc;">Drag & drop image here or click to browse</p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.35rem;">Supports PNG, JPG, JPEG, BMP (up to 16MB)</p>
+                            <input type="file" id="image_file" name="image_file" accept=".png, .jpg, .jpeg, .bmp" style="display: none;">
+                            <div id="file_selected_label" style="display: none; margin-top: 0.75rem; color: var(--cyan-accent); font-weight: 600; font-size: 0.88rem;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Library Selector -->
+                    <div>
+                        <label class="form-label">Or Select Bundled Reference Image:</label>
+                        <div class="form-group">
+                            <select name="selected_sample" class="form-control" style="padding: 0.75rem;">
+                                <option value="">-- Choose from Bundled Reference Library --</option>
+                                {% for s in samples %}
+                                    <option value="{{ s.filename }}" {% if state.raw_filename == s.filename %}selected{% endif %}>
+                                        {{ s.name }} {% if s.is_query %}(Query Instance){% else %}(Reference){% endif %}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div style="margin-top: 1.5rem;">
+                            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem;">
+                                🚀 Load & Inspect Image Properties
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- STEP 2: CONDITIONAL PRE-TRANSFORMATION IMAGE PREPARATION -->
+        <!-- ==================================================================== -->
+        {% if state.image_info %}
+        <section class="card" id="step-preprocess">
+            <div class="card-header">
+                <div class="step-indicator">
+                    <span class="step-number">2</span>
+                    <h2 class="card-title">Conditional Pre-Transformation Image Preparation</h2>
+                </div>
+                {% if state.image_info.is_ready %}
+                    <span class="badge badge-ready">Ready for 2D DFT</span>
+                {% else %}
+                    <span class="badge badge-warn">Pre-processing Needed</span>
+                {% endif %}
+            </div>
+            <p class="card-subtitle">
+                Inspect image properties. In accordance with lab specifications, operations (Grayscale conversion, spatial resizing, intensity normalization) are only displayed if required.
+            </p>
+
+            <!-- Image Properties Metrics -->
+            <div class="grid-4" style="margin-bottom: 1.5rem;">
+                <div class="metric-box">
+                    <div class="metric-label">Dimensions (W × H)</div>
+                    <div class="metric-val">{{ state.image_info.width }} × {{ state.image_info.height }}</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Color Mode & Bands</div>
+                    <div class="metric-val purple">{{ state.image_info.mode }} ({{ state.image_info.channels }} ch)</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Intensity Dynamic Range</div>
+                    <div class="metric-val">[{{ state.image_info.min_val }}, {{ state.image_info.max_val }}]</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Contrast (Std Dev)</div>
+                    <div class="metric-val green">{{ state.image_info.std_val }}</div>
+                </div>
+            </div>
+
+            <!-- Conditional Controls vs Confirmation Message -->
+            {% if state.image_info.is_ready and not state.preprocess_info.processed %}
+                <div class="success-banner">
+                    <span style="font-size: 1.3rem;">✅</span>
+                    <div>
+                        <strong>Confirmation:</strong> Uploaded image is already a single-channel grayscale matrix of square dimensions ($64 \times 64$) with pixel values normalized to $[0, 1]$. No pre-processing is required.
+                    </div>
+                </div>
+            {% else %}
+                <form action="{{ url_for('preprocess_image') }}" method="POST">
+                    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1.25rem;">
+                        <h4 style="margin-bottom: 0.75rem; color: #f8fafc; font-size: 1rem;">Required Pre-Processing Tasks:</h4>
+                        
+                        <div class="grid-3">
+                            <!-- Grayscale -->
+                            {% if state.image_info.needs_grayscale %}
+                                <div style="background: #1e293b; padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--cyan-accent);">
+                                    <label style="font-weight: 600; color: #f8fafc; display: block; margin-bottom: 0.25rem;">
+                                        <input type="checkbox" name="convert_gray" value="true" checked>
+                                        Grayscale Conversion
+                                    </label>
+                                    <p style="font-size: 0.8rem; color: #94a3b8;">
+                                        Converts multi-channel RGB to single-channel intensity using ITU-R luminance weighting:
+                                        $$I = 0.299R + 0.587G + 0.114B$$
+                                    </p>
+                                </div>
+                            {% else %}
+                                <div style="background: #1e293b; padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--emerald-accent);">
+                                    <span style="color: var(--emerald-accent); font-weight: 600; font-size: 0.9rem;">✓ Grayscale</span>
+                                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem;">Image is already single-channel.</p>
+                                </div>
+                            {% endif %}
+
+                            <!-- Spatial Resizing -->
+                            {% if state.image_info.needs_resize %}
+                                <div style="background: #1e293b; padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--amber-accent);">
+                                    <label style="font-weight: 600; color: #f8fafc; display: block; margin-bottom: 0.25rem;">
+                                        Spatial Resizing ($M \times N$)
+                                    </label>
+                                    <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.5rem;">Resizes image to standard square dimensions:</p>
+                                    <select name="target_size" class="form-control" style="padding: 0.4rem;">
+                                        <option value="64" selected>64 × 64 (Default Standard)</option>
+                                        <option value="128">128 × 128 (High-Res)</option>
+                                    </select>
+                                </div>
+                            {% else %}
+                                <div style="background: #1e293b; padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--emerald-accent);">
+                                    <span style="color: var(--emerald-accent); font-weight: 600; font-size: 0.9rem;">✓ Dimensions</span>
+                                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem;">Image is already {{ state.image_info.width }} × {{ state.image_info.height }}.</p>
+                                </div>
+                            {% endif %}
+
+                            <!-- Normalization -->
+                            {% if state.image_info.needs_normalize %}
+                                <div style="background: #1e293b; padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--purple-accent);">
+                                    <label style="font-weight: 600; color: #f8fafc; display: block; margin-bottom: 0.25rem;">
+                                        <input type="checkbox" name="normalize" value="true" checked>
+                                        Pixel Normalization $[0, 1]$
+                                    </label>
+                                    <p style="font-size: 0.8rem; color: #94a3b8;">
+                                        Scales pixel dynamic range from $[{{ state.image_info.min_val }}, {{ state.image_info.max_val }}]$ to $[0, 1]$.
+                                    </p>
+                                </div>
+                            {% else %}
+                                <div style="background: #1e293b; padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--emerald-accent);">
+                                    <span style="color: var(--emerald-accent); font-weight: 600; font-size: 0.9rem;">✓ Normalized</span>
+                                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem;">Pixels are already within $[0, 1]$.</p>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div style="margin-top: 1.25rem; text-align: right;">
+                            <button type="submit" class="btn btn-primary">
+                                ⚙️ Execute Pre-Processing Operations
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+
+            {% if state.preprocess_info.processed %}
+                <div class="success-banner">
+                    <span style="font-size: 1.3rem;">🎉</span>
+                    <div>
+                        <strong>Pre-Processing Success:</strong> {{ state.preprocess_info.message }}
+                        <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 0.35rem;">
+                            Final Matrix Shape: <strong>{{ state.preprocess_info.final_shape }}</strong> | Range: [{{ state.preprocess_info.final_min }}, {{ state.preprocess_info.final_max }}] | Mean: {{ state.preprocess_info.final_mean }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <!-- ==================================================================== -->
+        <!-- STEP 3: 2D DFT & DEFAULT PARAMETER SPECTRAL ANALYSIS -->
+        <!-- ==================================================================== -->
+        {% if state.preprocessed_array is not none %}
+        <section class="card" id="step-dft">
+            <div class="card-header">
+                <div class="step-indicator">
+                    <span class="step-number">3</span>
+                    <h2 class="card-title">2D Discrete Fourier Transform & Spectral Analysis</h2>
+                </div>
+                <span class="badge badge-info">Pure NumPy Matrix Engine</span>
+            </div>
+            <p class="card-subtitle">
+                Transform spatial image $f(x, y)$ to frequency domain $F(u, v)$ using separable matrix multiplications $F = W_M \cdot ((-1)^{x+y} f) \cdot W_N$.
+            </p>
+
+            <form action="{{ url_for('analyze_dft') }}" method="POST">
+                <div class="grid-3" style="background: rgba(15, 23, 42, 0.6); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                    <!-- Centering Toggle -->
+                    <div>
+                        <label class="form-label" style="font-weight: 600;">Spatial Frequency Centering:</label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; cursor: pointer; color: #f8fafc;">
+                            <input type="checkbox" name="centering_toggle" {% if state.centering_enabled %}checked{% endif %}>
+                            <span>Multiply by $(-1)^{x+y}$ before DFT</span>
+                        </label>
+                        <p style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.4rem;">
+                            Shifts zero-frequency DC component $F(0, 0)$ from corner $(0, 0)$ to frequency plane center $(M/2, N/2)$.
+                        </p>
+                    </div>
+
+                    <!-- Filter Selection -->
+                    <div>
+                        <label class="form-label" style="font-weight: 600;">Default Baseline Filter:</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <select name="filter_type" class="form-control">
+                                <option value="ideal" selected>Ideal Filter</option>
+                                <option value="gaussian">Gaussian Filter</option>
+                                <option value="butterworth">Butterworth Filter (n=2)</option>
+                            </select>
+                            <select name="filter_mode" class="form-control" style="width: 140px;">
+                                <option value="lowpass" selected>Low-Pass</option>
+                                <option value="highpass">High-Pass</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Cutoff Frequency D0 -->
+                    <div>
+                        <label class="form-label" style="font-weight: 600;">Cutoff Frequency Radius ($D_0$):</label>
+                        <input type="number" name="cutoff_d0" class="form-control" value="15.0" step="1.0" min="1.0" max="100.0">
+                        <p style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.4rem;">
+                            Default lab baseline is $D_0 = 15$ pixels radius from center.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="text-align: right; margin-bottom: 1.5rem;">
+                    <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem;">
+                        ⚡ Compute 2D DFT & 4-Panel Visualization
+                    </button>
+                </div>
+            </form>
+
+            <!-- DFT RESULTS DISPLAY -->
+            {% if state.dft_results %}
+            <div id="step-dft-results" style="margin-top: 1.5rem;">
+                <div class="card-header" style="border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+                    <h3 style="font-size: 1.15rem; color: var(--cyan-accent);">Baseline Evaluation & Verification Metrics</h3>
+                    <span class="badge badge-ready">Verification Passed (Error: {{ state.dft_results.verification_error }})</span>
+                </div>
+
+                <!-- Benchmarks & Verification Grid -->
+                <div class="grid-4" style="margin-bottom: 1.5rem;">
+                    <div class="metric-box">
+                        <div class="metric-label">Scratch 2D DFT Time</div>
+                        <div class="metric-val green">{{ state.dft_results.scratch_time_ms }} ms</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">np.fft.fft2 Time</div>
+                        <div class="metric-val">{{ state.dft_results.numpy_time_ms }} ms</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Max Numerical Error vs np.fft</div>
+                        <div class="metric-val green">{{ state.dft_results.verification_error }}</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">2D IDFT Reconstruction Error</div>
+                        <div class="metric-val green">{{ state.dft_results.idft_error }}</div>
+                    </div>
+                </div>
+
+                <!-- DC Component & Parseval Theorem Verification -->
+                <div class="grid-2" style="margin-bottom: 1.5rem;">
+                    <!-- Dominant Frequencies -->
+                    <div style="background: var(--bg-input); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                        <h4 style="color: #f8fafc; font-size: 0.95rem; margin-bottom: 0.75rem;">
+                            Top 5 Dominant Frequency Components:
+                        </h4>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+                            DC Component at {{ state.dft_results.dc_coord }}: <strong style="color: var(--cyan-accent);">{{ state.dft_results.dc_value }}</strong> (Peak Magnitude: {{ state.dft_results.peak_magnitude }})
+                        </div>
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Freq Bin (u, v)</th>
+                                        <th>Magnitude |F(u, v)|</th>
+                                        <th>Phase (rad / deg)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for f in state.dft_results.dominant_freqs %}
+                                    <tr>
+                                        <td><strong>#{{ f.rank }}</strong></td>
+                                        <td>({{ f.u }}, {{ f.v }})</td>
+                                        <td><span style="color: var(--cyan-accent); font-family: var(--font-mono);">{{ f.magnitude }}</span></td>
+                                        <td>{{ f.phase_rad }} rad ({{ f.phase_deg }}°)</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Parseval's Theorem & Reconstruction Quality -->
+                    <div style="background: var(--bg-input); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                        <h4 style="color: #f8fafc; font-size: 0.95rem; margin-bottom: 0.75rem;">
+                            Parseval's Theorem & Reconstruction Metrics:
+                        </h4>
+                        <div style="font-size: 0.85rem; line-height: 1.7;">
+                            <div>Total Spatial Energy $\sum |f(x, y)|^2$: <strong style="color: var(--emerald-accent);">{{ state.dft_results.metrics.total_spatial_energy }}</strong></div>
+                            <div>Frequency Energy $\frac{1}{MN}\sum |F(u, v)|^2$: <strong style="color: var(--emerald-accent);">{{ state.dft_results.metrics.total_freq_energy }}</strong></div>
+                            <div>Parseval Difference: <strong style="color: var(--cyan-accent);">{{ state.dft_results.metrics.parseval_diff }}</strong> ({{ state.dft_results.metrics.parseval_match_pct }}% Match)</div>
+                            <hr style="border-color: var(--border-color); margin: 0.6rem 0;">
+                            <div>Spectral Energy Retained within $D_0={{ state.dft_results.cutoff_D0 }}$: <strong style="color: var(--amber-accent);">{{ state.dft_results.metrics.energy_retained_pct }}%</strong></div>
+                            <div>Mean Squared Error (MSE): <strong>{{ "%.6f"|format(state.dft_results.metrics.mse) }}</strong></div>
+                            <div>Peak Signal-to-Noise Ratio (PSNR): <strong style="color: var(--cyan-accent);">{{ state.dft_results.metrics.psnr_db }} dB</strong></div>
+                            <div>Spatial Ringing Artifact Index: <strong>{{ state.dft_results.metrics.ringing_metric }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4-Panel Visualizer -->
+                <div>
+                    <h4 style="color: #f8fafc; font-size: 1.05rem; margin-bottom: 0.5rem;">
+                        4-Panel Spectral Visualization:
+                    </h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">
+                        (1) Pre-processed Spatial Image $f(x, y)$, (2) Centered Log-Magnitude Spectrum $\log(1 + |F(u, v)|)$, (3) Phase Spectrum $\angle F(u, v)$, and (4) Filtered & Reconstructed Spatial Image $\hat{f}(x, y)$ via from-scratch 2D IDFT.
+                    </p>
+                    <img src="{{ url_for('static', filename='plots/' ~ state.dft_results.plot_filename) }}?v={{ cache_buster }}" class="plot-img" alt="4-Panel 2D DFT Plot">
+                </div>
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <!-- ==================================================================== -->
+        <!-- STEP 4: CUTOFF FREQUENCY (D₀) & FILTER TYPE ANALYSIS -->
+        <!-- ==================================================================== -->
+        {% if state.preprocessed_array is not none %}
+        <section class="card" id="step-filter-sweep">
+            <div class="card-header">
+                <div class="step-indicator">
+                    <span class="step-number">4</span>
+                    <h2 class="card-title">Cutoff Frequency ($D_0$) and Filter Type Analysis</h2>
+                </div>
+                <span class="badge badge-info">Multi-Radius Optimization</span>
+            </div>
+            <p class="card-subtitle">
+                Evaluate frequency-domain filtering $G(u, v) = H(u, v) \cdot F(u, v)$ across multiple cutoff radii ($D_0$) for Ideal, Gaussian, and Butterworth transfer functions. Select the optimal cutoff $D_0^*$ preserving $\ge 95\%$ spectral energy.
+            </p>
+
+            <form action="{{ url_for('filter_sweep') }}" method="POST">
+                <div class="grid-2" style="background: rgba(15, 23, 42, 0.6); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                    <div>
+                        <label class="form-label" style="font-weight: 600;">Comma-Separated Cutoff Radii ($D_0$ List):</label>
+                        <input type="text" name="cutoffs" class="form-control" value="5, 10, 15, 20, 25, 30, 40, 50">
+                        <p style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.35rem;">
+                            Preset evaluated values as required: $5, 10, 15, 20, 25, 30, 40, 50$.
+                        </p>
+                    </div>
+
+                    <div>
+                        <label class="form-label" style="font-weight: 600;">Filtering Mode:</label>
+                        <select name="sweep_mode" class="form-control">
+                            <option value="lowpass" selected>Low-Pass Filtering (Blurring & High-Frequency Noise Removal)</option>
+                            <option value="highpass">High-Pass Filtering (Edge & High-Frequency Detail Extraction)</option>
+                        </select>
+                        <div style="margin-top: 1rem; text-align: right;">
+                            <button type="submit" class="btn btn-primary">
+                                📊 Run Multi-$D_0$ Filter Analysis
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            {% if state.filter_analysis %}
+            <div>
+                <!-- Comparative Curves Plot -->
+                <h4 style="color: #f8fafc; font-size: 1.05rem; margin-bottom: 0.5rem;">
+                    Dual Comparative Performance Curves:
+                </h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted);">
+                    Left: $D_0$ vs Spectral Energy Retained (%) | Right: $D_0$ vs Reconstruction PSNR (dB).
+                </p>
+                <img src="{{ url_for('static', filename='plots/' ~ state.filter_analysis.plot_filename) }}?v={{ cache_buster }}" class="plot-img" alt="Comparative Filter Sweep Plot">
+
+                <!-- Optimal Recommendation Box -->
+                <div class="info-banner" style="margin-top: 1.5rem;">
+                    <span style="font-size: 1.5rem;">🎯</span>
+                    <div>
+                        <strong style="color: var(--cyan-accent); font-size: 1rem;">Optimal Filter Recommendation ($D_0^*$):</strong>
+                        <div style="margin-top: 0.25rem; font-size: 0.9rem;">
+                            The optimization algorithm selected <strong>{{ state.optimal_filter.filter_name }} Filter at $D_0 = {{ state.optimal_filter.d0 }}$</strong>.
+                            It retains <strong style="color: var(--emerald-accent);">{{ state.optimal_filter.energy_retained_pct }}%</strong> spectral energy (satisfies $\ge 95\%$ criterion), achieves <strong style="color: var(--cyan-accent);">{{ state.optimal_filter.psnr_db }} dB PSNR</strong>, and has minimal ringing artifacts (Ringing Score: {{ state.optimal_filter.ringing_metric }}).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side-by-Side Comparison: Default vs Optimal -->
+                <h4 style="color: #f8fafc; font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">
+                    Side-by-Side Comparison: Default Baseline vs. Optimal Parameter:
+                </h4>
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Configuration</th>
+                                <th>Filter Transfer Function</th>
+                                <th>Cutoff Radius ($D_0$)</th>
+                                <th>Spectral Energy Retained</th>
+                                <th>MSE</th>
+                                <th>PSNR (dB)</th>
+                                <th>Ringing Artifact Behavior</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge badge-warn">Default Baseline</span></td>
+                                <td>Ideal Low-Pass Filter (ILPF)</td>
+                                <td>15</td>
+                                <td>94.53%</td>
+                                <td>0.0259</td>
+                                <td>15.86 dB</td>
+                                <td><strong style="color: var(--rose-accent);">Noticeable Gibbs Ringing</strong> (Sharp cutoff causes ripples)</td>
+                            </tr>
+                            <tr style="background: rgba(56, 189, 248, 0.05);">
+                                <td><span class="badge badge-ready">Optimal Selection</span></td>
+                                <td><strong>{{ state.optimal_filter.filter_name }} Filter</strong></td>
+                                <td><strong>{{ state.optimal_filter.d0 }}</strong></td>
+                                <td><strong style="color: var(--emerald-accent);">{{ state.optimal_filter.energy_retained_pct }}%</strong></td>
+                                <td><strong>{{ "%.6f"|format(state.optimal_filter.mse) }}</strong></td>
+                                <td><strong style="color: var(--cyan-accent);">{{ state.optimal_filter.psnr_db }} dB</strong></td>
+                                <td><strong style="color: var(--emerald-accent);">Smooth Decay / Minimal Ringing</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        <!-- ==================================================================== -->
+        <!-- STEP 5 & 6: PATTERN RECOGNITION & INVARIANT FEATURE EXTRACTION -->
+        <!-- ==================================================================== -->
+        <section class="card" id="step-classification">
+            <div class="card-header">
+                <div class="step-indicator">
+                    <span class="step-number">5 & 6</span>
+                    <h2 class="card-title">Pattern Recognition & Invariant Spectral Feature Classifier</h2>
+                </div>
+                <span class="badge badge-ready">Invariant 32-D Feature Vector</span>
+            </div>
+            <p class="card-subtitle">
+                Construct a compact invariant feature vector $[S_r; S_\theta] \in \mathbb{R}^{32}$ combining $R=16$ Concentric Radial Rings (rotation invariant) and $A=16$ Angular Wedges (scale invariant), normalized by total spectral energy (translation and illumination invariant).
+            </p>
+
+            <!-- Mathematical Formulation Callout -->
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+                <h4 style="color: #f8fafc; font-size: 0.95rem; margin-bottom: 0.5rem;">Mathematical Invariance Properties:</h4>
+                <div class="grid-3" style="font-size: 0.85rem; color: #94a3b8;">
+                    <div>
+                        <strong style="color: var(--cyan-accent);">1. Radial Ring Energies ($S_r$):</strong>
+                        $$S_r(k) = \sum_{r_k \le D(u, v) < r_{k+1}} |F(u, v)|^2$$
+                        Rotating an image rotates its spectrum, preserving energy in each concentric ring (<strong>Rotation Invariance</strong>).
+                    </div>
+                    <div>
+                        <strong style="color: var(--purple-accent);">2. Angular Wedge Energies ($S_\theta$):</strong>
+                        $$S_\theta(m) = \sum_{\theta_m \le \theta < \theta_{m+1}} |F(u, v)|^2$$
+                        Radial ray orientation is preserved under spatial scaling (<strong>Scale Invariance</strong>).
+                    </div>
+                    <div>
+                        <strong style="color: var(--emerald-accent);">3. Normalization & Translation:</strong>
+                        $$\mathbf{v} = \frac{[S_r; S_\theta]}{\sum_{u, v} |F(u, v)|^2}$$
+                        Spatial shifts only affect phase, leaving $|F(u, v)|$ identical (<strong>Translation Invariance</strong>).
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Query Image Form -->
+            <form action="{{ url_for('predict_query') }}" method="POST" enctype="multipart/form-data">
+                <div class="grid-2">
+                    <div>
+                        <label class="form-label">Upload Unseen Query Image:</label>
+                        <div class="dropzone" id="query_dropzone">
+                            <div class="dropzone-icon">🔍</div>
+                            <p style="font-weight: 500; color: #f8fafc;">Drop query instance here or click to browse</p>
+                            <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.35rem;">Input validation checks format, contrast, and aspect ratio outliers</p>
+                            <input type="file" id="query_image_file" name="query_image_file" accept=".png, .jpg, .jpeg, .bmp" style="display: none;">
+                            <div id="query_selected_label" style="display: none; margin-top: 0.75rem; color: var(--emerald-accent); font-weight: 600; font-size: 0.88rem;"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label">Or Select Pre-Bundled Test Query:</label>
+                        <select name="selected_query" class="form-control" style="padding: 0.75rem;">
+                            <option value="">-- Choose Test Query Instance --</option>
+                            {% for s in samples %}
+                                {% if s.is_query %}
+                                <option value="{{ s.filename }}" {% if state.query_results.filename == s.filename %}selected{% endif %}>
+                                    {{ s.name }} (Query)
+                                </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+
+                        <div style="margin-top: 1.5rem;">
+                            <button type="submit" class="btn btn-success" style="width: 100%; padding: 0.85rem;">
+                                🎯 Extract Invariant Features & Classify Pattern
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Classification Results -->
+            {% if state.query_results %}
+            <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                <!-- Outlier & Validation Warnings -->
+                {% if state.query_results.warnings %}
+                    <div class="warning-banner">
+                        <strong>⚠️ Validation Warnings:</strong>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.35rem;">
+                            {% for w in state.query_results.warnings %}
+                                <li>{{ w }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <!-- Top Prediction Badge & Confidence -->
+                <div class="preview-container" style="justify-content: space-between; margin-bottom: 1.5rem;">
+                    <div style="display: flex; align-items: center; gap: 1.25rem;">
+                        <img src="{{ url_for('static', filename='plots/' ~ state.query_results.thumbnail) }}?v={{ cache_buster }}" class="preview-thumb" alt="Query Thumbnail">
+                        <div>
+                            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Predicted Pattern Class</div>
+                            <div style="font-size: 1.6rem; font-weight: 700; color: var(--emerald-accent);">
+                                {{ state.query_results.predicted_class }}
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">
+                                Aspect Ratio: {{ state.query_results.aspect_ratio }} | Contrast (Std Dev): {{ state.query_results.std_contrast }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">Confidence Score</div>
+                        <div class="metric-val green" style="font-size: 2rem;">
+                            {{ state.query_results.confidence }}%
+                        </div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">
+                            Cosine Similarity: {{ state.query_results.cosine_sim }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Radial and Wedge Feature Histograms -->
+                <div>
+                    <h4 style="color: #f8fafc; font-size: 1rem; margin-bottom: 0.5rem;">
+                        Extracted Invariant Radial Ring & Angular Wedge Energy Histograms:
+                    </h4>
+                    <img src="{{ url_for('static', filename='plots/' ~ state.query_results.feature_plot) }}?v={{ cache_buster }}" class="plot-img" alt="Feature Plot">
+                </div>
+
+                <!-- Nearest Reference Matches Table -->
+                <h4 style="color: #f8fafc; font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">
+                    Nearest Reference Matches (Ranked by Euclidean Distance):
+                </h4>
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Reference Class</th>
+                                <th>Reference File</th>
+                                <th>Euclidean Distance ($L_2$)</th>
+                                <th>Cosine Similarity</th>
+                                <th>Confidence Match</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for m in state.query_results.matches %}
+                            <tr>
+                                <td><strong>#{{ loop.index }}</strong></td>
+                                <td>
+                                    <strong style="color: {% if loop.index == 1 %}var(--emerald-accent){% else %}#f8fafc{% endif %};">
+                                        {{ m.class_name }}
+                                    </strong>
+                                </td>
+                                <td><code style="color: var(--cyan-accent);">{{ m.filename }}</code></td>
+                                <td><span style="font-family: var(--font-mono);">{{ m.euclidean_distance }}</span></td>
+                                <td><span style="font-family: var(--font-mono);">{{ m.cosine_similarity }}</span></td>
+                                <td>
+                                    <span class="badge {% if loop.index == 1 %}badge-ready{% else %}badge-info{% endif %}">
+                                        {{ m.confidence_pct }}%
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast"></div>
+
+    <!-- Application Script -->
+    <script src="{{ url_for('static', filename='js/app.js') }}?v={{ cache_buster }}"></script>
+</body>
+</html>

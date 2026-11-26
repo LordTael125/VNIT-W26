@@ -1,0 +1,45 @@
+=== Part B/C: Fault-Free Batch Benchmarks (Parsing Separated from Processing) ===
+  [small_1k | sequential] median=0.0053s
+  [small_1k | fifo | W=1] median=0.0058s speedup=0.90x eff=0.90
+  [small_1k | fifo | W=2] median=0.0033s speedup=1.60x eff=0.80
+  [small_1k | fifo | W=4] median=0.0020s speedup=2.68x eff=0.67
+  [small_1k | fifo | W=8] median=0.0023s speedup=2.26x eff=0.28
+  [small_1k | fifo | W=32] median=0.0017s speedup=3.18x eff=0.10
+  [small_1k | priority | W=1] median=0.0057s speedup=0.92x eff=0.92
+  [small_1k | priority | W=2] median=0.0031s speedup=1.69x eff=0.84
+  [small_1k | priority | W=4] median=0.0022s speedup=2.42x eff=0.60
+  [small_1k | priority | W=8] median=0.0020s speedup=2.69x eff=0.34
+  [small_1k | priority | W=32] median=0.0018s speedup=2.88x eff=0.09
+  [medium_10k | sequential] median=0.0511s
+  [medium_10k | fifo | W=1] median=0.0628s speedup=0.81x eff=0.81
+  [medium_10k | fifo | W=2] median=0.0369s speedup=1.38x eff=0.69
+  [medium_10k | fifo | W=4] median=0.0240s speedup=2.13x eff=0.53
+  [medium_10k | fifo | W=8] median=0.0195s speedup=2.62x eff=0.33
+  [medium_10k | fifo | W=32] median=0.0212s speedup=2.41x eff=0.08
+  [medium_10k | priority | W=1] median=0.0621s speedup=0.82x eff=0.82
+  [medium_10k | priority | W=2] median=0.0362s speedup=1.41x eff=0.71
+  [medium_10k | priority | W=4] median=0.0245s speedup=2.09x eff=0.52
+  [medium_10k | priority | W=8] median=0.0195s speedup=2.62x eff=0.33
+  [medium_10k | priority | W=32] median=0.0200s speedup=2.56x eff=0.08
+  [large_100k | sequential] median=0.5115s
+  [large_100k | fifo | W=1] median=0.6316s speedup=0.81x eff=0.81
+  [large_100k | fifo | W=2] median=0.3671s speedup=1.39x eff=0.70
+  [large_100k | fifo | W=4] median=0.2243s speedup=2.28x eff=0.57
+  [large_100k | fifo | W=8] median=0.1657s speedup=3.09x eff=0.39
+  [large_100k | fifo | W=32] median=0.1812s speedup=2.82x eff=0.09
+  [large_100k | priority | W=1] median=0.6396s speedup=0.80x eff=0.80
+  [large_100k | priority | W=2] median=0.3669s speedup=1.39x eff=0.70
+  [large_100k | priority | W=4] median=0.2243s speedup=2.28x eff=0.57
+  [large_100k | priority | W=8] median=0.1925s speedup=2.66x eff=0.33
+  [large_100k | priority | W=32] median=0.1834s speedup=2.79x eff=0.09
+  [large_variant_100k | sequential] median=0.5129s
+  [large_variant_100k | fifo | W=1] median=0.6350s speedup=0.81x eff=0.81
+  [large_variant_100k | fifo | W=2] median=0.3922s speedup=1.31x eff=0.65
+  [large_variant_100k | fifo | W=4] median=0.2304s speedup=2.23x eff=0.56
+  [large_variant_100k | fifo | W=8] median=0.1862s speedup=2.75x eff=0.34
+  [large_variant_100k | fifo | W=32] median=0.1873s speedup=2.74x eff=0.09
+  [large_variant_100k | priority | W=1] median=0.6386s speedup=0.80x eff=0.80
+  [large_variant_100k | priority | W=2] median=0.3739s speedup=1.37x eff=0.69
+  [large_variant_100k | priority | W=4] median=0.2341s speedup=2.19x eff=0.55
+  [large_variant_100k | priority | W=8] median=0.1672s speedup=3.07x eff=0.38
+  [large_variant_100k | priority | W=32] median=0.1862s speedup=2.76x eff=0.09

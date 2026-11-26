@@ -1,0 +1,6 @@
+=== Part F: Comparative Evaluation Under Constrained Envelope (W=2, K=64, 3 Reps) ===
+  Completed D0_Normal (5 policies x 3 reps = 15 runs, all invariants valid)
+  Completed D1_Burst (5 policies x 3 reps = 15 runs, all invariants valid)
+  Completed D2_SlowTasks (5 policies x 3 reps = 15 runs, all invariants valid)
+  Completed D3_TransientFail (5 policies x 3 reps = 15 runs, all invariants valid)
+  Completed D4_PriorityPressure (5 policies x 3 reps = 15 runs, all invariants valid)

@@ -1,0 +1,151 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{fontspec}
+\usepackage[english, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{english}
+\babelfont{rm}{Noto Sans}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{hyperref}
+
+\definecolor{accent}{HTML}{1E3A5F}
+\definecolor{muted}{HTML}{4B5563}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=accent,
+    urlcolor=accent,
+    citecolor=accent
+}
+
+\newtheorem{theorem}{Theorem}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlist[itemize]{topsep=4pt, itemsep=3pt}
+\setlist[enumerate]{topsep=4pt, itemsep=4pt}
+
+\begin{document}
+
+% Title Block
+\begin{center}
+    {\Large\bfseries\color{accent} Assignment: NP-Completeness of Zero-Swap Qubit Allocation (ZSQ-Alloc)\par}
+    \vspace{0.4em}
+    {\normalsize\color{muted} Course: Advances in Algorithms\par}
+\end{center}
+\vspace{0.2em}
+\noindent{\color{accent}\rule{\linewidth}{0.8pt}}
+\vspace{0.6em}
+
+\section{Main Chosen Topic and Description of the Problem}
+
+\noindent\textbf{Chosen Topic:} Hardware Compilation Strategy in Quantum Computing --- Zero-Swap Qubit Allocation (ZSQ-Alloc)
+
+\subsection*{Context and Motivation}
+Modern Noisy Intermediate-Scale Quantum (NISQ) processors (such as superconducting architectures) have limited physical qubit connectivity: a two-qubit entangling gate (e.g., CNOT) can only be executed between two physical qubits that share a direct hardware coupler. When compiling a logical quantum circuit onto a physical processor, the compiler must decide an initial mapping strategy that assigns logical (program) qubits to physical qubits. If a two-qubit gate acts on logical qubits mapped to non-adjacent physical qubits, the compiler must insert costly SWAP gates (each requiring 3 CNOT gates), which increases circuit depth and error rates.
+
+A fundamental decision subproblem in quantum compilation strategy is determining whether a given quantum circuit can be mapped onto a target quantum architecture without inserting any SWAP gates.
+
+\subsection*{Formal Problem Definition}
+We define the Zero-Swap Qubit Allocation (ZSQ-Alloc) problem as a formal decision language $L_{\text{ZSQ}}$.
+
+\begin{itemize}
+    \item \textbf{Input Instance:} A tuple $\mathcal{I} = (P, \Psi, G_Q)$, where:
+    \begin{itemize}
+        \item $P = \{p_1, p_2, \dots, p_k\}$ is a finite set of logical (program) qubits.
+        \item $\Psi = \{(p_{a_1}, p_{b_1}), \dots, (p_{a_m}, p_{b_m})\} \subseteq P \times P$ is the set of two-qubit entangling gate interactions (e.g., undirected CNOT pairs) required by the quantum circuit, with $p_{a_i} \neq p_{b_i}$.
+        \item $G_Q = (Q, E_Q)$ is an undirected hardware coupling graph, where $Q = \{q_1, q_2, \dots, q_n\}$ is the set of physical qubits ($k \le n$) and $(q_u, q_v) \in E_Q$ if and only if the hardware supports a direct two-qubit gate between $q_u$ and $q_v$.
+    \end{itemize}
+    \item \textbf{Decision Question:} Does there exist an injective allocation function $\phi: P \to Q$ such that every two-qubit interaction in $\Psi$ is mapped to an adjacent pair of physical qubits in $G_Q$? Formally:
+    \[
+    L_{\text{ZSQ}} = \left\{ \langle P, \Psi, G_Q \rangle \;\middle|\;
+    \begin{aligned}
+        &\exists \text{ injective } \phi: P \to Q \text{ such that } \\
+        &\forall (p_a, p_b) \in \Psi,\; (\phi(p_a), \phi(p_b)) \in E_Q
+    \end{aligned}
+    \right\}
+    \]
+\end{itemize}
+
+\section{References}
+
+\noindent\hangindent=1.5em
+Garey, M. R., \& Johnson, D. S. (1979). \textit{Computers and intractability: A guide to the theory of NP-completeness}. W. H. Freeman and Company.\par
+
+\noindent\hangindent=1.5em
+Siraichi, M. Y., Santos, V. F. d., Collange, S., \& Pereira, F. M. Q. (2018). Qubit allocation. \textit{Proceedings of the 2018 International Symposium on Code Generation and Optimization (CGO 2018)}, 113--125. \url{https://doi.org/10.1145/3168822}\par
+
+\noindent\hangindent=1.5em
+Siraichi, M. Y., Santos, V. F. d., Collange, S., \& Pereira, F. M. Q. (2019). Qubit allocation as a combination of subgraph isomorphism and token swapping. \textit{Proceedings of the ACM on Programming Languages}, 3(OOPSLA), 120:1--120:29. \url{https://doi.org/10.1145/3360546}\par
+
+\section{Proof that \texorpdfstring{$L_{\text{ZSQ}}$}{LZSQ} is NP-Complete}
+
+\begin{theorem}
+The language $L_{\text{ZSQ}}$ is NP-Complete.
+\end{theorem}
+
+To prove Theorem~1, we show that (3.1) $L_{\text{ZSQ}} \in \text{NP}$, and (3.2) a known NP-Complete problem, Subgraph Isomorphism ($L_{\text{SIP}}$), is polynomial-time many-one reducible to $L_{\text{ZSQ}}$ ($L_{\text{SIP}} \le_p L_{\text{ZSQ}}$).
+
+\subsection{Show that \texorpdfstring{$L_{\text{ZSQ}} \in \text{NP}$}{LZSQ in NP}}
+
+\begin{proof}
+We construct a deterministic polynomial-time verifier $V(\mathcal{I}, \phi)$ that takes an instance $\mathcal{I} = (P, \Psi, G_Q)$ and a candidate certificate $\phi: P \to Q$ (represented as an array of $k = |P|$ physical qubit indices):
+\begin{enumerate}
+    \item \textbf{Injectivity Check:} Verify that $\phi(p_i) \in Q$ for all $p_i \in P$, and that $\phi(p_i) \neq \phi(p_j)$ for all $i \neq j$. Using a boolean visited array of size $n = |Q|$, this takes $O(k + n)$ time.
+    \item \textbf{Adjacency Check:} For each two-qubit gate $(p_a, p_b) \in \Psi$, check whether the edge $(\phi(p_a), \phi(p_b))$ exists in $E_Q$. Using an adjacency matrix representation of $G_Q$ (constructed in $O(n^2)$ time), each gate lookup takes $O(1)$ time, for a total of $O(m)$ time where $m = |\Psi|$.
+    \item \textbf{Decision:} Accept if both checks pass; otherwise, reject.
+\end{enumerate}
+The total verification time is $O(n^2 + k + m)$, which is polynomial in the input size $|\mathcal{I}|$. Since a valid certificate $\phi$ exists if and only if $\mathcal{I} \in L_{\text{ZSQ}}$, we conclude that $L_{\text{ZSQ}} \in \text{NP}$.
+\end{proof}
+
+\subsection{Show that a Known NP-Complete Problem is Reducible to \texorpdfstring{$L_{\text{ZSQ}}$}{LZSQ}}
+
+We reduce from the canonical NP-Complete problem Subgraph Isomorphism ($L_{\text{SIP}}$) (Garey \& Johnson, 1979):
+\[
+L_{\text{SIP}} = \left\{ \langle G_1, G_2 \rangle \;\middle|\;
+\begin{aligned}
+    &G_1 = (V_1, E_1),\; G_2 = (V_2, E_2),\; \exists \text{ injective } f: V_1 \to V_2 \\
+    &\text{such that } \forall (u, v) \in E_1,\; (f(u), f(v)) \in E_2
+\end{aligned}
+\right\}
+\]
+
+\subsubsection*{Polynomial-Time Reduction Function ($R$)}
+Given an arbitrary instance $\langle G_1, G_2 \rangle$ of Subgraph Isomorphism where $G_1 = (V_1, E_1)$ and $G_2 = (V_2, E_2)$, we construct an instance $R(\langle G_1, G_2 \rangle) = \langle P, \Psi, G_Q \rangle$ of ZSQ-Alloc as follows:
+\begin{enumerate}
+    \item \textbf{Logical Qubits:} Create one logical qubit $p_u \in P$ for each vertex $u \in V_1$ (so $|P| = |V_1|$).
+    \item \textbf{Quantum Circuit Interactions:} For each undirected edge $(u, v) \in E_1$, add a two-qubit interaction $(p_u, p_v)$ to $\Psi$ (so $|\Psi| = |E_1|$).
+    \item \textbf{Hardware Coupling Graph:} Set the physical coupling graph directly to $G_Q = G_2$, where $Q = V_2$ and $E_Q = E_2$.
+\end{enumerate}
+
+\noindent\textbf{Time Complexity of Reduction:} Copying the vertex and edge sets of $G_1$ and $G_2$ takes $O(|V_1| + |E_1| + |V_2| + |E_2|)$ time, which is linear (and therefore polynomial) in the size of the Subgraph Isomorphism instance.
+
+\subsubsection*{Proof of Correctness (Equivalence)}
+\begin{proof}
+We prove that $\langle G_1, G_2 \rangle \in L_{\text{SIP}} \iff \langle P, \Psi, G_Q \rangle \in L_{\text{ZSQ}}$.
+
+\begin{itemize}
+    \item \textbf{Forward Direction ($\Rightarrow$):}
+    Assume $\langle G_1, G_2 \rangle \in L_{\text{SIP}}$. Then there exists an injective function $f: V_1 \to V_2$ such that for every $(u, v) \in E_1$, $(f(u), f(v)) \in E_2$. Define the qubit allocation $\phi: P \to Q$ by $\phi(p_u) = f(u)$ for every $p_u \in P$.
+    \begin{itemize}
+        \item \textit{Injectivity:} Since $f$ is injective, $\phi$ is injective.
+        \item \textit{Hardware Compliance:} For every two-qubit gate $(p_u, p_v) \in \Psi$, by construction $(u, v) \in E_1$. Because $f$ preserves edges, $(\phi(p_u), \phi(p_v)) = (f(u), f(v)) \in E_2 = E_Q$.
+    \end{itemize}
+    Thus, $\phi$ is a valid zero-swap allocation, and $\langle P, \Psi, G_Q \rangle \in L_{\text{ZSQ}}$.
+
+    \item \textbf{Reverse Direction ($\Leftarrow$):}
+    Assume $\langle P, \Psi, G_Q \rangle \in L_{\text{ZSQ}}$. Then there exists an injective allocation $\phi: P \to Q$ such that for every $(p_u, p_v) \in \Psi$, $(\phi(p_u), \phi(p_v)) \in E_Q$. Define $f: V_1 \to V_2$ by $f(u) = \phi(p_u)$ for every $u \in V_1$.
+    \begin{itemize}
+        \item \textit{Injectivity:} Since $\phi$ is injective, $f$ is injective.
+        \item \textit{Edge Preservation:} For every edge $(u, v) \in E_1$, by construction $(p_u, p_v) \in \Psi$. Because $\phi$ is a valid allocation, $(f(u), f(v)) = (\phi(p_u), \phi(p_v)) \in E_Q = E_2$.
+    \end{itemize}
+    Thus, $G_1$ is isomorphic to a subgraph of $G_2$, so $\langle G_1, G_2 \rangle \in L_{\text{SIP}}$.
+\end{itemize}
+
+Since $L_{\text{SIP}} \le_p L_{\text{ZSQ}}$, $L_{\text{ZSQ}}$ is NP-Hard. Combining this with Section~3.1 ($L_{\text{ZSQ}} \in \text{NP}$), we conclude that $L_{\text{ZSQ}}$ is NP-Complete.
+\end{proof}
+
+\end{document}
